@@ -6,9 +6,11 @@ export default {
 
 <template>
     <footer>
-        <h1>
-            Footer
-        </h1>
+        <div class="small_container">
+            <h1>
+                Footer
+            </h1>
+        </div>
     </footer>
 </template>
 
@@ -16,4 +18,9 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+footer {
+    background-color: #424242;
+    color: #fff;
+}
 </style>
