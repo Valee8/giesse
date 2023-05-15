@@ -25,6 +25,6 @@ header {
     background-image: url('/img/jumbotron.jpg');
     background-size: cover;
     background-position: 0 -95px;
-    min-height: 630px;
+    min-height: 620px;
 }
 </style>
