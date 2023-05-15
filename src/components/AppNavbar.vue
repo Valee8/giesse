@@ -28,12 +28,12 @@ export default {
 <template>
     <nav>
         <div class="container">
-            <a href="/">
+            <router-link to="/">
                 <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
-            </a>
+            </router-link>
 
             <ul class="links">
-                <li v-for="link in links">
+                <li v-for="(link, index) in links" :key="index">
                     <a :href="link.href">
                         <i :class="link.icon"></i> {{ link.text }}
                     </a>
@@ -55,12 +55,6 @@ nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
-
-        .logo {
-            width: 250px;
-            height: 55px;
-            vertical-align: middle;
-        }
 
         .links {
             display: flex;
