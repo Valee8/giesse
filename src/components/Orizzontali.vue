@@ -5,7 +5,7 @@ const items = document.getElementsByClassName("cards");
 let activeItem = 0;
 
 export default {
-    name: 'AppHorizontal',
+    name: 'Orizzontali',
     data() {
         return {
             horizontal: [
@@ -55,6 +55,13 @@ export default {
         }
     },
     mounted() {
+        if (window.location.hash === '#jolly') {
+            activeItem = 4;
+        }
+        else {
+            activeItem = 0;
+        }
+
         items[activeItem].classList.add("active");
     },
     methods: {
@@ -78,6 +85,10 @@ export default {
                 items[this.horizontal.length - 1].classList.remove("active");
 
             }
+
+            if (window.location.hash === '#jolly') {
+                window.location.hash = "";
+            }
         },
         prev() {
             if (activeItem <= this.horizontal.length - 1 && activeItem > 0) {
@@ -99,6 +110,10 @@ export default {
                 items[0].classList.remove("active");
 
             }
+
+            if (window.location.hash === '#jolly') {
+                window.location.hash = "";
+            }
         }
     }
 }
@@ -106,26 +121,35 @@ export default {
 
 <template>
     <section>
-        <h1>
-            Orizzontali
-        </h1>
+        <div class="container">
+            <h1>
+                Orizzontali
+            </h1>
 
-        <div class="list">
-            <div class="cards" v-for="(card, index) in horizontal" :key="index">
-                <img :src="card.image" :alt="card.name">
-                <h2>
-                    {{ card.model }}
-                </h2>
+            <div class="small_container">
+                <div class="cards" v-for="(card, index) in horizontal" :key="index">
+                    <img :src="card.image" :alt="card.model">
+                    <h2>
+                        {{ card.model }}
+                    </h2>
 
-                Nomi modello: {{ card.name }}
-                <p>
-                    {{ card.description }}
-                </p>
+                    <div class="name">
+                        {{ card.name }}
+                    </div>
+
+                    <p>
+                        {{ card.description }}
+                    </p>
+
+                    <div class="arrow left" @click="prev">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </div>
+
+                    <div class="arrow right" @click="next">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
             </div>
-
-
-            <button class="prev" @click="prev">Prev</button>
-            <button class="next" @click="next">Next</button>
         </div>
     </section>
 </template>
@@ -134,4 +158,13 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+.small_container {
+    text-align: center;
+
+    .cards {
+        height: 600px;
+
+    }
+}
 </style>
