@@ -1,7 +1,7 @@
 <script>
 
 export default {
-    name: 'AppCards',
+    name: 'Tipologie',
     data() {
         return {
             cards:
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-    <section>
+    <section id="typologies">
         <div class="container">
             <h2>
                 Tipologia Zanzariere
@@ -45,7 +45,8 @@ export default {
 
             <div class="list-typologies">
                 <div class="typologies" v-for="(card, index) in cards" :key="index">
-                    <router-link :to="{ name: card.name.toLowerCase().replace(/\s/g, '-'), params: { id: index } }">
+                    <router-link :to="{ name: card.name.toLowerCase().replace(/\s/g, '-'), params: { id: index } }"
+                        class="link">
 
                         <img :src="card.image" :alt="card.name">
 
@@ -66,6 +67,7 @@ export default {
 
 h2 {
     text-align: center;
+    font-size: 1.9rem;
 }
 
 .list-typologies {
@@ -76,6 +78,10 @@ h2 {
     .typologies {
         width: calc(100% / 3);
         padding: 50px;
+
+        .link {
+            color: #000;
+        }
 
         img {
             margin: 0 auto;
