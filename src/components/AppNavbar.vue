@@ -26,7 +26,7 @@ export default {
 </script>
 
 <template>
-    <nav>
+    <nav :class="{ 'nav-home': $route.name === 'home', 'nav': $route.name !== 'home' }">
         <div class="container">
             <router-link to="/">
                 <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
@@ -49,7 +49,6 @@ export default {
 @use '../src/styles/partials/variables' as *;
 
 nav {
-    padding: 15px 0;
 
     .container {
         display: flex;
@@ -60,21 +59,49 @@ nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 30px;
+            gap: 50px;
 
             a {
-                font-size: 0.7rem;
-                background-color: #000;
-                color: #fff;
-                padding: 10px 20px;
-                border-radius: 100px;
+                font-size: 0.6rem;
             }
 
             svg {
-                font-size: 0.7rem;
+                font-size: 0.8rem;
                 padding-right: 10px;
+                vertical-align: middle;
             }
         }
+    }
+}
+
+.nav-home {
+    padding: 15px 0;
+
+    .links {
+        a {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 100px;
+            color: #fff;
+        }
+    }
+}
+
+.nav {
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .4);
+    padding: 20px 0;
+
+    .links {
+        a {
+            color: #000;
+        }
+    }
+
+    .logo {
+        width: 155px;
+        height: 32px;
     }
 }
 </style>
