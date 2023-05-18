@@ -1,6 +1,7 @@
 <script>
 
-import Typologies from './Typologies.vue'
+import DescrizioneDitta from './DescrizioneDitta.vue'
+import Tipologie from './Tipologie.vue'
 import Verticali from './Verticali.vue'
 import Orizzontali from './Orizzontali.vue'
 import PortaABattente from './PortaABattente.vue'
@@ -11,7 +12,8 @@ import Casper from './Casper.vue'
 export default {
     name: 'AppMain',
     components: {
-        Typologies,
+        DescrizioneDitta,
+        Tipologie,
         Verticali,
         Orizzontali,
         PortaABattente,
@@ -23,7 +25,9 @@ export default {
 </script>
 
 <template>
-    <Typologies v-if="$route.name === 'home'" />
+    <DescrizioneDitta v-if="$route.name === 'home'" />
+
+    <Tipologie v-if="$route.name === 'home'" />
 
     <Verticali v-if="$route.name === 'verticali'" />
 
