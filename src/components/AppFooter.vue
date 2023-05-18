@@ -19,7 +19,7 @@ export default {
 
             <div class="center-footer">
                 <h3>
-                    Giesse Zanzariere di Sandro Locci
+                    Giesse Zanzariere di <div>Sandro Locci</div>
                 </h3>
                 <div class="border"></div>
 
@@ -71,9 +71,6 @@ footer {
         align-items: center;
 
         .center-footer {
-            h3 {
-                width: 70%;
-            }
 
             ul {
                 .pt {
