@@ -1,6 +1,32 @@
 import { reactive } from 'vue'
 
 export const store = reactive({
+    cards: [
+        {
+            name: "Verticali",
+            image: "/img/alba.png",
+        },
+        {
+            name: "Orizzontali",
+            image: "/img/lara.png"
+        },
+        {
+            name: "Porta a battente",
+            image: "/img/porta-a-battente.jpg"
+        },
+        {
+            name: "Scorri",
+            //image: "/img/casper.png"
+        },
+        {
+            name: "Fissa",
+            //image: "/img/casper.png"
+        },
+        {
+            name: "Casper",
+            image: "/img/casper.jpg"
+        },
+    ],
     colors: [
         {
             typology: "Standard",
@@ -30,15 +56,15 @@ export const store = reactive({
                 },
                 {
                     name: "Bronzo Chiaro Verniciato",
-                    background: "/img/colori/bronzo-chiaro-verniciato.jpg"
+                    background: ""
                 },
                 {
                     name: "Bronzo Scuro Verniciato",
-                    background: "/img/colori/bronzo-scuro-verniciato.jpg"
+                    background: ""
                 },
                 {
                     name: "Argento",
-                    background: "/img/colori/argento.jpg"
+                    background: ""
                 },
                 {
                     name: "Rosso Gotico",
