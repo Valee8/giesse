@@ -311,7 +311,8 @@ nav {
             gap: 50px;
 
             a {
-                font-size: 0.6rem;
+                font-size: 0.95rem;
+                font-weight: 500;
             }
 
             svg {
@@ -324,7 +325,7 @@ nav {
 }
 
 .nav-home {
-    padding: 15px 0;
+    padding-top: 45px;
 
     .links {
         a {

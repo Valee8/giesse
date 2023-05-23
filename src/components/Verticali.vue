@@ -226,7 +226,7 @@ export default {
 
 // Sezione zanzariere
 .title {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 .cards-container {
@@ -270,7 +270,7 @@ export default {
         display: flex;
         align-items: center;
         gap: 0 60px;
-        height: 250px;
+        height: 370px;
     }
 
     .list-typologies {
@@ -312,10 +312,11 @@ export default {
             flex-wrap: wrap;
             gap: 15px;
             color: #fff;
-            font-size: 0.7rem;
+            font-size: 0.92rem;
+            font-weight: 500;
 
             .color {
-                width: 120px;
+                width: 165px;
 
                 .color-name {
                     background-color: rgba(0, 0, 0, .15);
@@ -329,7 +330,7 @@ export default {
                 img {
                     display: block;
                     width: 100%;
-                    height: 60px;
+                    height: 98px;
                     object-fit: cover;
                     border-radius: 10px 10px 0 0;
                 }

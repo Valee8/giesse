@@ -49,7 +49,7 @@ header {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 80%;
+        height: 98%;
 
         .jumbotron {
             width: 500px;

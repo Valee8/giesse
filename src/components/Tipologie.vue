@@ -48,21 +48,32 @@ h2 {
 
 .list-typologies {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
+    gap: 9.5rem;
 
     .typologies {
-        width: calc(100% / 3);
-        padding: 50px;
+        width: 210px;
+        padding: 50px 0;
+
+        // &:nth-child(1),
+        // &:nth-child(4) {
+        //     margin-right: 0;
+        // }
+
+        // &:nth-child(3),
+        // &:nth-child(6) {
+
+        //     margin-left: 0;
+
+        // }
 
         .link {
             color: #000;
         }
 
         img {
-            margin: 0 auto;
-            width: 200px;
-            height: 263px;
+            //margin: 0 auto;
             display: block;
         }
 
