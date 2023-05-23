@@ -1,4 +1,7 @@
 <script>
+
+const menu = document.getElementsByClassName("menu-vale");
+
 export default {
     name: 'AppNavbar',
     data() {
@@ -6,27 +9,83 @@ export default {
             links: [
                 {
                     text: "Richiedi Preventivo",
-                    href: "/",
-                    icon: "fa-regular fa-file-lines"
+                    href: "preventivo",
+                    name: "preventivo",
+                    icon: "fa-regular fa-file-lines",
+                    active: false
                 },
                 {
                     text: "Posizione Sede",
-                    href: "/",
-                    icon: "fa-solid fa-location-dot"
+                    href: "sede",
+                    name: "sede",
+                    icon: "fa-solid fa-location-dot",
+                    active: false
                 },
                 {
                     text: "Contatti",
-                    href: "/",
-                    icon: "fa-solid fa-phone-flip"
+                    href: "contatti",
+                    name: "sede",
+                    icon: "fa-solid fa-phone",
+                    active: false
                 }
             ]
         }
-    }
+    },
+    methods: {
+        changePage(index) {
+
+            //li[index].classList.add("active");
+
+            //menu[index].classList.add("active");
+
+            if (index === 0) {
+                document.getElementById("circle-menu").className = "top active";
+            }
+            else if (index === 1) {
+                document.getElementById("circle-menu").className = "center active";
+            }
+
+            else if (index === 2) {
+                document.getElementById("circle-menu").className = "bottom active";
+            }
+
+            this.links[index].active = true;
+
+            localStorage.setItem('index', JSON.stringify(index));
+
+            //localStorage.setItem('active', JSON.stringify(this.links[index].active));
+
+            for (let i = 0; i < this.links.length; i++) {
+                if (index !== i) {
+                    this.links[i].active = false;
+                    //li[i].classList.remove("active");
+                }
+            }
+        }
+    },
+    mounted() {
+
+        const index = localStorage.getItem('index');
+        //const active = localStorage.getItem('active');
+
+        if (index) {
+            this.links[index].active = true;
+        }
+
+        //menu[index].classList.add("active");
+    },
+    // update() {
+    //     const valore = localStorage.getItem('nomeValore');
+
+    //     this.links[valore].active = true;
+
+    //     menu[valore].classList.add("active");
+    // }
 }
 </script>
 
 <template>
-    <nav :class="{ 'nav-home': $route.name === 'home', 'nav': $route.name !== 'home' }">
+    <nav :class="{ 'nav-home': $route.name === 'home', 'nav': $route.name !== 'home' }" id="menuDesktop">
         <div class="container">
             <router-link to="/">
                 <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
@@ -34,12 +93,31 @@ export default {
 
             <ul class="links">
                 <li v-for="(link, index) in links" :key="index">
-                    <a :href="link.href">
+                    <router-link :to="{ name: link.href }">
                         <i :class="link.icon"></i> {{ link.text }}
-                    </a>
+                    </router-link>
                 </li>
             </ul>
         </div>
+    </nav>
+
+    <nav id="menuMobile" style="display: none">
+        <ul>
+            <div id="circle-menu">
+                <div class="circle-menu-div">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="icons-menu">
+                <li v-for="(link, index) in links" :key="index" :class="link.active ? 'active' : ''">
+                    <div class="icons" @click="changePage(index)">
+                        <router-link :to="{ name: link.href }">
+                            <i :class="link.icon"></i>
+                        </router-link>
+                    </div>
+                </li>
+            </div>
+        </ul>
     </nav>
 </template>
 
@@ -48,7 +126,178 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+// @media only screen and (min-width: 480px) and (max-width: 780px) {
+//     nav {
+//         &#menuDesktop {
+//             display: none;
+//         }
+
+//         &#menuMobile {
+//             display: block;
+//         }
+//     }
+// }
+
+#circle-menu {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 17px;
+
+    &.active {
+        visibility: visible;
+    }
+
+    &:not(.active) {
+        visibility: hidden;
+
+    }
+
+    &.top,
+    &.center,
+    &.bottom {
+        transition-property: all;
+        transition-duration: 500ms;
+        transition-timing-function: ease-in-out;
+    }
+
+    &.top {
+        margin-top: 0;
+    }
+
+    &.center {
+        margin-top: 53px;
+    }
+
+    &.bottom {
+        margin-top: 107px;
+    }
+}
+
+.circle-menu-div {
+    height: calc(100% / 3);
+    display: flex;
+    align-items: center;
+}
+
+.circle {
+    height: 25px;
+    width: 23px;
+    border-radius: 40px;
+    background-color: #000;
+
+}
+
 nav {
+    // &#menuDesktop {
+    //     display: none;
+    // }
+
+    &#menuMobile {
+        position: absolute;
+        right: 60px;
+        top: 100px;
+        height: 160px;
+        color: #fff;
+        border-radius: 50px;
+        text-align: center;
+        border-radius: 50px;
+
+        ul {
+            height: 100%;
+            display: flex;
+
+            // &::before {
+            //     content: "";
+            //     background-image: url('/img/top-bg-nav.svg');
+            //     background-size: cover;
+            //     background-repeat: no-repeat;
+            //     width: 47px;
+            //     height: 16px;
+            //     position: absolute;
+            //     top: -11px;
+            //     left: 11px;
+            //     transform: scale(52%);
+            // }
+
+            // &::after {
+            //     content: "";
+            //     background-image: url('/img/top-bg-nav.svg');
+            //     background-size: cover;
+            //     background-repeat: no-repeat;
+            //     width: 47px;
+            //     height: 16px;
+            //     position: absolute;
+            //     bottom: -12px;
+            //     left: 11px;
+            //     transform: scale(52%) rotate(180deg);
+            // }
+
+
+            li {
+                display: flex;
+                align-items: center;
+                height: calc(100% / 3);
+                width: 24px;
+                position: relative;
+
+                &.active {
+                    background-image: url('/img/bg-nav2.svg');
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    background-position: center;
+
+                    &:last-child {
+                        border-top: 1px solid #000;
+                    }
+
+                    .icons-menu {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    .icons {
+                        //background-color: #000;
+                        //line-height: 25px;
+                        //height: 25px;
+                        //width: 23px;
+                        //border-radius: 40px;
+                        //position: relative;
+                        //right: 5px;
+                        //top: 0.03rem;
+                        // position: relative;
+                        // z-index: 20;
+                        // left: -11px;
+                        position: relative;
+                        left: 1px;
+
+                        svg {
+                            color: #fcf674;
+                        }
+                    }
+                }
+
+                &:not(.active) {
+                    background-color: #000;
+                    justify-content: center;
+
+                    .icons {
+
+                        svg {
+                            color: #fff;
+                        }
+                    }
+                }
+
+                .icons {
+                    svg {
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+        }
+    }
 
     .container {
         display: flex;
