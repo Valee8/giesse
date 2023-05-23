@@ -11,7 +11,7 @@ export default {
             horizontal: [
                 {
                     model: "LATERALE A MOLLA CLASSICA",
-                    name: "LATERALE TIPO ALBA (con cuffie) - LATERALE TIPO SONIA (senza cuffie) - LATERALE TIPO GENNY (con cassonetto da 40mm)",
+                    name: "TIPO ALBA (con cuffie) - TIPO SONIA (senza cuffie) - TIPO GENNY (con cassonetto da 40mm)",
                     //image: "/img/alba.png",
                     description: "Il modello LATERALE A MOLLA CLASSICA, prodotto di serie con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm).",
                 },
