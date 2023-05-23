@@ -14,6 +14,13 @@ import Fissa from './components/Fissa.vue';
 
 import Casper from './components/Casper.vue';
 
+import Preventivo from './components/Preventivo.vue';
+
+import Sede from './components/Sede.vue';
+
+import Contatti from './components/Contatti.vue';
+
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -51,6 +58,21 @@ const router = createRouter({
             path: '/casper/:id',
             name: 'casper',
             component: Casper
+        },
+        {
+            path: '/preventivo',
+            name: 'preventivo',
+            component: Preventivo
+        },
+        {
+            path: '/sede',
+            name: 'sede',
+            component: Sede
+        },
+        {
+            path: '/contatti',
+            name: 'contatti',
+            component: Contatti
         },
     ],
     scrollBehavior(to, from, savedPosition) {
