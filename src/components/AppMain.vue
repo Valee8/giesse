@@ -9,6 +9,12 @@ import Scorri from './Scorri.vue'
 import Fissa from './Fissa.vue'
 import Casper from './Casper.vue'
 
+import Preventivo from './Preventivo.vue'
+
+import Sede from './Sede.vue'
+
+import Contatti from './Contatti.vue'
+
 export default {
     name: 'AppMain',
     components: {
@@ -19,7 +25,10 @@ export default {
         PortaABattente,
         Scorri,
         Fissa,
-        Casper
+        Casper,
+        Preventivo,
+        Sede,
+        Contatti
     }
 }
 </script>
@@ -40,6 +49,12 @@ export default {
     <Fissa v-if="$route.name === 'fissa'" />
 
     <Casper v-if="$route.name === 'casper'" />
+
+    <Preventivo v-if="$route.name === 'preventivo'" />
+
+    <Sede v-if="$route.name === 'sede'" />
+
+    <Contatti v-if="$route.name === 'contatti'" />
 </template>
 
 <style lang="scss" scoped>
