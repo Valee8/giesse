@@ -1,36 +1,12 @@
 <script>
 
+import { store } from '../store.js';
+
 export default {
     name: 'Tipologie',
     data() {
         return {
-            cards:
-                [
-                    {
-                        name: "Verticali",
-                        image: "/img/alba.png",
-                    },
-                    {
-                        name: "Orizzontali",
-                        image: "/img/lara.png"
-                    },
-                    {
-                        name: "Porta a battente",
-                        image: "/img/porta-a-battente.jpg"
-                    },
-                    {
-                        name: "Scorri",
-                        //image: "/img/casper.png"
-                    },
-                    {
-                        name: "Fissa",
-                        //image: "/img/casper.png"
-                    },
-                    {
-                        name: "Casper",
-                        image: "/img/casper.jpg"
-                    },
-                ]
+            store
         }
     }
 }
@@ -44,7 +20,7 @@ export default {
             </h2>
 
             <div class="list-typologies">
-                <div class="typologies" v-for="(card, index) in cards" :key="index">
+                <div class="typologies" v-for="(card, index) in store.cards" :key="index">
                     <router-link :to="{ name: card.name.toLowerCase().replace(/\s/g, '-'), params: { id: index } }"
                         class="link">
 
