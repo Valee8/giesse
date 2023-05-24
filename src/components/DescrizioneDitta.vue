@@ -6,12 +6,15 @@ export default {
 </script>
 
 <template>
+    <!-- Inizio sezione Ditta -->
     <section id="ditta">
         <div class="container">
+            <!-- Titolo -->
             <h2>
                 La <span>G</span>aranzia a nome <div><span>G</span>iesse Zanzariere</div>
             </h2>
 
+            <!-- Testo - descrizione ditta -->
             <p>
                 La <span>Giesse Zanzariere</span>, da pi&ugrave; di 20 anni impegnata nella realizzazione di zanzariere, è
                 attrezzata per la produzione di <span>ZANZARIERE SU MISURA</span> con rete saldata e bottoncini antivento.
@@ -23,11 +26,11 @@ export default {
             monoblocchi o
                 per vani regolari, infine la versione con <span>CASSONETTO DA 40mm</span> &egrave; adatta per spazi ridotti.
                 <!-- Con misura da <span>scontare</span> la zanzariera verr&agrave; fornita con 2mm in meno in LARGHEZZA e
-                                ALTEZZA, con
-                                misura <span>finita</span> la zanzariera verr&agrave; fornita con le stesse misure in LARGHEZZA e ALTEZZA,
-                                invece con misura
-                                <span>luce</span> verr&agrave; aumentata in LARGHEZZA e ALTEZZA in base alle varie tipologie dei modelli a
-                                incasso. -->
+                                                        ALTEZZA, con
+                                                        misura <span>finita</span> la zanzariera verr&agrave; fornita con le stesse misure in LARGHEZZA e ALTEZZA,
+                                                        invece con misura
+                                                        <span>luce</span> verr&agrave; aumentata in LARGHEZZA e ALTEZZA in base alle varie tipologie dei modelli a
+                                                        incasso. -->
             </p>
         </div>
     </section>
@@ -38,24 +41,30 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-.container {
+// Sezione ditta
+section {
+    .container {
 
-    h2 {
-        text-align: center;
-        font-size: 1.9rem;
-    }
+        // Titolo
+        h2 {
+            text-align: center;
+            font-size: 1.9rem;
+        }
 
-    span {
-        color: #e91d24;
-    }
+        // Scritte in rosso
+        span {
+            color: #e91d24;
+        }
 
-    p {
-        text-align: center;
-        margin: 0 auto;
-        width: 690px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        padding: 30px 0;
+        // Testo
+        p {
+            text-align: center;
+            margin: 0 auto;
+            max-width: 690px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 30px 0;
+        }
     }
 }
 </style>

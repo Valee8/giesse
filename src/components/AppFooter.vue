@@ -5,11 +5,15 @@ export default {
 </script>
 
 <template>
+    <!-- Inizio footer -->
     <footer>
-        <div class="small_container">
+        <div class="container">
+            <!-- Parte sinistra footer -->
             <div class="left-footer">
+                <!-- Logo Giesse -->
                 <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
 
+                <!-- Paragrafo -->
                 <p>
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut quos illo at est eum? Dolorem quas nihil
                     amet,
@@ -17,12 +21,16 @@ export default {
                 </p>
             </div>
 
+            <!-- Parte centrale footer -->
             <div class="center-footer">
+                <!-- Titolo -->
                 <h3>
                     Giesse Zanzariere di <div>Sandro Locci</div>
                 </h3>
+                <!-- Bordo sotto il titolo -->
                 <div class="border"></div>
 
+                <!-- Elenco informazioni -->
                 <ul>
                     <li>
                         P. IVA: <span>01376020929</span>
@@ -43,10 +51,13 @@ export default {
                 </ul>
             </div>
 
+            <!-- Parte destra footer -->
             <div class="right-footer">
+                <!-- Titolo -->
                 <h3>
                     Le Nostre Zanzariere
                 </h3>
+                <!-- Bordo sotto il titolo -->
                 <div class="border"></div>
             </div>
         </div>
@@ -58,6 +69,7 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+// Footer
 footer {
     background-color: #424242;
     color: #fff;
@@ -65,14 +77,18 @@ footer {
     font-size: 0.7rem;
     line-height: 15px;
 
-    .small_container {
+    // Container piccolo
+    .container {
         display: flex;
         justify-content: space-between;
         align-items: center;
 
+        // Parte centrale footer
         .center-footer {
 
             ul {
+
+                // Spazio tra partita iva e indirizzo e numero di telefono
                 .pt {
                     padding-top: 10px;
                 }
@@ -83,16 +99,21 @@ footer {
             }
         }
 
-        div[class*="footer"] {
-            width: 25%;
+        // Larghezza div (blocchi footer) che contengono la parola 'footer' come classe
+        div {
+            &[class*="footer"] {
+                width: 25%;
+            }
         }
 
+        // Bordo sotto il titolo
         .border {
             background-color: #fcf674;
             width: 40px;
             height: 4px;
         }
 
+        // Titolo
         h3 {
             color: #fcf674;
             font-size: 1rem;

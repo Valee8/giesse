@@ -6,7 +6,7 @@ export default {
     name: 'AppNavbar',
     data() {
         return {
-            links: [
+            linksNav: [
                 {
                     text: "Richiedi Preventivo",
                     href: "preventivo",
@@ -85,14 +85,17 @@ export default {
 </script>
 
 <template>
-    <nav :class="{ 'nav-home': $route.name === 'home', 'nav': $route.name !== 'home' }" id="menuDesktop">
+    <!-- Inizio navbar -->
+    <nav :class="{ 'nav-home': $route.name === 'home', 'nav-section': $route.name !== 'home' }" id="menuDesktop">
         <div class="container">
+            <!-- Logo -->
             <router-link to="/">
                 <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
             </router-link>
 
-            <ul class="links">
-                <li v-for="(link, index) in links" :key="index">
+            <!-- Links utili navbar -->
+            <ul class="links-nav">
+                <li v-for="(link, index) in linksNav" :key="index">
                     <router-link :to="{ name: link.href }">
                         <i :class="link.icon"></i> {{ link.text }}
                     </router-link>
@@ -125,18 +128,6 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
-
-// @media only screen and (min-width: 480px) and (max-width: 780px) {
-//     nav {
-//         &#menuDesktop {
-//             display: none;
-//         }
-
-//         &#menuMobile {
-//             display: block;
-//         }
-//     }
-// }
 
 #circle-menu {
     height: 100%;
@@ -189,6 +180,7 @@ export default {
 
 }
 
+// Navbar
 nav {
     // &#menuDesktop {
     //     display: none;
@@ -304,17 +296,20 @@ nav {
         justify-content: space-between;
         align-items: center;
 
-        .links {
+        // Links sulla destra - Contatti, Sede, Preventivo
+        .links-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 50px;
 
+            // Scritte
             a {
-                font-size: 0.95rem;
+                font-size: 0.7rem;
                 font-weight: 500;
             }
 
+            // Icone
             svg {
                 font-size: 0.8rem;
                 padding-right: 10px;
@@ -324,10 +319,13 @@ nav {
     }
 }
 
+// Navbar della home - sfondo nero
 .nav-home {
     padding-top: 45px;
 
-    .links {
+    .links-nav {
+
+        // Scritte
         a {
             background-color: #000;
             color: #fff;
@@ -338,20 +336,37 @@ nav {
     }
 }
 
-.nav {
+// Navbar bianca sezioni
+.nav-section {
     background-color: #fff;
     box-shadow: 0 0 15px rgba(0, 0, 0, .4);
     padding: 20px 0;
 
-    .links {
+    .links-nav {
+
+        // Scritte
         a {
             color: #000;
         }
     }
 
+    // Logo
     .logo {
         width: 155px;
         height: 32px;
+    }
+}
+
+@media only screen and (min-width: 1800px) and (max-width: 2000px) {
+    nav {
+        .container {
+
+            .links-nav {
+                a {
+                    font-size: 0.95rem;
+                }
+            }
+        }
     }
 }
 </style>

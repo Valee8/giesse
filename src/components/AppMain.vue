@@ -1,19 +1,15 @@
 <script>
-
-import DescrizioneDitta from './DescrizioneDitta.vue'
-import Tipologie from './Tipologie.vue'
-import Verticali from './Verticali.vue'
-import Orizzontali from './Orizzontali.vue'
-import PortaABattente from './PortaABattente.vue'
-import Scorri from './Scorri.vue'
-import Fissa from './Fissa.vue'
-import Casper from './Casper.vue'
-
-import Preventivo from './Preventivo.vue'
-
-import Sede from './Sede.vue'
-
-import Contatti from './Contatti.vue'
+import DescrizioneDitta from './DescrizioneDitta.vue';
+import Tipologie from './Tipologie.vue';
+import Verticali from './Verticali.vue';
+import Orizzontali from './Orizzontali.vue';
+import PortaABattente from './PortaABattente.vue';
+import Scorri from './Scorri.vue';
+import Fissa from './Fissa.vue';
+import Casper from './Casper.vue';
+import Preventivo from './Preventivo.vue';
+import Sede from './Sede.vue';
+import Contatti from './Contatti.vue';
 
 export default {
     name: 'AppMain',
@@ -34,6 +30,7 @@ export default {
 </script>
 
 <template>
+    <!-- Varie sezioni -->
     <DescrizioneDitta v-if="$route.name === 'home'" />
 
     <Tipologie v-if="$route.name === 'home'" />

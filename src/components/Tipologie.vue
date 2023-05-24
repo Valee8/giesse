@@ -13,21 +13,30 @@ export default {
 </script>
 
 <template>
+    <!-- Inizio sezione Tipologie -->
     <section id="typologies">
         <div class="container">
+            <!-- Titolo -->
             <h2>
                 Tipologia Zanzariere
             </h2>
 
+            <!-- Elenco tipologie zanzariere -->
             <div class="list-typologies">
-                <div class="typologies" v-for="(card, index) in store.cards" :key="index">
-                    <router-link :to="{ name: card.name.toLowerCase().replace(/\s/g, '-'), params: { id: index } }"
+                <div class="typologies" v-for="(typology, index) in store.typologies" :key="index">
+                    <router-link :to="{ name: typology.name.toLowerCase().replace(/\s/g, '-'), params: { id: index } }"
                         class="link">
 
-                        <img :src="card.image" :alt="card.name">
+                        <!-- Immagine zanzariera -->
+                        <img :src="typology.image" :alt="typology.name" v-if="typology.image" class="typology-image">
 
+                        <div class="typology-image" v-else>
+                            Un giorno mi aggiungeranno :)
+                        </div>
+
+                        <!-- Nome tipologia -->
                         <h3>
-                            {{ card.name }}
+                            {{ typology.name }}
                         </h3>
                     </router-link>
                 </div>
@@ -41,46 +50,74 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-h2 {
-    text-align: center;
-    font-size: 1.9rem;
-}
+// Sezione Tipologie
+section {
 
-.list-typologies {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 9.5rem;
+    // Titolo
+    h2 {
+        text-align: center;
+        font-size: 1.9rem;
+    }
 
-    .typologies {
-        width: 210px;
-        padding: 50px 0;
+    // Inizio lista tipologie
+    .list-typologies {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        //gap: 9.5rem;
 
-        // &:nth-child(1),
-        // &:nth-child(4) {
-        //     margin-right: 0;
-        // }
+        // Blocco singolo
+        .typologies {
+            //width: 210px;
+            width: calc(100% / 3);
+            padding: 50px 0;
 
-        // &:nth-child(3),
-        // &:nth-child(6) {
+            .link {
+                color: #000;
+            }
 
-        //     margin-left: 0;
+            // Immagine
+            .typology-image {
+                width: 210px;
+                display: block;
+            }
 
-        // }
+            &:nth-child(1),
+            &:nth-child(4) {
 
-        .link {
-            color: #000;
-        }
+                .typology-image,
+                h3 {
+                    margin-right: auto;
+                }
+            }
 
-        img {
-            //margin: 0 auto;
-            display: block;
-        }
+            &:nth-child(3),
+            &:nth-child(6) {
 
-        h3 {
-            text-align: center;
-            padding-top: 30px;
+                .typology-image,
+                h3 {
+                    margin-left: auto;
+                }
+
+            }
+
+            &:nth-child(2),
+            &:nth-child(5) {
+
+                .typology-image,
+                h3 {
+                    margin: 0 auto;
+                }
+
+            }
+
+            // Titolo
+            h3 {
+                width: 210px;
+                text-align: center;
+                padding-top: 30px;
+            }
+
         }
     }
-}
-</style>
+}</style>
