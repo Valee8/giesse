@@ -1,28 +1,39 @@
 <script>
+import { store } from './store.js';
+
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import AppFooter from './components/AppFooter.vue';
+import Loader from './components/Loader.vue';
 
 export default {
   components: {
     AppHeader,
     AppMain,
-    AppFooter
+    AppFooter,
+    Loader
+  },
+  data() {
+    return {
+      store
+    }
   }
 }
 </script>
 
 <template>
+  <Loader />
+
   <!-- Header -->
-  <AppHeader />
+  <AppHeader v-if="!store.isLoading" />
 
   <!-- Main -->
   <main>
-    <AppMain />
+    <AppMain v-if="!store.isLoading" />
   </main>
 
   <!-- Footer -->
-  <AppFooter />
+  <AppFooter v-if="!store.isLoading" />
 </template>
 
 <style lang="scss">
