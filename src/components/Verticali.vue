@@ -395,7 +395,13 @@ section {
 @media only screen and (min-width: 1800px) and (max-width: 2000px) {
 
     section {
+
+        .slider-container {
+            padding-bottom: 90px;
+        }
+
         .info-colors {
+
             .container {
                 height: 370px;
 
