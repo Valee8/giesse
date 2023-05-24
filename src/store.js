@@ -2,6 +2,7 @@ import { reactive } from 'vue';
 
 export const store = reactive({
     // Tipologie zanzariere
+    isLoading: true,
     typologies: [
         {
             name: "Verticali",
