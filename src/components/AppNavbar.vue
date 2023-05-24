@@ -112,7 +112,7 @@ export default {
                 </div>
             </div>
             <div class="icons-menu">
-                <li v-for="(link, index) in links" :key="index" :class="link.active ? 'active' : ''">
+                <li v-for="(link, index) in linksNav" :key="index" :class="link.active ? 'active' : ''">
                     <div class="icons" @click="changePage(index)">
                         <router-link :to="{ name: link.href }">
                             <i :class="link.icon"></i>
