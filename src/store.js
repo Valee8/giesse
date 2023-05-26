@@ -2,7 +2,30 @@ import { reactive } from 'vue';
 
 export const store = reactive({
     // Tipologie zanzariere
-    isLoading: true,
+    //isLoading: true,
+    linksNav: [
+        {
+            text: "Richiedi Preventivo",
+            href: "preventivo",
+            name: "preventivo",
+            icon: "fa-regular fa-file-lines",
+            active: false
+        },
+        {
+            text: "Posizione Sede",
+            href: "sede",
+            name: "sede",
+            icon: "fa-solid fa-location-dot",
+            active: false
+        },
+        {
+            text: "Contatti",
+            href: "contatti",
+            name: "sede",
+            icon: "fa-solid fa-phone",
+            active: false
+        }
+    ],
     typologies: [
         {
             name: "Verticali",
