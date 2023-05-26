@@ -4,14 +4,14 @@ import { store } from './store.js';
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import AppFooter from './components/AppFooter.vue';
-import Loader from './components/Loader.vue';
+//import Loader from './components/Loader.vue';
 
 export default {
   components: {
     AppHeader,
     AppMain,
     AppFooter,
-    Loader
+    //Loader
   },
   data() {
     return {
@@ -22,18 +22,16 @@ export default {
 </script>
 
 <template>
-  <Loader />
+  <!-- <Loader /> -->
 
-  <!-- Header -->
-  <AppHeader v-if="!store.isLoading" />
+  <!-- <AppHeader v-if="!store.isLoading" /> -->
+  <AppHeader />
 
-  <!-- Main -->
   <main>
-    <AppMain v-if="!store.isLoading" />
+    <AppMain />
   </main>
 
-  <!-- Footer -->
-  <AppFooter v-if="!store.isLoading" />
+  <AppFooter />
 </template>
 
 <style lang="scss">
@@ -51,6 +49,10 @@ section {
 
   &[id] {
     padding-top: 60px;
+  }
+
+  &[class] {
+    padding-top: 0;
   }
 }
 
