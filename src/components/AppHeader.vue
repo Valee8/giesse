@@ -90,9 +90,44 @@ header {
 
 // Sfondo con immagine dell'header nella home
 .header-home {
-    background-image: url('/img/jumbotron.jpg');
+    background-image: url('/img/jumbotron.png');
     background-size: cover;
     background-position: 0 -95px;
     height: 610px;
 }
+
+// Inizio versioni mobile, tablet e intermedie
+@media only screen and (min-width: 480px) and (max-width: 610px) {
+    .header-home {
+        height: 400px;
+
+        .container {
+            .jumbotron {
+                width: 300px;
+
+                h1 {
+                    font-size: 1.8rem;
+                }
+
+                p {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 610px) and (max-width: 1060px) {
+    .header-home {
+        height: 450px;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 1060px) {
+    .header-home {
+        background-position: center;
+    }
+}
+
+// Fine versioni mobile, tablet e intermedie
 </style>

@@ -1,34 +1,14 @@
 <script>
 
+import { store } from '../store.js';
+
 const menu = document.getElementsByClassName("menu-vale");
 
 export default {
     name: 'AppNavbar',
     data() {
         return {
-            linksNav: [
-                {
-                    text: "Richiedi Preventivo",
-                    href: "preventivo",
-                    name: "preventivo",
-                    icon: "fa-regular fa-file-lines",
-                    active: false
-                },
-                {
-                    text: "Posizione Sede",
-                    href: "sede",
-                    name: "sede",
-                    icon: "fa-solid fa-location-dot",
-                    active: false
-                },
-                {
-                    text: "Contatti",
-                    href: "contatti",
-                    name: "sede",
-                    icon: "fa-solid fa-phone",
-                    active: false
-                }
-            ]
+            store,
         }
     },
     methods: {
@@ -95,9 +75,9 @@ export default {
 
             <!-- Links utili navbar -->
             <ul class="links-nav">
-                <li v-for="(link, index) in linksNav" :key="index">
+                <li v-for="(link, index) in store.linksNav" :key="index">
                     <router-link :to="{ name: link.href }">
-                        <i :class="link.icon"></i> {{ link.text }}
+                        <i :class="link.icon"></i> <span class="nav-text">{{ link.text }}</span>
                     </router-link>
                 </li>
             </ul>
@@ -112,7 +92,7 @@ export default {
                 </div>
             </div>
             <div class="icons-menu">
-                <li v-for="(link, index) in linksNav" :key="index" :class="link.active ? 'active' : ''">
+                <li v-for="(link, index) in store.linksNav" :key="index" :class="link.active ? 'active' : ''">
                     <div class="icons" @click="changePage(index)">
                         <router-link :to="{ name: link.href }">
                             <i :class="link.icon"></i>
@@ -357,6 +337,95 @@ nav {
     }
 }
 
+
+// Inizio versioni mobile, tablet e intermedie
+@media only screen and (min-width: 870px) and (max-width: 985px) {
+    .nav-home {
+        padding-top: 15px;
+
+        .container {
+
+            .links-nav {
+                gap: 15px;
+
+                a {
+                    padding: 10px;
+                }
+            }
+        }
+    }
+
+
+}
+
+
+@media only screen and (min-width: 760px) and (max-width: 870px) {
+
+    .nav-home {
+        padding-top: 15px;
+
+        .container {
+
+            .links-nav {
+                gap: 12px;
+
+                a {
+                    padding: 8px 10px;
+                }
+            }
+        }
+
+        .logo {
+            width: 160px;
+            height: 45px;
+        }
+    }
+
+}
+
+@media only screen and (min-width: 480px) and (max-width: 760px) {
+
+    nav {
+
+        .container {
+            .links-nav {
+                svg {
+                    padding-right: 0;
+                }
+            }
+        }
+
+        .logo {
+            width: 160px;
+            height: 45px;
+        }
+    }
+
+    .nav-home {
+        padding-top: 15px;
+
+        .container {
+
+            .links-nav {
+                gap: 10px;
+
+                a {
+                    padding: 8px 10px;
+                }
+
+                .nav-text {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+// Fine versioni mobile, tablet e intermedie
+
+
+
+// Schermo gigante
 @media only screen and (min-width: 1800px) and (max-width: 2000px) {
     nav {
         .container {

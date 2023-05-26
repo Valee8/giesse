@@ -64,7 +64,6 @@ section {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        //gap: 9.5rem;
 
         // Blocco singolo
         .typologies {
@@ -120,4 +119,40 @@ section {
 
         }
     }
-}</style>
+}
+
+// Inizio versioni mobile, tablet e intermedie
+@media only screen and (min-width: 480px) and (max-width: 610px) {
+    section {
+
+        .list-typologies {
+            .typologies {
+                width: 100%;
+
+                .typology-image,
+                h3 {
+                    margin: 0 auto;
+                }
+
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 610px) and (max-width: 890px) {
+    section {
+        .list-typologies {
+            .typologies {
+                width: 40%;
+
+                .typology-image,
+                h3 {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+// Fine versioni mobile, tablet e intermedie
+</style>

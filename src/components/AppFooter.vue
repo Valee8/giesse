@@ -127,4 +127,68 @@ footer {
         }
     }
 }
+
+
+// Inizio versioni mobile, tablet e intermedie
+@media only screen and (min-width: 480px) and (max-width: 610px) {
+    footer {
+        .container {
+            flex-wrap: wrap;
+
+            div {
+                &[class*="footer"] {
+                    width: 100%;
+                    padding: 20px 0;
+                }
+            }
+
+            h3 {
+                div {
+                    display: inline-block;
+                }
+            }
+
+            .border {
+                width: 80px;
+            }
+        }
+    }
+}
+
+
+
+@media only screen and (min-width: 590px) and (max-width: 770px) {
+    footer {
+        .container {
+            justify-content: center;
+            flex-wrap: wrap;
+            //gap: 30px;
+
+            .left-footer {
+                p {
+                    width: 240px;
+                }
+            }
+
+            div {
+                &[class*="footer"] {
+                    width: 50%;
+                    padding: 20px 0;
+                    //width: calc(50% - 15px);
+                }
+
+            }
+
+            .center-footer {
+                text-align: right;
+
+                .border {
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+}
+
+// Fine versioni mobile, tablet e intermedie
 </style>
