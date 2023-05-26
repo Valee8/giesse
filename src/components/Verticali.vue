@@ -132,10 +132,10 @@ export default {
         },
     },
     computed: {
-        // Stampa modello sezione nel titolo
-        printModel() {
+        // Stampa nome sezione nel titolo
+        printNameSection() {
             for (let i = 0; i < store.typologies.length; i++) {
-                if (store.typologies[i].name === "Verticali")
+                if (i === 0)
                     return store.typologies[i].name;
             }
         }
@@ -148,14 +148,14 @@ export default {
     <section>
         <div class="container">
             <!-- Titolo in alto a sinistra -->
-            <h1 class="section-title">
+            <div class="section-title">
                 <!-- Scritta Home -->
                 <router-link to="/">Home</router-link>
                 <!-- Icone freccia -->
                 <i class="fa-solid fa-chevron-right"></i>
-                <!-- Nome modello -->
-                {{ printModel }}
-            </h1>
+                <!-- Nome sezione -->
+                {{ printNameSection }}
+            </div>
 
 
             <!-- Inizio parte slider zanzariere -->
@@ -397,7 +397,8 @@ section {
     section {
 
         .slider-container {
-            padding-bottom: 90px;
+            padding-bottom: 40px;
+            padding-top: 50px;
         }
 
         .info-colors {
