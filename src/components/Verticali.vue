@@ -210,7 +210,7 @@ export default {
             <div class="title-info-colors">
                 <!-- Titolo -->
                 <h2>
-                    Zanzariere di tutti i colori
+                    Esplora tutti i colori
                 </h2>
 
                 <!-- Paragrafo -->
