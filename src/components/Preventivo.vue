@@ -1,34 +1,184 @@
 <script>
+
+let orderNumber = 0;
+
+const uniqueKey = "Ordine " + orderNumber;
+
+import { store } from '../store.js';
+
 export default {
     name: 'Preventivo',
     data() {
         return {
+            secondStepValid: false,
+            store,
             currentStep: 1,
             selectedOption: "",
             name: "",
             surname: "",
-            agency_name: ""
-        };
-    },
-    computed: {
-        isInputValid() {
-            if (this.selectedOption === 'opzione1') {
-                return this.name.trim() !== '';
-            } else if (this.selectedOption === 'opzione2') {
-                return this.agency_name.trim() !== '';
-            } else {
-                return false;
-            }
+            agency_name: "",
+            email: "",
+            telephone: "",
+            city_of_residence: "",
+            enableButton: false,
+            typology: "",
+            quantity: "",
+            width: "",
+            height: "",
+            colors: "",
+            exceptions: [
+                "Verticali a molla",
+                "Verticali a catena",
+                "Orizzontali",
+                "Con guida bassa da 2cm",
+                "Con guida bassa da 14mm",
+                "Con guida bassa da 3mm",
+                "Altre",
+                "Frizionata",
+                "Plissettata",
+                "Antivento"
+            ],
+            models: [
+                "Verticali a molla",
+                "ALBA (con cuffie)",
+                "SONIA (senza cuffie)",
+                "GENNY (cassonetto da 40)",
+                "LAURA (cricchetto, con cuffie)",
+                "EVA (cricchetto, senza cuffie)",
+                "ASIA (cricchetto, cassonetto da 40)",
+                "Verticali a catena",
+                "KATIA (solo catena, con cuffie)",
+                "MERI (solo catena, senza cuffie)",
+                "GIADA (catena + molla, cuffie)",
+                "VERA (catena + molla, senza cuffie)",
+                "Orizzontali",
+                "Laterale Tipo ALBA (con cuffie)",
+                "Laterale Tipo SONIA (senza cuffie)",
+                "Laterale Tipo GENNY (cassonetto da 40)",
+                "Con guida bassa da 2cm",
+                "LARA (con cuffie)",
+                "VALERIA (senza cuffie)",
+                "DESI (cassonetto da 40)",
+                "Con guida bassa da 14mm",
+                "LUNA",
+                "Con guida bassa da 3mm",
+                "ZELIG",
+                "Frizionata",
+                "JOLLY",
+                "Antivento",
+                "BORA",
+                "Plissettata",
+                "PLISSE' 22",
+                "Altre",
+                "ANTAREX",
+                "SCORRI",
+                "FISSA",
+                "CASPER"
+            ],
         }
     },
+    computed: {
+        firstStepValid() {
+            if (this.email.trim() !== '' && this.telephone.trim() !== '' && this.city_of_residence.trim() !== '') {
+                this.enableButton = true;
+            }
+
+            if (this.selectedOption === 'privato') {
+                if (this.name.trim() !== '' && this.surname.trim() !== '' && this.enableButton) {
+                    return true;
+                }
+            }
+            else if (this.selectedOption === 'azienda' && this.enableButton) {
+                return this.agency_name.trim() !== '';
+            }
+            // else {
+            //     return false;
+            // }
+        },
+    },
     methods: {
+        add() {
+            if (this.typology !== '' && this.quantity !== 0 && this.width !== '' && this.height !== '' && this.colors !== '') {
+
+                this.secondStepValid = true;
+
+                let obj = {
+                    typology: this.typology,
+                    quantity: this.quantity,
+                    width: this.width,
+                    height: this.height,
+                    colors: this.colors,
+                }
+
+                let myArray = [];
+
+                const existingData = localStorage.getItem(uniqueKey);
+
+                if (existingData) {
+                    myArray = JSON.parse(existingData);
+                }
+                else {
+                    myArray = [];
+                }
+
+                myArray.push(obj);
+
+                orderNumber++;
+
+                localStorage.setItem(uniqueKey, JSON.stringify(myArray));
+
+                this.typology = "";
+                this.quantity = "";
+                this.width = "";
+                this.height = "";
+                this.colors = "";
+            }
+        },
         nextStep() {
-            if (this.currentStep === 1 && this.isInputValid) {
+            if (this.currentStep === 1 && this.firstStepValid || this.currentStep === 2 && this.secondStepValid) {
                 this.currentStep++;
             }
         },
+        resetCommonInputs() {
+            if (this.selectedOption) {
+                this.name = "";
+                this.surname = "";
+                this.agency_name = "";
+                this.email = "";
+                this.telephone = "";
+                this.city_of_residence = "";
+            }
+        },
+        handleSubmit(event) {
+            event.preventDefault();
+        },
+        getColor(index, colorIndex) {
+            for (let i = 0; i < store.colors.length; i++) {
+                this.colors = store.colors[index].colorInfo[colorIndex].name;
+            }
+        },
+        // Cambio colore cliccando il nome della tipologia
+        changeColorTypology(index) {
+
+            this.store.colors[index].active = true;
+
+            for (let i = 0; i < this.store.colors.length; i++) {
+                if (i !== index) {
+                    this.store.colors[i].active = false;
+                }
+            }
+        },
+    },
+    mounted() {
+        this.orderNumber = parseInt(localStorage.getItem("orderNumber")) || 0;
+    },
+    updated() {
+        if (this.currentStep === 3) {
+            localStorage.removeItem(uniqueKey);
+            localStorage.clear();
+        }
     }
-};
+}
 </script>
 
 <template>
@@ -41,38 +191,101 @@ export default {
 
 
                 <div class="steps">
-                    <div>1</div>
+                    <div :class="currentStep === 1 ? 'current' : ''">1</div>
                     <hr>
-                    <div>2</div>
+                    <div :class="currentStep === 2 ? 'current' : ''">2</div>
                     <hr>
-                    <div>3</div>
+                    <div :class="currentStep === 3 ? 'current' : ''">3</div>
                 </div>
             </div>
 
-            <form action="">
+            <form action="" @submit="handleSubmit">
                 <div v-if="currentStep === 1">
-                    <!-- Selezione del tipo -->
                     <label>
-                        <input type="radio" value="opzione1" v-model="selectedOption">
+                        <input type="radio" value="privato" v-model="selectedOption" @change="resetCommonInputs">
                         Privato
                     </label>
                     <label>
-                        <input type="radio" value="opzione2" v-model="selectedOption">
+                        <input type="radio" value="azienda" v-model="selectedOption" @change="resetCommonInputs">
                         Azienda
                     </label>
+                    <br><br>
 
-                    <!-- Campo di input condizionale -->
-                    <div v-if="selectedOption === 'opzione1'">
-                        <input type="text" v-model="name" placeholder="Nome">
+                    <div v-if="selectedOption === 'privato'">
+                        <input type="text" v-model="name" placeholder="Nome *" required>
                         <br>
-                        <!-- <input type="text" v-model="surname" placeholder="Cognome"> -->
+                        <input type="text" v-model="surname" placeholder="Cognome *" required>
                     </div>
-                    <div v-else-if="selectedOption === 'opzione2'">
-                        <input type="text" v-model="agency_name" placeholder="Nome Azienda">
+                    <div v-else-if="selectedOption === 'azienda'">
+                        <input type="text" v-model="agency_name" placeholder="Nome Azienda *" required>
+                    </div>
+                    <div v-if="selectedOption">
+                        <input type="email" v-model="email" placeholder="E-mail *" required>
+                        <br>
+                        <input type="text" v-model="telephone" placeholder="Telefono *" required>
+                        <br>
+                        <input type="text" v-model="city_of_residence" placeholder="Comune *" required>
+                        <br>
                     </div>
 
-                    <!-- Pulsante per passare al successivo step -->
-                    <button @click="nextStep" :disabled="!isInputValid">Avanti</button>
+                    <button @click="nextStep" v-if="selectedOption">Avanti</button>
+                </div>
+
+
+                <div v-else-if="currentStep === 2" class="second-step">
+                    <select name="models" id="model-select" v-model="typology">
+                        <option value="" disabled selected hidden>Seleziona il modello *</option>
+                        <option :disabled="exceptions.includes(model)" :value="!exceptions.includes(model) ? model : ''"
+                            v-for="model in models"> {{ model }}
+                        </option>
+                    </select>
+
+                    <input type="number" name="quantity" id="" placeholder="Quantità *" min="1" v-model="quantity">
+
+                    <br><br>
+
+                    <label>Misure:
+
+                        <input type="text" name="width" id="" placeholder="Larghezza (in cm) *" v-model="width">
+                        <input type="text" name="height" id="" placeholder="Altezza (in cm) *" v-model="height">
+                    </label>
+
+                    <div class="nonso">
+                        <div class="list-typologies">
+                            <div v-for="(typo, index) in store.colors" :key="index" class="typologies">
+                                <div @click="changeColorTypology(index)" class="typology-name"
+                                    :class="typo.active ? 'selected' : ''">
+                                    {{ typo.typology }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nomi e immagini colori - parte destra -->
+                        <div class="list-colors" v-for="(typo, index) in store.colors" :key="index"
+                            :class="typo.active ? 'selected' : ''">
+                            <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
+                                <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
+                                    <input type="radio" name="color" @click="getColor(index, colorIndex)">
+                                    <!-- Immagine colore -->
+                                    <img :src="color.image" :alt="color.name" class="color-image">
+
+                                    <!-- Nome colore -->
+                                    <div class="color-name">
+                                        {{ color.name }}
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button @click="add()">Aggiungi</button>
+
+                    <button @click="nextStep">Avanti</button>
+                </div>
+
+
+                <div v-else class="third-step">
+                    Terzo step
                 </div>
             </form>
         </div>
@@ -84,9 +297,13 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+section {
+    background-color: #686868;
+
+}
+
 .container {
     text-align: center;
-    background-color: #686868;
     color: #fff;
     padding: 20px 0;
 
@@ -117,8 +334,138 @@ export default {
                 border-radius: 50px;
                 width: 40px;
                 height: 40px;
+
+                &.current {
+                    background-color: #fcf674;
+                    color: #000;
+                }
             }
         }
+    }
+}
+
+// .second-step {
+
+//     label+input {
+//         margin-left: 0;
+//     }
+
+//     select {
+//         margin-right: 10px;
+//     }
+
+//     input {
+//         margin: 0 10px;
+//     }
+// }
+
+.list-typologies {
+    text-align: center;
+    width: 8%;
+
+    .typologies {
+        padding: 0.1rem 0;
+        border-bottom: 1px solid #fff;
+
+        &:first-child {
+            border-top: 1px solid #fff;
+        }
+    }
+
+    // Nome tipologia
+    .typology-name {
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 0.9rem;
+        padding: 5px 0 5px 4px;
+
+        &.selected {
+            color: #fcf674;
+            border-left: 4px solid #fcf674;
+            padding-left: 0;
+        }
+    }
+}
+
+// Nomi e immagini colori - parte destra
+.list-colors {
+    width: 90%;
+
+    &:not(.selected) {
+        display: none;
+    }
+
+    // Blocco intero colori
+    .colors {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        color: #fff;
+        font-size: 0.8rem;
+        font-weight: 500;
+
+        // Colore singolo
+        .color {
+            width: 140px;
+            cursor: pointer;
+
+            // Nome colore
+            .color-name {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(0, 0, 0, .15);
+                box-shadow: 0 2px 0 rgba(0, 0, 0, .2);
+                border-radius: 0 0 10px 10px;
+                color: #fff;
+                text-align: center;
+                height: 37px;
+                padding: 2px 5px;
+                border: 2px solid transparent;
+                border-top: 0;
+            }
+
+            // Immagine colore
+            .color-image {
+                display: block;
+                width: 100%;
+                height: 75px;
+                object-fit: cover;
+                border-radius: 10px 10px 0 0;
+                border: 2px solid transparent;
+                border-bottom: 0;
+            }
+        }
+
+    }
+
+}
+
+.nonso {
+    display: flex;
+    align-items: center;
+    gap: 0 60px;
+    margin: 0 auto;
+    height: 420px;
+    width: 600px;
+    background-color: #686868;
+
+    [type=radio] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    [type=radio]:checked+.color-image {
+        border: 2px solid #fcf674;
+        border-bottom: 0;
+    }
+
+    /* CHECKED STYLES */
+    [type=radio]:checked+.color-image+.color-name {
+        border: 2px solid #fcf674;
+        border-top: 0;
     }
 }
 </style>
