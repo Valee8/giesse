@@ -72,6 +72,8 @@ section {
             padding: 50px 0;
 
             .link {
+                width: 210px;
+                display: block;
                 color: #000;
             }
 
@@ -84,8 +86,7 @@ section {
             &:nth-child(1),
             &:nth-child(4) {
 
-                .typology-image,
-                h3 {
+                .link {
                     margin-right: auto;
                 }
             }
@@ -93,8 +94,7 @@ section {
             &:nth-child(3),
             &:nth-child(6) {
 
-                .typology-image,
-                h3 {
+                .link {
                     margin-left: auto;
                 }
 
@@ -103,8 +103,7 @@ section {
             &:nth-child(2),
             &:nth-child(5) {
 
-                .typology-image,
-                h3 {
+                .link {
                     margin: 0 auto;
                 }
 
@@ -129,9 +128,13 @@ section {
             .typologies {
                 width: 100%;
 
-                .typology-image,
-                h3 {
-                    margin: 0 auto;
+                .link {
+                    width: 100%;
+
+                    .typology-image,
+                    h3 {
+                        margin: 0 auto;
+                    }
                 }
 
             }
@@ -145,9 +148,13 @@ section {
             .typologies {
                 width: 40%;
 
-                .typology-image,
-                h3 {
+                .link {
                     width: 100%;
+
+                    .typology-image,
+                    h3 {
+                        width: 100%;
+                    }
                 }
             }
         }
