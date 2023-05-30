@@ -42,6 +42,7 @@ export default {
 // Padding sezioni
 // Sezioni che hanno id: Home
 // Sezioni senza id: tutte le altre
+// Sezione con class: Contatti
 section {
   &:not([id]) {
     padding-top: 30px;
