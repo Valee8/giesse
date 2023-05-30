@@ -87,6 +87,7 @@ footer {
         .center-footer {
 
             ul {
+                font-size: 0.75rem;
 
                 // Spazio tra partita iva e indirizzo e numero di telefono
                 .pt {
