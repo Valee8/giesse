@@ -80,6 +80,7 @@ section {
         text-align: center;
         background-color: #9c9c9c;
         padding: 50px 0;
+        margin-top: -4px;
 
         .pt {
             padding-top: 10px;
