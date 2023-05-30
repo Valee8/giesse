@@ -125,10 +125,17 @@ export default {
                 this.width = "";
                 this.height = "";
                 this.colors = "";
+
+                this.store.colors[0].active = true;
+
+                for (let i = 0; i < this.store.colors.length; i++) {
+                    if (i !== 0)
+                        this.store.colors[i].active = false;
+                }
             }
         },
         nextStep() {
-            if (this.currentStep === 1 && this.firstStepValid || this.currentStep === 2 && this.secondStepValid) {
+            if (this.currentStep === 1 && this.firstStepValid || this.currentStep === 2 && this.secondStepValid && this.orderList.length !== 0) {
                 this.currentStep++;
             }
         },
@@ -216,6 +223,7 @@ export default {
 
             <form action="" @submit="handleSubmit">
                 <div v-if="currentStep === 1">
+                    Sei:
                     <label>
                         <input type="radio" value="privato" v-model="selectedOption" @change="resetCommonInputs">
                         Privato
@@ -280,6 +288,10 @@ export default {
                         </li>
                     </ul>
 
+                    <br>
+                    <textarea name="" id="" cols="60" rows="10" placeholder="Messaggio"></textarea>
+
+                    <br>
                     <br>
                     <div class="color-choice">
                         <div class="list-typologies">
@@ -390,7 +402,7 @@ section {
 
 .list-typologies {
     text-align: center;
-    width: 8%;
+    width: 93px;
 
     .typologies {
         padding: 0.1rem 0;
@@ -476,8 +488,9 @@ section {
     gap: 0 60px;
     margin: 0 auto;
     height: 420px;
-    width: 600px;
-    //background-color: #9c9c9c;
+    padding: 0 20px;
+    width: 700px;
+    background-color: #9c9c9c;
 
     [type=radio] {
         position: absolute;
