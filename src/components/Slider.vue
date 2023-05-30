@@ -17,6 +17,21 @@ export default {
     },
     mounted() {
 
+        if (this.store.colors[0].active) {
+            for (let i = 0; i < this.store.colors.length; i++) {
+                if (i !== 0)
+                    this.store.colors[i].active = false;
+            }
+        }
+        else {
+            this.store.colors[0].active = true;
+
+            for (let i = 0; i < this.store.colors.length; i++) {
+                if (i !== 0)
+                    this.store.colors[i].active = false;
+            }
+        }
+
         if (window.location.hash === '#jolly') {
             activeItem = 4;
         }
@@ -39,6 +54,14 @@ export default {
         //description.innerHTML = "Il modello <span>VERTICALE A MOLLA CLASSICA</span> " + this.vertical[0].description;
 
     },
+    // updated() {
+    //     this.store.colors[0].active = true;
+
+    //     for (let i = 0; i < this.store.colors.length; i++) {
+    //         this.store.colors[i].active = false;
+    //     }
+
+    // },
     methods: {
         // Freccia avanti
         next(index) {
@@ -126,6 +149,10 @@ export default {
                     this.store.colors[i].active = false;
                 }
             }
+
+            // if (this.store.colors[0].active) {
+            //     this.store.colors[0].active = false;
+            // }
         },
     },
     computed: {
