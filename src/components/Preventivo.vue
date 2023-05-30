@@ -1,15 +1,12 @@
 <script>
 
-let orderNumber = 0;
-
-const uniqueKey = "Ordine " + orderNumber;
-
 import { store } from '../store.js';
 
 export default {
     name: 'Preventivo',
     data() {
         return {
+            orderList: [],
             secondStepValid: false,
             store,
             currentStep: 1,
@@ -79,7 +76,7 @@ export default {
     },
     computed: {
         firstStepValid() {
-            if (this.email.trim() !== '' && this.telephone.trim() !== '' && this.city_of_residence.trim() !== '') {
+            if (this.email.trim() !== '' && this.email.includes("@") && this.telephone.trim() !== '' && this.city_of_residence.trim() !== '') {
                 this.enableButton = true;
             }
 
@@ -110,22 +107,18 @@ export default {
                     colors: this.colors,
                 }
 
-                let myArray = [];
-
-                const existingData = localStorage.getItem(uniqueKey);
+                const existingData = localStorage.getItem("Preventivo");
 
                 if (existingData) {
-                    myArray = JSON.parse(existingData);
+                    this.orderList = JSON.parse(existingData);
                 }
                 else {
-                    myArray = [];
+                    this.orderList = [];
                 }
 
-                myArray.push(obj);
+                this.orderList.push(obj);
 
-                orderNumber++;
-
-                localStorage.setItem(uniqueKey, JSON.stringify(myArray));
+                localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
 
                 this.typology = "";
                 this.quantity = "";
@@ -168,13 +161,35 @@ export default {
                 }
             }
         },
+        deleteModel(index) {
+
+            this.orderList.splice(index, 1);
+
+            localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
+
+            if (this.orderList.length === 0) {
+                localStorage.clear();
+            }
+        },
+        filterCharacters() {
+            this.telephone = this.telephone.replace(/\D/g, '');
+        },
+        filterNumbers() {
+            this.name = this.name.replace(/[0-9]/g, '');
+            this.surname = this.surname.replace(/[0-9]/g, '');
+            this.city_of_residence = this.city_of_residence.replace(/[0-9]/g, '');
+        },
+        filterSizes() {
+            this.width = this.width.replace(/^[a-zA-Z]*$/g, '');
+            this.height = this.height.replace(/^[a-zA-Z]*$/g, '');
+        }
     },
     mounted() {
-        this.orderNumber = parseInt(localStorage.getItem("orderNumber")) || 0;
+        //this.orderNumber = parseInt(localStorage.getItem("orderNumber")) || 0;
     },
     updated() {
         if (this.currentStep === 3) {
-            localStorage.removeItem(uniqueKey);
+            localStorage.removeItem("Preventivo");
             localStorage.clear();
         }
     }
@@ -212,9 +227,9 @@ export default {
                     <br><br>
 
                     <div v-if="selectedOption === 'privato'">
-                        <input type="text" v-model="name" placeholder="Nome *" required>
+                        <input type="text" v-model="name" placeholder="Nome *" @input="filterNumbers" required>
                         <br>
-                        <input type="text" v-model="surname" placeholder="Cognome *" required>
+                        <input type="text" v-model="surname" placeholder="Cognome *" @input="filterNumbers" required>
                     </div>
                     <div v-else-if="selectedOption === 'azienda'">
                         <input type="text" v-model="agency_name" placeholder="Nome Azienda *" required>
@@ -222,9 +237,11 @@ export default {
                     <div v-if="selectedOption">
                         <input type="email" v-model="email" placeholder="E-mail *" required>
                         <br>
-                        <input type="text" v-model="telephone" placeholder="Telefono *" required>
+                        <input type="text" v-model="telephone" placeholder="Telefono *" maxlength="10"
+                            @input="filterCharacters" required>
                         <br>
-                        <input type="text" v-model="city_of_residence" placeholder="Comune *" required>
+                        <input type="text" v-model="city_of_residence" placeholder="Comune *" @input="filterNumbers"
+                            required>
                         <br>
                     </div>
 
@@ -233,24 +250,38 @@ export default {
 
 
                 <div v-else-if="currentStep === 2" class="second-step">
-                    <select name="models" id="model-select" v-model="typology">
+                    <select name="models" id="model-select" v-model="typology" :required="orderList.length === 0">
                         <option value="" disabled selected hidden>Seleziona il modello *</option>
                         <option :disabled="exceptions.includes(model)" :value="!exceptions.includes(model) ? model : ''"
                             v-for="model in models"> {{ model }}
                         </option>
                     </select>
 
-                    <input type="number" name="quantity" id="" placeholder="Quantità *" min="1" v-model="quantity">
+                    <input type="number" name="quantity" id="" placeholder="Quantità *" min="1" v-model="quantity"
+                        :required="orderList.length === 0">
 
                     <br><br>
 
                     <label>Misure:
 
-                        <input type="text" name="width" id="" placeholder="Larghezza (in cm) *" v-model="width">
-                        <input type="text" name="height" id="" placeholder="Altezza (in cm) *" v-model="height">
+                        <input type="text" name="width" id="" placeholder="Larghezza (in cm) *" v-model="width"
+                            @input="filterSizes" :required="orderList.length === 0">
+                        <input type="text" name="height" id="" placeholder="Altezza (in cm) *" v-model="height"
+                            @input="filterSizes" :required="orderList.length === 0">
                     </label>
 
-                    <div class="nonso">
+                    <button @click="add()">Aggiungi</button>
+
+                    <br>
+                    <ul v-for="(order, index) in orderList" v-if="orderList.length !== 0" :key="index">
+                        <li>
+                            {{ order.typology }} - {{ order.quantity }} - {{ order.width }} - {{ order.height }} - {{
+                                order.colors }} <button @click="deleteModel(index)">Delete</button>
+                        </li>
+                    </ul>
+
+                    <br>
+                    <div class="color-choice">
                         <div class="list-typologies">
                             <div v-for="(typo, index) in store.colors" :key="index" class="typologies">
                                 <div @click="changeColorTypology(index)" class="typology-name"
@@ -265,7 +296,8 @@ export default {
                             :class="typo.active ? 'selected' : ''">
                             <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                                 <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
-                                    <input type="radio" name="color" @click="getColor(index, colorIndex)">
+                                    <input type="radio" name="color" @click="getColor(index, colorIndex)"
+                                        :required="orderList.length === 0">
                                     <!-- Immagine colore -->
                                     <img :src="color.image" :alt="color.name" class="color-image">
 
@@ -277,9 +309,6 @@ export default {
                             </div>
                         </div>
                     </div>
-
-                    <button @click="add()">Aggiungi</button>
-
                     <button @click="nextStep">Avanti</button>
                 </div>
 
@@ -299,7 +328,7 @@ export default {
 
 section {
     background-color: #686868;
-
+    min-height: calc(100vh - 312px);
 }
 
 .container {
@@ -441,14 +470,14 @@ section {
 
 }
 
-.nonso {
+.color-choice {
     display: flex;
     align-items: center;
     gap: 0 60px;
     margin: 0 auto;
     height: 420px;
     width: 600px;
-    background-color: #686868;
+    //background-color: #9c9c9c;
 
     [type=radio] {
         position: absolute;
