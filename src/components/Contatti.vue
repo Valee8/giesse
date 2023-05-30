@@ -143,7 +143,7 @@ section {
     color: #fff;
 
     .bg-section {
-        background-image: url('/img/jumbotron-faq2.png');
+        background-image: url('/img/jumbotron-faq.png');
         background-size: cover;
         background-position: center;
         height: 410px;
