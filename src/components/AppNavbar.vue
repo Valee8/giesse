@@ -2,8 +2,6 @@
 
 import { store } from '../store.js';
 
-const menu = document.getElementsByClassName("menu-vale");
-
 export default {
     name: 'AppNavbar',
     data() {
@@ -11,62 +9,68 @@ export default {
             store,
         }
     },
-    methods: {
-        changePage(index) {
+    updated() {
+        const circle_menu = document.getElementById("circle-menu");
 
-            //li[index].classList.add("active");
-
-            //menu[index].classList.add("active");
-
-            if (index === 0) {
-                document.getElementById("circle-menu").className = "top active";
-            }
-            else if (index === 1) {
-                document.getElementById("circle-menu").className = "center active";
-            }
-
-            else if (index === 2) {
-                document.getElementById("circle-menu").className = "bottom active";
-            }
-
-            this.links[index].active = true;
-
-            localStorage.setItem('index', JSON.stringify(index));
-
-            //localStorage.setItem('active', JSON.stringify(this.links[index].active));
-
-            for (let i = 0; i < this.links.length; i++) {
-                if (index !== i) {
-                    this.links[i].active = false;
-                    //li[i].classList.remove("active");
+        if (window.location.href.includes('preventivo')) {
+            this.store.linksNav[0].active = true;
+            circle_menu.className = "top active";
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                if (i !== 0) {
+                    this.store.linksNav[i].active = false;
                 }
             }
         }
-    },
-    mounted() {
-
-        const index = localStorage.getItem('index');
-        //const active = localStorage.getItem('active');
-
-        if (index) {
-            this.links[index].active = true;
+        else if (window.location.href.includes('sede')) {
+            this.store.linksNav[1].active = true;
+            circle_menu.className = "center active";
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                if (i !== 1) {
+                    this.store.linksNav[i].active = false;
+                }
+            }
         }
-
-        //menu[index].classList.add("active");
-    },
-    // update() {
-    //     const valore = localStorage.getItem('nomeValore');
-
-    //     this.links[valore].active = true;
-
-    //     menu[valore].classList.add("active");
-    // }
+        else if (window.location.href.includes('contatti')) {
+            this.store.linksNav[2].active = true;
+            circle_menu.className = "bottom active";
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                if (i !== 2) {
+                    this.store.linksNav[i].active = false;
+                }
+            }
+        }
+        else {
+            circle_menu.className = "";
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                this.store.linksNav[i].active = false;
+            }
+        }
+    }
 }
 </script>
 
 <template>
-    <!-- Inizio navbar -->
-    <nav :class="{ 'nav-home': $route.name === 'home', 'nav-section': $route.name !== 'home' }" id="menuDesktop">
+    <!-- Menu nero in alto -->
+    <nav id="blackMenu">
+        <ul>
+            <div class="container">
+                <li>
+                    Zanzariere
+                </li>
+            </div>
+        </ul>
+
+        <div class="container">
+            <router-link to="/">
+                <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo"
+                    :class="{ 'logo-not-home': $route.name !== 'home' }">
+            </router-link>
+        </div>
+    </nav>
+    <!-- Menu nero in alto -->
+
+    <!-- Vecchio menu -->
+    <nav :class="{ 'nav-home': $route.name === 'home', 'nav-section': $route.name !== 'home' }" id="oldMenu">
         <div class="container">
             <!-- Logo -->
             <router-link to="/">
@@ -83,25 +87,31 @@ export default {
             </ul>
         </div>
     </nav>
+    <!-- Vecchio menu -->
 
-    <nav id="menuMobile" style="display: none">
-        <ul>
+
+    <!-- Menu attuale -->
+    <nav id="newMenu">
+        <div class="menu-container">
             <div id="circle-menu">
                 <div class="circle-menu-div">
                     <div class="circle"></div>
                 </div>
             </div>
             <div class="icons-menu">
-                <li v-for="(link, index) in store.linksNav" :key="index" :class="link.active ? 'active' : ''">
-                    <div class="icons" @click="changePage(index)">
-                        <router-link :to="{ name: link.href }">
-                            <i :class="link.icon"></i>
-                        </router-link>
-                    </div>
-                </li>
+                <ul>
+                    <li v-for="(link, index) in store.linksNav" :key="index" :class="link.active ? 'active' : ''">
+                        <div class="icons">
+                            <router-link :to="{ name: link.href }">
+                                <i :class="link.icon"></i>
+                            </router-link>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </ul>
+        </div>
     </nav>
+    <!-- Menu attuale -->
 </template>
 
 <style lang="scss" scoped>
@@ -109,166 +119,142 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-#circle-menu {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    left: 17px;
 
-    &.active {
-        visibility: visible;
+#blackMenu {
+    color: #fff;
+    width: 100%;
+
+    ul {
+        background-color: #000;
+        height: 60px;
+        line-height: 60px;
     }
 
-    &:not(.active) {
-        visibility: hidden;
 
+    .logo-not-home {
+        display: none;
     }
 
-    &.top,
-    &.center,
-    &.bottom {
-        transition-property: all;
-        transition-duration: 500ms;
-        transition-timing-function: ease-in-out;
-    }
-
-    &.top {
-        margin-top: 0;
-    }
-
-    &.center {
-        margin-top: 53px;
-    }
-
-    &.bottom {
-        margin-top: 107px;
+    .logo {
+        margin-top: 50px;
     }
 }
 
-.circle-menu-div {
-    height: calc(100% / 3);
-    display: flex;
-    align-items: center;
-}
 
-.circle {
-    height: 25px;
-    width: 23px;
-    border-radius: 40px;
-    background-color: #000;
 
-}
+///////
+#newMenu {
+    position: fixed;
+    right: 70px;
+    top: 100px;
 
-// Navbar
-nav {
-    // &#menuDesktop {
-    //     display: none;
-    // }
+    .menu-container {
+        display: flex;
+        justify-content: center;
 
-    &#menuMobile {
-        position: absolute;
-        right: 60px;
-        top: 100px;
-        height: 160px;
-        color: #fff;
-        border-radius: 50px;
-        text-align: center;
-        border-radius: 50px;
+        #circle-menu {
+            //height: 244px;
+            position: relative;
+            left: 25px;
 
-        ul {
-            height: 100%;
+            &.active {
+                visibility: visible;
+            }
+
+            &:not(.active) {
+                visibility: hidden;
+
+            }
+
+            &.top,
+            &.center,
+            &.bottom {
+                transition: all 500ms ease-in-out;
+            }
+
+            &:first-child {
+                margin-top: 15px;
+            }
+
+            // &.top {
+            //     margin-top: 15px;
+            // }
+
+            &.center {
+                margin-top: 87px;
+            }
+
+            &.bottom {
+                margin-top: 159px;
+            }
+        }
+
+        .circle-menu-div {
+            height: 72px;
             display: flex;
+            align-items: center;
 
-            // &::before {
-            //     content: "";
-            //     background-image: url('/img/top-bg-nav.svg');
-            //     background-size: cover;
-            //     background-repeat: no-repeat;
-            //     width: 47px;
-            //     height: 16px;
-            //     position: absolute;
-            //     top: -11px;
-            //     left: 11px;
-            //     transform: scale(52%);
-            // }
+            .circle {
+                height: 34px;
+                width: 34px;
+                border-radius: 40px;
+                background-color: #000;
 
-            // &::after {
-            //     content: "";
-            //     background-image: url('/img/top-bg-nav.svg');
-            //     background-size: cover;
-            //     background-repeat: no-repeat;
-            //     width: 47px;
-            //     height: 16px;
-            //     position: absolute;
-            //     bottom: -12px;
-            //     left: 11px;
-            //     transform: scale(52%) rotate(180deg);
-            // }
+            }
+        }
 
+        .icons-menu {
+            background-image: url('/img/bg-nav-top.png'), url('/img/bg-nav-bottom.png');
+            background-position: top center, bottom center;
+            background-size: 100%;
+            background-repeat: no-repeat, no-repeat;
+            width: 34px;
+            height: 244px;
+            position: relative;
+            z-index: 80;
 
             li {
-                display: flex;
-                align-items: center;
-                height: calc(100% / 3);
-                width: 24px;
-                position: relative;
+                height: 72px;
+                text-align: center;
+                line-height: 72px;
 
-                &.active {
-                    background-image: url('/img/bg-nav2.svg');
-                    background-repeat: no-repeat;
-                    background-size: contain;
-                    background-position: center;
+                a {
+                    color: #fff;
+                }
 
-                    &:last-child {
-                        border-top: 1px solid #000;
-                    }
-
-                    .icons-menu {
-                        display: flex;
-                        flex-direction: column;
-                    }
-
-                    .icons {
-                        //background-color: #000;
-                        //line-height: 25px;
-                        //height: 25px;
-                        //width: 23px;
-                        //border-radius: 40px;
-                        //position: relative;
-                        //right: 5px;
-                        //top: 0.03rem;
-                        // position: relative;
-                        // z-index: 20;
-                        // left: -11px;
-                        position: relative;
-                        left: 1px;
-
-                        svg {
-                            color: #fcf674;
-                        }
-                    }
+                &:first-child {
+                    margin-top: 14px;
                 }
 
                 &:not(.active) {
                     background-color: #000;
-                    justify-content: center;
-
-                    .icons {
-
-                        svg {
-                            color: #fff;
-                        }
-                    }
                 }
 
-                .icons {
+                &.active {
+                    background-image: url('/img/bg-nav-center.png');
+                    background-size: 100%;
+
+                    a {
+                        color: #fcf674;
+                    }
+
                     svg {
-                        font-size: 0.8rem;
+                        position: relative;
+                        left: -9px;
+                        top: 2px;
                     }
                 }
             }
         }
+
+
+    }
+}
+
+// Navbar
+nav {
+    &#oldMenu {
+        display: none;
     }
 
     .container {
