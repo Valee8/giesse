@@ -92,6 +92,12 @@ export default {
             //     return false;
             // }
         },
+        printNameSection() {
+            for (let i = 0; i < store.linksNav.length; i++) {
+                if (i === 0)
+                    return store.linksNav[i].text;
+            }
+        }
     },
     methods: {
         add() {
@@ -206,6 +212,16 @@ export default {
 <template>
     <section>
         <div class="container">
+
+            <div class="section-title">
+                <!-- Scritta Home -->
+                <router-link to="/">Home</router-link>
+                <!-- Icone freccia -->
+                <i class="fa-solid fa-chevron-right"></i>
+                <!-- Nome sezione -->
+                {{ printNameSection }}
+            </div>
+
             <div class="top">
                 <h1>
                     Fai il Preventivo
@@ -222,7 +238,7 @@ export default {
             </div>
 
             <form action="" @submit="handleSubmit">
-                <div v-if="currentStep === 1">
+                <div v-if="currentStep === 1" class="first-step">
                     Sei:
                     <label>
                         <input type="radio" value="privato" v-model="selectedOption" @change="resetCommonInputs">
@@ -344,16 +360,18 @@ section {
 }
 
 .container {
-    text-align: center;
     color: #fff;
     padding: 20px 0;
+    //max-width: 550px;
 
     form {
         padding: 20px 0;
+        text-align: center;
     }
 
     .top {
         display: flex;
+        text-align: center;
         justify-content: center;
         align-items: center;
         gap: 50px;
