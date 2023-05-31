@@ -7,21 +7,18 @@ export const store = reactive({
         {
             text: "Richiedi Preventivo",
             href: "preventivo",
-            name: "preventivo",
             icon: "fa-regular fa-file-lines",
             active: false
         },
         {
             text: "Posizione Sede",
             href: "sede",
-            name: "sede",
             icon: "fa-solid fa-location-dot",
             active: false
         },
         {
             text: "Contatti",
             href: "contatti",
-            name: "sede",
             icon: "fa-solid fa-phone",
             active: false
         }
