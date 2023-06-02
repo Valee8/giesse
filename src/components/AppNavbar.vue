@@ -158,11 +158,11 @@ export default {
             left: 25px;
 
             &.active {
-                visibility: visible;
+                display: block;
             }
 
             &:not(.active) {
-                visibility: hidden;
+                display: none;
 
             }
 
@@ -235,7 +235,7 @@ export default {
                     background-size: 100%;
 
                     a {
-                        color: #fcf674;
+                        color: $yellow-color;
                     }
 
                     svg {
