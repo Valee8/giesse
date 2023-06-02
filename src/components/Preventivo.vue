@@ -23,6 +23,66 @@ export default {
             width: "",
             height: "",
             colors: "",
+            selectedModel: "",
+            choice: "",
+            zanzs: [
+                {
+                    name: "Verticali a molla classica (guida telescopica)",
+                    image: "/img/alba.png",
+                    active: true,
+                    models: [
+                        "ALBA (con cuffie)",
+                        "SONIA (senza cuffie)",
+                        "GENNY (cassonetto da 40mm)",
+                    ]
+                },
+                {
+                    name: "Vertica a molla classica (guida singola)",
+                    image: "/img/alba.png",
+                    active: false,
+                    models: [
+                        "GIUSY (con cuffie)",
+                        "ELENA (senza cuffie)",
+                        "EDDI (cassonetto da 40mm)"
+                    ]
+                },
+                {
+                    name: "Verticali a molla (cricchetto)",
+                    image: "/img/laura.png",
+                    active: false,
+                    models: [
+                        "LAURA (con cuffie)",
+                        "EVA (senza cuffie)",
+                        "ASIA (cassonetto da 40mm)"
+                    ]
+                },
+                {
+                    name: "Verticali a catena classica (guida telescopica)",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "KATIA (con cuffie)",
+                        "VERA (senza cuffie)"
+                    ]
+                },
+                {
+                    name: "Verticali a catena classica (guida singola)",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "SARA (senza cuffie)"
+                    ]
+                },
+                {
+                    name: "Verticali a catena + molla",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "GIADA (con cuffie)",
+                        "MERI (senza cuffie)"
+                    ]
+                }
+            ],
             exceptions: [
                 "Verticali a molla",
                 "Verticali a catena",
@@ -80,7 +140,7 @@ export default {
                 this.enableButton = true;
             }
 
-            if (this.selectedOption === 'privato') {
+            if (this.selectedOption === 'privato' || this.selectedOption === '') {
                 if (this.name.trim() !== '' && this.surname.trim() !== '' && this.enableButton) {
                     return true;
                 }
@@ -100,6 +160,30 @@ export default {
         }
     },
     methods: {
+        avanti(index) {
+            index++;
+
+            this.zanzs[index].active = true;
+
+            for (let i = 0; i < this.zanzs.length; i++) {
+                if (i !== index) {
+                    this.zanzs[i].active = false;
+                }
+            }
+
+        },
+        indietro(index) {
+            index--;
+
+            this.zanzs[index].active = true;
+
+            for (let i = 0; i < this.zanzs.length; i++) {
+                if (i !== index) {
+                    this.zanzs[i].active = false;
+                }
+            }
+
+        },
         add() {
             if (this.typology !== '' && this.quantity !== 0 && this.width !== '' && this.height !== '' && this.colors !== '') {
 
@@ -111,6 +195,8 @@ export default {
                     width: this.width,
                     height: this.height,
                     colors: this.colors,
+                    models: this.selectedModel,
+                    choice: this.choice,
                 }
 
                 const existingData = localStorage.getItem("Preventivo");
@@ -131,6 +217,8 @@ export default {
                 this.width = "";
                 this.height = "";
                 this.colors = "";
+                this.selectedModel = "";
+                this.choice = "";
 
                 this.store.colors[0].active = true;
 
@@ -160,7 +248,7 @@ export default {
         },
         getColor(index, colorIndex) {
             for (let i = 0; i < store.colors.length; i++) {
-                this.colors = store.colors[index].colorInfo[colorIndex].name;
+                this.colors = store.colors[index].colorInfo[colorIndex].image;
             }
         },
         // Cambio colore cliccando il nome della tipologia
@@ -224,91 +312,158 @@ export default {
 
             <div class="top">
                 <h1>
-                    Fai il Preventivo
+                    Fai il <div>Preventivo</div>
                 </h1>
 
 
-                <div class="steps">
-                    <div :class="currentStep === 1 ? 'current' : ''">1</div>
+                <div class="steps-circles">
+                    <div class="circle" :class="currentStep === 1 ? 'current' : ''">1</div>
                     <hr>
-                    <div :class="currentStep === 2 ? 'current' : ''">2</div>
+                    <div class="circle" :class="currentStep === 2 ? 'current' : ''">2</div>
                     <hr>
-                    <div :class="currentStep === 3 ? 'current' : ''">3</div>
+                    <div class="circle" :class="currentStep === 3 ? 'current' : ''">3</div>
                 </div>
             </div>
 
-            <form action="" @submit="handleSubmit">
+            <div class="steps-text">
+                <div class="step">
+                    <div>
+                        Compila i dati personali
+                    </div>
+                    <div>
+                        Compila il form per inviare il preventivo
+                    </div>
+                    <div>
+                        Clicca conferma
+                    </div>
+                </div>
+            </div>
+
+
+            <form action="" @submit="handleSubmit" class="bottom">
                 <div v-if="currentStep === 1" class="first-step">
-                    Sei:
-                    <label>
-                        <input type="radio" value="privato" v-model="selectedOption" @change="resetCommonInputs">
-                        Privato
-                    </label>
-                    <label>
-                        <input type="radio" value="azienda" v-model="selectedOption" @change="resetCommonInputs">
-                        Azienda
-                    </label>
-                    <br><br>
 
-                    <div v-if="selectedOption === 'privato'">
-                        <input type="text" v-model="name" placeholder="Nome *" @input="filterNumbers" required>
-                        <br>
-                        <input type="text" v-model="surname" placeholder="Cognome *" @input="filterNumbers" required>
-                    </div>
-                    <div v-else-if="selectedOption === 'azienda'">
-                        <input type="text" v-model="agency_name" placeholder="Nome Azienda *" required>
-                    </div>
-                    <div v-if="selectedOption">
-                        <input type="email" v-model="email" placeholder="E-mail *" required>
-                        <br>
-                        <input type="text" v-model="telephone" placeholder="Telefono *" maxlength="10"
-                            @input="filterCharacters" required>
-                        <br>
-                        <input type="text" v-model="city_of_residence" placeholder="Comune *" @input="filterNumbers"
-                            required>
-                        <br>
+                    <div class="first-step-left">
+                        <div v-if="selectedOption === 'privato' || this.selectedOption === ''">
+                            <input type="text" v-model="name" placeholder="Nome *" @input="filterNumbers" required>
+                            <br>
+                            <input type="text" v-model="surname" placeholder="Cognome *" @input="filterNumbers" required>
+                        </div>
+                        <div v-else-if="selectedOption === 'azienda'">
+                            <input type="text" v-model="agency_name" placeholder="Nome Azienda *" required>
+                        </div>
+                        <div>
+                            <input type="email" v-model="email" placeholder="E-mail *" required>
+                            <br>
+                            <input type="text" v-model="telephone" placeholder="Telefono *" maxlength="10"
+                                @input="filterCharacters" required>
+                            <br>
+                            <input type="text" v-model="city_of_residence" placeholder="Comune *" @input="filterNumbers"
+                                required>
+
+                            <div class="obligatory">
+                                i cambi contrassegnati con &ast; sono obbligatori
+                            </div>
+                        </div>
                     </div>
 
-                    <button @click="nextStep" v-if="selectedOption">Avanti</button>
+                    <div class="first-step-right">
+                        <div class="radios">
+                            <label for="privato">
+                                <input type="radio" id="privato" value="privato" v-model="selectedOption"
+                                    @change="resetCommonInputs" checked>
+                                Privato
+                            </label>
+
+                            <label for="azienda">
+                                <input type="radio" id="azienda" value="azienda" v-model="selectedOption"
+                                    @change="resetCommonInputs">
+                                Azienda
+                            </label>
+                        </div>
+
+                        <div class="form-button">
+                            <button @click="nextStep">Completa i dati</button>
+                        </div>
+
+                    </div>
                 </div>
 
 
                 <div v-else-if="currentStep === 2" class="second-step">
-                    <select name="models" id="model-select" v-model="typology" :required="orderList.length === 0">
-                        <option value="" disabled selected hidden>Seleziona il modello *</option>
-                        <option :disabled="exceptions.includes(model)" :value="!exceptions.includes(model) ? model : ''"
-                            v-for="model in models"> {{ model }}
-                        </option>
-                    </select>
 
-                    <input type="number" name="quantity" id="" placeholder="Quantità *" min="1" v-model="quantity"
-                        :required="orderList.length === 0">
+                    <div id="zanz" style="display: none;">
+                        <div class="zanz">
+                            <div v-for="(zanz, index) in zanzs" :key="index" :class="zanz.active ? 'active' : ''">
+                                <img :src="zanz.image">
+                                <button @click="avanti(index)" v-if="zanz.active" class="avanti">Avanti</button>
+                                <button @click="indietro(index)" v-if="zanz.active" class="indietro">Indietro</button>
+                            </div>
+                        </div>
+                    </div>
 
-                    <br><br>
+                    <div class="inputs-top">
+                        <select v-model="typology" id="typology-select" :required="orderList.length === 0">
+                            <option value="" disabled selected hidden>Seleziona la tipologia *</option>
+                            <option v-for="(zanz, index) in zanzs" :key="index" :value="zanz.name">
+                                {{ zanz.name }}
+                            </option>
+                        </select>
 
-                    <label>Misure:
+                        <span v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex">
+                            <select v-if="(typology === '' && zanzIndex === 0) || typology === zanz.name"
+                                :required="orderList.length === 0" v-model="selectedModel">
+                                <option value="" disabled selected hidden>Seleziona il modello *</option>
+                                <option v-for="(nameModel, index) in zanz.models" :value="nameModel"
+                                    v-if="typology === zanz.name">
+                                    {{ nameModel }}</option>
+                            </select>
+                        </span>
+                    </div>
 
-                        <input type="text" name="width" id="" placeholder="Larghezza (in cm) *" v-model="width"
-                            @input="filterSizes" :required="orderList.length === 0">
-                        <input type="text" name="height" id="" placeholder="Altezza (in cm) *" v-model="height"
-                            @input="filterSizes" :required="orderList.length === 0">
-                    </label>
 
-                    <button @click="add()">Aggiungi</button>
+                    <div class="inputs-center">
+                        <label for="inputs">Inserisci: </label>
+                        <span id="inputs">
+                            <input type="text" name="width" placeholder="Larghezza (in cm) *" v-model="width"
+                                @input="filterSizes" :required="orderList.length === 0">
 
-                    <br>
-                    <ul v-for="(order, index) in orderList" v-if="orderList.length !== 0" :key="index">
-                        <li>
-                            {{ order.typology }} - {{ order.quantity }} - {{ order.width }} - {{ order.height }} - {{
-                                order.colors }} <button @click="deleteModel(index)">Delete</button>
-                        </li>
-                    </ul>
+                            <input type="text" name="height" placeholder="Altezza (in cm) *" v-model="height"
+                                @input="filterSizes" :required="orderList.length === 0">
 
-                    <br>
-                    <textarea name="" id="" cols="60" rows="10" placeholder="Messaggio"></textarea>
+                            <input type="number" name="quantity" placeholder="Quantità *" min="1" v-model="quantity"
+                                :required="orderList.length === 0">
+                        </span>
+                    </div>
 
-                    <br>
-                    <br>
+                    <div class="inputs-bottom">
+                        <label for="normale">
+                            Rete normale
+                            <input type="radio" id="normale" value="Rete normale" v-model="choice">
+                        </label>
+
+                        <label for="rigata">
+                            Rete rigata
+                            <input type="radio" id="rigata" value="Rete rigata" v-model="choice">
+                        </label>
+
+                        <label for="oscurante-bianco">
+                            Oscurante bianco
+                            <input type="radio" id="oscurante-bianco" value="Oscurante bianco" v-model="choice">
+                        </label>
+
+                        <label for="oscurante-nero">
+                            Oscurante nero
+                            <input type="radio" id="oscurante-nero" value="Oscurante nero" v-model="choice">
+                        </label>
+                    </div>
+
+                    <hr>
+
+                    <h2>
+                        Seleziona il Colore
+                    </h2>
+
                     <div class="color-choice">
                         <div class="list-typologies">
                             <div v-for="(typo, index) in store.colors" :key="index" class="typologies">
@@ -337,7 +492,43 @@ export default {
                             </div>
                         </div>
                     </div>
-                    <button @click="nextStep">Avanti</button>
+
+                    <div class="form-button">
+                        <button @click="add()">Aggiungi Zanzariera</button>
+                    </div>
+
+                    <ul>
+                        <li v-for="(order, index) in orderList" v-if="orderList.length !== 0" :key="index"
+                            class="list-order">
+                            <span>
+                                {{ order.typology.replace(/\([^)]*\)/g, "") }} | {{
+                                    order.models.charAt(0).toUpperCase() +
+                                    order.models.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} | {{ order.choice }}
+                                |
+                                <img :src="order.colors" class="order-image">
+                            </span>
+                            <span>
+                                Quantit&agrave;: {{ order.quantity }}
+                            </span>
+
+                            <span>
+                                {{ order.width }} cm x {{ order.height }} cm
+                            </span>
+
+                            <button @click="deleteModel(index)">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="textarea">
+                        <textarea name="message" rows="8" placeholder="Messaggio"></textarea>
+                    </div>
+
+                    <div class="form-button">
+                        <button @click="nextStep">Conferma le zanzariere</button>
+                    </div>
+
                 </div>
 
 
@@ -354,6 +545,318 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+
+.bottom {
+    color: #000;
+
+    hr {
+        border-color: #000;
+        margin: 40px 0;
+    }
+}
+
+
+.form-button {
+    padding-bottom: 22px;
+
+    button {
+        background-color: $yellow-color;
+        padding: 10px 50px;
+        border: 0;
+        color: #000;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}
+
+.second-step {
+    background-color: #adadad;
+    max-width: 1020px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px;
+
+    .list-order {
+        margin: 40px 0;
+        border: 1px solid #000;
+        padding: 20px;
+
+        span,
+        button {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0 8px;
+        }
+
+        button {
+            cursor: pointer;
+            border-radius: 50px;
+            padding: 8px 10px;
+            border: 0;
+            color: #912020;
+        }
+
+        .order-image {
+            width: 30px;
+            height: 30px;
+            border-radius: 50px;
+            vertical-align: middle;
+        }
+    }
+
+    .form-button {
+
+        &:last-of-type {
+            padding-top: 30px;
+
+            button {
+                border-radius: 0;
+            }
+        }
+
+        button {
+            padding: 10px 15px;
+        }
+    }
+
+    .textarea {
+        textarea {
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+            padding: 15px;
+            font-size: 0.9rem;
+            border: 0;
+            color: #b9b9b9;
+            font-weight: 500;
+            outline: none;
+        }
+
+        ::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #b9b9b9;
+            opacity: 1;
+            /* Firefox */
+        }
+
+        :-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: #b9b9b9;
+        }
+
+        ::-ms-input-placeholder {
+            /* Microsoft Edge */
+            color: #b9b9b9;
+        }
+    }
+
+
+    select {
+        font-family: 'Montserrat', sans-serif;
+        border-radius: 50px;
+        border: 2px solid $yellow-color;
+        box-shadow: inset 0 3px 0 rgba(0, 0, 0, .1);
+        background-color: #cccccc;
+        outline: none;
+        padding: 5px 10px;
+        font-size: 0.9rem;
+        margin: 0 10px;
+    }
+
+    .inputs-center,
+    .inputs-bottom {
+        padding-top: 40px;
+    }
+
+    .inputs-top,
+    .inputs-center {
+        input {
+            margin: 0 10px;
+        }
+
+        label {
+            font-weight: 500;
+        }
+    }
+
+    .inputs-bottom {
+        label {
+            margin: 0 10px;
+        }
+
+        input {
+            vertical-align: middle;
+            accent-color: #000;
+        }
+    }
+
+    input {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #cccccc;
+        border: 0;
+        border-radius: 50px;
+        padding: 5px;
+        font-size: 0.9rem;
+        color: #000;
+        outline: none;
+    }
+
+    ::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #000;
+        opacity: 1;
+        /* Firefox */
+    }
+
+    :-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: #000;
+    }
+
+    ::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: #000;
+    }
+
+    .form-button {
+        button {
+            border-radius: 10px;
+        }
+    }
+}
+
+.section-title {
+    a {
+        color: #fff;
+    }
+}
+
+.first-step {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: #adadad;
+    max-width: 890px;
+    margin: 0 auto;
+    padding: 40px;
+
+    .first-step-left {
+        height: 292px;
+
+        input[type] {
+            margin: 6px 0;
+            background: #fff;
+            width: 280px;
+            padding: 6px 12px 20px 12px;
+            border: 0;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            color: #b9b9b9;
+        }
+
+        .obligatory {
+            font-size: 0.6rem;
+            font-weight: bold;
+            padding-top: 10px;
+        }
+    }
+
+    .first-step-right {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+
+        input[type='radio'] {
+            accent-color: #000;
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin: 8px 0;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .radios {
+            flex-grow: 1;
+        }
+
+    }
+
+    ::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #b9b9b9;
+        font-weight: 500;
+        opacity: 1;
+        /* Firefox */
+    }
+
+    :-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: #b9b9b9;
+    }
+
+    ::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: #b9b9b9;
+    }
+
+}
+
+#zanz {
+    width: 500px;
+    margin: 0 auto;
+
+    .avanti {
+        position: absolute;
+        right: -80px;
+        top: 30%;
+    }
+
+    .indietro {
+        position: absolute;
+        left: -80px;
+        top: 30%;
+    }
+
+    .zanz {
+        display: flex;
+        position: relative;
+
+        div {
+            width: 100px;
+            height: 128px;
+
+            img {
+                display: block;
+            }
+
+            // &:nth-child(odd) {
+            //     border: 2px solid red;
+            // }
+
+            &.active {
+                border: 2px solid yellow;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
 section {
     background-color: #686868;
     min-height: calc(100vh - 312px);
@@ -366,37 +869,73 @@ section {
 
     form {
         padding: 20px 0;
-        text-align: center;
     }
 
     .top {
         display: flex;
         text-align: center;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         gap: 50px;
+        max-width: 700px;
+        margin: 0 auto;
+        padding-top: 40px;
 
-        .steps {
+        h1 {
+            font-size: 2rem;
+            text-align: left;
+        }
+
+        .steps-circles {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            //gap: 20px;
             font-size: 1.8rem;
 
             hr {
-                width: 60px;
+                width: 70px;
                 border: 2px solid #fff;
             }
 
-            div {
-                border: 2px solid #fff;
+            .circle {
+                border: 3px solid #fff;
                 border-radius: 50px;
-                width: 40px;
-                height: 40px;
+                width: 60px;
+                height: 60px;
+                line-height: 60px;
+                font-weight: 500;
 
                 &.current {
-                    background-color: #fcf674;
-                    color: #000;
+                    background-color: $yellow-color;
+                }
+            }
+        }
+    }
+
+    .steps-text {
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 15px;
+
+        .step {
+            display: flex;
+            margin-left: auto;
+            width: 320px;
+
+            div {
+                width: calc(100% / 3);
+                position: relative;
+                font-weight: 500;
+                font-size: 0.8rem;
+
+                &:first-child {
+                    left: -25px;
+                }
+
+
+                &:last-child {
+                    left: 25px;
                 }
             }
         }
@@ -419,36 +958,45 @@ section {
 // }
 
 .list-typologies {
-    text-align: center;
-    width: 93px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    //padding: 20px 0;
+    padding-bottom: 20px;
 
-    .typologies {
-        padding: 0.1rem 0;
-        border-bottom: 1px solid #fff;
+    // .typologies {
+    //     padding: 0.1rem 0;
+    //     border-bottom: 1px solid #fff;
 
-        &:first-child {
-            border-top: 1px solid #fff;
-        }
-    }
+    //     &:first-child {
+    //         border-top: 1px solid #fff;
+    //     }
+    // }
 
     // Nome tipologia
     .typology-name {
         cursor: pointer;
         font-weight: 500;
-        font-size: 0.9rem;
-        padding: 5px 0 5px 4px;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        background-color: #cccccc;
+        border: 2px solid transparent;
+        padding: 5px 25px;
+        //padding: 5px 0 5px 4px;
 
         &.selected {
-            color: #fcf674;
-            border-left: 4px solid #fcf674;
-            padding-left: 0;
+            color: $yellow-color;
+            border: 2px solid $yellow-color;
+            box-shadow: inset 0 3px 0 rgba(0, 0, 0, .1), 0 3px 0 rgba(0, 0, 0, .3);
+            //border-left: 4px solid $yellow-color;
+            //padding-left: 0;
         }
     }
 }
 
 // Nomi e immagini colori - parte destra
 .list-colors {
-    width: 90%;
+    padding-top: 30px;
 
     &:not(.selected) {
         display: none;
@@ -457,6 +1005,7 @@ section {
     // Blocco intero colori
     .colors {
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
         gap: 15px;
         color: #fff;
@@ -465,7 +1014,7 @@ section {
 
         // Colore singolo
         .color {
-            width: 140px;
+            width: 120px;
             cursor: pointer;
 
             // Nome colore
@@ -482,17 +1031,18 @@ section {
                 padding: 2px 5px;
                 border: 2px solid transparent;
                 border-top: 0;
+                display: none;
             }
 
             // Immagine colore
             .color-image {
                 display: block;
                 width: 100%;
-                height: 75px;
+                height: 120px;
                 object-fit: cover;
-                border-radius: 10px 10px 0 0;
+                border-radius: 50%;
                 border: 2px solid transparent;
-                border-bottom: 0;
+                //border-bottom: 0;
             }
         }
 
@@ -501,14 +1051,9 @@ section {
 }
 
 .color-choice {
-    display: flex;
-    align-items: center;
-    gap: 0 60px;
     margin: 0 auto;
-    height: 420px;
-    padding: 0 20px;
-    width: 700px;
-    background-color: #9c9c9c;
+    height: 450px;
+    padding: 60px 20px;
 
     [type=radio] {
         position: absolute;
@@ -518,14 +1063,14 @@ section {
     }
 
     [type=radio]:checked+.color-image {
-        border: 2px solid #fcf674;
-        border-bottom: 0;
+        border: 3px solid $yellow-color;
+        //border-bottom: 0;
     }
 
     /* CHECKED STYLES */
-    [type=radio]:checked+.color-image+.color-name {
-        border: 2px solid #fcf674;
-        border-top: 0;
-    }
+    // [type=radio]:checked+.color-image+.color-name {
+    //     border: 2px solid $yellow-color;
+    //     border-top: 0;
+    // }
 }
 </style>
