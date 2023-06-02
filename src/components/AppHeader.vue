@@ -78,7 +78,7 @@ header {
 
             // Bottone
             .button-header {
-                background-color: #fcf674;
+                background-color: $yellow-color;
                 font-weight: bold;
                 padding: 8px 20px;
                 color: #000;

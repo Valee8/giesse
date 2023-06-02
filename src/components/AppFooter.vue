@@ -109,14 +109,14 @@ footer {
 
         // Bordo sotto il titolo
         .border {
-            background-color: #fcf674;
+            background-color: $yellow-color;
             width: 40px;
             height: 4px;
         }
 
         // Titolo
         h3 {
-            color: #fcf674;
+            color: $yellow-color;
             font-size: 1rem;
             padding-bottom: 5px;
             line-height: 20px;

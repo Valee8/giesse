@@ -91,7 +91,7 @@ section {
         }
 
         span {
-            color: #fcf674;
+            color: $yellow-color;
             font-weight: 500;
         }
     }
