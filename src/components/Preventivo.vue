@@ -6,6 +6,8 @@ export default {
     name: 'Preventivo',
     data() {
         return {
+            fixRequiredProblem: false,
+            infoList: [],
             orderList: [],
             secondStepValid: false,
             store,
@@ -27,23 +29,16 @@ export default {
             choice: "",
             zanzs: [
                 {
-                    name: "Verticali a molla classica (guida telescopica)",
+                    name: "Verticali a molla classica",
                     image: "/img/alba.png",
                     active: true,
                     models: [
-                        "ALBA (con cuffie)",
-                        "SONIA (senza cuffie)",
-                        "GENNY (cassonetto da 40mm)",
-                    ]
-                },
-                {
-                    name: "Vertica a molla classica (guida singola)",
-                    image: "/img/alba.png",
-                    active: false,
-                    models: [
-                        "GIUSY (con cuffie)",
-                        "ELENA (senza cuffie)",
-                        "EDDI (cassonetto da 40mm)"
+                        "ALBA (guida telescopica, con cuffie)",
+                        "SONIA (guida telescopica, senza cuffie)",
+                        "GENNY (guida telescopica, cassonetto da 40mm)",
+                        "GIUSY (guida singola, con cuffie)",
+                        "ELENA (guida singola, senza cuffie)",
+                        "EDDI (guida singola, cassonetto da 40mm)"
                     ]
                 },
                 {
@@ -57,20 +52,13 @@ export default {
                     ]
                 },
                 {
-                    name: "Verticali a catena classica (guida telescopica)",
+                    name: "Verticali a catena classica",
                     image: "/img/katia.png",
                     active: false,
                     models: [
-                        "KATIA (con cuffie)",
-                        "VERA (senza cuffie)"
-                    ]
-                },
-                {
-                    name: "Verticali a catena classica (guida singola)",
-                    image: "/img/katia.png",
-                    active: false,
-                    models: [
-                        "SARA (senza cuffie)"
+                        "KATIA (guida telesopica, con cuffie)",
+                        "VERA (guida telescopica, senza cuffie)",
+                        "SARA (guida singola, senza cuffie)"
                     ]
                 },
                 {
@@ -81,57 +69,118 @@ export default {
                         "GIADA (con cuffie)",
                         "MERI (senza cuffie)"
                     ]
+                },
+                {
+                    name: "Laterali a molla classica",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "TIPO ALBA (con cuffie)",
+                        "TIPO SONIA (senza cuffie)",
+                        "TIPO GENNY (cassonetto da 40mm)"
+                    ]
+                },
+                {
+                    name: "Laterali a molla (guida bassa da 2cm)",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "LARA (con cuffie)",
+                        "VALERIA (senza cuffie)",
+                        "DESI (cassonetto da 40mm)"
+                    ]
+                },
+                {
+                    name: "Laterale a molla (guida bassa da 14mm)",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "LUNA",
+                    ]
+                },
+                {
+                    name: "Laterale a molla (guida bassa da 3mm)",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "ZELIG",
+                    ]
+                },
+                {
+                    name: "Laterale Frizionata",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "JOLLY",
+                    ]
+                },
+                {
+                    name: "Laterale Antivento",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "BORA",
+                    ]
+                },
+                {
+                    name: "Laterale Plissettata",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "PLISSE' 22",
+                    ]
+                },
+                {
+                    name: "Porta a battente",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "ANTAREX",
+                    ]
+                },
+                {
+                    name: "A pannelli scorrevoli",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "SCORRI",
+                    ]
+                },
+                {
+                    name: "Telaio fisso",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "FISSA",
+                    ]
+                },
+                {
+                    name: "Incasso con guida da 50x35",
+                    image: "/img/katia.png",
+                    active: false,
+                    models: [
+                        "CASPER",
+                    ]
                 }
             ],
-            exceptions: [
-                "Verticali a molla",
-                "Verticali a catena",
-                "Orizzontali",
-                "Con guida bassa da 2cm",
-                "Con guida bassa da 14mm",
-                "Con guida bassa da 3mm",
-                "Altre",
-                "Frizionata",
-                "Plissettata",
-                "Antivento"
-            ],
-            models: [
-                "Verticali a molla",
-                "ALBA (con cuffie)",
-                "SONIA (senza cuffie)",
-                "GENNY (cassonetto da 40)",
-                "LAURA (cricchetto, con cuffie)",
-                "EVA (cricchetto, senza cuffie)",
-                "ASIA (cricchetto, cassonetto da 40)",
-                "Verticali a catena",
-                "KATIA (solo catena, con cuffie)",
-                "MERI (solo catena, senza cuffie)",
-                "GIADA (catena + molla, cuffie)",
-                "VERA (catena + molla, senza cuffie)",
-                "Orizzontali",
-                "Laterale Tipo ALBA (con cuffie)",
-                "Laterale Tipo SONIA (senza cuffie)",
-                "Laterale Tipo GENNY (cassonetto da 40)",
-                "Con guida bassa da 2cm",
-                "LARA (con cuffie)",
-                "VALERIA (senza cuffie)",
-                "DESI (cassonetto da 40)",
-                "Con guida bassa da 14mm",
-                "LUNA",
-                "Con guida bassa da 3mm",
-                "ZELIG",
-                "Frizionata",
-                "JOLLY",
-                "Antivento",
-                "BORA",
-                "Plissettata",
-                "PLISSE' 22",
-                "Altre",
-                "ANTAREX",
-                "SCORRI",
-                "FISSA",
-                "CASPER"
-            ],
+            nets: [
+                {
+                    value: "Rete normale",
+                    id: "normale",
+                },
+                {
+                    value: "Rete rigata",
+                    id: "rigata",
+                },
+                {
+                    value: "Oscurante bianco",
+                    id: "oscurante-bianco",
+                },
+                {
+                    value: "Oscurante nero",
+                    id: "oscurante-nero",
+                }
+            ]
         }
     },
     computed: {
@@ -160,8 +209,18 @@ export default {
         }
     },
     methods: {
-        avanti(index) {
-            index++;
+        sliderNext(index) {
+
+            this.selectedModel = "";
+
+            this.typology = this.zanzs[index + 1].name;
+
+            if (index < this.zanzs.length - 1) {
+                index++;
+            }
+            else {
+                index = 0;
+            }
 
             this.zanzs[index].active = true;
 
@@ -172,8 +231,18 @@ export default {
             }
 
         },
-        indietro(index) {
-            index--;
+        sliderPrev(index) {
+
+            this.selectedModel = "";
+
+            this.typology = this.zanzs[index + 1].name;
+
+            if (index <= this.zanzs.length - 1 && index > 0) {
+                index--;
+            }
+            else {
+                index = this.zanzs.length - 1;
+            }
 
             this.zanzs[index].active = true;
 
@@ -184,19 +253,21 @@ export default {
             }
 
         },
-        add() {
-            if (this.typology !== '' && this.quantity !== 0 && this.width !== '' && this.height !== '' && this.colors !== '') {
+        addZanz() {
+
+            if (this.selectedModel !== '' && this.width !== '' && this.height !== '' && this.quantity !== 0 && this.choice !== '' && this.colors !== '') {
+
+                this.fixRequiredProblem = false;
 
                 this.secondStepValid = true;
 
                 let obj = {
-                    typology: this.typology,
-                    quantity: this.quantity,
+                    models: this.selectedModel,
                     width: this.width,
                     height: this.height,
-                    colors: this.colors,
-                    models: this.selectedModel,
+                    quantity: this.quantity,
                     choice: this.choice,
+                    colors: this.colors,
                 }
 
                 const existingData = localStorage.getItem("Preventivo");
@@ -212,7 +283,7 @@ export default {
 
                 localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
 
-                this.typology = "";
+                //this.typology = "";
                 this.quantity = "";
                 this.width = "";
                 this.height = "";
@@ -227,11 +298,38 @@ export default {
                         this.store.colors[i].active = false;
                 }
             }
+            else {
+                this.fixRequiredProblem = true;
+
+            }
         },
         nextStep() {
             if (this.currentStep === 1 && this.firstStepValid || this.currentStep === 2 && this.secondStepValid && this.orderList.length !== 0) {
                 this.currentStep++;
             }
+
+
+
+            let obj = {
+                name: this.name,
+                surname: this.surname,
+                agency_name: this.agency_name,
+                telephone: this.telephone,
+                city_of_residence: this.city_of_residence,
+            }
+
+            const existingData = localStorage.getItem("Info dati");
+
+            if (existingData) {
+                this.infoList = JSON.parse(existingData);
+            }
+            else {
+                this.infoList = [];
+            }
+
+            this.infoList.push(obj);
+
+            localStorage.setItem("Info dati", JSON.stringify(this.infoList));
         },
         resetCommonInputs() {
             if (this.selectedOption) {
@@ -287,6 +385,14 @@ export default {
     },
     mounted() {
         //this.orderNumber = parseInt(localStorage.getItem("orderNumber")) || 0;
+
+        const localStorageData = localStorage.getItem("Preventivo");
+
+        if (localStorageData) {
+            this.orderList = JSON.parse(localStorageData);
+        }
+
+        this.typology = this.zanzs[0].name;
     },
     updated() {
         if (this.currentStep === 3) {
@@ -316,6 +422,7 @@ export default {
                 </h1>
 
 
+                <!-- Cerchi degli step -->
                 <div class="steps-circles">
                     <div class="circle" :class="currentStep === 1 ? 'current' : ''">1</div>
                     <hr>
@@ -325,6 +432,7 @@ export default {
                 </div>
             </div>
 
+            <!-- Scritte sotto ai cerchi -->
             <div class="steps-text">
                 <div class="step">
                     <div>
@@ -340,9 +448,14 @@ export default {
             </div>
 
 
+            <!-- Inizio form -->
             <form action="" @submit="handleSubmit" class="bottom">
+
+                <!-- Inizio step 1 -->
                 <div v-if="currentStep === 1" class="first-step">
 
+
+                    <!-- Parte sinistra step 1 con gl input -->
                     <div class="first-step-left">
                         <div v-if="selectedOption === 'privato' || this.selectedOption === ''">
                             <input type="text" v-model="name" placeholder="Nome *" @input="filterNumbers" required>
@@ -367,6 +480,7 @@ export default {
                         </div>
                     </div>
 
+                    <!-- Parte destra step 1 con gli input radio e il bottone completa i dati -->
                     <div class="first-step-right">
                         <div class="radios">
                             <label for="privato">
@@ -390,80 +504,79 @@ export default {
                 </div>
 
 
+                <!-- Inizio step 2 -->
                 <div v-else-if="currentStep === 2" class="second-step">
 
-                    <div id="zanz" style="display: none;">
-                        <div class="zanz">
-                            <div v-for="(zanz, index) in zanzs" :key="index" :class="zanz.active ? 'active' : ''">
-                                <img :src="zanz.image">
-                                <button @click="avanti(index)" v-if="zanz.active" class="avanti">Avanti</button>
-                                <button @click="indietro(index)" v-if="zanz.active" class="indietro">Indietro</button>
-                            </div>
-                        </div>
-                    </div>
 
+                    <!-- Parte sopra - slider -->
                     <div class="inputs-top">
-                        <select v-model="typology" id="typology-select" :required="orderList.length === 0">
-                            <option value="" disabled selected hidden>Seleziona la tipologia *</option>
-                            <option v-for="(zanz, index) in zanzs" :key="index" :value="zanz.name">
-                                {{ zanz.name }}
-                            </option>
-                        </select>
+                        <div class="slider-preventivo" v-for="(zanz, index) in zanzs" :key="index"
+                            :class="zanz.active ? 'active' : ''">
 
+                            <div class="arrows-image">
+                                <img :src="zanz.image" :alt="zanz.name" class="zanz-image">
+
+                                <!-- Icona freccia indietro -->
+                                <a class="arrow left" @click="sliderPrev(index)">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </a>
+
+                                <!-- Icona freccia avanti -->
+                                <a class="arrow right" @click="sliderNext(index)">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                            </div>
+
+                            <h2>
+                                {{ zanz.name }}
+                            </h2>
+                        </div>
+
+                        <!-- Seleziona modello -->
                         <span v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex">
-                            <select v-if="(typology === '' && zanzIndex === 0) || typology === zanz.name"
-                                :required="orderList.length === 0" v-model="selectedModel">
-                                <option value="" disabled selected hidden>Seleziona il modello *</option>
-                                <option v-for="(nameModel, index) in zanz.models" :value="nameModel"
-                                    v-if="typology === zanz.name">
+                            <select v-if="zanz.active" :required="fixRequiredProblem" v-model="selectedModel">
+                                <option value="" disabled selected hidden>Seleziona il modello *
+                                </option>
+                                <option v-for="(nameModel, index) in zanz.models" :value="nameModel" :key="index">
                                     {{ nameModel }}</option>
                             </select>
                         </span>
                     </div>
 
 
+                    <!-- Input centrale - Larghezza, altezza e quantita -->
                     <div class="inputs-center">
                         <label for="inputs">Inserisci: </label>
                         <span id="inputs">
                             <input type="text" name="width" placeholder="Larghezza (in cm) *" v-model="width"
-                                @input="filterSizes" :required="orderList.length === 0">
+                                @input="filterSizes" :required="fixRequiredProblem">
 
                             <input type="text" name="height" placeholder="Altezza (in cm) *" v-model="height"
-                                @input="filterSizes" :required="orderList.length === 0">
+                                @input="filterSizes" :required="fixRequiredProblem">
 
                             <input type="number" name="quantity" placeholder="Quantità *" min="1" v-model="quantity"
-                                :required="orderList.length === 0">
+                                :required="fixRequiredProblem">
                         </span>
                     </div>
 
+                    <!-- Input sotto - input radio scelta rete -->
                     <div class="inputs-bottom">
-                        <label for="normale">
-                            Rete normale
-                            <input type="radio" id="normale" value="Rete normale" v-model="choice">
-                        </label>
-
-                        <label for="rigata">
-                            Rete rigata
-                            <input type="radio" id="rigata" value="Rete rigata" v-model="choice">
-                        </label>
-
-                        <label for="oscurante-bianco">
-                            Oscurante bianco
-                            <input type="radio" id="oscurante-bianco" value="Oscurante bianco" v-model="choice">
-                        </label>
-
-                        <label for="oscurante-nero">
-                            Oscurante nero
-                            <input type="radio" id="oscurante-nero" value="Oscurante nero" v-model="choice">
+                        <label v-for="(net, index) in nets" :key="index">
+                            {{ net.value }}
+                            <input type="radio" name="net" :id="net.id" :value="net.value" v-model="choice"
+                                :required="fixRequiredProblem">
                         </label>
                     </div>
 
+                    <!-- Bordo separazione -->
                     <hr>
 
+                    <!-- Parte scelta colori -->
                     <h2>
                         Seleziona il Colore
                     </h2>
 
+                    <!-- Tipologia colori -->
                     <div class="color-choice">
                         <div class="list-typologies">
                             <div v-for="(typo, index) in store.colors" :key="index" class="typologies">
@@ -474,13 +587,13 @@ export default {
                             </div>
                         </div>
 
-                        <!-- Nomi e immagini colori - parte destra -->
+                        <!-- Nomi e immagini colori - parte sotto -->
                         <div class="list-colors" v-for="(typo, index) in store.colors" :key="index"
                             :class="typo.active ? 'selected' : ''">
                             <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                                 <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                                     <input type="radio" name="color" @click="getColor(index, colorIndex)"
-                                        :required="orderList.length === 0">
+                                        :required="fixRequiredProblem">
                                     <!-- Immagine colore -->
                                     <img :src="color.image" :alt="color.name" class="color-image">
 
@@ -493,18 +606,20 @@ export default {
                         </div>
                     </div>
 
+
+                    <!-- Bottone aggiungi zanzariera -->
                     <div class="form-button">
-                        <button @click="add()">Aggiungi Zanzariera</button>
+
+                        <button @click="addZanz()">Aggiungi
+                            Zanzariera</button>
                     </div>
 
-                    <ul>
-                        <li v-for="(order, index) in orderList" v-if="orderList.length !== 0" :key="index"
-                            class="list-order">
+                    <!-- Elenco zanzariere preventivo -->
+                    <ul v-if="orderList.length !== 0">
+                        <li v-for="(order, index) in orderList" :key="index" class="list-order">
                             <span>
-                                {{ order.typology.replace(/\([^)]*\)/g, "") }} | {{
-                                    order.models.charAt(0).toUpperCase() +
-                                    order.models.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} | {{ order.choice }}
-                                |
+                                {{ typology.replace(/\([^)]*\)/g, "") }} | {{ order.models.charAt(0).toUpperCase() +
+                                    order.models.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} | {{ order.choice }} |
                                 <img :src="order.colors" class="order-image">
                             </span>
                             <span>
@@ -521,19 +636,23 @@ export default {
                         </li>
                     </ul>
 
+                    <!-- Textarea -->
                     <div class="textarea">
                         <textarea name="message" rows="8" placeholder="Messaggio"></textarea>
                     </div>
 
-                    <div class="form-button">
+                    <!-- Bottone per passare allo step successivo -->
+                    <div class="form-button confirm">
                         <button @click="nextStep">Conferma le zanzariere</button>
                     </div>
 
                 </div>
 
 
+                <!-- Inizio terzo step -->
                 <div v-else class="third-step">
-                    Terzo step
+                    <div v-for="(list, index) in infoList" :key="index">
+                        {{ list.name }} {{ list.surname }}</div>
                 </div>
             </form>
         </div>
@@ -545,42 +664,90 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-
 .bottom {
     color: #000;
+    letter-spacing: 1px;
+    padding: 20px 0;
+
+    input,
+    label,
+    textarea,
+    button {
+        letter-spacing: 1px;
+    }
 
     hr {
-        border-color: #000;
-        margin: 40px 0;
+        border-bottom: 1px solid #000;
+        margin: 60px 0;
     }
-}
 
+    .form-button {
+        padding-bottom: 22px;
 
-.form-button {
-    padding-bottom: 22px;
-
-    button {
-        background-color: $yellow-color;
-        padding: 10px 50px;
-        border: 0;
-        color: #000;
-        font-size: 1.5rem;
-        font-weight: bold;
-        cursor: pointer;
+        button,
+        a {
+            background-color: $yellow-color;
+            padding: 10px 50px;
+            border: 0;
+            color: #000;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
     }
 }
 
 .second-step {
     background-color: #adadad;
-    max-width: 1020px;
+    max-width: 1070px;
     margin: 0 auto;
     text-align: center;
     padding: 40px;
+
+    .slider-preventivo {
+        max-width: 500px;
+        margin: 0 auto;
+
+        .arrows-image {
+            position: relative;
+        }
+
+        img {
+            width: 150px;
+        }
+
+        h2 {
+            padding: 20px 0 60px 0;
+        }
+
+        &:not(.active) {
+            display: none;
+        }
+
+        .arrow {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+
+            &.left {
+                left: 0;
+            }
+
+            &.right {
+                right: 0;
+            }
+        }
+    }
 
     .list-order {
         margin: 40px 0;
         border: 1px solid #000;
         padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
         span,
         button {
@@ -610,8 +777,10 @@ export default {
 
     .form-button {
 
-        &:last-of-type {
-            padding-top: 30px;
+        &.confirm {
+            //padding-top: 30px;
+            position: relative;
+            bottom: -84px;
 
             button {
                 border-radius: 0;
@@ -666,15 +835,39 @@ export default {
         margin: 0 10px;
     }
 
+    .inputs-bottom {
+        label {
+            background-color: #cccccc;
+            padding: 8px 10px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+
+            input {
+                margin-left: 10px;
+            }
+        }
+    }
+
     .inputs-center,
     .inputs-bottom {
-        padding-top: 40px;
+        padding-top: 60px;
+    }
+
+    .inputs-center {
+        input {
+            width: 190px;
+        }
+
+        input:nth-child(3) {
+            width: 130px;
+        }
     }
 
     .inputs-top,
     .inputs-center {
         input {
-            margin: 0 10px;
+            margin: 0 20px;
         }
 
         label {
@@ -684,7 +877,7 @@ export default {
 
     .inputs-bottom {
         label {
-            margin: 0 10px;
+            margin: 0 20px;
         }
 
         input {
@@ -698,7 +891,7 @@ export default {
         background-color: #cccccc;
         border: 0;
         border-radius: 50px;
-        padding: 5px;
+        padding: 8px 10px;
         font-size: 0.9rem;
         color: #000;
         outline: none;
@@ -812,51 +1005,6 @@ export default {
 
 }
 
-#zanz {
-    width: 500px;
-    margin: 0 auto;
-
-    .avanti {
-        position: absolute;
-        right: -80px;
-        top: 30%;
-    }
-
-    .indietro {
-        position: absolute;
-        left: -80px;
-        top: 30%;
-    }
-
-    .zanz {
-        display: flex;
-        position: relative;
-
-        div {
-            width: 100px;
-            height: 128px;
-
-            img {
-                display: block;
-            }
-
-            // &:nth-child(odd) {
-            //     border: 2px solid red;
-            // }
-
-            &.active {
-                border: 2px solid yellow;
-            }
-        }
-    }
-}
-
-
-
-
-
-
-
 section {
     background-color: #686868;
     min-height: calc(100vh - 312px);
@@ -866,10 +1014,6 @@ section {
     color: #fff;
     padding: 20px 0;
     //max-width: 550px;
-
-    form {
-        padding: 20px 0;
-    }
 
     .top {
         display: flex;
@@ -942,21 +1086,6 @@ section {
     }
 }
 
-// .second-step {
-
-//     label+input {
-//         margin-left: 0;
-//     }
-
-//     select {
-//         margin-right: 10px;
-//     }
-
-//     input {
-//         margin: 0 10px;
-//     }
-// }
-
 .list-typologies {
     display: flex;
     justify-content: center;
@@ -1015,6 +1144,7 @@ section {
         // Colore singolo
         .color {
             width: 120px;
+            height: 120px;
             cursor: pointer;
 
             // Nome colore
@@ -1038,10 +1168,12 @@ section {
             .color-image {
                 display: block;
                 width: 100%;
-                height: 120px;
-                object-fit: cover;
+                height: 100%;
                 border-radius: 50%;
                 border: 2px solid transparent;
+                margin-top: -15px;
+                position: relative;
+                z-index: 20;
                 //border-bottom: 0;
             }
         }
@@ -1055,11 +1187,17 @@ section {
     height: 450px;
     padding: 60px 20px;
 
-    [type=radio] {
-        position: absolute;
-        opacity: 0;
-        width: 0;
-        height: 0;
+
+    label {
+        position: relative;
+
+        [type=radio] {
+            position: relative;
+            top: 60px;
+            z-index: 1;
+            width: 1px;
+            height: 1px;
+        }
     }
 
     [type=radio]:checked+.color-image {
