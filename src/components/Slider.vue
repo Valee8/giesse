@@ -3,16 +3,12 @@ import { store } from '../store';
 
 let slider;
 
-const items = document.getElementsByClassName("slider");
-const thumbs = document.getElementsByClassName("rectangles");
-
-let activeItem = 0;
-
 export default {
     name: 'Slider',
     data() {
         return {
             store,
+            activeItem: "",
         }
     },
     mounted() {
@@ -33,14 +29,18 @@ export default {
         }
 
         if (window.location.hash === '#jolly') {
-            activeItem = 4;
+
+            slider[4].active = true;
+
+            for (let i = 0; i < slider.length; i++) {
+                if (i !== 4) {
+                    slider[i].active = false;
+                }
+            }
         }
         else {
-            activeItem = 0;
+            slider[0].active = true;
         }
-
-        items[activeItem].classList.add("active");
-        thumbs[activeItem].classList.add("active");
 
         // if (window.location.href.includes("verticali")) {
         //     slider = this.store.vertical;
@@ -65,79 +65,59 @@ export default {
     methods: {
         // Freccia avanti
         next(index) {
-            activeItem = index;
 
-            if (activeItem < slider.length - 1) {
-
-                items[activeItem].classList.remove("active");
-                thumbs[activeItem].classList.remove("active");
-
-                activeItem++;
-
-                items[activeItem].classList.add("active");
-                thumbs[activeItem].classList.add("active");
-
+            if (index < slider.length - 1) {
+                index++;
             }
 
             else {
-
-                activeItem = 0;
-
-                items[activeItem].classList.add("active");
-                thumbs[activeItem].classList.add("active");
-
-                items[slider.length - 1].classList.remove("active");
-                thumbs[slider.length - 1].classList.remove("active");
-
+                index = 0;
             }
 
             if (window.location.hash === '#jolly') {
                 window.location.hash = "";
+            }
+
+            slider[index].active = true;
+
+            for (let i = 0; i < slider.length; i++) {
+                if (i !== index) {
+                    slider[i].active = false;
+                }
             }
         },
         // Freccia indietro
         prev(index) {
-            activeItem = index;
 
-            if (activeItem <= slider.length - 1 && activeItem > 0) {
-
-                items[activeItem].classList.remove("active");
-                thumbs[activeItem].classList.remove("active");
-
-                activeItem--;
-
-                items[activeItem].classList.add("active");
-                thumbs[activeItem].classList.add("active");
-
+            if (index <= slider.length - 1 && index > 0) {
+                index--;
             }
 
             else {
-
-                activeItem = slider.length - 1;
-
-                items[activeItem].classList.add("active");
-                thumbs[activeItem].classList.add("active");
-
-                items[0].classList.remove("active");
-                thumbs[0].classList.remove("active");
-
+                index = slider.length - 1;
             }
 
             if (window.location.hash === '#jolly') {
                 window.location.hash = "";
             }
+
+            slider[index].active = true;
+
+            for (let i = 0; i < slider.length; i++) {
+                if (i !== index) {
+                    slider[i].active = false;
+                }
+            }
         },
-        // Cambio slide premendo i rettangoli in alto
+        //Cambio slide premendo i rettangoli in alto
         changeSlide(index) {
             for (let i = 0; i < slider.length; i++) {
                 if (i !== index) {
-                    items[i].classList.remove("active");
-                    thumbs[i].classList.remove("active");
+                    slider[i].active = false;
                 }
             }
 
-            items[index].classList.add("active");
-            thumbs[index].classList.add("active");
+            slider[index].active = true;
         },
         // Cambio colore cliccando il nome della tipologia
         changeColorTypology(index) {
@@ -202,12 +182,12 @@ export default {
                 <!-- Rettangolini in alto -->
                 <div class="list-rectangles">
                     <div class="rectangles" v-for="(rectangles, index) in getSlider" :key="index"
-                        @click="changeSlide(index)">
+                        @click="changeSlide(index)" :class="rectangles.active ? 'active' : ''">
                     </div>
                 </div>
 
                 <!-- Parte contenuto slider -->
-                <div class="slider" v-for="(slide, index) in getSlider" :key="index">
+                <div class="slider" v-for="(slide, index) in getSlider" :key="index" :class="slide.active ? 'active' : ''">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="slide.image" :alt="slide.model" class="slide-image">
