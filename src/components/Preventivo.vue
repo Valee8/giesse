@@ -14,6 +14,7 @@ export default {
             currentStep: 1,
             selectedOption: "",
             name: "",
+            newName: "",
             surname: "",
             agency_name: "",
             email: "",
@@ -25,6 +26,7 @@ export default {
             width: "",
             height: "",
             colors: "",
+            colorsName: "",
             selectedModel: "",
             choice: "",
             message: "",
@@ -179,15 +181,15 @@ export default {
             }
 
             if (this.selectedOption === '') {
-                this.selectedOption = 'privato';
+                this.selectedOption = 'Privato';
             }
 
-            if (this.selectedOption === 'privato') {
+            if (this.selectedOption === 'Privato') {
                 if (this.name.trim() !== '' && this.surname.trim() !== '' && this.enableButton) {
                     return true;
                 }
             }
-            else if (this.selectedOption === 'azienda' && this.enableButton) {
+            else if (this.selectedOption === 'Azienda' && this.enableButton) {
                 return this.agency_name.trim() !== '';
             }
             // else {
@@ -261,6 +263,7 @@ export default {
                     quantity: this.quantity,
                     choice: this.choice,
                     colors: this.colors,
+                    colorsName: this.colorsName,
                     message: this.message
                 }
 
@@ -282,6 +285,7 @@ export default {
                 this.width = "";
                 this.height = "";
                 this.colors = "";
+                this.colorsName = "";
                 this.selectedModel = "";
                 this.choice = "";
                 this.message = "";
@@ -333,6 +337,12 @@ export default {
 
             this.selectedOption == "";
 
+
+            if (this.infoList.length > 1) {
+                this.infoList.splice(0, 1);
+                localStorage.setItem("Info dati", JSON.stringify(this.infoList));
+            }
+
         },
         resetCommonInputs() {
             if (this.selectedOption) {
@@ -350,6 +360,7 @@ export default {
         getColor(index, colorIndex) {
             for (let i = 0; i < store.colors.length; i++) {
                 this.colors = store.colors[index].colorInfo[colorIndex].image;
+                this.colorsName = store.colors[index].colorInfo[colorIndex].name;
             }
         },
         // Cambio colore cliccando il nome della tipologia
@@ -388,7 +399,23 @@ export default {
         completa() {
             localStorage.clear();
 
+            this.orderList.splice(0, this.orderList.length);
+
             this.currentStep = 1;
+
+            this.name = "";
+            this.surname = "";
+            this.agency_name = "";
+            this.email = "";
+            this.telephone = "";
+            this.city_of_residence = "";
+        },
+        prevStep() {
+
+            this.currentStep--;
+
+            localStorage.setItem("CurrentStep", this.currentStep.toString());
+
         }
     },
     mounted() {
@@ -409,7 +436,10 @@ export default {
         this.typology = this.zanzs[0].name;
     },
     updated() {
-        localStorage.setItem("CurrentStep", this.currentStep.toString());
+        // if (this.currentStep === 2 && this.models === '') {
+        //     localStorage.clear();
+        // }
+        //localStorage.setItem("CurrentStep", this.currentStep.toString());
 
         // if (this.currentStep === 3) {
         //     localStorage.removeItem("Preventivo");
@@ -473,12 +503,12 @@ export default {
 
                     <!-- Parte sinistra step 1 con gl input -->
                     <div class="first-step-left">
-                        <div v-if="selectedOption === 'privato' || this.selectedOption === ''">
+                        <div v-if="selectedOption === 'Privato' || this.selectedOption === ''">
                             <input type="text" v-model="name" placeholder="Nome *" @input="filterNumbers" required>
                             <br>
                             <input type="text" v-model="surname" placeholder="Cognome *" @input="filterNumbers" required>
                         </div>
-                        <div v-else-if="selectedOption === 'azienda'">
+                        <div v-else-if="selectedOption === 'Azienda'">
                             <input type="text" v-model="agency_name" placeholder="Nome Azienda *" required>
                         </div>
                         <div>
@@ -500,13 +530,13 @@ export default {
                     <div class="first-step-right">
                         <div class="radios">
                             <label for="privato">
-                                <input type="radio" id="privato" value="privato" v-model="selectedOption"
+                                <input type="radio" id="privato" value="Privato" v-model="selectedOption"
                                     @change="resetCommonInputs" checked>
                                 Privato
                             </label>
 
                             <label for="azienda">
-                                <input type="radio" id="azienda" value="azienda" v-model="selectedOption"
+                                <input type="radio" id="azienda" value="Azienda" v-model="selectedOption"
                                     @change="resetCommonInputs">
                                 Azienda
                             </label>
@@ -626,7 +656,8 @@ export default {
                     <div class="form-button">
 
                         <button @click="addZanz()">Aggiungi
-                            Zanzariera</button>
+                            Zanzariera
+                        </button>
                     </div>
 
                     <!-- Elenco zanzariere preventivo -->
@@ -659,6 +690,7 @@ export default {
                     <!-- Bottone per passare allo step successivo -->
                     <div class="form-button confirm">
                         <button @click="nextStep">Conferma le zanzariere</button>
+                        <button @click="prevStep">Torna indietro</button>
                     </div>
 
                 </div>
@@ -670,7 +702,7 @@ export default {
                         <li>
                             {{ list.selection }}
                         </li>
-                        <div v-if="list.selection === 'privato'">
+                        <div v-if="list.selection === 'Privato'">
                             <li>
                                 Nome: {{ list.name }}
                             </li>
@@ -691,6 +723,32 @@ export default {
                             Comune: {{ list.city_of_residence }}
                         </li>
                     </ul>
+
+                    <br>
+
+                    Riepologo preventivo:
+                    <div v-for="(order, index) in orderList" :key="index">
+                        <div>
+                            Modello zanzariera: {{ order.models.charAt(0).toUpperCase() +
+                                order.models.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} - {{ order.choice }}
+                        </div>
+                        <div>
+                            Colore: {{ order.colorsName }}
+                        </div>
+                        <div>
+                            Quantit&agrave;: {{ order.quantity }}
+                        </div>
+
+                        <div>
+                            Misure: {{ order.width }} cm x {{ order.height }} cm
+                        </div>
+                        <div v-if="order.message">
+                            {{ order.message }}
+                        </div>
+                        <div v-else>
+                            Messaggio: Non hai scritto nessun messaggio
+                        </div>
+                    </div>
 
 
                     <button @click="completa">Completa</button>
