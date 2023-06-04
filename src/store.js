@@ -141,11 +141,11 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Bianco 9010",
-                    image: "/img/colori/bianco-9010.jpg"
+                    image: "/img/colori/bianco-9010.png"
                 },
                 {
                     name: "Avorio 1013",
-                    image: "/img/colori/avorio-1013.jpg"
+                    image: "/img/colori/avorio-1013.png"
                 },
             ]
         },
@@ -155,11 +155,11 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Marrone 8017",
-                    image: "/img/colori/marrone-8017.jpg"
+                    image: "/img/colori/marrone-8017.png"
                 },
                 {
                     name: "Nero 9005",
-                    image: "/img/colori/nero-9005.jpg"
+                    image: "/img/colori/nero-9005.png"
                 },
                 {
                     name: "Bronzo Chiaro Verniciato",
@@ -175,19 +175,19 @@ export const store = reactive({
                 },
                 {
                     name: "Rosso Gotico",
-                    image: "/img/colori/rosso-gotico.jpg"
+                    image: "/img/colori/rosso-gotico.png"
                 },
                 {
                     name: "Verde Gotico",
-                    image: "/img/colori/verde-gotico.jpg"
+                    image: "/img/colori/verde-gotico.png"
                 },
                 {
                     name: "Marrone Gotico",
-                    image: "/img/colori/marrone-gotico.jpg"
+                    image: "/img/colori/marrone-gotico.png"
                 },
                 {
                     name: "Grigio Gotico",
-                    image: "/img/colori/grigio-gotico.jpg"
+                    image: "/img/colori/grigio-gotico.png"
                 }
             ]
         },
@@ -197,31 +197,31 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Noce Chiaro NH31",
-                    image: "/img/colori/noce-chiaro-nh31.jpg"
+                    image: "/img/colori/noce-chiaro-nh31.png"
                 },
                 {
                     name: "Noce Scuro NH30",
-                    image: "/img/colori/noce-scuro-nh30.jpg"
+                    image: "/img/colori/noce-scuro-nh30.png"
                 },
                 {
                     name: "Verde GH30",
-                    image: "/img/colori/verde-gh30.jpg"
+                    image: "/img/colori/verde-gh30.png"
                 },
                 {
                     name: "Ciliegio CH30",
-                    image: "/img/colori/ciliegio-ch30.jpg"
+                    image: "/img/colori/ciliegio-ch30.png"
                 },
                 {
                     name: "Bianco WH30",
-                    image: "/img/colori/bianco-wh30.jpg"
+                    image: "/img/colori/bianco-wh30.png"
                 },
                 {
                     name: "Renolit Chiaro Effecta",
-                    image: "/img/colori/renolit-chiaro-effecta.jpg"
+                    image: "/img/colori/renolit-chiaro-effecta.png"
                 },
                 {
                     name: "Renolit Scuro Effecta",
-                    image: "/img/colori/renolit-scuro-effecta.jpg"
+                    image: "/img/colori/renolit-scuro-effecta.png"
                 },
             ]
         },
@@ -231,27 +231,27 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Ciliegio Scuro",
-                    image: "/img/colori/ciliegio-scuro.jpg"
+                    image: "/img/colori/ciliegio-scuro.png"
                 },
                 {
                     name: "Castano",
-                    image: "/img/colori/castano.jpg"
+                    image: "/img/colori/castano.png"
                 },
                 {
                     name: "Renolit Chiaro Sublimall",
-                    image: "/img/colori/renolit-chiaro-sublimall.jpg"
+                    image: "/img/colori/renolit-chiaro-sublimall.png"
                 },
                 {
                     name: "Renolit Scuro Sublimall",
-                    image: "/img/colori/renolit-scuro-sublimall.jpg"
+                    image: "/img/colori/renolit-scuro-sublimall.png"
                 },
                 {
                     name: "Renolit Bianco Sublimall",
-                    image: "/img/colori/renolit-bianco-sublimall.jpg"
+                    image: "/img/colori/renolit-bianco-sublimall.png"
                 },
                 {
                     name: "Renolit Marrone Sublimall",
-                    image: "/img/colori/renolit-marrone-sublimall.jpg"
+                    image: "/img/colori/renolit-marrone-sublimall.png"
                 }
             ]
         },
