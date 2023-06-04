@@ -280,7 +280,6 @@ export default {
 
                 localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
 
-                //this.typology = "";
                 this.quantity = "";
                 this.width = "";
                 this.height = "";
@@ -396,7 +395,7 @@ export default {
             this.width = this.width.replace(/^[a-zA-Z]*$/g, '');
             this.height = this.height.replace(/^[a-zA-Z]*$/g, '');
         },
-        completa() {
+        confirm() {
             localStorage.clear();
 
             this.orderList.splice(0, this.orderList.length);
@@ -419,8 +418,6 @@ export default {
         }
     },
     mounted() {
-        //this.orderNumber = parseInt(localStorage.getItem("orderNumber")) || 0;
-
         if (localStorage.getItem("CurrentStep") !== null) {
             this.currentStep = parseInt(localStorage.getItem("CurrentStep"), 10);
         }
@@ -434,17 +431,6 @@ export default {
         }
 
         this.typology = this.zanzs[0].name;
-    },
-    updated() {
-        // if (this.currentStep === 2 && this.models === '') {
-        //     localStorage.clear();
-        // }
-        //localStorage.setItem("CurrentStep", this.currentStep.toString());
-
-        // if (this.currentStep === 3) {
-        //     localStorage.removeItem("Preventivo");
-        //     localStorage.clear();
-        // }
     }
 }
 </script>
@@ -698,7 +684,11 @@ export default {
 
                 <!-- Inizio terzo step -->
                 <div v-else class="third-step">
-                    <ul v-for="(list, index) in infoList" :key="index">
+                    <h2>
+                        Ecco a te il riepilogo
+                    </h2>
+
+                    <ul v-for="(list, index) in infoList" :key="index" class="summary info">
                         <li>
                             {{ list.selection }}
                         </li>
@@ -724,10 +714,7 @@ export default {
                         </li>
                     </ul>
 
-                    <br>
-
-                    Riepologo preventivo:
-                    <div v-for="(order, index) in orderList" :key="index">
+                    <div v-for="(order, index) in orderList" :key="index" class="summary">
                         <div>
                             Modello zanzariera: {{ order.models.charAt(0).toUpperCase() +
                                 order.models.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} - {{ order.choice }}
@@ -740,10 +727,10 @@ export default {
                         </div>
 
                         <div>
-                            Misure: {{ order.width }} cm x {{ order.height }} cm
+                            Misure: {{ order.width }}cm x {{ order.height }}cm
                         </div>
                         <div v-if="order.message">
-                            {{ order.message }}
+                            Messaggio: {{ order.message }}
                         </div>
                         <div v-else>
                             Messaggio: Non hai scritto nessun messaggio
@@ -751,7 +738,9 @@ export default {
                     </div>
 
 
-                    <button @click="completa">Completa</button>
+                    <div class="form-button">
+                        <button @click="confirm">Completa</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -762,6 +751,39 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+
+.third-step {
+    background-color: #ADADAD;
+    padding: 20px;
+
+    h2 {
+        padding-bottom: 30px;
+        text-align: center;
+    }
+
+    .summary {
+        background-color: #d9d9d9;
+        padding: 20px;
+        max-width: 700px;
+        margin: 0 auto 30px auto;
+
+        &:not(.info) {
+            div {
+                padding: 5px 0;
+            }
+        }
+
+        li {
+            padding: 5px 0;
+        }
+    }
+
+    .form-button {
+        text-align: center;
+        margin-bottom: -65px;
+    }
+}
 
 .bottom {
     color: #000;
@@ -1019,6 +1041,7 @@ export default {
     .form-button {
         button {
             border-radius: 10px;
+            margin: 0 10px;
         }
     }
 }
