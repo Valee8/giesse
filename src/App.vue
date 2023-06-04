@@ -17,6 +17,27 @@ export default {
     return {
       store
     }
+  },
+  watch: {
+    $route(to, from) {
+      if (!window.location.href.includes("preventivo")) {
+        localStorage.clear();
+      }
+    }
+  },
+  mounted() {
+    window.addEventListener('popstate', this.handleBackButton);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('popstate', this.handleBackButton);
+  },
+  methods: {
+    handleBackButton(event) {
+      if (!window.location.href.includes("preventivo")) {
+        localStorage.clear();
+      }
+    },
   }
 }
 </script>
