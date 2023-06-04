@@ -27,6 +27,7 @@ export default {
             colors: "",
             selectedModel: "",
             choice: "",
+            message: "",
             zanzs: [
                 {
                     name: "Verticali a molla classica",
@@ -164,22 +165,10 @@ export default {
                 }
             ],
             nets: [
-                {
-                    value: "Rete normale",
-                    id: "normale",
-                },
-                {
-                    value: "Rete rigata",
-                    id: "rigata",
-                },
-                {
-                    value: "Oscurante bianco",
-                    id: "oscurante-bianco",
-                },
-                {
-                    value: "Oscurante nero",
-                    id: "oscurante-nero",
-                }
+                "Rete normale",
+                "Rete rigata",
+                "Oscurante bianco",
+                "Oscurante nero",
             ]
         }
     },
@@ -189,7 +178,11 @@ export default {
                 this.enableButton = true;
             }
 
-            if (this.selectedOption === 'privato' || this.selectedOption === '') {
+            if (this.selectedOption === '') {
+                this.selectedOption = 'privato';
+            }
+
+            if (this.selectedOption === 'privato') {
                 if (this.name.trim() !== '' && this.surname.trim() !== '' && this.enableButton) {
                     return true;
                 }
@@ -268,6 +261,7 @@ export default {
                     quantity: this.quantity,
                     choice: this.choice,
                     colors: this.colors,
+                    message: this.message
                 }
 
                 const existingData = localStorage.getItem("Preventivo");
@@ -290,6 +284,7 @@ export default {
                 this.colors = "";
                 this.selectedModel = "";
                 this.choice = "";
+                this.message = "";
 
                 this.store.colors[0].active = true;
 
@@ -306,16 +301,19 @@ export default {
         nextStep() {
             if (this.currentStep === 1 && this.firstStepValid || this.currentStep === 2 && this.secondStepValid && this.orderList.length !== 0) {
                 this.currentStep++;
+
+                localStorage.setItem("CurrentStep", this.currentStep.toString());
+
             }
-
-
 
             let obj = {
                 name: this.name,
                 surname: this.surname,
                 agency_name: this.agency_name,
+                email: this.email,
                 telephone: this.telephone,
                 city_of_residence: this.city_of_residence,
+                selection: this.selectedOption,
             }
 
             const existingData = localStorage.getItem("Info dati");
@@ -327,9 +325,14 @@ export default {
                 this.infoList = [];
             }
 
-            this.infoList.push(obj);
+            if (this.currentStep === 2) {
+                this.infoList.push(obj);
 
-            localStorage.setItem("Info dati", JSON.stringify(this.infoList));
+                localStorage.setItem("Info dati", JSON.stringify(this.infoList));
+            }
+
+            this.selectedOption == "";
+
         },
         resetCommonInputs() {
             if (this.selectedOption) {
@@ -367,7 +370,7 @@ export default {
             localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
 
             if (this.orderList.length === 0) {
-                localStorage.clear();
+                localStorage.removeItem("Preventivo");
             }
         },
         filterCharacters() {
@@ -381,10 +384,21 @@ export default {
         filterSizes() {
             this.width = this.width.replace(/^[a-zA-Z]*$/g, '');
             this.height = this.height.replace(/^[a-zA-Z]*$/g, '');
+        },
+        completa() {
+            localStorage.clear();
+
+            this.currentStep = 1;
         }
     },
     mounted() {
         //this.orderNumber = parseInt(localStorage.getItem("orderNumber")) || 0;
+
+        if (localStorage.getItem("CurrentStep") !== null) {
+            this.currentStep = parseInt(localStorage.getItem("CurrentStep"), 10);
+        }
+
+        localStorage.setItem("CurrentStep", this.currentStep.toString());
 
         const localStorageData = localStorage.getItem("Preventivo");
 
@@ -395,10 +409,12 @@ export default {
         this.typology = this.zanzs[0].name;
     },
     updated() {
-        if (this.currentStep === 3) {
-            localStorage.removeItem("Preventivo");
-            localStorage.clear();
-        }
+        localStorage.setItem("CurrentStep", this.currentStep.toString());
+
+        // if (this.currentStep === 3) {
+        //     localStorage.removeItem("Preventivo");
+        //     localStorage.clear();
+        // }
     }
 }
 </script>
@@ -562,9 +578,8 @@ export default {
                     <!-- Input sotto - input radio scelta rete -->
                     <div class="inputs-bottom">
                         <label v-for="(net, index) in nets" :key="index">
-                            {{ net.value }}
-                            <input type="radio" name="net" :id="net.id" :value="net.value" v-model="choice"
-                                :required="fixRequiredProblem">
+                            {{ net }}
+                            <input type="radio" name="net" :value="net" v-model="choice" :required="fixRequiredProblem">
                         </label>
                     </div>
 
@@ -615,7 +630,7 @@ export default {
                     </div>
 
                     <!-- Elenco zanzariere preventivo -->
-                    <ul v-if="orderList.length !== 0">
+                    <ul v-if="orderList.length !== 0" class="list-ul">
                         <li v-for="(order, index) in orderList" :key="index" class="list-order">
                             <span>
                                 {{ typology.replace(/\([^)]*\)/g, "") }} | {{ order.models.charAt(0).toUpperCase() +
@@ -638,7 +653,7 @@ export default {
 
                     <!-- Textarea -->
                     <div class="textarea">
-                        <textarea name="message" rows="8" placeholder="Messaggio"></textarea>
+                        <textarea v-model="message" rows="8" placeholder="Messaggio"></textarea>
                     </div>
 
                     <!-- Bottone per passare allo step successivo -->
@@ -651,8 +666,34 @@ export default {
 
                 <!-- Inizio terzo step -->
                 <div v-else class="third-step">
-                    <div v-for="(list, index) in infoList" :key="index">
-                        {{ list.name }} {{ list.surname }}</div>
+                    <ul v-for="(list, index) in infoList" :key="index">
+                        <li>
+                            {{ list.selection }}
+                        </li>
+                        <div v-if="list.selection === 'privato'">
+                            <li>
+                                Nome: {{ list.name }}
+                            </li>
+                            <li>
+                                Cognome: {{ list.surname }}
+                            </li>
+                        </div>
+                        <li v-else>
+                            Nome Azienda: {{ list.agency_name }}
+                        </li>
+                        <li>
+                            Email: {{ list.email }}
+                        </li>
+                        <li>
+                            Telefono: {{ list.telephone }}
+                        </li>
+                        <li>
+                            Comune: {{ list.city_of_residence }}
+                        </li>
+                    </ul>
+
+
+                    <button @click="completa">Completa</button>
                 </div>
             </form>
         </div>
@@ -741,37 +782,40 @@ export default {
         }
     }
 
-    .list-order {
-        margin: 40px 0;
+    .list-ul {
         border: 1px solid #000;
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        margin: 40px 0;
 
-        span,
-        button {
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 500;
-            margin: 0 8px;
-        }
+        .list-order {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-        button {
-            cursor: pointer;
-            border-radius: 50px;
-            padding: 8px 10px;
-            border: 0;
-            color: #912020;
-        }
+            span,
+            button {
+                background-color: #fff;
+                padding: 10px;
+                border-radius: 10px;
+                font-size: 1rem;
+                font-weight: 500;
+                margin: 0 8px;
+            }
 
-        .order-image {
-            width: 30px;
-            height: 30px;
-            border-radius: 50px;
-            vertical-align: middle;
+            button {
+                cursor: pointer;
+                border-radius: 50px;
+                padding: 8px 10px;
+                border: 0;
+                color: #912020;
+            }
+
+            .order-image {
+                width: 30px;
+                height: 30px;
+                border-radius: 50px;
+                vertical-align: middle;
+            }
         }
     }
 
