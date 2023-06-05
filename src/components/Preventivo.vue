@@ -208,14 +208,14 @@ export default {
 
             this.selectedModel = "";
 
-            this.typology = this.zanzs[index + 1].name;
-
             if (index < this.zanzs.length - 1) {
                 index++;
             }
             else {
                 index = 0;
             }
+
+            this.typology = this.zanzs[index].name;
 
             this.zanzs[index].active = true;
 
@@ -230,14 +230,14 @@ export default {
 
             this.selectedModel = "";
 
-            this.typology = this.zanzs[index + 1].name;
-
             if (index <= this.zanzs.length - 1 && index > 0) {
                 index--;
             }
             else {
                 index = this.zanzs.length - 1;
             }
+
+            this.typology = this.zanzs[index].name;
 
             this.zanzs[index].active = true;
 
@@ -294,6 +294,14 @@ export default {
                 for (let i = 0; i < this.store.colors.length; i++) {
                     if (i !== 0)
                         this.store.colors[i].active = false;
+                }
+
+                this.zanzs[0].active = true;
+
+                for (let i = 0; i < this.zanzs.length; i++) {
+                    if (i !== 0) {
+                        this.zanzs[i].active = false;
+                    }
                 }
             }
             else {
@@ -396,11 +404,15 @@ export default {
             this.height = this.height.replace(/^[a-zA-Z]*$/g, '');
         },
         confirm() {
-            localStorage.clear();
+            //localStorage.clear();
 
             this.orderList.splice(0, this.orderList.length);
 
-            this.currentStep = 1;
+            //this.currentStep = 1;
+
+            this.currentStep++;
+
+            localStorage.setItem("CurrentStep", this.currentStep.toString());
 
             this.name = "";
             this.surname = "";
@@ -448,7 +460,7 @@ export default {
                 {{ printNameSection }}
             </div>
 
-            <div class="top">
+            <div class="top" :class="currentStep > 3 ? 'none' : ''">
                 <h1>
                     Fai il <div>Preventivo</div>
                 </h1>
@@ -465,7 +477,7 @@ export default {
             </div>
 
             <!-- Scritte sotto ai cerchi -->
-            <div class="steps-text">
+            <div class="steps-text" :class="currentStep > 3 ? 'none' : ''">
                 <div class="step">
                     <div>
                         Compila i dati personali
@@ -481,7 +493,7 @@ export default {
 
 
             <!-- Inizio form -->
-            <form action="" @submit="handleSubmit" class="bottom">
+            <div class="bottom">
 
                 <!-- Inizio step 1 -->
                 <div v-if="currentStep === 1" class="first-step">
@@ -529,7 +541,7 @@ export default {
                         </div>
 
                         <div class="form-button">
-                            <button @click="nextStep">Completa i dati</button>
+                            <button @click="nextStep" class="button">Completa i dati</button>
                         </div>
 
                     </div>
@@ -641,7 +653,7 @@ export default {
                     <!-- Bottone aggiungi zanzariera -->
                     <div class="form-button">
 
-                        <button @click="addZanz()">Aggiungi
+                        <button @click="addZanz()" class="button">Aggiungi
                             Zanzariera
                         </button>
                     </div>
@@ -675,15 +687,14 @@ export default {
 
                     <!-- Bottone per passare allo step successivo -->
                     <div class="form-button confirm">
-                        <button @click="nextStep">Conferma le zanzariere</button>
-                        <button @click="prevStep">Torna indietro</button>
+                        <button @click="prevStep" class="button">Torna indietro</button>
+                        <button @click="nextStep" class="button">Conferma le zanzariere</button>
                     </div>
 
                 </div>
 
-
                 <!-- Inizio terzo step -->
-                <div v-else class="third-step">
+                <form action="" @submit="handleSubmit" v-else-if="currentStep === 3" class="third-step">
                     <h2>
                         Ecco a te il riepilogo
                     </h2>
@@ -691,6 +702,7 @@ export default {
                     <ul v-for="(list, index) in infoList" :key="index" class="summary info">
                         <li>
                             {{ list.selection }}
+                            <hr>
                         </li>
                         <div v-if="list.selection === 'Privato'">
                             <li>
@@ -729,21 +741,32 @@ export default {
                         <div>
                             Misure: {{ order.width }}cm x {{ order.height }}cm
                         </div>
-                        <div v-if="order.message">
-                            Messaggio: {{ order.message }}
-                        </div>
-                        <div v-else>
-                            Messaggio: Non hai scritto nessun messaggio
+                        <div>
+                            Messaggio:
+                            <span v-if="order.message">{{ order.message }}</span>
+                            <span v-else>Non hai scritto nessun messaggio</span>
                         </div>
                     </div>
 
 
                     <div class="form-button">
-                        <button @click="confirm">Completa</button>
+                        <button @click="confirm" class="button">Completa</button>
                     </div>
+                </form>
+
+                <div v-else class="fourth-step">
+                    <h1>
+                        Grazie per aver scelto la qualit&agrave; con un preventivo
+                        <div>La <span>Giesse Zanzariere</span> ti contatter&agrave;</div>
+                        <div>il prima possibile</div>
+                        <div>Tutte le informazioni sono state inviate per email</div>
+                        <router-link to="/" class="button">Torna alla Homepage</router-link>
+                    </h1>
                 </div>
-            </form>
+            </div>
         </div>
+
+
     </section>
 </template>
 
@@ -752,6 +775,9 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+.fourth-step {
+    text-align: center;
+}
 
 .third-step {
     background-color: #ADADAD;
@@ -805,12 +831,11 @@ export default {
     .form-button {
         padding-bottom: 22px;
 
-        button,
-        a {
-            background-color: $yellow-color;
+        button {
+            //background-color: $yellow-color;
             padding: 10px 50px;
             border: 0;
-            color: #000;
+            //color: #000;
             font-size: 1.5rem;
             font-weight: bold;
             cursor: pointer;
@@ -827,7 +852,10 @@ export default {
 
     .slider-preventivo {
         max-width: 500px;
+        height: 314px;
         margin: 0 auto;
+        user-select: none;
+        transition: all 500ms ease;
 
         .arrows-image {
             position: relative;
@@ -850,7 +878,10 @@ export default {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2.5rem;
+            font-size: 1.2rem;
+            background-color: #e9e9e9;
+            padding: 2px 7px;
+            border-radius: 50px;
 
             &.left {
                 left: 0;
@@ -1073,7 +1104,7 @@ export default {
             font-size: 0.9rem;
             font-family: 'Montserrat', sans-serif;
             outline: none;
-            color: #b9b9b9;
+            color: #000;
         }
 
         .obligatory {
@@ -1150,6 +1181,10 @@ section {
         margin: 0 auto;
         padding-top: 40px;
 
+        &.none {
+            display: none;
+        }
+
         h1 {
             font-size: 2rem;
             text-align: left;
@@ -1186,6 +1221,10 @@ section {
         margin: 0 auto;
         text-align: center;
         padding-top: 15px;
+
+        &.none {
+            display: none;
+        }
 
         .step {
             display: flex;
