@@ -102,4 +102,13 @@ section {
     font-size: 0.8rem;
   }
 }
+
+// Bottone
+.button {
+  background-color: $yellow-color;
+  font-weight: bold;
+  padding: 8px 20px;
+  color: #000;
+  font-size: 0.9rem;
+}
 </style>
