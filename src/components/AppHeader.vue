@@ -28,7 +28,7 @@ export default {
                 <p>Jolly, la Laterale Frizionata</p>
 
                 <!-- Bottone scopri di piu' -->
-                <router-link :to="{ name: 'orizzontali', params: { id: 1 }, hash: '#jolly' }" class="button-header">
+                <router-link :to="{ name: 'orizzontali', params: { id: 1 }, hash: '#jolly' }" class="button header">
                     Scopri di pi&ugrave;
                 </router-link>
             </div>
@@ -74,15 +74,6 @@ header {
                 font-size: 1.2rem;
                 font-weight: bold;
                 padding: 15px 0 20px 0;
-            }
-
-            // Bottone
-            .button-header {
-                background-color: $yellow-color;
-                font-weight: bold;
-                padding: 8px 20px;
-                color: #000;
-                font-size: 0.9rem;
             }
         }
     }
