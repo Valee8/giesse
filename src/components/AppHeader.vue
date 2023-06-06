@@ -21,7 +21,7 @@ export default {
             <div class="jumbotron">
                 <!-- Titolo -->
                 <h1>
-                    Proteggi la <div>tua stanza</div>
+                    Proteggi la <div>tua casa</div>
                 </h1>
 
                 <!-- Testo -->
