@@ -173,7 +173,8 @@ export default {
             }
 
             &:first-child {
-                margin-top: 15px;
+                //margin-top: 15px;
+                transform: translateY(15px);
             }
 
             // &.top {
@@ -181,11 +182,13 @@ export default {
             // }
 
             &.center {
-                margin-top: 87px;
+                //margin-top: 87px;
+                transform: translateY(87px);
             }
 
             &.bottom {
-                margin-top: 159px;
+                //margin-top: 159px;
+                transform: translateY(159px);
             }
         }
 
