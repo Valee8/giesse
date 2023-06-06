@@ -496,7 +496,7 @@ export default {
             <div class="bottom">
 
                 <!-- Inizio step 1 -->
-                <div v-if="currentStep === 1" class="first-step">
+                <form @submit="handleSubmit" v-if="currentStep === 1" class="first-step">
 
 
                     <!-- Parte sinistra step 1 con gl input -->
@@ -545,11 +545,11 @@ export default {
                         </div>
 
                     </div>
-                </div>
+                </form>
 
 
                 <!-- Inizio step 2 -->
-                <div v-else-if="currentStep === 2" class="second-step">
+                <form @submit="handleSubmit" v-else-if="currentStep === 2" class="second-step">
 
 
                     <!-- Parte sopra - slider -->
@@ -690,7 +690,7 @@ export default {
                         <button @click="nextStep" class="button">Conferma le zanzariere</button>
                     </div>
 
-                </div>
+                </form>
 
                 <!-- Inizio terzo step -->
                 <form action="" @submit="handleSubmit" v-else-if="currentStep === 3" class="third-step">

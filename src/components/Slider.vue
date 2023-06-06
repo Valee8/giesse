@@ -18,22 +18,19 @@ export default {
                 this.store.colors[0].active = true;
         }
 
-        if (this.store.colors[0].active || slider[0].active) {
+        if (this.store.colors[0].active) {
             for (let i = 0; i < this.store.colors.length; i++) {
                 if (i !== 0) {
                     this.store.colors[i].active = false;
-                    slider[i].active = false;
                 }
             }
         }
         else {
             this.store.colors[0].active = true;
-            slider[i].active = true;
 
             for (let i = 0; i < this.store.colors.length; i++) {
                 if (i !== 0) {
                     this.store.colors[i].active = false;
-                    slider[i].active = false;
                 }
             }
         }
@@ -50,6 +47,12 @@ export default {
         }
         else {
             slider[0].active = true;
+
+            for (let i = 0; i < slider.length; i++) {
+                if (i !== 0) {
+                    slider[i].active = false;
+                }
+            }
         }
 
         // if (window.location.href.includes("verticali")) {
@@ -86,8 +89,6 @@ export default {
 
             slider[index].active = true;
 
-            console.log(index);
-
             for (let i = 0; i < slider.length; i++) {
                 if (i !== index) {
                     slider[i].active = false;
@@ -109,7 +110,7 @@ export default {
                 index = slider.length - 1;
             }
 
-            console.log(index);
+            slider[index].active = true;
 
             for (let i = 0; i < slider.length; i++) {
                 if (i !== index) {
