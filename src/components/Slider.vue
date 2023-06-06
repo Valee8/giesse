@@ -13,18 +13,28 @@ export default {
     },
     mounted() {
 
-        if (this.store.colors[0].active) {
+        for (let i = 0; i < this.store.colors.length; i++) {
+            if (!this.store.colors[i].active)
+                this.store.colors[0].active = true;
+        }
+
+        if (this.store.colors[0].active || slider[0].active) {
             for (let i = 0; i < this.store.colors.length; i++) {
-                if (i !== 0)
+                if (i !== 0) {
                     this.store.colors[i].active = false;
+                    slider[i].active = false;
+                }
             }
         }
         else {
             this.store.colors[0].active = true;
+            slider[i].active = true;
 
             for (let i = 0; i < this.store.colors.length; i++) {
-                if (i !== 0)
+                if (i !== 0) {
                     this.store.colors[i].active = false;
+                    slider[i].active = false;
+                }
             }
         }
 
@@ -74,16 +84,18 @@ export default {
                 index = 0;
             }
 
-            if (window.location.hash === '#jolly') {
-                window.location.hash = "";
-            }
-
             slider[index].active = true;
+
+            console.log(index);
 
             for (let i = 0; i < slider.length; i++) {
                 if (i !== index) {
                     slider[i].active = false;
                 }
+            }
+
+            if (window.location.hash === '#jolly') {
+                window.location.hash = "";
             }
         },
         // Freccia indietro
@@ -97,16 +109,16 @@ export default {
                 index = slider.length - 1;
             }
 
-            if (window.location.hash === '#jolly') {
-                window.location.hash = "";
-            }
-
-            slider[index].active = true;
+            console.log(index);
 
             for (let i = 0; i < slider.length; i++) {
                 if (i !== index) {
                     slider[i].active = false;
                 }
+            }
+
+            if (window.location.hash === '#jolly') {
+                window.location.hash = "";
             }
         },
         //Cambio slide premendo i rettangoli in alto
@@ -318,12 +330,20 @@ section {
 
         // Contenuto slider
         .slider {
-            display: none;
             font-weight: bold;
             user-select: none;
+            // transition-property: transform, opacity;
+            // transition-duration: 500ms;
+            // transition-timing-function: ease-in;
+
+            &:not(.active) {
+                opacity: 0;
+                height: 0;
+            }
 
             &.active {
-                display: block;
+                opacity: 1;
+                height: auto;
             }
 
             .div-image {
