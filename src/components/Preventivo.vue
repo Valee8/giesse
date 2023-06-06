@@ -649,6 +649,10 @@ export default {
                         </div>
                     </div>
 
+                    <!-- Textarea -->
+                    <div class="textarea">
+                        <textarea v-model="message" rows="8" placeholder="Messaggio"></textarea>
+                    </div>
 
                     <!-- Bottone aggiungi zanzariera -->
                     <div class="form-button">
@@ -679,11 +683,6 @@ export default {
                             </button>
                         </li>
                     </ul>
-
-                    <!-- Textarea -->
-                    <div class="textarea">
-                        <textarea v-model="message" rows="8" placeholder="Messaggio"></textarea>
-                    </div>
 
                     <!-- Bottone per passare allo step successivo -->
                     <div class="form-button confirm">
@@ -829,7 +828,7 @@ export default {
     }
 
     .form-button {
-        padding-bottom: 22px;
+        padding-top: 50px;
 
         button {
             //background-color: $yellow-color;
@@ -935,7 +934,7 @@ export default {
         &.confirm {
             //padding-top: 30px;
             position: relative;
-            bottom: -84px;
+            bottom: -63px;
 
             button {
                 border-radius: 0;
@@ -1348,7 +1347,7 @@ section {
 
 .color-choice {
     margin: 0 auto;
-    height: 450px;
+    //height: 450px;
     padding: 60px 20px;
 
 
