@@ -424,7 +424,7 @@ section {
             display: flex;
             align-items: center;
             gap: 0 60px;
-            height: 320px;
+            height: 402px;
 
             // Elenco tipologie colori - parte sinistra
             .list-typologies {

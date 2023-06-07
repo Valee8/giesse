@@ -220,6 +220,8 @@ export default {
                 height: 72px;
                 text-align: center;
                 line-height: 72px;
+                background-image: url('/img/bg-nav-center.png');
+                background-position: -100px 0;
 
                 // &:hover {
                 //     span {
@@ -244,8 +246,9 @@ export default {
                 }
 
                 &.active {
-                    background-image: url('/img/bg-nav-center.png');
+                    //background-image: url('/img/bg-nav-center.png');
                     background-size: 100%;
+                    background-position: 0 0;
 
                     a {
                         color: $yellow-color;

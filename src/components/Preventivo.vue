@@ -319,6 +319,15 @@ export default {
 
                 localStorage.setItem("CurrentStep", this.currentStep.toString());
 
+                const stepElement = document.getElementById("buttons");
+
+                if (this.currentStep !== 2) {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                }
+
             }
 
             let obj = {
@@ -331,10 +340,10 @@ export default {
                 selection: this.selectedOption,
             }
 
-            const existingData = localStorage.getItem("Info dati");
+            const existingData2 = localStorage.getItem("Info dati");
 
-            if (existingData) {
-                this.infoList = JSON.parse(existingData);
+            if (existingData2) {
+                this.infoList = JSON.parse(existingData2);
             }
             else {
                 this.infoList = [];
@@ -347,7 +356,6 @@ export default {
             }
 
             this.selectedOption == "";
-
 
             if (this.infoList.length > 1) {
                 this.infoList.splice(0, 1);
@@ -407,10 +415,17 @@ export default {
             this.width = this.width.replace(/^[a-zA-Z]*$/g, '');
             this.height = this.height.replace(/^[a-zA-Z]*$/g, '');
         },
-        confirm() {
-            //localStorage.clear();
+        complete() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
 
-            this.orderList.splice(0, this.orderList.length);
+            localStorage.removeItem("Info dati");
+
+            localStorage.removeItem("Preventivo");
+
+            //this.orderList.splice(0, this.orderList.length);
 
             //this.currentStep = 1;
 
@@ -427,9 +442,18 @@ export default {
         },
         prevStep() {
 
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
             this.currentStep--;
 
             localStorage.setItem("CurrentStep", this.currentStep.toString());
+
+            this.orderList.splice(0, this.orderList.length);
+
+            localStorage.removeItem("Preventivo");
 
         }
     },
@@ -444,6 +468,12 @@ export default {
 
         if (localStorageData) {
             this.orderList = JSON.parse(localStorageData);
+        }
+
+        const localStorageData2 = localStorage.getItem("Info dati");
+
+        if (localStorageData2) {
+            this.infoList = JSON.parse(localStorageData2);
         }
 
         this.typology = this.zanzs[0].name;
@@ -690,8 +720,8 @@ export default {
 
                     <!-- Bottone per passare allo step successivo -->
                     <div class="form-button confirm">
-                        <button @click="prevStep" class="button">Torna indietro</button>
-                        <button @click="nextStep" class="button">Conferma le zanzariere</button>
+                        <button @click="prevStep" class="button" id="buttons">Torna indietro</button>
+                        <button @click="nextStep" class="button" id="buttons">Conferma le zanzariere</button>
                     </div>
 
                 </form>
@@ -705,7 +735,6 @@ export default {
                     <ul v-for="(list, index) in infoList" :key="index" class="summary info">
                         <li>
                             {{ list.selection }}
-                            <hr>
                         </li>
                         <div v-if="list.selection === 'Privato'">
                             <li>
@@ -753,7 +782,7 @@ export default {
 
 
                     <div class="form-button">
-                        <button @click="confirm" class="button">Completa</button>
+                        <button @click="complete" class="button" id="buttons">Completa</button>
                     </div>
                 </form>
 
@@ -828,7 +857,7 @@ export default {
 
 .third-step {
     background-color: #ADADAD;
-    padding: 20px;
+    padding-top: 20px;
 
     h2 {
         padding-bottom: 30px;
@@ -854,7 +883,7 @@ export default {
 
     .form-button {
         text-align: center;
-        margin-bottom: -65px;
+        margin-bottom: -43px;
     }
 }
 
