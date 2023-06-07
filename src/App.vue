@@ -38,11 +38,21 @@ export default {
         localStorage.clear();
       }
     },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
   }
 }
 </script>
 
 <template>
+  <div @click="scrollToTop" class="arrow-up">
+    <i class="fa-solid fa-chevron-up"></i>
+  </div>
+
   <!-- <Loader /> -->
 
   <!-- <AppHeader v-if="!store.isLoading" /> -->
@@ -60,6 +70,20 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+
+.arrow-up {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  font-size: 2.5rem;
+  cursor: pointer;
+  background-color: #878787;
+  border-radius: 50%;
+  padding: 3px 8px;
+  color: #fff;
+}
+
 // Padding sezioni
 // Sezioni che hanno id: Home
 // Sezioni senza id: tutte le altre
@@ -76,6 +100,10 @@ section {
   &[class] {
     padding-top: 0;
   }
+
+  // &.thank-you {
+  //   padding-top: 0;
+  // }
 }
 
 // Logo nav e footer
