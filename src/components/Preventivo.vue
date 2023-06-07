@@ -201,6 +201,10 @@ export default {
                 if (i === 0)
                     return store.linksNav[i].text;
             }
+
+            // if (this.currentStep === 4) {
+            //     return "Grazie per il preventivo"
+            // }
         }
     },
     methods: {
@@ -448,7 +452,7 @@ export default {
 </script>
 
 <template>
-    <section>
+    <section :class="currentStep === 4 ? 'thank-you' : ''">
         <div class="container">
 
             <div class="section-title">
@@ -755,10 +759,14 @@ export default {
 
                 <div v-else class="fourth-step">
                     <h1>
-                        Grazie per aver scelto la qualit&agrave; con un preventivo
-                        <div>La <span>Giesse Zanzariere</span> ti contatter&agrave;</div>
-                        <div>il prima possibile</div>
-                        <div>Tutte le informazioni sono state inviate per email</div>
+                        <div class="first">
+                            <div>Grazie</div> per aver scelto la qualit&agrave; <div>con un preventivo</div>
+                        </div>
+                        <div class="second">
+                            <div>La <span>Giesse Zanzariere</span> ti contatter&agrave;</div>
+                            <div>il prima possibile</div>
+                        </div>
+                        <div class="third">Tutte le informazioni sono state inviate per email</div>
                         <router-link to="/" class="button">Torna alla Homepage</router-link>
                     </h1>
                 </div>
@@ -774,8 +782,48 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+
+.thank-you {
+    background-image: url('/img/sfondo-ringraziamento.png');
+    background-size: cover;
+    //min-height: 1000px;
+
+    .bottom {
+        //padding-top: 50px;
+        color: #fff;
+        font-size: 2rem;
+        padding: 80px 0;
+
+        h1 {
+            font-weight: 500;
+
+            .first {
+                font-size: 1.3em;
+                padding: 5px 0;
+                font-weight: 600;
+            }
+
+            .second {
+                font-size: 0.7em;
+                padding: 10px 0 25px 0;
+            }
+
+            .third {
+                font-size: 0.4em;
+            }
+        }
+
+        span {
+            color: $yellow-color;
+        }
+    }
+
+
+}
+
 .fourth-step {
     text-align: center;
+    height: 100%;
 }
 
 .third-step {
@@ -850,7 +898,7 @@ export default {
     padding: 40px;
 
     .slider-preventivo {
-        max-width: 500px;
+        max-width: 600px;
         height: 314px;
         margin: 0 auto;
         user-select: none;
@@ -858,10 +906,13 @@ export default {
 
         .arrows-image {
             position: relative;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         img {
             width: 150px;
+            height: 200px;
         }
 
         h2 {
@@ -1077,6 +1128,7 @@ export default {
 }
 
 .section-title {
+
     a {
         color: #fff;
     }
