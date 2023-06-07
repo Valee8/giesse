@@ -103,7 +103,7 @@ export default {
                     <li v-for="(link, index) in store.linksNav" :key="index" :class="link.active ? 'active' : ''">
                         <div class="icons">
                             <router-link :to="{ name: link.href }">
-                                <i :class="link.icon"></i>
+                                <i :class="link.icon"></i> <span>{{ link.text }}</span>
                             </router-link>
                         </div>
                     </li>
@@ -220,6 +220,16 @@ export default {
                 height: 72px;
                 text-align: center;
                 line-height: 72px;
+
+                // &:hover {
+                //     span {
+                //         display: block;
+                //     }
+                // }
+
+                span {
+                    display: none;
+                }
 
                 a {
                     color: #fff;
