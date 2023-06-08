@@ -176,21 +176,21 @@ export default {
     },
     computed: {
         firstStepValid() {
-            if (this.email.trim() !== '' && this.email.includes("@") && this.telephone.trim() !== '' && this.city_of_residence.trim() !== '') {
+            if (this.email.trim() !== "" && this.email.includes("@") && this.telephone.trim() !== "" && this.city_of_residence.trim() !== "") {
                 this.enableButton = true;
             }
 
-            if (this.selectedOption === '') {
-                this.selectedOption = 'Privato';
+            if (this.selectedOption === "") {
+                this.selectedOption = "Privato";
             }
 
-            if (this.selectedOption === 'Privato') {
-                if (this.name.trim() !== '' && this.surname.trim() !== '' && this.enableButton) {
+            if (this.selectedOption === "Privato") {
+                if (this.name.trim() !== "" && this.surname.trim() !== "" && this.enableButton) {
                     return true;
                 }
             }
-            else if (this.selectedOption === 'Azienda' && this.enableButton) {
-                return this.agency_name.trim() !== '';
+            else if (this.selectedOption === "Azienda" && this.enableButton) {
+                return this.agency_name.trim() !== "";
             }
             // else {
             //     return false;
@@ -254,7 +254,7 @@ export default {
         },
         addZanz() {
 
-            if (this.selectedModel !== '' && this.width !== '' && this.height !== '' && this.quantity !== 0 && this.choice !== '' && this.colors !== '') {
+            if (this.selectedModel !== "" && this.width !== "" && this.height !== "" && this.quantity !== 0 && this.choice !== "" && this.colors !== "") {
 
                 this.fixRequiredProblem = false;
 
@@ -313,13 +313,13 @@ export default {
 
             }
         },
-        nextStep() {
+        nextStep(event) {
+
             if (this.currentStep === 1 && this.firstStepValid || this.currentStep === 2 && this.secondStepValid && this.orderList.length !== 0) {
+                event.preventDefault();
                 this.currentStep++;
 
                 localStorage.setItem("CurrentStep", this.currentStep.toString());
-
-                const stepElement = document.getElementById("buttons");
 
                 if (this.currentStep !== 2) {
                     window.scrollTo({
@@ -373,9 +373,6 @@ export default {
                 this.city_of_residence = "";
             }
         },
-        handleSubmit(event) {
-            event.preventDefault();
-        },
         getColor(index, colorIndex) {
             for (let i = 0; i < store.colors.length; i++) {
                 this.colors = store.colors[index].colorInfo[colorIndex].image;
@@ -415,7 +412,12 @@ export default {
             this.width = this.width.replace(/^[a-zA-Z]*$/g, '');
             this.height = this.height.replace(/^[a-zA-Z]*$/g, '');
         },
-        complete() {
+        handleSubmit(event) {
+            event.preventDefault();
+        },
+        complete(event) {
+            event.preventDefault();
+
             window.scrollTo({
                 top: 0,
                 behavior: "smooth"
@@ -440,7 +442,9 @@ export default {
             this.telephone = "";
             this.city_of_residence = "";
         },
-        prevStep() {
+        prevStep(event) {
+
+            event.preventDefault();
 
             window.scrollTo({
                 top: 0,
@@ -482,7 +486,7 @@ export default {
 </script>
 
 <template>
-    <section :class="currentStep === 4 ? 'thank-you' : ''">
+    <section :class="{ 'thank-you': currentStep === 4 }">
         <div class="container">
 
             <div class="section-title">
@@ -494,7 +498,7 @@ export default {
                 {{ printNameSection }}
             </div>
 
-            <div class="top" :class="currentStep > 3 ? 'none' : ''">
+            <div class="top" :class="{ 'none': currentStep > 3 }">
                 <h1>
                     Fai il <div>Preventivo</div>
                 </h1>
@@ -502,16 +506,16 @@ export default {
 
                 <!-- Cerchi degli step -->
                 <div class="steps-circles">
-                    <div class="circle" :class="currentStep === 1 ? 'current' : ''">1</div>
+                    <div class="circle" :class="{ 'current': currentStep === 1 }">1</div>
                     <hr>
-                    <div class="circle" :class="currentStep === 2 ? 'current' : ''">2</div>
+                    <div class="circle" :class="{ 'current': currentStep === 2 }">2</div>
                     <hr>
-                    <div class="circle" :class="currentStep === 3 ? 'current' : ''">3</div>
+                    <div class="circle" :class="{ 'current': currentStep === 3 }">3</div>
                 </div>
             </div>
 
             <!-- Scritte sotto ai cerchi -->
-            <div class="steps-text" :class="currentStep > 3 ? 'none' : ''">
+            <div class="steps-text" :class="{ 'none': currentStep > 3 }">
                 <div class="step">
                     <div>
                         Compila i dati personali
@@ -530,7 +534,7 @@ export default {
             <div class="bottom">
 
                 <!-- Inizio step 1 -->
-                <form @submit="handleSubmit" v-if="currentStep === 1" class="first-step">
+                <form v-if="currentStep === 1" class="first-step">
 
 
                     <!-- Parte sinistra step 1 con gl input -->
@@ -585,11 +589,10 @@ export default {
                 <!-- Inizio step 2 -->
                 <form @submit="handleSubmit" v-else-if="currentStep === 2" class="second-step">
 
-
                     <!-- Parte sopra - slider -->
                     <div class="inputs-top">
                         <div class="slider-preventivo" v-for="(zanz, index) in zanzs" :key="index"
-                            :class="zanz.active ? 'active' : ''">
+                            :class="{ 'active': zanz.active }">
 
                             <div class="arrows-image">
                                 <img :src="zanz.image" :alt="zanz.name" class="zanz-image">
@@ -658,7 +661,7 @@ export default {
                         <div class="list-typologies">
                             <div v-for="(typo, index) in store.colors" :key="index" class="typologies">
                                 <div @click="changeColorTypology(index)" class="typology-name"
-                                    :class="typo.active ? 'selected' : ''">
+                                    :class="{ 'selected': typo.active }">
                                     {{ typo.typology }}
                                 </div>
                             </div>
@@ -666,7 +669,7 @@ export default {
 
                         <!-- Nomi e immagini colori - parte sotto -->
                         <div class="list-colors" v-for="(typo, index) in store.colors" :key="index"
-                            :class="typo.active ? 'selected' : ''">
+                            :class="{ 'selected': typo.active }">
                             <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                                 <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                                     <input type="radio" name="color" @click="getColor(index, colorIndex)"
@@ -691,8 +694,8 @@ export default {
                     <!-- Bottone aggiungi zanzariera -->
                     <div class="form-button">
 
-                        <button @click="addZanz()" class="button">Aggiungi
-                            Zanzariera
+                        <button @click="addZanz()" class="button">
+                            Aggiungi Zanzariera
                         </button>
                     </div>
 
@@ -721,13 +724,14 @@ export default {
                     <!-- Bottone per passare allo step successivo -->
                     <div class="form-button confirm">
                         <button @click="prevStep" class="button" id="buttons">Torna indietro</button>
-                        <button @click="nextStep" class="button" id="buttons">Conferma le zanzariere</button>
+                        <button @click="nextStep" class="button" id="buttons">Conferma le
+                            zanzariere</button>
                     </div>
 
                 </form>
 
                 <!-- Inizio terzo step -->
-                <form action="" @submit="handleSubmit" v-else-if="currentStep === 3" class="third-step">
+                <form action="" v-else-if="currentStep === 3" class="third-step">
                     <h2>
                         Ecco a te il riepilogo
                     </h2>
@@ -735,6 +739,7 @@ export default {
                     <ul v-for="(list, index) in infoList" :key="index" class="summary info">
                         <li>
                             {{ list.selection }}
+                            <hr>
                         </li>
                         <div v-if="list.selection === 'Privato'">
                             <li>
@@ -758,27 +763,27 @@ export default {
                         </li>
                     </ul>
 
-                    <div v-for="(order, index) in orderList" :key="index" class="summary">
-                        <div>
+                    <ul v-for="(order, index) in orderList" :key="index" class="summary">
+                        <li>
                             Modello zanzariera: {{ order.models.charAt(0).toUpperCase() +
                                 order.models.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} - {{ order.choice }}
-                        </div>
-                        <div>
+                        </li>
+                        <li>
                             Colore: {{ order.colorsName }}
-                        </div>
-                        <div>
+                        </li>
+                        <li>
                             Quantit&agrave;: {{ order.quantity }}
-                        </div>
+                        </li>
 
-                        <div>
+                        <li>
                             Misure: {{ order.width }}cm x {{ order.height }}cm
-                        </div>
-                        <div>
+                        </li>
+                        <li>
                             Messaggio:
                             <span v-if="order.message">{{ order.message }}</span>
                             <span v-else>Non hai scritto nessun messaggio</span>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
 
 
                     <div class="form-button">
@@ -852,12 +857,12 @@ export default {
 
 .fourth-step {
     text-align: center;
-    height: 100%;
 }
 
 .third-step {
     background-color: #ADADAD;
     padding-top: 20px;
+    margin: 50px 0;
 
     h2 {
         padding-bottom: 30px;
@@ -878,12 +883,19 @@ export default {
 
         li {
             padding: 5px 0;
+
+            hr {
+                margin-top: 10px;
+                width: 250px;
+                border-top: 1px solid #000;
+            }
         }
     }
 
     .form-button {
         text-align: center;
-        margin-bottom: -43px;
+        position: relative;
+        bottom: -22px;
     }
 }
 
@@ -899,13 +911,8 @@ export default {
         letter-spacing: 1px;
     }
 
-    hr {
-        border-bottom: 1px solid #000;
-        margin: 60px 0;
-    }
-
     .form-button {
-        padding-top: 50px;
+        //padding-top: 50px;
 
         button {
             //background-color: $yellow-color;
@@ -925,6 +932,10 @@ export default {
     margin: 0 auto;
     text-align: center;
     padding: 40px;
+
+    hr {
+        margin: 60px 0;
+    }
 
     .slider-preventivo {
         max-width: 600px;
@@ -1010,11 +1021,11 @@ export default {
     }
 
     .form-button {
+        padding-top: 30px;
 
         &.confirm {
-            //padding-top: 30px;
             position: relative;
-            bottom: -63px;
+            bottom: -62px;
 
             button {
                 border-radius: 0;
@@ -1171,6 +1182,11 @@ export default {
     max-width: 890px;
     margin: 0 auto;
     padding: 40px;
+
+    hr {
+        border-bottom: 1px solid #000;
+        margin: 60px 0;
+    }
 
     .first-step-left {
         height: 292px;

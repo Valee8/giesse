@@ -7,14 +7,16 @@ export default {
     data() {
         return {
             store,
+            submenu: false,
+            activeSection: "",
+            classSubmenu: ""
         }
     },
     updated() {
-        const circle_menu = document.getElementById("circle-menu");
-
         if (window.location.href.includes('preventivo')) {
             this.store.linksNav[0].active = true;
-            circle_menu.className = "top active";
+            this.activeSection = "active top";
+
             for (let i = 0; i < this.store.linksNav.length; i++) {
                 if (i !== 0) {
                     this.store.linksNav[i].active = false;
@@ -23,7 +25,8 @@ export default {
         }
         else if (window.location.href.includes('sede')) {
             this.store.linksNav[1].active = true;
-            circle_menu.className = "center active";
+            this.activeSection = "active center";
+
             for (let i = 0; i < this.store.linksNav.length; i++) {
                 if (i !== 1) {
                     this.store.linksNav[i].active = false;
@@ -32,7 +35,7 @@ export default {
         }
         else if (window.location.href.includes('contatti')) {
             this.store.linksNav[2].active = true;
-            circle_menu.className = "bottom active";
+            this.activeSection = "active bottom";
             for (let i = 0; i < this.store.linksNav.length; i++) {
                 if (i !== 2) {
                     this.store.linksNav[i].active = false;
@@ -40,9 +43,21 @@ export default {
             }
         }
         else {
-            circle_menu.className = "";
+            this.activeSection = "";
             for (let i = 0; i < this.store.linksNav.length; i++) {
                 this.store.linksNav[i].active = false;
+            }
+        }
+    },
+    methods: {
+        showSubmenu() {
+            if (!this.submenu) {
+                this.submenu = true;
+                this.classSubmenu = "expand";
+            }
+            else {
+                this.submenu = false;
+                this.classSubmenu = "reduce";
             }
         }
     }
@@ -52,22 +67,102 @@ export default {
 <template>
     <!-- Menu nero in alto -->
     <nav id="blackMenu">
-        <ul>
+        <div class="bg">
             <div class="container">
-                <li>
+                <span @click="showSubmenu">
                     Zanzariere
-                </li>
+                    <span v-if="!submenu">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                    <span v-else>
+                        <i class="fa-solid fa-chevron-up"></i>
+                    </span>
+                </span>
             </div>
-        </ul>
-
-        <div class="container">
-            <router-link to="/">
-                <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo"
-                    :class="{ 'logo-not-home': $route.name !== 'home' }">
-            </router-link>
+            <div class="submenu" :class="classSubmenu">
+                <div class="container">
+                    <h4>
+                        Tutti i modelli
+                    </h4>
+                    <ul>
+                        <li>
+                            <h5>
+                                Verticali
+                            </h5>
+                        </li>
+                        <li>
+                            Verticale a molla
+                        </li>
+                        <li>
+                            Verticale a molla (sistema a cricchetto)
+                        </li>
+                        <li>
+                            Verticale a catena classica
+                        </li>
+                        <li>
+                            Verticale a catena &plus; molla
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <h5>
+                                Laterali
+                            </h5>
+                        </li>
+                        <li>
+                            Laterale a molla classica
+                        </li>
+                        <li>
+                            Laterale a molla (con guida bassa da 2cm)
+                        </li>
+                        <li>
+                            Laterale a molla (con guida arrotondata da 14mm)
+                        </li>
+                        <li>
+                            Laterale a molla (con guida bassa da 3mm)
+                        </li>
+                        <li>
+                            Laterale Frizionata
+                        </li>
+                        <li>
+                            Laterale Antivento
+                        </li>
+                        <li>
+                            Laterale Plissettata
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <h5>
+                                Altri
+                            </h5>
+                        </li>
+                        <li>
+                            Porta a battente
+                        </li>
+                        <li>
+                            Scorri
+                        </li>
+                        <li>
+                            Fissa
+                        </li>
+                        <li>
+                            Casper
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
     <!-- Menu nero in alto -->
+
+    <div class="container" :class="{ 'not-home': $route.name !== 'home' }">
+        <div class="a-logo">
+            <router-link to="/">
+                <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
+            </router-link>
+        </div>
+    </div>
 
     <!-- Vecchio menu -->
     <nav :class="{ 'nav-home': $route.name === 'home', 'nav-section': $route.name !== 'home' }" id="oldMenu">
@@ -93,7 +188,7 @@ export default {
     <!-- Menu attuale -->
     <nav id="newMenu">
         <div class="menu-container">
-            <div id="circle-menu">
+            <div id="circle-menu" :class="activeSection">
                 <div class="circle-menu-div">
                     <div class="circle"></div>
                 </div>
@@ -123,21 +218,86 @@ export default {
 #blackMenu {
     color: #fff;
     width: 100%;
+    position: relative;
+    z-index: 50;
 
-    ul {
+    .bg {
         background-color: #000;
         height: 60px;
-        line-height: 60px;
-    }
+        user-select: none;
 
+        span {
+            line-height: 60px;
+            cursor: pointer;
+        }
 
-    .logo-not-home {
-        display: none;
-    }
+        .submenu {
+            background-color: #000;
+            animation-duration: 0.3s;
+            animation-fill-mode: forwards;
 
-    .logo {
-        margin-top: 50px;
+            .container {
+                display: flex;
+                align-items: flex-start;
+                flex-wrap: wrap;
+                gap: 10px 60px;
+            }
+
+            h4 {
+                width: 100%;
+            }
+
+            li,
+            h4 {
+                display: none;
+            }
+
+            &.expand {
+                animation-name: expand;
+
+                li,
+                h4 {
+                    display: block;
+                }
+            }
+
+            &.reduce {
+                animation-name: reduce;
+            }
+
+            hr {
+                width: 300px;
+            }
+
+            @keyframes expand {
+                from {
+                    height: 0;
+                }
+
+                to {
+                    height: 200px;
+                }
+            }
+
+            @keyframes reduce {
+                from {
+                    height: 200px;
+                }
+
+                to {
+                    height: 0;
+                }
+            }
+        }
     }
+}
+
+.not-home {
+    display: none;
+}
+
+.a-logo {
+    margin-top: 50px;
 }
 
 
@@ -156,14 +316,10 @@ export default {
             //height: 244px;
             position: relative;
             left: 25px;
+            display: none;
 
             &.active {
                 display: block;
-            }
-
-            &:not(.active) {
-                display: none;
-
             }
 
             &.top,
@@ -271,31 +427,31 @@ export default {
 nav {
     &#oldMenu {
         display: none;
-    }
 
-    .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        // Links sulla destra - Contatti, Sede, Preventivo
-        .links-nav {
+        .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 50px;
 
-            // Scritte
-            a {
-                font-size: 0.7rem;
-                font-weight: 500;
-            }
+            // Links sulla destra - Contatti, Sede, Preventivo
+            .links-nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 50px;
 
-            // Icone
-            svg {
-                font-size: 0.8rem;
-                padding-right: 10px;
-                vertical-align: middle;
+                // Scritte
+                a {
+                    font-size: 0.7rem;
+                    font-weight: 500;
+                }
+
+                // Icone
+                svg {
+                    font-size: 0.8rem;
+                    padding-right: 10px;
+                    vertical-align: middle;
+                }
             }
         }
     }

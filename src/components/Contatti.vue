@@ -98,7 +98,7 @@ export default {
                     <ul>
                         <!-- Elenco domande -->
                         <li class="faq" v-for="(faq, index) in faqs" :key="index"
-                            @click="faqs[index].show = !faqs[index].show" :class="faqs[index].show ? 'pb' : ''">
+                            @click="faqs[index].show = !faqs[index].show" :class="{ 'pb': faqs[index].show }">
 
                             <!-- Icona punto -->
                             <div class="dot">

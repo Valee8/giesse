@@ -35,7 +35,7 @@ export default {
             }
         }
 
-        if (window.location.hash === '#jolly') {
+        if (window.location.hash === "#jolly") {
 
             slider[4].active = true;
 
@@ -95,7 +95,7 @@ export default {
                 }
             }
 
-            if (window.location.hash === '#jolly') {
+            if (window.location.hash === "#jolly") {
                 window.location.hash = "";
             }
         },
@@ -118,7 +118,7 @@ export default {
                 }
             }
 
-            if (window.location.hash === '#jolly') {
+            if (window.location.hash === "#jolly") {
                 window.location.hash = "";
             }
         },
@@ -195,12 +195,12 @@ export default {
                 <!-- Rettangolini in alto -->
                 <div class="list-rectangles">
                     <div class="rectangles" v-for="(rectangles, index) in getSlider" :key="index"
-                        @click="changeSlide(index)" :class="rectangles.active ? 'active' : ''">
+                        @click="changeSlide(index)" :class="{ 'active': rectangles.active }">
                     </div>
                 </div>
 
                 <!-- Parte contenuto slider -->
-                <div class="slider" v-for="(slide, index) in getSlider" :key="index" :class="slide.active ? 'active' : ''">
+                <div class="slider" v-for="(slide, index) in getSlider" :key="index" :class="{ 'active': slide.active }">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="slide.image" :alt="slide.model" class="slide-image">
@@ -217,7 +217,7 @@ export default {
                     </div>
 
                     <!-- Titolo - nome modello -->
-                    <h2 :class="index === 3 ? 'giada' : ''">
+                    <h2 :class="{ 'giada': index === 3 }">
                         {{ slide.model }}
                     </h2>
 
@@ -232,7 +232,7 @@ export default {
                     </div>
 
                     <!-- Descrizione zanzariera -->
-                    <p class="description" :class="index === 3 ? 'giada' : ''">
+                    <p class="description" :class="{ 'giada': index === 3 }">
                         {{ slide.description }}
                     </p>
                 </div>
@@ -264,8 +264,7 @@ export default {
                 <!-- Nomi tipologie colori - parte sinistra -->
                 <div class="list-typologies">
                     <div v-for="(typo, index) in store.colors" :key="index" class="typologies">
-                        <div @click="changeColorTypology(index)" class="typology-name"
-                            :class="typo.active ? 'selected' : ''">
+                        <div @click="changeColorTypology(index)" class="typology-name" :class="{ 'selected': typo.active }">
                             {{ typo.typology }}
                         </div>
                     </div>
@@ -273,7 +272,7 @@ export default {
 
                 <!-- Nomi e immagini colori - parte destra -->
                 <div class="list-colors" v-for="(typo, index) in store.colors" :key="index"
-                    :class="typo.active ? 'selected' : ''">
+                    :class="{ 'selected': typo.active }">
                     <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                         <div v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                             <!-- Immagine colore -->

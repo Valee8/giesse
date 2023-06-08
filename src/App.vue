@@ -15,7 +15,8 @@ export default {
   },
   data() {
     return {
-      store
+      store,
+      showBackToTop: false
     }
   },
   watch: {
@@ -27,13 +28,25 @@ export default {
   },
   mounted() {
     window.addEventListener('popstate', this.handleBackButton);
+    window.addEventListener('scroll', this.handleScroll);
   },
 
   beforeDestroy() {
     window.removeEventListener('popstate', this.handleBackButton);
   },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
   methods: {
-    handleBackButton(event) {
+    handleScroll() {
+      if (window.pageYOffset > 700) {
+        this.showBackToTop = true;
+      }
+      else {
+        this.showBackToTop = false;
+      }
+    },
+    handleBackButton() {
       if (!window.location.href.includes("preventivo")) {
         localStorage.clear();
       }
@@ -49,7 +62,7 @@ export default {
 </script>
 
 <template>
-  <div @click="scrollToTop" class="arrow-up">
+  <div :class="{ 'show': showBackToTop }" @click="scrollToTop" class="arrow-up" v-if="$route.name !== 'preventivo'">
     <i class="fa-solid fa-chevron-up"></i>
   </div>
 
@@ -73,8 +86,8 @@ export default {
 
 .arrow-up {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 80px;
+  left: 80px;
   z-index: 100;
   font-size: 2.5rem;
   cursor: pointer;
@@ -82,6 +95,12 @@ export default {
   border-radius: 50%;
   padding: 3px 8px;
   color: #fff;
+  opacity: 0;
+  transition: all 1s ease;
+
+  &.show {
+    opacity: 1;
+  }
 }
 
 // Padding sezioni
