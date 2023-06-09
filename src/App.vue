@@ -29,7 +29,7 @@ export default {
         if (window.location.href.includes("verticali")) {
           slider = this.store.vertical;
         }
-        else {
+        else if (window.location.href.includes("orizzontali")) {
           slider = this.store.horizontal;
         }
 
@@ -42,15 +42,20 @@ export default {
           }
         }
       }
+
+      if (this.store.classSubmenu === "expand") {
+        this.store.submenu = false;
+        this.store.classSubmenu = "reduce";
+      }
     }
   },
   updated() {
-    window.addEventListener('popstate', this.handleBackButton);
+    window.addEventListener('clearStorage', this.handleBackButton);
     window.addEventListener('scroll', this.handleScroll);
   },
 
   beforeDestroy() {
-    window.removeEventListener('popstate', this.handleBackButton);
+    window.removeEventListener('clearStorage', this.handleBackButton);
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll);

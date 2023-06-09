@@ -8,12 +8,10 @@ export default {
         return {
             store,
             activeSection: "",
-            submenu: false,
-            classSubmenu: "",
             listModels: [
                 {
                     name: "Verticale a molla",
-                    hash: "#verticale-molla"
+                    hash: "#verticale-molla",
                 },
                 {
                     name: "Verticale a molla (sistema a cricchetto)",
@@ -98,19 +96,13 @@ export default {
     },
     methods: {
         showSubmenu() {
-            if (!this.submenu) {
-                this.submenu = true;
-                this.classSubmenu = "expand";
+            if (!this.store.submenu) {
+                this.store.submenu = true;
+                this.store.classSubmenu = "expand";
             }
             else {
-                this.submenu = false;
-                this.classSubmenu = "reduce";
-            }
-        },
-        closeSubmenu() {
-            if (this.classSubmenu === "expand") {
-                this.submenu = false;
-                this.classSubmenu = "reduce";
+                this.store.submenu = false;
+                this.store.classSubmenu = "reduce";
             }
         }
     },
@@ -133,7 +125,7 @@ export default {
             <div class="container">
                 <span @click="showSubmenu">
                     Zanzariere
-                    <span v-if="!submenu">
+                    <span v-if="!store.submenu">
                         <i class="fa-solid fa-chevron-down"></i>
                     </span>
                     <span v-else>
@@ -141,7 +133,7 @@ export default {
                     </span>
                 </span>
             </div>
-            <div class="submenu" :class="classSubmenu" @click="closeSubmenu">
+            <div class="submenu" :class="store.classSubmenu">
                 <div class="container">
                     <h4>
                         Tutti i modelli
@@ -314,6 +306,7 @@ export default {
             li,
             h4 {
                 display: none;
+                transition-duration: 0.3s;
             }
 
             &.expand {

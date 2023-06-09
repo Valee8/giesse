@@ -35,7 +35,6 @@ export default {
             }
         }
 
-
         if (!window.location.hash) {
             slider[0].active = true;
 

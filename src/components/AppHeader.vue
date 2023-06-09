@@ -28,7 +28,7 @@ export default {
                 <p>Jolly, la Laterale Frizionata</p>
 
                 <!-- Bottone scopri di piu' -->
-                <router-link :to="{ name: 'orizzontali', params: { id: 1 }, hash: '#jolly' }" class="button header">
+                <router-link :to="{ name: 'orizzontali', params: { id: 1 }, hash: '#jolly-' + 4 }" class="button header">
                     Scopri di pi&ugrave;
                 </router-link>
             </div>

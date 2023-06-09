@@ -3,6 +3,8 @@ import { reactive } from 'vue';
 export const store = reactive({
     // Tipologie zanzariere
     //isLoading: true,
+    submenu: false,
+    classSubmenu: "",
     linksNav: [
         {
             text: "Richiedi Preventivo",
