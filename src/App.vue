@@ -69,6 +69,14 @@ export default {
         this.showBackToTop = false;
       }
     },
+    closeMenu() {
+
+      if (this.store.classSubmenu === "expand") {
+        this.store.submenu = false;
+        this.store.classSubmenu = "reduce";
+      }
+
+    },
     handleBackButton() {
       if (!window.location.href.includes("preventivo")) {
         localStorage.clear();
@@ -90,15 +98,16 @@ export default {
   </div>
 
   <!-- <Loader /> -->
+  <div @click="closeMenu">
+    <!-- <AppHeader v-if="!store.isLoading" /> -->
+    <AppHeader />
 
-  <!-- <AppHeader v-if="!store.isLoading" /> -->
-  <AppHeader />
+    <main>
+      <AppMain />
+    </main>
 
-  <main>
-    <AppMain />
-  </main>
-
-  <AppFooter />
+    <AppFooter />
+  </div>
 </template>
 
 <style lang="scss">

@@ -123,7 +123,7 @@ export default {
     <nav id="blackMenu">
         <div class="bg">
             <div class="container">
-                <span @click="showSubmenu">
+                <span @click.stop="showSubmenu">
                     Zanzariere
                     <span v-if="!store.submenu">
                         <i class="fa-solid fa-chevron-down"></i>
@@ -135,9 +135,6 @@ export default {
             </div>
             <div class="submenu" :class="store.classSubmenu">
                 <div class="container">
-                    <h4>
-                        Tutti i modelli
-                    </h4>
                     <ul>
                         <li>
                             <h5>
@@ -274,6 +271,7 @@ export default {
             background-color: #000;
             animation-duration: 0.3s;
             animation-fill-mode: forwards;
+            height: 0;
 
             h4 {
                 font-size: 1.1rem;
@@ -297,6 +295,11 @@ export default {
                 align-items: flex-start;
                 flex-wrap: wrap;
                 gap: 10px 60px;
+                height: 0;
+
+                ul {
+                    height: 0;
+                }
             }
 
             h4 {
@@ -305,8 +308,8 @@ export default {
 
             li,
             h4 {
-                display: none;
-                transition-duration: 0.3s;
+                opacity: 0;
+                height: 0;
             }
 
             &.expand {
@@ -314,11 +317,14 @@ export default {
 
                 li,
                 h4 {
-                    display: block;
+                    opacity: 1;
+                    height: auto;
+                    transition-duration: 2s;
                 }
             }
 
             &.reduce {
+                height: 0;
                 animation-name: reduce;
             }
 
@@ -332,13 +338,13 @@ export default {
                 }
 
                 to {
-                    height: 200px;
+                    height: 150px;
                 }
             }
 
             @keyframes reduce {
                 from {
-                    height: 200px;
+                    height: 150px;
                 }
 
                 to {
