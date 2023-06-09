@@ -25,20 +25,20 @@ export default {
     $route(to, from) {
       if (!window.location.href.includes("preventivo")) {
         localStorage.clear();
+      }
 
-        if (window.location.href.includes("verticali")) {
-          slider = this.store.vertical;
-        }
-        else if (window.location.href.includes("orizzontali")) {
-          slider = this.store.horizontal;
-        }
+      if (window.location.href.includes("verticali")) {
+        slider = this.store.vertical;
+      }
+      else if (window.location.href.includes("orizzontali")) {
+        slider = this.store.horizontal;
+      }
 
-        if (to.hash && window.location.hash) {
-          for (let i = 0; i < slider.length; i++) {
-            if (i !== parseInt(to.hash.replace(/[^0-9]+/g, ''), 10)) {
-              slider[i].active = false;
-              slider[parseInt(to.hash.replace(/[^0-9]+/g, ''), 10)].active = true;
-            }
+      if (to.hash && window.location.hash) {
+        for (let i = 0; i < slider.length; i++) {
+          if (i !== parseInt(to.hash.replace(/[^0-9]+/g, ''), 10)) {
+            slider[i].active = false;
+            slider[parseInt(to.hash.replace(/[^0-9]+/g, ''), 10)].active = true;
           }
         }
       }
