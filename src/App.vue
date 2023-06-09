@@ -190,4 +190,157 @@ section {
   color: #000;
   font-size: 0.9rem;
 }
+
+// Sezioni Verticali/Orizzontali/Battente/Scorri/Fissa/Casper
+section {
+
+  // Inizio contenuto slider
+  .slider-container {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+
+    // Rettangolini in alto
+    .list-rectangles {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      gap: 20px;
+      padding: 50px 0 20px 0;
+
+      .rectangles {
+        background-color: rgba(0, 0, 0, .4);
+        width: 30px;
+        height: 6px;
+
+        &.active {
+          background-color: #000;
+
+        }
+
+        &:not(.active) {
+          cursor: pointer;
+        }
+      }
+    }
+
+    // Contenuto slider
+    .slider {
+      font-weight: bold;
+      user-select: none;
+      // transition-property: transform, opacity;
+      // transition-duration: 500ms;
+      // transition-timing-function: ease-in;
+
+      &:not(.active) {
+        opacity: 0;
+        height: 0;
+      }
+
+      &.active {
+        opacity: 1;
+        height: auto;
+      }
+
+      .div-image {
+        position: relative;
+        //margin: 0 auto;
+        //max-width: 900px;
+
+        .slide-image {
+          height: 320px;
+        }
+      }
+
+      h2 {
+        padding: 25px 0;
+        font-size: 2rem;
+
+        &.giada {
+          font-size: 1.8rem;
+        }
+      }
+
+      .name {
+        font-size: 1.3rem;
+      }
+
+      .casper-list {
+        padding-top: 10px;
+        padding-bottom: 84px;
+        text-align: left;
+      }
+
+      .description {
+        text-align: justify;
+        //margin: 0 auto;
+        //max-width: 900px;
+        font-size: 1.05rem;
+
+        &.casper {
+          padding-top: 84px;
+        }
+
+        &:not(.casper) {
+          padding: 84px 0;
+
+        }
+
+        &.giada {
+          padding: 87px 0;
+        }
+      }
+
+      .arrow {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2.5rem;
+
+        &.left {
+          left: 0;
+        }
+
+        &.right {
+          right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1800px) and (max-width: 2000px) {
+
+  section {
+
+    .slider-container {
+      padding-bottom: 40px;
+      padding-top: 50px;
+    }
+
+    .info-colors {
+
+      .container {
+        height: 370px;
+
+        .list-colors {
+
+          .colors {
+            font-size: 0.92rem;
+
+            .color {
+              width: 165px;
+
+              .color-image {
+                height: 98px;
+              }
+            }
+          }
+
+        }
+      }
+    }
+  }
+}
 </style>
