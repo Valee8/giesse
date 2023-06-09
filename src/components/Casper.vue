@@ -1,35 +1,71 @@
 <script>
 
+import { store } from '../store';
+
+import Colori from './Colori.vue';
+
 export default {
     name: 'Casper',
+    components: {
+        Colori
+    },
+    data() {
+        return {
+            store
+        }
+    },
+    computed: {
+        printNameSection() {
+            return this.store.typologies[5].name;
+        },
+    }
 }
 </script>
 
 <template>
+    <!-- Inizio sezioni Verticali/Orizzontali -->
     <section>
         <div class="container">
-            <h1>
-                Casper
-            </h1>
+            <!-- Titolo in alto a sinistra -->
+            <div class="section-title">
+                <!-- Scritta Home -->
+                <router-link to="/">Home</router-link>
+                <!-- Icone freccia -->
+                <i class="fa-solid fa-chevron-right"></i>
+                <!-- Nome sezione -->
+                {{ printNameSection }}
+            </div>
 
-            <div class="small_container">
-                <div class="cards active">
-                    <img src="/img/casper.jpg" alt="CASPER">
 
+            <!-- Inizio parte slider zanzariere -->
+            <div class="slider-container">
+
+                <!-- Parte contenuto slider -->
+                <div class="slider active">
+                    <div class="div-image">
+                        <!-- Immagine zanzariera -->
+                        <img src="/img/casper.jpg" alt="CASPER" class="slide-image">
+                    </div>
+
+                    <!-- Titolo - nome modello -->
                     <h2>
                         INCASSO CON GUIDA DA 50X35
                     </h2>
 
+                    <!-- Nome zanzariera  -->
                     <div class="name">
                         CASPER
                     </div>
 
-                    <p>
+                    <!-- Descrizione zanzariera -->
+                    <p class="description casper">
                         Il modello CASPER &egrave; una zanzariera da incasso per falegnami. Viene prodotto con il cassonetto
                         da
                         45 o 55mm e con una guida da 50x35. Questo modello pu&ograve; essere realizzato in tutte le
                         versioni:
-                    <ul>
+                    </p>
+
+                    <ul class="casper-list">
                         <li>VERTICALE A MOLLA CLASSICA (CASPER A MOLLA)</li>
                         <li>VERTICALE A MOLLA CON SISTEMA A CRICCHETTO (CASPER A CRICCHETTO)</li>
                         <li>VERTICALE A CATENA CLASSICA (CASPER A CATENA)</li>
@@ -40,12 +76,13 @@ export default {
                         <li>LATERALE CON GUIDA BASSA DA 3mm (CASPER TIPO ZELIG)</li>
                         <li>LATERALE A MOLLA FRIZIONATA (CASPER TIPO JOLLY)</li>
                     </ul>
-                    </p>
-
-
                 </div>
+
             </div>
         </div>
+
+        <!-- Colori -->
+        <Colori />
     </section>
 </template>
 
@@ -53,14 +90,4 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
-
-.small_container {
-    text-align: center;
-
-    ul {
-        li {
-            text-align: left;
-        }
-    }
-}
 </style>

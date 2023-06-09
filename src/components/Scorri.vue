@@ -1,40 +1,76 @@
 <script>
 
+import { store } from '../store';
+
+import Colori from './Colori.vue';
+
 export default {
     name: 'Scorri',
+    components: {
+        Colori
+    },
+    data() {
+        return {
+            store
+        }
+    },
+    computed: {
+        printNameSection() {
+            return this.store.typologies[3].name;
+        },
+    }
 }
 </script>
 
 <template>
+    <!-- Inizio sezioni Verticali/Orizzontali -->
     <section>
         <div class="container">
-            <h1>
-                Scorri
-            </h1>
+            <!-- Titolo in alto a sinistra -->
+            <div class="section-title">
+                <!-- Scritta Home -->
+                <router-link to="/">Home</router-link>
+                <!-- Icone freccia -->
+                <i class="fa-solid fa-chevron-right"></i>
+                <!-- Nome sezione -->
+                {{ printNameSection }}
+            </div>
 
-            <div class="small_container">
-                <div class="cards active">
-                    <img src="" alt="SCORRI">
 
+            <!-- Inizio parte slider zanzariere -->
+            <div class="slider-container">
+
+                <!-- Parte contenuto slider -->
+                <div class="slider active">
+                    <div class="div-image">
+                        <!-- Immagine zanzariera -->
+                        <img src="" alt="SCORRI" class="slide-image">
+                    </div>
+
+                    <!-- Titolo - nome modello -->
                     <h2>
                         MODELLO A PANNELLI SCORREVOLI
                     </h2>
 
+                    <!-- Nome zanzariera  -->
                     <div class="name">
                         SCORRI
                     </div>
 
-                    <p>
+                    <!-- Descrizione zanzariera -->
+                    <p class="description">
                         Il modello SCORRI &egrave; una zanzariera ad ante scorrevoli o saliscendi (a due o pi&ugrave; ante).
                         Fornito di serie con la rete in fibra di vetro, su richiesta pu&ograve; essere realizzato anche con
                         rete
                         in alluminio, acciaio, petscreen.
                     </p>
-
-
                 </div>
+
             </div>
         </div>
+
+        <!-- Colori -->
+        <Colori />
     </section>
 </template>
 
@@ -42,8 +78,4 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
-
-.small_container {
-    text-align: center;
-}
 </style>
