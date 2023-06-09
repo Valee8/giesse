@@ -35,17 +35,8 @@ export default {
             }
         }
 
-        if (window.location.hash === "#jolly") {
 
-            slider[4].active = true;
-
-            for (let i = 0; i < slider.length; i++) {
-                if (i !== 4) {
-                    slider[i].active = false;
-                }
-            }
-        }
-        else {
+        if (!window.location.hash) {
             slider[0].active = true;
 
             for (let i = 0; i < slider.length; i++) {
@@ -95,7 +86,7 @@ export default {
                 }
             }
 
-            if (window.location.hash === "#jolly") {
+            if (window.location.hash) {
                 window.location.hash = "";
             }
         },
@@ -118,7 +109,7 @@ export default {
                 }
             }
 
-            if (window.location.hash === "#jolly") {
+            if (window.location.hash) {
                 window.location.hash = "";
             }
         },

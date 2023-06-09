@@ -6,6 +6,8 @@ import AppMain from './components/AppMain.vue';
 import AppFooter from './components/AppFooter.vue';
 //import Loader from './components/Loader.vue';
 
+let slider;
+
 export default {
   components: {
     AppHeader,
@@ -23,10 +25,26 @@ export default {
     $route(to, from) {
       if (!window.location.href.includes("preventivo")) {
         localStorage.clear();
+
+        if (window.location.href.includes("verticali")) {
+          slider = this.store.vertical;
+        }
+        else {
+          slider = this.store.horizontal;
+        }
+
+        if (to.hash && window.location.hash) {
+          for (let i = 0; i < slider.length; i++) {
+            if (i !== parseInt(to.hash.replace(/[^0-9]+/g, ''), 10)) {
+              slider[i].active = false;
+              slider[parseInt(to.hash.replace(/[^0-9]+/g, ''), 10)].active = true;
+            }
+          }
+        }
       }
     }
   },
-  mounted() {
+  updated() {
     window.addEventListener('popstate', this.handleBackButton);
     window.addEventListener('scroll', this.handleScroll);
   },
@@ -39,7 +57,7 @@ export default {
   },
   methods: {
     handleScroll() {
-      if (window.pageYOffset > 700) {
+      if (window.scrollY > 700) {
         this.showBackToTop = true;
       }
       else {

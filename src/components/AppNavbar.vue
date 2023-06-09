@@ -7,12 +7,59 @@ export default {
     data() {
         return {
             store,
-            submenu: false,
             activeSection: "",
-            classSubmenu: ""
+            submenu: false,
+            classSubmenu: "",
+            listModels: [
+                {
+                    name: "Verticale a molla",
+                    hash: "#verticale-molla"
+                },
+                {
+                    name: "Verticale a molla (sistema a cricchetto)",
+                    hash: "#cricchetto"
+                },
+                {
+                    name: "Verticale a catena classica",
+                    hash: "#catena"
+                },
+                {
+                    name: "Verticale a catena + molla",
+                    hash: "#catena-molla"
+                },
+                {
+                    name: "Laterale a molla classica",
+                    hash: "#laterale-molla"
+                },
+                {
+                    name: "Laterale a molla (guida bassa da 2cm)",
+                    hash: "#molla-guida-bassa"
+                },
+                {
+                    name: "Laterale a molla (guida arrotondata da 14mm)",
+                    hash: "#luna"
+                },
+                {
+                    name: "Laterale a molla (guida bassa da 3mm)",
+                    hash: "#zelig"
+                },
+                {
+                    name: "Laterale Frizionata",
+                    hash: "#jolly"
+                },
+                {
+                    name: "Laterale Antivento",
+                    hash: "#bora"
+                },
+                {
+                    name: "Laterale Plissettata",
+                    hash: "#plisse"
+                },
+            ]
         }
     },
     updated() {
+
         if (window.location.href.includes('preventivo')) {
             this.store.linksNav[0].active = true;
             this.activeSection = "active top";
@@ -59,8 +106,23 @@ export default {
                 this.submenu = false;
                 this.classSubmenu = "reduce";
             }
+        },
+        closeSubmenu() {
+            if (this.classSubmenu === "expand") {
+                this.submenu = false;
+                this.classSubmenu = "reduce";
+            }
         }
-    }
+    },
+    computed: {
+        filteredVertical() {
+            return this.listModels.slice(0, 4);
+        },
+        filteredHorizontal() {
+            return this.listModels.slice(4, 10);
+        }
+    },
+
 }
 </script>
 
@@ -79,7 +141,7 @@ export default {
                     </span>
                 </span>
             </div>
-            <div class="submenu" :class="classSubmenu">
+            <div class="submenu" :class="classSubmenu" @click="closeSubmenu">
                 <div class="container">
                     <h4>
                         Tutti i modelli
@@ -90,17 +152,10 @@ export default {
                                 Verticali
                             </h5>
                         </li>
-                        <li>
-                            Verticale a molla
-                        </li>
-                        <li>
-                            Verticale a molla (sistema a cricchetto)
-                        </li>
-                        <li>
-                            Verticale a catena classica
-                        </li>
-                        <li>
-                            Verticale a catena &plus; molla
+                        <li v-for="(model, index) in filteredVertical" :key="index">
+                            <router-link :to="{ name: 'verticali', params: { id: 0 }, hash: model.hash + '-' + index }">
+                                {{ model.name }}
+                            </router-link>
                         </li>
                     </ul>
                     <ul>
@@ -109,26 +164,10 @@ export default {
                                 Laterali
                             </h5>
                         </li>
-                        <li>
-                            Laterale a molla classica
-                        </li>
-                        <li>
-                            Laterale a molla (con guida bassa da 2cm)
-                        </li>
-                        <li>
-                            Laterale a molla (con guida arrotondata da 14mm)
-                        </li>
-                        <li>
-                            Laterale a molla (con guida bassa da 3mm)
-                        </li>
-                        <li>
-                            Laterale Frizionata
-                        </li>
-                        <li>
-                            Laterale Antivento
-                        </li>
-                        <li>
-                            Laterale Plissettata
+                        <li v-for="(model, index) in filteredHorizontal" :key="index">
+                            <router-link :to="{ name: 'orizzontali', params: { id: 1 }, hash: model.hash + '-' + index }">
+                                {{ model.name }}
+                            </router-link>
                         </li>
                     </ul>
                     <ul>
@@ -138,16 +177,24 @@ export default {
                             </h5>
                         </li>
                         <li>
-                            Porta a battente
+                            <router-link :to="{ name: 'porta-a-battente', params: { id: 2 } }">
+                                Porta a battente
+                            </router-link>
                         </li>
                         <li>
-                            Scorri
+                            <router-link :to="{ name: 'scorri', params: { id: 3 } }">
+                                Scorri
+                            </router-link>
                         </li>
                         <li>
-                            Fissa
+                            <router-link :to="{ name: 'fissa', params: { id: 4 } }">
+                                Fissa
+                            </router-link>
                         </li>
                         <li>
-                            Casper
+                            <router-link :to="{ name: 'casper', params: { id: 5 } }">
+                                Casper
+                            </router-link>
                         </li>
                     </ul>
                 </div>
@@ -235,6 +282,23 @@ export default {
             background-color: #000;
             animation-duration: 0.3s;
             animation-fill-mode: forwards;
+
+            h4 {
+                font-size: 1.1rem;
+            }
+
+            h5 {
+                font-size: 0.9rem;
+            }
+
+            a {
+                color: #fff;
+                font-size: 0.8rem;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
 
             .container {
                 display: flex;
