@@ -109,6 +109,32 @@ export const store = reactive({
             active: false
         },
     ],
+    // others: [
+    //     {
+    //         model: "PORTA A BATTENTE",
+    //         name: "ANTAREX",
+    //         image: "/img/porta-a-battente.jpg",
+    //         description: "Il modello ANTAREX è una zanzariera a battente per portafinestra. Caratterizzata dall'assenza di profili a pavimento, può essere realizzata ad una o più ante. Fornita di serie con la rete in fibra di vetro, su richiesta può essere fornita anche con rete in alluminio, acciaio, petscreen."
+    //     },
+    //     {
+    //         model: "MODELLO A PANNELLI SCORREVOLI",
+    //         name: "SCORRI",
+    //         image: "",
+    //         description: "Il modello SCORRI è una zanzariera ad ante scorrevoli o saliscendi (a due o più ante). Fornito di serie con la rete in fibra di vetro, su richiesta può essere realizzato anche con rete in alluminio, acciaio, petscreen."
+    //     },
+    //     {
+    //         model: "TELAIO FISSO",
+    //         name: "FISSA",
+    //         image: "",
+    //         description: "Il modello FISSA è viene fornito di serie con rete in fibra di vetro, su richiesta può essere realizzato anche con rete in alluminio, acciaio, petscreen."
+    //     },
+    //     {
+    //         model: "INCASSO CON GUIDA DA 50X35",
+    //         name: "CASPER",
+    //         image: "",
+    //         description: "Il modello CASPER è una zanzariera da incasso per falegnami. Viene prodotto con il cassonetto da 45 o 55mm e con una guida da 50x35. Questo modello può essere realizzato in tutte le versioni:"
+    //     }
+    // ],
     typologies: [
         {
             name: "Verticali",
