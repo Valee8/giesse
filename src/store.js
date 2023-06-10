@@ -5,6 +5,64 @@ export const store = reactive({
     //isLoading: true,
     submenu: false,
     classSubmenu: "",
+    listModels: [
+        {
+            name: "Verticale a molla",
+            hash: "#verticale-molla",
+        },
+        {
+            name: "Verticale a molla (sistema a cricchetto)",
+            hash: "#cricchetto"
+        },
+        {
+            name: "Verticale a catena classica",
+            hash: "#catena"
+        },
+        {
+            name: "Verticale a catena + molla",
+            hash: "#catena-molla"
+        },
+        {
+            name: "Laterale a molla classica",
+            hash: "#laterale-molla"
+        },
+        {
+            name: "Laterale a molla (guida bassa da 2cm)",
+            hash: "#molla-guida-bassa"
+        },
+        {
+            name: "Laterale a molla (guida arrotondata da 14mm)",
+            hash: "#luna"
+        },
+        {
+            name: "Laterale a molla (guida bassa da 3mm)",
+            hash: "#zelig"
+        },
+        {
+            name: "Laterale Frizionata",
+            hash: "#jolly"
+        },
+        {
+            name: "Laterale Antivento",
+            hash: "#bora"
+        },
+        {
+            name: "Laterale Plissettata",
+            hash: "#plisse"
+        },
+        {
+            name: "Porta a battente",
+        },
+        {
+            name: "Scorri",
+        },
+        {
+            name: "Fissa",
+        },
+        {
+            name: "Casper",
+        },
+    ],
     linksNav: [
         {
             text: "Richiedi Preventivo",

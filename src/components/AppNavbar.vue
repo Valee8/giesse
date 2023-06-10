@@ -8,52 +8,6 @@ export default {
         return {
             store,
             activeSection: "",
-            listModels: [
-                {
-                    name: "Verticale a molla",
-                    hash: "#verticale-molla",
-                },
-                {
-                    name: "Verticale a molla (sistema a cricchetto)",
-                    hash: "#cricchetto"
-                },
-                {
-                    name: "Verticale a catena classica",
-                    hash: "#catena"
-                },
-                {
-                    name: "Verticale a catena + molla",
-                    hash: "#catena-molla"
-                },
-                {
-                    name: "Laterale a molla classica",
-                    hash: "#laterale-molla"
-                },
-                {
-                    name: "Laterale a molla (guida bassa da 2cm)",
-                    hash: "#molla-guida-bassa"
-                },
-                {
-                    name: "Laterale a molla (guida arrotondata da 14mm)",
-                    hash: "#luna"
-                },
-                {
-                    name: "Laterale a molla (guida bassa da 3mm)",
-                    hash: "#zelig"
-                },
-                {
-                    name: "Laterale Frizionata",
-                    hash: "#jolly"
-                },
-                {
-                    name: "Laterale Antivento",
-                    hash: "#bora"
-                },
-                {
-                    name: "Laterale Plissettata",
-                    hash: "#plisse"
-                },
-            ]
         }
     },
     updated() {
@@ -108,10 +62,10 @@ export default {
     },
     computed: {
         filteredVertical() {
-            return this.listModels.slice(0, 4);
+            return this.store.listModels.slice(0, 4);
         },
         filteredHorizontal() {
-            return this.listModels.slice(4, 10);
+            return this.store.listModels.slice(4, 10);
         }
     },
 

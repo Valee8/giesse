@@ -1,6 +1,22 @@
 <script>
+
+import { store } from '../store.js';
+
 export default {
     name: 'AppFooter',
+    data() {
+        return {
+            store,
+        }
+    },
+    computed: {
+        filteredLeft() {
+            return this.store.listModels.slice(0, 8);
+        },
+        filteredRight() {
+            return this.store.listModels.slice(8, 15);
+        }
+    },
 }
 </script>
 
@@ -59,6 +75,19 @@ export default {
                 </h3>
                 <!-- Bordo sotto il titolo -->
                 <div class="border"></div>
+
+                <div class="list">
+                    <ul>
+                        <li v-for="(model, index) in filteredLeft" :key="index">
+                            {{ model.name }}
+                        </li>
+                    </ul>
+                    <ul>
+                        <li v-for="(model, index) in filteredRight" :key="index">
+                            {{ model.name }}
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </footer>
@@ -83,8 +112,13 @@ footer {
         justify-content: space-between;
         align-items: center;
 
+        .left-footer {
+            width: 25%;
+        }
+
         // Parte centrale footer
         .center-footer {
+            width: 20%;
 
             ul {
                 font-size: 0.75rem;
@@ -101,9 +135,19 @@ footer {
         }
 
         // Larghezza div (blocchi footer) che contengono la parola 'footer' come classe
-        div {
-            &[class*="footer"] {
-                width: 25%;
+        // div {
+        //     &[class*="footer"] {
+        //         width: 25%;
+        //     }
+        // }
+
+        .right-footer {
+            width: 35%;
+
+            .list {
+                display: flex;
+                justify-content: space-between;
+                gap: 50px;
             }
         }
 
