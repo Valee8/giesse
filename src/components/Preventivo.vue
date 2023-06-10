@@ -315,18 +315,23 @@ export default {
         },
         nextStep(event) {
 
-            if (this.currentStep === 1 && this.firstStepValid || this.currentStep === 2 && this.secondStepValid && this.orderList.length !== 0) {
-                event.preventDefault();
+            if (this.currentStep === 2 && this.orderList.length === 0) {
+                this.fixRequiredProblem = true;
+            }
+
+            if (this.currentStep === 1 && this.firstStepValid || this.currentStep === 2 && this.orderList.length !== 0) {
                 this.currentStep++;
+
+                event.preventDefault();
 
                 localStorage.setItem("CurrentStep", this.currentStep.toString());
 
-                if (this.currentStep !== 2) {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    });
-                }
+                //if (this.currentStep !== 2) {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+                //}
 
             }
 
@@ -586,6 +591,7 @@ export default {
                 </form>
 
 
+                <!-- @submit="handleSubmit" -->
                 <!-- Inizio step 2 -->
                 <form @submit="handleSubmit" v-else-if="currentStep === 2" class="second-step">
 
@@ -705,7 +711,7 @@ export default {
                             <span>
                                 {{ typology.replace(/\([^)]*\)/g, "") }} | {{ order.models.charAt(0).toUpperCase() +
                                     order.models.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} | {{ order.choice }} |
-                                <img :src="order.colors" class="order-image">
+                                <img :src="order.colors" :alt="order.colorsName" class="order-image">
                             </span>
                             <span>
                                 Quantit&agrave;: {{ order.quantity }}
