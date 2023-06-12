@@ -49,7 +49,7 @@ export default {
         <div class="bg-section">
 
             <div class="container">
-                <div class="section-title">
+                <div class="section-title" :class="{ 'menu-expand': this.store.classSubmenu === 'expand' }">
                     <!-- Scritta Home -->
                     <router-link to="/">Home</router-link>
                     <!-- Icone freccia -->
@@ -147,7 +147,6 @@ section {
         background-size: cover;
         background-position: center;
         height: 410px;
-        padding-top: 30px;
 
         .section-title {
 

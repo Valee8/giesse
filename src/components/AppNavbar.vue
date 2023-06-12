@@ -208,8 +208,8 @@ export default {
 #blackMenu {
     color: #fff;
     width: 100%;
-    position: relative;
-    z-index: 50;
+    //position: relative;
+    //z-index: 50;
 
     .bg {
         background-color: #000;
@@ -226,6 +226,11 @@ export default {
             animation-duration: 0.3s;
             animation-fill-mode: forwards;
             height: 0;
+            position: relative;
+
+            ul {
+                height: 0;
+            }
 
             h4 {
                 font-size: 1.1rem;
@@ -250,28 +255,30 @@ export default {
                 flex-wrap: wrap;
                 gap: 10px 60px;
                 height: 0;
-
-                ul {
-                    height: 0;
-                }
             }
 
-            h4 {
-                width: 100%;
-            }
+            // h4 {
+            //     width: 100%;
+            // }
 
             li,
             h4 {
                 opacity: 0;
-                height: 0;
+                //height: 0;
             }
 
             &.expand {
                 animation-name: expand;
+                z-index: 20;
+
+                ul {
+                    height: auto;
+                }
 
                 li,
                 h4 {
                     opacity: 1;
+                    //width: auto;
                     height: auto;
                     transition-duration: 2s;
                 }
@@ -280,6 +287,16 @@ export default {
             &.reduce {
                 height: 0;
                 animation-name: reduce;
+
+                ul {
+                    height: 0;
+                }
+
+                li,
+                h4 {
+                    opacity: 0;
+                    height: 0;
+                }
             }
 
             hr {

@@ -130,7 +130,7 @@ export default {
     <section>
         <div class="container">
             <!-- Titolo in alto a sinistra -->
-            <div class="section-title">
+            <div class="section-title" :class="{ 'menu-expand': this.store.classSubmenu === 'expand' }">
                 <!-- Scritta Home -->
                 <router-link to="/">Home</router-link>
                 <!-- Icone freccia -->

@@ -24,7 +24,7 @@ export default {
 <template>
     <section>
         <div class="container">
-            <div class="section-title">
+            <div class="section-title" :class="{ 'menu-expand': this.store.classSubmenu === 'expand' }">
                 <!-- Scritta Home -->
                 <router-link to="/">Home</router-link>
                 <!-- Icone freccia -->
