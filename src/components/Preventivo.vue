@@ -2,6 +2,14 @@
 
 import { store } from '../store.js';
 
+import CryptoJS from 'crypto-js';
+
+// Importa i moduli CryptoJS necessari
+// import AES from 'crypto-js/aes';
+// import encUtf8 from 'crypto-js/enc-utf8';
+
+const encryptionKey = CryptoJS.lib.WordArray.random(256 / 8).toString();
+
 export default {
     name: 'Preventivo',
     data() {
@@ -343,28 +351,33 @@ export default {
                 telephone: this.telephone,
                 city_of_residence: this.city_of_residence,
                 selection: this.selectedOption,
-            }
+            };
 
             const existingData2 = localStorage.getItem("Info dati");
 
+            let encryptedData;
+
             if (existingData2) {
-                this.infoList = JSON.parse(existingData2);
-            }
-            else {
+                const decryptedData = CryptoJS.AES.decrypt(existingData2, encryptionKey).toString(CryptoJS.enc.Utf8);
+                this.infoList = JSON.parse(decryptedData);
+            } else {
                 this.infoList = [];
             }
 
             if (this.currentStep === 2) {
                 this.infoList.push(obj);
 
-                localStorage.setItem("Info dati", JSON.stringify(this.infoList));
+                encryptedData = CryptoJS.AES.encrypt(JSON.stringify(this.infoList), encryptionKey).toString();
+                localStorage.setItem("Info dati", encryptedData);
             }
 
-            this.selectedOption == "";
+            this.selectedOption = "";
 
             if (this.infoList.length > 1) {
                 this.infoList.splice(0, 1);
-                localStorage.setItem("Info dati", JSON.stringify(this.infoList));
+
+                encryptedData = CryptoJS.AES.encrypt(JSON.stringify(this.infoList), encryptionKey).toString();
+                localStorage.setItem("Info dati", encryptedData);
             }
 
         },
@@ -494,7 +507,7 @@ export default {
     <section :class="{ 'thank-you': currentStep === 4 }">
         <div class="container">
 
-            <div class="section-title">
+            <div class="section-title" :class="{ 'menu-expand': this.store.classSubmenu === 'expand' }">
                 <!-- Scritta Home -->
                 <router-link to="/">Home</router-link>
                 <!-- Icone freccia -->
@@ -821,7 +834,6 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
-
 
 .thank-you {
     background-image: url('/img/sfondo-ringraziamento.png');
@@ -1270,7 +1282,7 @@ section {
 
 .container {
     color: #fff;
-    padding: 20px 0;
+    padding-bottom: 20px;
     //max-width: 550px;
 
     .top {
