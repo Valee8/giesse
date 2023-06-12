@@ -10,6 +10,7 @@ import Casper from './Casper.vue';
 import Preventivo from './Preventivo.vue';
 import Sede from './Sede.vue';
 import Contatti from './Contatti.vue';
+import Informazioni from './Informazioni.vue';
 
 export default {
     name: 'AppMain',
@@ -24,7 +25,8 @@ export default {
         Casper,
         Preventivo,
         Sede,
-        Contatti
+        Contatti,
+        Informazioni
     }
 }
 </script>
@@ -46,6 +48,8 @@ export default {
     <Fissa v-if="$route.name === 'fissa'" />
 
     <Casper v-if="$route.name === 'casper'" />
+
+    <Informazioni v-if="$route.name === 'home'" />
 
     <Preventivo v-if="$route.name === 'preventivo'" />
 
