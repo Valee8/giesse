@@ -146,7 +146,8 @@ export default {
     </nav>
     <!-- Menu nero in alto -->
 
-    <div class="container" :class="{ 'not-home': $route.name !== 'home' }">
+    <div class="container"
+        :class="{ 'not-home': $route.name !== 'home', 'menu-expand': this.store.classSubmenu === 'expand' }">
         <div class="a-logo">
             <router-link to="/">
                 <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
@@ -332,6 +333,8 @@ export default {
 
 .a-logo {
     margin-top: 50px;
+    background-color: red;
+    width: 250px;
 }
 
 

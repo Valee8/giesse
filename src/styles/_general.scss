@@ -34,6 +34,12 @@ ul {
     margin: 0 auto;
     max-width: 1200px;
     width: 88%;
+    position: relative;
+    z-index: 30;
+
+    &.menu-expand {
+        z-index: 1;
+    }
 }
 
 // Schermo gigante

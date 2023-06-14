@@ -4,11 +4,15 @@ import { store } from '../store.js';
 
 import CryptoJS from 'crypto-js';
 
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8000/api/v1/';
+
 // Importa i moduli CryptoJS necessari
 // import AES from 'crypto-js/aes';
 // import encUtf8 from 'crypto-js/enc-utf8';
 
-const encryptionKey = CryptoJS.lib.WordArray.random(256 / 8).toString();
+let encryptionKey = CryptoJS.lib.WordArray.random(256 / 8).toString();
 
 export default {
     name: 'Preventivo',
@@ -36,6 +40,10 @@ export default {
             colors: "",
             colorsName: "",
             selectedModel: "",
+            newKey: {
+                key: ""
+            },
+            keys: [],
             choice: "",
             message: "",
             zanzs: [
@@ -188,10 +196,6 @@ export default {
                 this.enableButton = true;
             }
 
-            if (this.selectedOption === "") {
-                this.selectedOption = "Privato";
-            }
-
             if (this.selectedOption === "Privato") {
                 if (this.name.trim() !== "" && this.surname.trim() !== "" && this.enableButton) {
                     return true;
@@ -321,64 +325,88 @@ export default {
 
             }
         },
-        nextStep(event) {
+        keySubmit(event) {
 
-            if (this.currentStep === 2 && this.orderList.length === 0) {
-                this.fixRequiredProblem = true;
-            }
+            if (this.firstStepValid) {
 
-            if (this.currentStep === 1 && this.firstStepValid || this.currentStep === 2 && this.orderList.length !== 0) {
                 this.currentStep++;
 
                 event.preventDefault();
 
                 localStorage.setItem("CurrentStep", this.currentStep.toString());
 
-                //if (this.currentStep !== 2) {
                 window.scrollTo({
                     top: 0,
                     behavior: "smooth"
                 });
-                //}
 
+                let obj = {
+                    name: this.name,
+                    surname: this.surname,
+                    agency_name: this.agency_name,
+                    email: this.email,
+                    telephone: this.telephone,
+                    city_of_residence: this.city_of_residence,
+                    selection: this.selectedOption,
+                };
+
+                const existingData2 = localStorage.getItem("Info dati");
+
+                let encryptedData;
+
+                this.newKey.key = encryptionKey;
+
+                axios.post(API_URL + 'key/store', this.newKey)
+                    .then(res => {
+                        const data = res.data;
+                        const success = data.success;
+
+                    })
+                    .catch(error => console.log(error));
+
+                if (existingData2) {
+                    const decryptedData = CryptoJS.AES.decrypt(existingData2, this.newKey.key).toString(CryptoJS.enc.Utf8);
+                    this.infoList = JSON.parse(decryptedData);
+                } else {
+                    this.infoList = [];
+                }
+
+                if (this.currentStep === 2) {
+                    this.infoList.push(obj);
+
+                    encryptedData = CryptoJS.AES.encrypt(JSON.stringify(this.infoList), this.newKey.key).toString();
+                    localStorage.setItem("Info dati", encryptedData);
+                }
+
+                this.selectedOption = "";
+
+                if (this.infoList.length > 1) {
+                    this.infoList.splice(0, 1);
+
+                    encryptedData = CryptoJS.AES.encrypt(JSON.stringify(this.infoList), this.newKey.key).toString();
+                    localStorage.setItem("Info dati", encryptedData);
+                }
             }
 
-            let obj = {
-                name: this.name,
-                surname: this.surname,
-                agency_name: this.agency_name,
-                email: this.email,
-                telephone: this.telephone,
-                city_of_residence: this.city_of_residence,
-                selection: this.selectedOption,
-            };
+            // if (this.currentStep === 2 && this.orderList.length === 0) {
+            //     this.fixRequiredProblem = true;
+            // }
 
-            const existingData2 = localStorage.getItem("Info dati");
+            // if (this.currentStep === 1 && this.firstStepValid || this.currentStep === 2 && this.orderList.length !== 0) {
+            //     this.currentStep++;
 
-            let encryptedData;
+            //     event.preventDefault();
 
-            if (existingData2) {
-                const decryptedData = CryptoJS.AES.decrypt(existingData2, encryptionKey).toString(CryptoJS.enc.Utf8);
-                this.infoList = JSON.parse(decryptedData);
-            } else {
-                this.infoList = [];
-            }
+            //     localStorage.setItem("CurrentStep", this.currentStep.toString());
 
-            if (this.currentStep === 2) {
-                this.infoList.push(obj);
+            //     //if (this.currentStep !== 2) {
+            //     window.scrollTo({
+            //         top: 0,
+            //         behavior: "smooth"
+            //     });
+            //     //}
 
-                encryptedData = CryptoJS.AES.encrypt(JSON.stringify(this.infoList), encryptionKey).toString();
-                localStorage.setItem("Info dati", encryptedData);
-            }
-
-            this.selectedOption = "";
-
-            if (this.infoList.length > 1) {
-                this.infoList.splice(0, 1);
-
-                encryptedData = CryptoJS.AES.encrypt(JSON.stringify(this.infoList), encryptionKey).toString();
-                localStorage.setItem("Info dati", encryptedData);
-            }
+            // }
 
         },
         resetCommonInputs() {
@@ -460,6 +488,16 @@ export default {
             this.telephone = "";
             this.city_of_residence = "";
         },
+        nextStep(event) {
+            event.preventDefault();
+
+            this.currentStep++;
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        },
         prevStep(event) {
 
             event.preventDefault();
@@ -480,6 +518,11 @@ export default {
         }
     },
     mounted() {
+
+        if (this.selectedOption === "") {
+            this.selectedOption = "Privato";
+        }
+
         if (localStorage.getItem("CurrentStep") !== null) {
             this.currentStep = parseInt(localStorage.getItem("CurrentStep"), 10);
         }
@@ -492,10 +535,31 @@ export default {
             this.orderList = JSON.parse(localStorageData);
         }
 
+        // if (localStorageData2) {
+        //     this.infoList = JSON.parse(localStorageData2);
+        // }
+
         const localStorageData2 = localStorage.getItem("Info dati");
 
         if (localStorageData2) {
-            this.infoList = JSON.parse(localStorageData2);
+            axios.get(API_URL + 'key')
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+
+                    if (success) {
+                        const keys = data.response.keys[data.response.keys.length - 1].key;
+
+                        const decryptedData = CryptoJS.AES.decrypt(localStorageData2, keys).toString(CryptoJS.enc.Utf8);
+
+                        this.infoList = JSON.parse(decryptedData);
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            this.infoList = [];
         }
 
         this.typology = this.zanzs[0].name;
@@ -505,9 +569,9 @@ export default {
 
 <template>
     <section :class="{ 'thank-you': currentStep === 4 }">
-        <div class="container">
+        <div class="container" :class="{ 'menu-expand': this.store.classSubmenu === 'expand' }">
 
-            <div class="section-title" :class="{ 'menu-expand': this.store.classSubmenu === 'expand' }">
+            <div class="section-title">
                 <!-- Scritta Home -->
                 <router-link to="/">Home</router-link>
                 <!-- Icone freccia -->
@@ -552,8 +616,7 @@ export default {
             <div class="bottom">
 
                 <!-- Inizio step 1 -->
-                <form v-if="currentStep === 1" class="first-step">
-
+                <form @submit="handleSubmit" v-if="currentStep === 1" class="first-step">
 
                     <!-- Parte sinistra step 1 con gl input -->
                     <div class="first-step-left">
@@ -597,7 +660,7 @@ export default {
                         </div>
 
                         <div class="form-button">
-                            <button @click="nextStep" class="button">Completa i dati</button>
+                            <input type="submit" @click="keySubmit" class="button" value="Completa i dati">
                         </div>
 
                     </div>
@@ -925,6 +988,7 @@ export default {
     input,
     label,
     textarea,
+    input,
     button {
         letter-spacing: 1px;
     }
@@ -932,7 +996,8 @@ export default {
     .form-button {
         //padding-top: 50px;
 
-        button {
+        button,
+        input {
             //background-color: $yellow-color;
             padding: 10px 50px;
             border: 0;

@@ -167,12 +167,6 @@ section {
 .section-title {
   font-size: 0.9rem;
   padding-top: 30px;
-  position: relative;
-  z-index: 30;
-
-  &.menu-expand {
-    z-index: 1;
-  }
 
   a {
     color: #000;
