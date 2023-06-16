@@ -77,6 +77,10 @@ export default {
     <nav id="blackMenu">
         <div class="bg">
             <div class="container">
+                <router-link to="/" v-if="$route.name !== 'home'">
+                    <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
+                </router-link>
+
                 <span @click.stop="showSubmenu">
                     Zanzariere
                     <span v-if="!store.submenu">
@@ -87,8 +91,9 @@ export default {
                     </span>
                 </span>
             </div>
+
             <div class="submenu" :class="store.classSubmenu">
-                <div class="container">
+                <div class="container" :class="{ 'pl-not-home': $route.name !== 'home' }">
                     <ul>
                         <li>
                             <h5>
@@ -116,7 +121,7 @@ export default {
                     <ul>
                         <li>
                             <h5>
-                                Altri
+                                Altre
                             </h5>
                         </li>
                         <li>
@@ -149,9 +154,7 @@ export default {
     <div class="container"
         :class="{ 'not-home': $route.name !== 'home', 'menu-expand': this.store.classSubmenu === 'expand' }">
         <div class="a-logo">
-            <router-link to="/">
-                <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
-            </router-link>
+            <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
         </div>
     </div>
 
@@ -210,6 +213,12 @@ export default {
     color: #fff;
     width: 100%;
 
+    .logo {
+        width: 155px;
+        height: 32px;
+        margin-right: 40px;
+    }
+
     .bg {
         background-color: #000;
         height: 60px;
@@ -259,6 +268,10 @@ export default {
                 flex-wrap: wrap;
                 gap: 10px 60px;
                 height: 0;
+
+                &.pl-not-home {
+                    padding-left: 199px;
+                }
             }
 
             // h4 {

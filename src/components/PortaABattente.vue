@@ -29,7 +29,7 @@ export default {
             <!-- Titolo in alto a sinistra -->
             <div class="section-title">
                 <!-- Scritta Home -->
-                <router-link to="/">Home</router-link>
+                <router-link to="/">Indietro</router-link>
                 <!-- Icone freccia -->
                 <i class="fa-solid fa-chevron-right"></i>
                 <!-- Nome sezione -->

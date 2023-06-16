@@ -333,8 +333,6 @@ export default {
                 selection: this.selectedOption,
             };
 
-            console.log(this.selectedOption);
-
             const existingData2 = localStorage.getItem("Info dati");
 
             let encryptedData;
@@ -460,11 +458,7 @@ export default {
         },
         nextStep(event) {
 
-            // if (this.currentStep === 2 && this.orderList.length === 0) {
-            //     this.fixRequiredProblem = true;
-            // }
-
-            if (this.currentStep === 2 && this.orderList.length !== 0 || this.currentStep === 2 && this.orderList.length === 0) {
+            if (this.currentStep === 2 && this.orderList.length !== 0) {
                 event.preventDefault();
 
                 this.currentStep++;
@@ -555,7 +549,7 @@ export default {
 
             <div class="section-title">
                 <!-- Scritta Home -->
-                <router-link to="/">Home</router-link>
+                <router-link to="/">Indietro</router-link>
                 <!-- Icone freccia -->
                 <i class="fa-solid fa-chevron-right"></i>
                 <!-- Nome sezione -->
@@ -790,7 +784,7 @@ export default {
                     <!-- Bottone per passare allo step successivo -->
                     <div class="form-button confirm">
                         <button @click="prevStep" class="button" id="buttons">Torna indietro</button>
-                        <button @click="nextStep" class="button" id="buttons">Conferma le
+                        <button @click="nextStep" class="button" id="buttons" v-if="orderList.length !== 0">Conferma le
                             zanzariere</button>
                     </div>
 
@@ -1012,6 +1006,7 @@ export default {
 
     hr {
         margin: 60px 0;
+        border-bottom: 1px solid #000;
     }
 
     .slider-preventivo {
