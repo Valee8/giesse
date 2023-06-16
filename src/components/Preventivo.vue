@@ -459,18 +459,23 @@ export default {
             this.city_of_residence = "";
         },
         nextStep(event) {
-            event.preventDefault();
 
-            this.currentStep++;
+            // if (this.currentStep === 2 && this.orderList.length === 0) {
+            //     this.fixRequiredProblem = true;
+            // }
 
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+            if (this.currentStep === 2 && this.orderList.length !== 0 || this.currentStep === 2 && this.orderList.length === 0) {
+                event.preventDefault();
+
+                this.currentStep++;
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            }
         },
         prevStep(event) {
-
-            console.log(this.selectedOption);
 
             event.preventDefault();
 
@@ -868,7 +873,6 @@ export default {
             </div>
         </div>
 
-
     </section>
 </template>
 
@@ -877,6 +881,13 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+.section-title {
+    a {
+        color: #fff;
+    }
+}
+
+// QUARTO STEP, parte ringraziamenti
 .thank-you {
     background-image: url('/img/sfondo-ringraziamento.png');
     background-size: cover;
@@ -912,13 +923,14 @@ export default {
         }
     }
 
+    .fourth-step {
+        text-align: center;
+    }
 
 }
 
-.fourth-step {
-    text-align: center;
-}
 
+// TERZO STEP
 .third-step {
     background-color: #ADADAD;
     padding-top: 20px;
@@ -959,6 +971,8 @@ export default {
     }
 }
 
+
+// CSS FORM, INPUT, TEXTAREA ECC.
 .bottom {
     color: #000;
     letter-spacing: 1px;
@@ -988,6 +1002,7 @@ export default {
     }
 }
 
+// SECONDO STEP
 .second-step {
     background-color: #adadad;
     max-width: 1070px;
@@ -1229,13 +1244,8 @@ export default {
     }
 }
 
-.section-title {
 
-    a {
-        color: #fff;
-    }
-}
-
+// PRIMO STEP
 .first-step {
     display: flex;
     justify-content: space-between;
@@ -1408,6 +1418,8 @@ section {
     }
 }
 
+
+// PARTE COLORI SECONDO STEP
 .list-typologies {
     display: flex;
     justify-content: center;

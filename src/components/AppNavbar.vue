@@ -205,12 +205,10 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-
+// Menu in alto nero
 #blackMenu {
     color: #fff;
     width: 100%;
-    //position: relative;
-    //z-index: 50;
 
     .bg {
         background-color: #000;
@@ -222,6 +220,7 @@ export default {
             cursor: pointer;
         }
 
+        // Submenu
         .submenu {
             background-color: #000;
             animation-duration: 0.3s;
@@ -339,18 +338,19 @@ export default {
     }
 }
 
+// Header scompare nelle altre sezioni, appare solo in homepage
 .not-home {
     display: none;
 }
 
+// Logo in homepage nell'header
 .a-logo {
     margin-top: 50px;
     width: 250px;
 }
 
 
-
-///////
+/////// Menu bello, menu figo
 #newMenu {
     position: fixed;
     right: 70px;
@@ -466,13 +466,12 @@ export default {
                 }
             }
         }
-
-
     }
 }
 
-// Navbar
+// VECCHIO MENU
 nav {
+
     &#oldMenu {
         display: none;
 
@@ -505,7 +504,8 @@ nav {
     }
 }
 
-// Navbar della home - sfondo nero
+// VECCHIO MENU
+// Navbar della home - sfondo nero - vecchio menu
 .nav-home {
     padding-top: 45px;
 
@@ -522,7 +522,8 @@ nav {
     }
 }
 
-// Navbar bianca sezioni
+// VECCHIO MENU
+// Navbar bianca sezioni - vecchio menu
 .nav-section {
     background-color: #fff;
     box-shadow: 0 0 15px rgba(0, 0, 0, .4);
