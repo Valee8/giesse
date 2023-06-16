@@ -229,6 +229,10 @@ export default {
             height: 0;
             position: relative;
 
+            a {
+                display: none;
+            }
+
             ul {
                 height: 0;
             }
@@ -272,6 +276,10 @@ export default {
                 animation-name: expand;
                 z-index: 20;
 
+                a {
+                    display: block;
+                }
+
                 ul {
                     height: auto;
                 }
@@ -279,7 +287,6 @@ export default {
                 li,
                 h4 {
                     opacity: 1;
-                    //width: auto;
                     height: auto;
                     transition-duration: 2s;
                 }
@@ -288,6 +295,11 @@ export default {
             &.reduce {
                 height: 0;
                 animation-name: reduce;
+                z-index: 40;
+
+                a {
+                    display: none;
+                }
 
                 ul {
                     height: 0;
@@ -310,13 +322,13 @@ export default {
                 }
 
                 to {
-                    height: 150px;
+                    height: 120px;
                 }
             }
 
             @keyframes reduce {
                 from {
-                    height: 150px;
+                    height: 120px;
                 }
 
                 to {
@@ -333,7 +345,6 @@ export default {
 
 .a-logo {
     margin-top: 50px;
-    background-color: red;
     width: 250px;
 }
 

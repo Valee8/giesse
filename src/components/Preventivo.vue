@@ -8,10 +8,6 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8000/api/v1/';
 
-// Importa i moduli CryptoJS necessari
-// import AES from 'crypto-js/aes';
-// import encUtf8 from 'crypto-js/enc-utf8';
-
 let encryptionKey = CryptoJS.lib.WordArray.random(256 / 8).toString();
 
 export default {
@@ -327,6 +323,24 @@ export default {
         },
         keySubmit(event) {
 
+            let obj = {
+                name: this.name,
+                surname: this.surname,
+                agency_name: this.agency_name,
+                email: this.email,
+                telephone: this.telephone,
+                city_of_residence: this.city_of_residence,
+                selection: this.selectedOption,
+            };
+
+            console.log(this.selectedOption);
+
+            const existingData2 = localStorage.getItem("Info dati");
+
+            let encryptedData;
+
+            this.newKey.key = encryptionKey;
+
             if (this.firstStepValid) {
 
                 this.currentStep++;
@@ -339,22 +353,6 @@ export default {
                     top: 0,
                     behavior: "smooth"
                 });
-
-                let obj = {
-                    name: this.name,
-                    surname: this.surname,
-                    agency_name: this.agency_name,
-                    email: this.email,
-                    telephone: this.telephone,
-                    city_of_residence: this.city_of_residence,
-                    selection: this.selectedOption,
-                };
-
-                const existingData2 = localStorage.getItem("Info dati");
-
-                let encryptedData;
-
-                this.newKey.key = encryptionKey;
 
                 axios.post(API_URL + 'key/store', this.newKey)
                     .then(res => {
@@ -378,36 +376,8 @@ export default {
                     localStorage.setItem("Info dati", encryptedData);
                 }
 
-                this.selectedOption = "";
-
-                if (this.infoList.length > 1) {
-                    this.infoList.splice(0, 1);
-
-                    encryptedData = CryptoJS.AES.encrypt(JSON.stringify(this.infoList), this.newKey.key).toString();
-                    localStorage.setItem("Info dati", encryptedData);
-                }
+                //this.selectedOption = "";
             }
-
-            // if (this.currentStep === 2 && this.orderList.length === 0) {
-            //     this.fixRequiredProblem = true;
-            // }
-
-            // if (this.currentStep === 1 && this.firstStepValid || this.currentStep === 2 && this.orderList.length !== 0) {
-            //     this.currentStep++;
-
-            //     event.preventDefault();
-
-            //     localStorage.setItem("CurrentStep", this.currentStep.toString());
-
-            //     //if (this.currentStep !== 2) {
-            //     window.scrollTo({
-            //         top: 0,
-            //         behavior: "smooth"
-            //     });
-            //     //}
-
-            // }
-
         },
         resetCommonInputs() {
             if (this.selectedOption) {
@@ -500,12 +470,18 @@ export default {
         },
         prevStep(event) {
 
+            console.log(this.selectedOption);
+
             event.preventDefault();
 
             window.scrollTo({
                 top: 0,
                 behavior: "smooth"
             });
+
+            this.infoList = [];
+
+            localStorage.removeItem("Info dati");
 
             this.currentStep--;
 
@@ -558,7 +534,8 @@ export default {
                 .catch(error => {
                     console.error(error);
                 });
-        } else {
+        }
+        else {
             this.infoList = [];
         }
 
@@ -648,7 +625,8 @@ export default {
                         <div class="radios">
                             <label for="privato">
                                 <input type="radio" id="privato" value="Privato" v-model="selectedOption"
-                                    @change="resetCommonInputs" checked>
+                                    @change="resetCommonInputs"
+                                    :checked="selectedOption === '' || selectedOption === 'Privato'">
                                 Privato
                             </label>
 
@@ -661,6 +639,7 @@ export default {
 
                         <div class="form-button">
                             <input type="submit" @click="keySubmit" class="button" value="Completa i dati">
+                            <!-- <button v-if="infoList.length === 1" @click="nextStep">Completa i dati</button> -->
                         </div>
 
                     </div>
