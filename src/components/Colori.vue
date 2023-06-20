@@ -60,7 +60,7 @@ export default {
         <div class="title-info-colors">
             <!-- Titolo -->
             <h2>
-                Esplora tutti i colori
+                I nostri colori
             </h2>
 
             <!-- Paragrafo -->

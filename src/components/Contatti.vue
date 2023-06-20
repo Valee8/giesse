@@ -48,10 +48,10 @@ export default {
         <!-- Parte in alto con immagine come sfondo -->
         <div class="bg-section">
 
-            <div class="container" :class="{ 'menu-expand': this.store.classSubmenu === 'expand' }">
+            <div class="container">
                 <div class="section-title">
                     <!-- Scritta Home -->
-                    <router-link to="/">Indietro</router-link>
+                    <router-link to="/">Home</router-link>
                     <!-- Icone freccia -->
                     <i class="fa-solid fa-chevron-right"></i>
                     <!-- Nome sezione -->

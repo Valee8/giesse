@@ -128,11 +128,11 @@ export default {
 <template>
     <!-- Inizio sezioni Verticali/Orizzontali -->
     <section>
-        <div class="container" :class="{ 'menu-expand': this.store.classSubmenu === 'expand' }">
+        <div class="container">
             <!-- Titolo in alto a sinistra -->
             <div class="section-title">
                 <!-- Scritta Home -->
-                <router-link to="/">Indietro</router-link>
+                <router-link to="/">Home</router-link>
                 <!-- Icone freccia -->
                 <i class="fa-solid fa-chevron-right"></i>
                 <!-- Nome sezione -->
@@ -177,8 +177,8 @@ export default {
                     </div>
                     <div class="name" v-else>
                         <div>Con guida telescopica:</div> {{ slide.firstName }}
-                        <div> <br>
-                            Con guida singola:</div> {{ slide.secondName }}
+
+                        <div>Con guida singola:</div> {{ slide.secondName }}
                     </div>
 
                     <!-- Descrizione zanzariera -->

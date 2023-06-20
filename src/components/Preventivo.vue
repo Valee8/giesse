@@ -2,46 +2,40 @@
 
 import { store } from '../store.js';
 
-import CryptoJS from 'crypto-js';
-
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8000/api/v1/';
-
-let encryptionKey = CryptoJS.lib.WordArray.random(256 / 8).toString();
 
 export default {
     name: 'Preventivo',
     data() {
         return {
             fixRequiredProblem: false,
-            infoList: [],
-            orderList: [],
             secondStepValid: false,
             store,
-            currentStep: 1,
-            selectedOption: "",
-            name: "",
-            newName: "",
-            surname: "",
-            agency_name: "",
-            email: "",
-            telephone: "",
-            city_of_residence: "",
+            currentStep: 2,
             enableButton: false,
-            typology: "",
-            quantity: "",
-            width: "",
-            height: "",
-            colors: "",
-            colorsName: "",
-            selectedModel: "",
-            newKey: {
-                key: ""
+            newClient: {
+                typology: "",
+                name: "",
+                surname: "",
+                agency_name: "",
+                email: "",
+                telephone_number: "",
+                city_of_residence: ""
             },
-            keys: [],
-            choice: "",
-            message: "",
+            newOrder: {
+                id: "",
+                model_name: "",
+                width: "",
+                height: "",
+                quantity: "",
+                net: "",
+                color_name: "",
+                color_image: ""
+            },
+            clients: [],
+            orders: [],
             zanzs: [
                 {
                     name: "Verticali a molla classica",
@@ -188,17 +182,17 @@ export default {
     },
     computed: {
         firstStepValid() {
-            if (this.email.trim() !== "" && this.email.includes("@") && this.telephone.trim() !== "" && this.city_of_residence.trim() !== "") {
+            if (this.newClient.email.trim() !== "" && this.newClient.email.includes("@") && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "") {
                 this.enableButton = true;
             }
 
-            if (this.selectedOption === "Privato") {
-                if (this.name.trim() !== "" && this.surname.trim() !== "" && this.enableButton) {
+            if (this.newClient.typology === "Privato") {
+                if (this.newClient.name.trim() !== "" && this.newClient.surname.trim() !== "" && this.enableButton) {
                     return true;
                 }
             }
-            else if (this.selectedOption === "Azienda" && this.enableButton) {
-                return this.agency_name.trim() !== "";
+            else if (this.newClient.typology === "Azienda" && this.enableButton) {
+                return this.newClient.agency_name.trim() !== "";
             }
             // else {
             //     return false;
@@ -260,46 +254,71 @@ export default {
             }
 
         },
+        getClient() {
+            axios.get(API_URL + 'clients')
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+                    const response = data.response;
+
+                    if (success) {
+                        this.clients = response.clients;
+                    }
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+        getOrder() {
+            axios.get(API_URL + 'orders')
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+                    const response = data.response;
+
+                    if (success) {
+                        this.orders = response.orders;
+                    }
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
         addZanz() {
 
-            if (this.selectedModel !== "" && this.width !== "" && this.height !== "" && this.quantity !== 0 && this.choice !== "" && this.colors !== "") {
+            if (this.newOrder.model_name !== "" && this.newOrder.width !== "" && this.newOrder.height !== "" && this.newOrder.quantity !== 0 && this.newOrder.net !== "" && this.newOrder.color_name !== "") {
 
                 this.fixRequiredProblem = false;
 
                 this.secondStepValid = true;
 
-                let obj = {
-                    models: this.selectedModel,
-                    width: this.width,
-                    height: this.height,
-                    quantity: this.quantity,
-                    choice: this.choice,
-                    colors: this.colors,
-                    colorsName: this.colorsName,
-                    message: this.message
-                }
+                axios.post(API_URL + 'order/store', this.newOrder)
+                    .then(res => {
+                        const data = res.data;
+                        const success = data.success;
 
-                const existingData = localStorage.getItem("Preventivo");
+                        if (this.orders.length !== 0) {
+                            this.newOrder.id = data.response.orders[data.response.orders.length - 1].id;
+                        }
 
-                if (existingData) {
-                    this.orderList = JSON.parse(existingData);
-                }
-                else {
-                    this.orderList = [];
-                }
+                        console.log(this.newOrder.id);
 
-                this.orderList.push(obj);
+                        if (success) {
+                            this.getOrder();
+                        }
 
-                localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
+                    })
+                    .catch(error => console.log(this.newOrder));
 
-                this.quantity = "";
-                this.width = "";
-                this.height = "";
-                this.colors = "";
-                this.colorsName = "";
-                this.selectedModel = "";
-                this.choice = "";
-                this.message = "";
+                this.newOrder.quantity = "";
+                this.newOrder.width = "";
+                this.newOrder.height = "";
+                this.newOrder.color_name = "";
+                this.newOrder.model_name = "";
+                this.newOrder.net = "";
+                //this.message = "";
 
                 this.store.colors[0].active = true;
 
@@ -323,27 +342,23 @@ export default {
         },
         keySubmit(event) {
 
-            let obj = {
-                name: this.name,
-                surname: this.surname,
-                agency_name: this.agency_name,
-                email: this.email,
-                telephone: this.telephone,
-                city_of_residence: this.city_of_residence,
-                selection: this.selectedOption,
-            };
-
-            const existingData2 = localStorage.getItem("Info dati");
-
-            let encryptedData;
-
-            this.newKey.key = encryptionKey;
-
             if (this.firstStepValid) {
 
-                this.currentStep++;
+                axios.post(API_URL + 'client/store', this.newClient)
+                    .then(res => {
+                        const data = res.data;
+                        const success = data.success;
+
+                        if (success) {
+                            this.getClient();
+                        }
+
+                    })
+                    .catch(error => console.log(error));
 
                 event.preventDefault();
+
+                this.currentStep++;
 
                 localStorage.setItem("CurrentStep", this.currentStep.toString());
 
@@ -352,45 +367,23 @@ export default {
                     behavior: "smooth"
                 });
 
-                axios.post(API_URL + 'key/store', this.newKey)
-                    .then(res => {
-                        const data = res.data;
-                        const success = data.success;
-
-                    })
-                    .catch(error => console.log(error));
-
-                if (existingData2) {
-                    const decryptedData = CryptoJS.AES.decrypt(existingData2, this.newKey.key).toString(CryptoJS.enc.Utf8);
-                    this.infoList = JSON.parse(decryptedData);
-                } else {
-                    this.infoList = [];
-                }
-
-                if (this.currentStep === 2) {
-                    this.infoList.push(obj);
-
-                    encryptedData = CryptoJS.AES.encrypt(JSON.stringify(this.infoList), this.newKey.key).toString();
-                    localStorage.setItem("Info dati", encryptedData);
-                }
-
-                //this.selectedOption = "";
+                this.newClient.typology = "";
             }
         },
         resetCommonInputs() {
-            if (this.selectedOption) {
-                this.name = "";
-                this.surname = "";
-                this.agency_name = "";
-                this.email = "";
-                this.telephone = "";
-                this.city_of_residence = "";
+            if (this.newClient.typology) {
+                this.newClient.name = "";
+                this.newClient.surname = "";
+                this.newClient.agency_name = "";
+                this.newClient.email = "";
+                this.newClient.telephone_number = "";
+                this.newClient.city_of_residence = "";
             }
         },
         getColor(index, colorIndex) {
             for (let i = 0; i < store.colors.length; i++) {
-                this.colors = store.colors[index].colorInfo[colorIndex].image;
-                this.colorsName = store.colors[index].colorInfo[colorIndex].name;
+                this.newOrder.color_image = store.colors[index].colorInfo[colorIndex].image;
+                this.newOrder.color_name = store.colors[index].colorInfo[colorIndex].name;
             }
         },
         // Cambio colore cliccando il nome della tipologia
@@ -406,25 +399,37 @@ export default {
         },
         deleteModel(index) {
 
-            this.orderList.splice(index, 1);
+            //this.orders.splice(index, 1);
 
-            localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
+            //localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
 
-            if (this.orderList.length === 0) {
-                localStorage.removeItem("Preventivo");
-            }
+            // if (this.orderList.length === 0) {
+            //     localStorage.removeItem("Preventivo");
+            // }
+
+            axios.get(API_URL + 'delete')
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+
+                    if (success) {
+                        this.getOrder();
+                    }
+                })
+                .catch(error => console.log(error));
+
         },
         filterCharacters() {
-            this.telephone = this.telephone.replace(/\D/g, '');
+            this.newClient.telephone_number = this.newClient.telephone_number.replace(/\D/g, '');
         },
         filterNumbers() {
-            this.name = this.name.replace(/[0-9]/g, '');
-            this.surname = this.surname.replace(/[0-9]/g, '');
-            this.city_of_residence = this.city_of_residence.replace(/[0-9]/g, '');
+            this.newClient.name = this.newClient.name.replace(/[0-9]/g, '');
+            this.newClient.surname = this.newClient.surname.replace(/[0-9]/g, '');
+            this.newClient.city_of_residence = this.newClient.city_of_residence.replace(/[0-9]/g, '');
         },
         filterSizes() {
-            this.width = this.width.replace(/^[a-zA-Z]*$/g, '');
-            this.height = this.height.replace(/^[a-zA-Z]*$/g, '');
+            this.newOrder.width = this.newOrder.width.replace(/^[a-zA-Z]*$/g, '');
+            this.newOrder.height = this.newOrder.height.replace(/^[a-zA-Z]*$/g, '');
         },
         handleSubmit(event) {
             event.preventDefault();
@@ -437,36 +442,47 @@ export default {
                 behavior: "smooth"
             });
 
-            localStorage.removeItem("Info dati");
-
-            localStorage.removeItem("Preventivo");
-
-            //this.orderList.splice(0, this.orderList.length);
-
-            //this.currentStep = 1;
-
             this.currentStep++;
 
             localStorage.setItem("CurrentStep", this.currentStep.toString());
 
-            this.name = "";
-            this.surname = "";
-            this.agency_name = "";
-            this.email = "";
-            this.telephone = "";
-            this.city_of_residence = "";
+            axios.post(API_URL + 'truncate/client')
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+
+                })
+                .catch(error => console.log(error));
+
+            axios.post(API_URL + 'truncate/order')
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+
+                })
+                .catch(error => console.log(error));
+
+            // this.name = "";
+            // this.surname = "";
+            // this.agency_name = "";
+            // this.email = "";
+            // this.telephone = "";
+            // this.city_of_residence = "";
         },
         nextStep(event) {
 
-            if (this.currentStep === 2 && this.orderList.length !== 0) {
-                event.preventDefault();
+            if (this.currentStep === 2 && this.orders.length !== 0) {
 
-                this.currentStep++;
+                event.preventDefault();
 
                 window.scrollTo({
                     top: 0,
                     behavior: "smooth"
                 });
+
+                this.currentStep++;
+
+                localStorage.setItem("CurrentStep", this.currentStep.toString());
             }
         },
         prevStep(event) {
@@ -478,24 +494,63 @@ export default {
                 behavior: "smooth"
             });
 
-            this.infoList = [];
+            axios.post(API_URL + 'truncate/client')
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
 
-            localStorage.removeItem("Info dati");
+                })
+                .catch(error => console.log(error));
 
             this.currentStep--;
 
             localStorage.setItem("CurrentStep", this.currentStep.toString());
 
-            this.orderList.splice(0, this.orderList.length);
+        },
+        plus(index) {
+            this.obj.quantity++;
 
-            localStorage.removeItem("Preventivo");
+            const existingData = localStorage.getItem("Preventivo");
 
+            if (existingData) {
+                this.orderList = JSON.parse(existingData);
+            }
+            else {
+                this.orderList = [];
+            }
+
+            this.orderList.splice(index, 1, this.obj);
+
+            localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
+        },
+        minus(index) {
+            if (this.obj.quantity > 1) {
+
+                this.obj.quantity--;
+
+                const existingData = localStorage.getItem("Preventivo");
+
+                if (existingData) {
+                    this.orderList = JSON.parse(existingData);
+                }
+                else {
+                    this.orderList = [];
+                }
+
+                this.orderList.splice(index, 1, this.obj);
+
+                localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
+            }
         }
     },
     mounted() {
 
-        if (this.selectedOption === "") {
-            this.selectedOption = "Privato";
+        this.getClient();
+        this.getOrder();
+
+
+        if (this.newClient.typology === "") {
+            this.newClient.typology = "Privato";
         }
 
         if (localStorage.getItem("CurrentStep") !== null) {
@@ -504,39 +559,64 @@ export default {
 
         localStorage.setItem("CurrentStep", this.currentStep.toString());
 
-        const localStorageData = localStorage.getItem("Preventivo");
+        // const localStorageData = localStorage.getItem("Preventivo");
 
-        if (localStorageData) {
-            this.orderList = JSON.parse(localStorageData);
-        }
+        // if (localStorageData) {
+        //     const decryptedData = CryptoJS.AES.decrypt(localStorageData, encryptionKey).toString(CryptoJS.enc.Utf8);
+        //     this.orderList = JSON.parse(decryptedData);
+        // }
+
+        // if (localStorageData) {
+        //     axios.get(API_URL + 'orderKey')
+        //         .then(res => {
+        //             const data = res.data;
+        //             const success = data.success;
+
+        //             if (success) {
+        //                 const keys = data.response.keys[0].key;
+
+        //                 console.log(keys);
+
+        //                 const decryptedData = CryptoJS.AES.decrypt(localStorageData, keys).toString(CryptoJS.enc.Utf8);
+
+        //                 this.orderList = JSON.parse(decryptedData);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error(error);
+        //         });
+        // }
+        // else {
+        //     this.orderList = [];
+        // }
 
         // if (localStorageData2) {
         //     this.infoList = JSON.parse(localStorageData2);
         // }
 
-        const localStorageData2 = localStorage.getItem("Info dati");
+        // const localStorageData2 = localStorage.getItem("Info dati");
 
-        if (localStorageData2) {
-            axios.get(API_URL + 'key')
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
+        // if (localStorageData2) {
+        //     axios.get(API_URL + 'key')
+        //         .then(res => {
+        //             const data = res.data;
+        //             const success = data.success;
 
-                    if (success) {
-                        const keys = data.response.keys[data.response.keys.length - 1].key;
+        //             if (success) {
+        //                 const keys = data.response.keys[data.response.keys.length - 1].key;
 
-                        const decryptedData = CryptoJS.AES.decrypt(localStorageData2, keys).toString(CryptoJS.enc.Utf8);
+        //                 const decryptedData = CryptoJS.AES.decrypt(localStorageData2, keys).toString(CryptoJS.enc.Utf8);
 
-                        this.infoList = JSON.parse(decryptedData);
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        }
-        else {
-            this.infoList = [];
-        }
+        //                 this.infoList = JSON.parse(decryptedData);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error(error);
+        //         });
+        // }
+        // else {
+        //     this.infoList = [];
+        // }
 
         this.typology = this.zanzs[0].name;
     }
@@ -545,11 +625,11 @@ export default {
 
 <template>
     <section :class="{ 'thank-you': currentStep === 4 }">
-        <div class="container" :class="{ 'menu-expand': this.store.classSubmenu === 'expand' }">
+        <div class="container">
 
             <div class="section-title">
                 <!-- Scritta Home -->
-                <router-link to="/">Indietro</router-link>
+                <router-link to="/">Home</router-link>
                 <!-- Icone freccia -->
                 <i class="fa-solid fa-chevron-right"></i>
                 <!-- Nome sezione -->
@@ -596,22 +676,24 @@ export default {
 
                     <!-- Parte sinistra step 1 con gl input -->
                     <div class="first-step-left">
-                        <div v-if="selectedOption === 'Privato' || this.selectedOption === ''">
-                            <input type="text" v-model="name" placeholder="Nome *" @input="filterNumbers" required>
+                        <div v-if="newClient.typology === 'Privato' || newClient.typology === ''">
+                            <input type="text" v-model="newClient.name" placeholder="Nome *" @input="filterNumbers"
+                                required>
                             <br>
-                            <input type="text" v-model="surname" placeholder="Cognome *" @input="filterNumbers" required>
+                            <input type="text" v-model="newClient.surname" placeholder="Cognome *" @input="filterNumbers"
+                                required>
                         </div>
-                        <div v-else-if="selectedOption === 'Azienda'">
-                            <input type="text" v-model="agency_name" placeholder="Nome Azienda *" required>
+                        <div v-else-if="newClient.typology === 'Azienda'">
+                            <input type="text" v-model="newClient.agency_name" placeholder="Nome Azienda *" required>
                         </div>
                         <div>
-                            <input type="email" v-model="email" placeholder="E-mail *" required>
+                            <input type="email" v-model="newClient.email" placeholder="E-mail *" required>
                             <br>
-                            <input type="text" v-model="telephone" placeholder="Telefono *" maxlength="10"
+                            <input type="text" v-model="newClient.telephone_number" placeholder="Telefono *" maxlength="10"
                                 @input="filterCharacters" required>
                             <br>
-                            <input type="text" v-model="city_of_residence" placeholder="Comune *" @input="filterNumbers"
-                                required>
+                            <input type="text" v-model="newClient.city_of_residence" placeholder="Comune *"
+                                @input="filterNumbers" required>
 
                             <div class="obligatory">
                                 i cambi contrassegnati con &ast; sono obbligatori
@@ -623,14 +705,14 @@ export default {
                     <div class="first-step-right">
                         <div class="radios">
                             <label for="privato">
-                                <input type="radio" id="privato" value="Privato" v-model="selectedOption"
+                                <input type="radio" id="privato" value="Privato" v-model="newClient.typology"
                                     @change="resetCommonInputs"
-                                    :checked="selectedOption === '' || selectedOption === 'Privato'">
+                                    :checked="newClient.typology === '' || newClient.typology === 'Privato'">
                                 Privato
                             </label>
 
                             <label for="azienda">
-                                <input type="radio" id="azienda" value="Azienda" v-model="selectedOption"
+                                <input type="radio" id="azienda" value="Azienda" v-model="newClient.typology"
                                     @change="resetCommonInputs">
                                 Azienda
                             </label>
@@ -648,6 +730,10 @@ export default {
                 <!-- @submit="handleSubmit" -->
                 <!-- Inizio step 2 -->
                 <form @submit="handleSubmit" v-else-if="currentStep === 2" class="second-step">
+
+                    <h2>
+                        Seleziona il Modello
+                    </h2>
 
                     <!-- Parte sopra - slider -->
                     <div class="inputs-top">
@@ -668,14 +754,14 @@ export default {
                                 </a>
                             </div>
 
-                            <h2>
+                            <h3>
                                 {{ zanz.name }}
-                            </h2>
+                            </h3>
                         </div>
 
                         <!-- Seleziona modello -->
                         <span v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex">
-                            <select v-if="zanz.active" :required="fixRequiredProblem" v-model="selectedModel">
+                            <select v-if="zanz.active" :required="fixRequiredProblem" v-model="newOrder.model_name">
                                 <option value="" disabled selected hidden>Seleziona il modello *
                                 </option>
                                 <option v-for="(nameModel, index) in zanz.models" :value="nameModel" :key="index">
@@ -689,14 +775,14 @@ export default {
                     <div class="inputs-center">
                         <label for="inputs">Inserisci: </label>
                         <span id="inputs">
-                            <input type="text" name="width" placeholder="Larghezza (in cm) *" v-model="width"
+                            <input type="text" name="width" placeholder="Larghezza (in cm) *" v-model="newOrder.width"
                                 @input="filterSizes" :required="fixRequiredProblem">
 
-                            <input type="text" name="height" placeholder="Altezza (in cm) *" v-model="height"
+                            <input type="text" name="height" placeholder="Altezza (in cm) *" v-model="newOrder.height"
                                 @input="filterSizes" :required="fixRequiredProblem">
 
-                            <input type="number" name="quantity" placeholder="Quantità *" min="1" v-model="quantity"
-                                :required="fixRequiredProblem">
+                            <input type="number" name="quantity" placeholder="Quantità *" min="1"
+                                v-model="newOrder.quantity" :required="fixRequiredProblem">
                         </span>
                     </div>
 
@@ -704,7 +790,8 @@ export default {
                     <div class="inputs-bottom">
                         <label v-for="(net, index) in nets" :key="index">
                             {{ net }}
-                            <input type="radio" name="net" :value="net" v-model="choice" :required="fixRequiredProblem">
+                            <input type="radio" name="net" :value="net" v-model="newOrder.net"
+                                :required="fixRequiredProblem">
                         </label>
                     </div>
 
@@ -746,11 +833,6 @@ export default {
                         </div>
                     </div>
 
-                    <!-- Textarea -->
-                    <div class="textarea">
-                        <textarea v-model="message" rows="8" placeholder="Messaggio"></textarea>
-                    </div>
-
                     <!-- Bottone aggiungi zanzariera -->
                     <div class="form-button">
 
@@ -760,31 +842,50 @@ export default {
                     </div>
 
                     <!-- Elenco zanzariere preventivo -->
-                    <ul v-if="orderList.length !== 0" class="list-ul">
-                        <li v-for="(order, index) in orderList" :key="index" class="list-order">
+                    <ul v-if="orders.length !== 0" class="list-ul">
+                        <li v-for="(order, index) in orders" :key="index" class="list-order">
                             <span>
-                                {{ typology.replace(/\([^)]*\)/g, "") }} | {{ order.models.charAt(0).toUpperCase() +
-                                    order.models.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} | {{ order.choice }} |
-                                <img :src="order.colors" :alt="order.colorsName" class="order-image">
+                                {{ typology.replace(/\([^)]*\)/g, "") }} | {{ order.model_name.charAt(0).toUpperCase() +
+                                    order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} | {{ order.net }} |
+                                <img :src="order.color_image" :alt="order.color_name" class="order-image"> | INDEX: {{ index
+                                }}
                             </span>
-                            <span>
-                                Quantit&agrave;: {{ order.quantity }}
+                            <span class="quantity">
+                                <div class="text">
+                                    Quantit&agrave;:
+                                    <span class="number">
+                                        {{ order.quantity }}
+                                    </span>
+                                </div>
+                                <div class="minus-plus">
+                                    <button @click="plus(index)">
+                                        <i class="fa-solid fa-angle-up"></i>
+                                    </button>
+                                    <button @click="minus(index)">
+                                        <i class="fa-solid fa-angle-down"></i>
+                                    </button>
+                                </div>
                             </span>
 
                             <span>
                                 {{ order.width }} cm x {{ order.height }} cm
                             </span>
 
-                            <button @click="deleteModel(index)">
+                            <button @click="deleteModel(index)" class="delete">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
                         </li>
                     </ul>
 
+                    <!-- Textarea -->
+                    <div class="textarea">
+                        <textarea rows="8" placeholder="Messaggio"></textarea>
+                    </div>
+
                     <!-- Bottone per passare allo step successivo -->
                     <div class="form-button confirm">
                         <button @click="prevStep" class="button" id="buttons">Torna indietro</button>
-                        <button @click="nextStep" class="button" id="buttons" v-if="orderList.length !== 0">Conferma le
+                        <button @click="nextStep" class="button" id="buttons" v-if="orders.length !== 0">Conferma le
                             zanzariere</button>
                     </div>
 
@@ -796,12 +897,12 @@ export default {
                         Ecco a te il riepilogo
                     </h2>
 
-                    <ul v-for="(list, index) in infoList" :key="index" class="summary info">
+                    <ul v-for="(list, index) in clients" :key="index" class="summary info">
                         <li>
-                            {{ list.selection }}
+                            {{ list.typology }}
                             <hr>
                         </li>
-                        <div v-if="list.selection === 'Privato'">
+                        <div v-if="list.typology === 'Privato'">
                             <li>
                                 Nome: {{ list.name }}
                             </li>
@@ -816,20 +917,20 @@ export default {
                             Email: {{ list.email }}
                         </li>
                         <li>
-                            Telefono: {{ list.telephone }}
+                            Telefono: {{ list.telephone_number }}
                         </li>
                         <li>
                             Comune: {{ list.city_of_residence }}
                         </li>
                     </ul>
 
-                    <ul v-for="(order, index) in orderList" :key="index" class="summary">
+                    <ul v-for="(order, index) in orders" :key="index" class="summary">
                         <li>
-                            Modello zanzariera: {{ order.models.charAt(0).toUpperCase() +
-                                order.models.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} - {{ order.choice }}
+                            Modello zanzariera: {{ order.model_name.charAt(0).toUpperCase() +
+                                order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} - {{ order.net }}
                         </li>
                         <li>
-                            Colore: {{ order.colorsName }}
+                            Colore: {{ order.color_name }}
                         </li>
                         <li>
                             Quantit&agrave;: {{ order.quantity }}
@@ -838,12 +939,13 @@ export default {
                         <li>
                             Misure: {{ order.width }}cm x {{ order.height }}cm
                         </li>
-                        <li>
-                            Messaggio:
-                            <span v-if="order.message">{{ order.message }}</span>
-                            <span v-else>Non hai scritto nessun messaggio</span>
-                        </li>
                     </ul>
+
+                    <!-- <div>
+                        Messaggio:
+                        <span v-if="messages">{{ messages[0] }}</span>
+                        <span v-else>Non hai scritto nessun messaggio</span>
+                    </div> -->
 
 
                     <div class="form-button">
@@ -970,7 +1072,7 @@ export default {
 .bottom {
     color: #000;
     letter-spacing: 1px;
-    padding: 20px 0;
+    padding: 40px 0;
 
     input,
     label,
@@ -1005,8 +1107,9 @@ export default {
     padding: 40px;
 
     hr {
-        margin: 60px 0;
+        margin: 60px auto;
         border-bottom: 1px solid #000;
+        width: 850px;
     }
 
     .slider-preventivo {
@@ -1029,6 +1132,10 @@ export default {
 
         h2 {
             padding: 20px 0 60px 0;
+        }
+
+        h3 {
+            padding: 40px 0;
         }
 
         &:not(.active) {
@@ -1065,17 +1172,50 @@ export default {
             justify-content: space-between;
             align-items: center;
 
+            .quantity {
+                padding: 0 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                .text {
+                    padding: 10px 0;
+                }
+
+                .number {
+                    display: inline-block;
+                    padding: 0;
+                    margin: 0;
+                    width: 20px;
+                }
+
+                .minus-plus {
+
+                    button {
+                        display: block;
+                        background-color: #d6d6d6;
+                        padding: 1px 2px;
+                        border-radius: 50px;
+                        border: 0;
+                        font-size: 0.6rem;
+                        margin: 6px 0;
+                        cursor: pointer;
+                    }
+                }
+
+            }
+
             span,
-            button {
+            .delete {
                 background-color: #fff;
                 padding: 10px;
-                border-radius: 10px;
+                border-radius: 15px;
                 font-size: 1rem;
                 font-weight: 500;
                 margin: 0 8px;
             }
 
-            button {
+            .delete {
                 cursor: pointer;
                 border-radius: 50px;
                 padding: 8px 10px;
@@ -1093,7 +1233,7 @@ export default {
     }
 
     .form-button {
-        padding-top: 30px;
+        padding-top: 10px;
 
         &.confirm {
             position: relative;
@@ -1110,6 +1250,8 @@ export default {
     }
 
     .textarea {
+        padding-top: 60px;
+
         textarea {
             font-family: 'Montserrat', sans-serif;
             width: 100%;
@@ -1150,6 +1292,7 @@ export default {
         padding: 5px 10px;
         font-size: 0.9rem;
         margin: 0 10px;
+        width: 430px;
     }
 
     .inputs-bottom {
@@ -1179,6 +1322,10 @@ export default {
         input:nth-child(3) {
             width: 130px;
         }
+    }
+
+    .inputs-top {
+        padding-top: 30px;
     }
 
     .inputs-top,
@@ -1367,13 +1514,14 @@ section {
             .circle {
                 border: 3px solid #fff;
                 border-radius: 50px;
-                width: 60px;
-                height: 60px;
-                line-height: 60px;
+                width: 70px;
+                height: 70px;
+                line-height: 70px;
                 font-weight: 500;
 
                 &.current {
                     background-color: $yellow-color;
+                    color: #000;
                 }
             }
         }
@@ -1392,7 +1540,7 @@ section {
         .step {
             display: flex;
             margin-left: auto;
-            width: 320px;
+            width: 345px;
 
             div {
                 width: calc(100% / 3);
@@ -1455,9 +1603,19 @@ section {
 // Nomi e immagini colori - parte destra
 .list-colors {
     padding-top: 30px;
+    //transition: all 1s ease;
+
+
+    // &.selected {
+    //     //height: auto;
+    //     //opacity: 1;
+    // }
+
 
     &:not(.selected) {
         display: none;
+        //opacity: 0;
+        //height: 0;
     }
 
     // Blocco intero colori

@@ -207,7 +207,7 @@ section {
       justify-content: center;
       align-content: center;
       gap: 20px;
-      padding: 50px 0 20px 0;
+      padding: 46px 0 20px 0;
 
       .rectangles {
         background-color: rgba(0, 0, 0, .4);
@@ -263,7 +263,13 @@ section {
       }
 
       .name {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
+
+        div {
+          &:nth-child(2) {
+            padding-top: 10px;
+          }
+        }
       }
 
       .casper-list {
@@ -283,12 +289,12 @@ section {
         }
 
         &:not(.casper) {
-          padding: 84px 0;
+          padding: 96px 0;
 
         }
 
         &.giada {
-          padding: 87px 0;
+          padding: 102px 0;
         }
       }
 

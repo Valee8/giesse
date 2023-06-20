@@ -151,8 +151,7 @@ export default {
     </nav>
     <!-- Menu nero in alto -->
 
-    <div class="container"
-        :class="{ 'not-home': $route.name !== 'home', 'menu-expand': this.store.classSubmenu === 'expand' }">
+    <div class="container" :class="{ 'not-home': $route.name !== 'home' }">
         <div class="a-logo">
             <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
         </div>
@@ -286,7 +285,7 @@ export default {
 
             &.expand {
                 animation-name: expand;
-                z-index: 20;
+                z-index: 60;
 
                 a {
                     display: block;
@@ -334,13 +333,13 @@ export default {
                 }
 
                 to {
-                    height: 120px;
+                    height: 180px;
                 }
             }
 
             @keyframes reduce {
                 from {
-                    height: 120px;
+                    height: 180px;
                 }
 
                 to {
@@ -366,8 +365,9 @@ export default {
 /////// Menu bello, menu figo
 #newMenu {
     position: fixed;
-    right: 70px;
+    right: 50px;
     top: 100px;
+    z-index: 50;
 
     .menu-container {
         display: flex;
@@ -376,7 +376,7 @@ export default {
         #circle-menu {
             //height: 244px;
             position: relative;
-            left: 25px;
+            left: 31px;
             display: none;
 
             &.active {
@@ -400,23 +400,23 @@ export default {
 
             &.center {
                 //margin-top: 87px;
-                transform: translateY(87px);
+                transform: translateY(104px);
             }
 
             &.bottom {
                 //margin-top: 159px;
-                transform: translateY(159px);
+                transform: translateY(193px);
             }
         }
 
         .circle-menu-div {
-            height: 72px;
+            height: 89px;
             display: flex;
             align-items: center;
 
             .circle {
-                height: 34px;
-                width: 34px;
+                height: 38px;
+                width: 38px;
                 border-radius: 40px;
                 background-color: #000;
 
@@ -428,26 +428,69 @@ export default {
             background-position: top center, bottom center;
             background-size: 100%;
             background-repeat: no-repeat, no-repeat;
-            width: 34px;
-            height: 244px;
+            width: 42px;
+            height: 303px;
             position: relative;
-            z-index: 80;
+            //z-index: 80;
 
             li {
-                height: 72px;
+                height: 89px;
+                line-height: 89px;
                 text-align: center;
-                line-height: 72px;
                 background-image: url('/img/bg-nav-center.png');
                 background-position: -100px 0;
+                cursor: pointer;
 
-                // &:hover {
-                //     span {
-                //         display: block;
-                //     }
+                // .icons {
+                //     height: 100%;
                 // }
 
                 span {
+                    //opacity: 0;
+                    //height: 0;
                     display: none;
+                }
+
+                &:not(.active) {
+
+                    &:hover {
+                        .icons {
+                            margin-left: -202px;
+                            width: 200px;
+                            text-align: right;
+                            position: relative;
+
+                            &::after {
+                                content: "";
+                                //background-color: red;
+                                width: 10px;
+                                height: 31px;
+                                display: block;
+                                position: absolute;
+                                right: -8px;
+                                top: 20px;
+                            }
+
+                            a {
+                                //font-size: 0.8rem;
+                                //width: 200px;
+                                //text-align: right;
+                                background-color: #000;
+                                padding: 5px;
+                                //display: block;
+                                //height: 30px;
+
+                                span {
+                                    //opacity: 1;
+                                    //height: auto;
+                                    display: inline-block;
+                                    font-size: 0.8rem;
+                                    vertical-align: middle;
+                                }
+                            }
+                        }
+                    }
+
                 }
 
                 a {

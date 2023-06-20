@@ -23,5 +23,6 @@ section {
     text-align: center;
     color: #fff;
     min-height: 400px;
+    display: none;
 }
 </style>

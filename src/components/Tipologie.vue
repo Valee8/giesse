@@ -75,12 +75,19 @@ section {
                 width: 210px;
                 display: block;
                 color: #000;
+
+                &:hover {
+                    img {
+                        transform: scale(0.8);
+                    }
+                }
             }
 
             // Immagine
             .typology-image {
                 width: 210px;
                 display: block;
+                transition: all 0.5s ease;
             }
 
             &:nth-child(1),
