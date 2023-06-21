@@ -464,33 +464,36 @@ export default {
                     &:hover {
 
                         .icons {
-                            width: 200px;
-                            margin-left: -150px;
+                            //width: 192px;
+                            margin-left: -188px;
 
                             a {
                                 display: flex;
                                 justify-content: flex-end;
                                 align-items: center;
+                                gap: 5px;
+                                width: 230px;
                             }
                         }
 
                         .text {
                             display: flex;
                             align-items: center;
-                            justify-content: flex-end;
+                            //justify-content: flex-end;
                             background-color: #000;
                             height: 12px;
                             position: relative;
-                            left: -6px;
-                            padding: 10px 5px;
+                            //left: -6px;
+                            padding: 20px;
                             font-size: 0.9rem;
-
+                            border-radius: 50px;
                         }
 
                         .icon {
                             width: 42px;
                             text-align: center;
                         }
+
                     }
 
                 }

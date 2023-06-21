@@ -897,6 +897,17 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+
+section {
+    background-color: #686868;
+    min-height: calc(100vh - 312px);
+
+    &.thank-you {
+        background-image: url('/img/sfondo-ringraziamento.png');
+        background-size: cover;
+    }
+}
+
 .section-title {
     a {
         color: #fff;
@@ -905,8 +916,8 @@ export default {
 
 // QUARTO STEP, parte ringraziamenti
 .thank-you {
-    background-image: url('/img/sfondo-ringraziamento.png');
-    background-size: cover;
+    //background-image: url('/img/sfondo-ringraziamento.png');
+
     //min-height: 1000px;
 
     .bottom {
@@ -1394,11 +1405,6 @@ export default {
         color: #b9b9b9;
     }
 
-}
-
-section {
-    background-color: #686868;
-    min-height: calc(100vh - 312px);
 }
 
 .container {
