@@ -1349,6 +1349,11 @@ export default {
         flex-direction: column;
         width: 40%;
 
+        input[type='submit'] {
+            position: relative;
+            top: -21px;
+        }
+
         input[type='radio'] {
             accent-color: #000;
             width: 20px;

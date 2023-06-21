@@ -244,6 +244,10 @@ export default {
 
             ul {
                 height: 0;
+
+                li {
+                    padding: 2px 0;
+                }
             }
 
             h4 {
@@ -507,6 +511,14 @@ export default {
                     //background-image: url('/img/bg-nav-center.png');
                     background-size: 100%;
                     background-position: 0 0;
+
+                    &:last-child {
+                        svg {
+                            position: relative;
+                            left: 4px;
+                            top: 2px;
+                        }
+                    }
 
                     a {
                         color: $yellow-color;
