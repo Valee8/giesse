@@ -13,7 +13,7 @@ export default {
             fixRequiredProblem: false,
             secondStepValid: false,
             store,
-            currentStep: 2,
+            currentStep: 1,
             enableButton: false,
             newClient: {
                 typology: "",
@@ -36,6 +36,7 @@ export default {
             },
             clients: [],
             orders: [],
+            ids: [],
             zanzs: [
                 {
                     name: "Verticali a molla classica",
@@ -279,6 +280,7 @@ export default {
 
                     if (success) {
                         this.orders = response.orders;
+                        this.ids = response.ids;
                     }
 
                 })
@@ -299,18 +301,12 @@ export default {
                         const data = res.data;
                         const success = data.success;
 
-                        if (this.orders.length !== 0) {
-                            this.newOrder.id = data.response.orders[data.response.orders.length - 1].id;
-                        }
-
-                        console.log(this.newOrder.id);
-
                         if (success) {
                             this.getOrder();
                         }
 
                     })
-                    .catch(error => console.log(this.newOrder));
+                    .catch(error => console.log(error));
 
                 this.newOrder.quantity = "";
                 this.newOrder.width = "";
@@ -340,7 +336,7 @@ export default {
 
             }
         },
-        keySubmit(event) {
+        clientSubmit(event) {
 
             if (this.firstStepValid) {
 
@@ -397,17 +393,9 @@ export default {
                 }
             }
         },
-        deleteModel(index) {
+        deleteModel() {
 
-            //this.orders.splice(index, 1);
-
-            //localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
-
-            // if (this.orderList.length === 0) {
-            //     localStorage.removeItem("Preventivo");
-            // }
-
-            axios.get(API_URL + 'delete')
+            axios.get(API_URL + 'delete/' + this.ids)
                 .then(res => {
                     const data = res.data;
                     const success = data.success;
@@ -507,47 +495,39 @@ export default {
             localStorage.setItem("CurrentStep", this.currentStep.toString());
 
         },
-        plus(index) {
-            this.obj.quantity++;
+        plus() {
 
-            const existingData = localStorage.getItem("Preventivo");
+            axios.post(API_URL + 'increment/' + this.ids)
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
 
-            if (existingData) {
-                this.orderList = JSON.parse(existingData);
-            }
-            else {
-                this.orderList = [];
-            }
+                    if (success) {
+                        this.getOrder();
+                    }
 
-            this.orderList.splice(index, 1, this.obj);
-
-            localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
+                })
+                .catch(error => console.log(error));
         },
-        minus(index) {
-            if (this.obj.quantity > 1) {
+        minus() {
 
-                this.obj.quantity--;
+            axios.post(API_URL + 'decrement/' + this.ids)
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
 
-                const existingData = localStorage.getItem("Preventivo");
+                    if (success) {
+                        this.getOrder();
+                    }
 
-                if (existingData) {
-                    this.orderList = JSON.parse(existingData);
-                }
-                else {
-                    this.orderList = [];
-                }
-
-                this.orderList.splice(index, 1, this.obj);
-
-                localStorage.setItem("Preventivo", JSON.stringify(this.orderList));
-            }
+                })
+                .catch(error => console.log(error));
         }
     },
     mounted() {
 
         this.getClient();
         this.getOrder();
-
 
         if (this.newClient.typology === "") {
             this.newClient.typology = "Privato";
@@ -558,65 +538,6 @@ export default {
         }
 
         localStorage.setItem("CurrentStep", this.currentStep.toString());
-
-        // const localStorageData = localStorage.getItem("Preventivo");
-
-        // if (localStorageData) {
-        //     const decryptedData = CryptoJS.AES.decrypt(localStorageData, encryptionKey).toString(CryptoJS.enc.Utf8);
-        //     this.orderList = JSON.parse(decryptedData);
-        // }
-
-        // if (localStorageData) {
-        //     axios.get(API_URL + 'orderKey')
-        //         .then(res => {
-        //             const data = res.data;
-        //             const success = data.success;
-
-        //             if (success) {
-        //                 const keys = data.response.keys[0].key;
-
-        //                 console.log(keys);
-
-        //                 const decryptedData = CryptoJS.AES.decrypt(localStorageData, keys).toString(CryptoJS.enc.Utf8);
-
-        //                 this.orderList = JSON.parse(decryptedData);
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error(error);
-        //         });
-        // }
-        // else {
-        //     this.orderList = [];
-        // }
-
-        // if (localStorageData2) {
-        //     this.infoList = JSON.parse(localStorageData2);
-        // }
-
-        // const localStorageData2 = localStorage.getItem("Info dati");
-
-        // if (localStorageData2) {
-        //     axios.get(API_URL + 'key')
-        //         .then(res => {
-        //             const data = res.data;
-        //             const success = data.success;
-
-        //             if (success) {
-        //                 const keys = data.response.keys[data.response.keys.length - 1].key;
-
-        //                 const decryptedData = CryptoJS.AES.decrypt(localStorageData2, keys).toString(CryptoJS.enc.Utf8);
-
-        //                 this.infoList = JSON.parse(decryptedData);
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error(error);
-        //         });
-        // }
-        // else {
-        //     this.infoList = [];
-        // }
 
         this.typology = this.zanzs[0].name;
     }
@@ -719,7 +640,7 @@ export default {
                         </div>
 
                         <div class="form-button">
-                            <input type="submit" @click="keySubmit" class="button" value="Completa i dati">
+                            <input type="submit" @click="clientSubmit" class="button" value="Completa i dati">
                             <!-- <button v-if="infoList.length === 1" @click="nextStep">Completa i dati</button> -->
                         </div>
 
@@ -847,8 +768,7 @@ export default {
                             <span>
                                 {{ typology.replace(/\([^)]*\)/g, "") }} | {{ order.model_name.charAt(0).toUpperCase() +
                                     order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} | {{ order.net }} |
-                                <img :src="order.color_image" :alt="order.color_name" class="order-image"> | INDEX: {{ index
-                                }}
+                                <img :src="order.color_image" :alt="order.color_name" class="order-image">
                             </span>
                             <span class="quantity">
                                 <div class="text">
@@ -858,10 +778,10 @@ export default {
                                     </span>
                                 </div>
                                 <div class="minus-plus">
-                                    <button @click="plus(index)">
+                                    <button @click="plus">
                                         <i class="fa-solid fa-angle-up"></i>
                                     </button>
-                                    <button @click="minus(index)">
+                                    <button @click="minus">
                                         <i class="fa-solid fa-angle-down"></i>
                                     </button>
                                 </div>
@@ -871,7 +791,7 @@ export default {
                                 {{ order.width }} cm x {{ order.height }} cm
                             </span>
 
-                            <button @click="deleteModel(index)" class="delete">
+                            <button @click="deleteModel" class="delete">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
                         </li>
@@ -1602,7 +1522,7 @@ section {
 
 // Nomi e immagini colori - parte destra
 .list-colors {
-    padding-top: 30px;
+    padding: 40px 0;
     //transition: all 1s ease;
 
 
@@ -1623,15 +1543,15 @@ section {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 15px;
+        gap: 100px 30px;
         color: #fff;
         font-size: 0.8rem;
         font-weight: 500;
 
         // Colore singolo
         .color {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             cursor: pointer;
 
             // Nome colore
@@ -1639,16 +1559,15 @@ section {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: rgba(0, 0, 0, .15);
-                box-shadow: 0 2px 0 rgba(0, 0, 0, .2);
-                border-radius: 0 0 10px 10px;
-                color: #fff;
+                background-color: #ccc;
+                border-radius: 50px;
+                color: #000;
+                margin-top: 10px;
                 text-align: center;
-                height: 37px;
-                padding: 2px 5px;
-                border: 2px solid transparent;
-                border-top: 0;
-                display: none;
+                height: 43px;
+                width: 140px;
+                padding: 5px 6px;
+                font-weight: 600;
             }
 
             // Immagine colore
@@ -1657,7 +1576,7 @@ section {
                 width: 100%;
                 height: 100%;
                 border-radius: 50%;
-                border: 2px solid transparent;
+                border: 3px solid transparent;
                 margin-top: -15px;
                 position: relative;
                 z-index: 20;

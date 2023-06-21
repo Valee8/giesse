@@ -6,6 +6,10 @@ import AppMain from './components/AppMain.vue';
 import AppFooter from './components/AppFooter.vue';
 //import Loader from './components/Loader.vue';
 
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8000/api/v1/';
+
 let slider;
 
 export default {
@@ -25,6 +29,22 @@ export default {
     $route(to, from) {
       if (!window.location.href.includes("preventivo")) {
         localStorage.clear();
+
+        axios.post(API_URL + 'truncate/client')
+          .then(res => {
+            const data = res.data;
+            const success = data.success;
+
+          })
+          .catch(error => console.log(error));
+
+        axios.post(API_URL + 'truncate/order')
+          .then(res => {
+            const data = res.data;
+            const success = data.success;
+
+          })
+          .catch(error => console.log(error));
       }
 
       if (window.location.href.includes("verticali")) {

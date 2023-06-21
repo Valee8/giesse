@@ -191,7 +191,9 @@ export default {
                     <li v-for="(link, index) in store.linksNav" :key="index" :class="link.active ? 'active' : ''">
                         <div class="icons">
                             <router-link :to="{ name: link.href }">
-                                <i :class="link.icon"></i> <span>{{ link.text }}</span>
+                                <span class="text">{{ link.text }}</span>
+                                <span class="icon"><i :class="link.icon"></i>
+                                </span>
                             </router-link>
                         </div>
                     </li>
@@ -434,60 +436,56 @@ export default {
             //z-index: 80;
 
             li {
+                display: flex;
+                align-items: center;
                 height: 89px;
-                line-height: 89px;
-                text-align: center;
+                //text-align: center;
                 background-image: url('/img/bg-nav-center.png');
                 background-position: -100px 0;
                 cursor: pointer;
 
-                // .icons {
-                //     height: 100%;
-                // }
-
-                span {
-                    //opacity: 0;
-                    //height: 0;
-                    display: none;
+                &.active {
+                    .text {
+                        display: none;
+                    }
                 }
 
                 &:not(.active) {
+                    justify-content: center;
+
+                    .text {
+                        display: none;
+                    }
 
                     &:hover {
-                        .icons {
-                            margin-left: -202px;
-                            width: 200px;
-                            text-align: right;
-                            position: relative;
 
-                            &::after {
-                                content: "";
-                                //background-color: red;
-                                width: 10px;
-                                height: 31px;
-                                display: block;
-                                position: absolute;
-                                right: -8px;
-                                top: 20px;
-                            }
+                        .icons {
+                            width: 200px;
+                            margin-left: -150px;
 
                             a {
-                                //font-size: 0.8rem;
-                                //width: 200px;
-                                //text-align: right;
-                                background-color: #000;
-                                padding: 5px;
-                                //display: block;
-                                //height: 30px;
-
-                                span {
-                                    //opacity: 1;
-                                    //height: auto;
-                                    display: inline-block;
-                                    font-size: 0.8rem;
-                                    vertical-align: middle;
-                                }
+                                display: flex;
+                                justify-content: flex-end;
+                                align-items: center;
                             }
+                        }
+
+                        .text {
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-end;
+                            background-color: #000;
+                            height: 12px;
+                            position: relative;
+                            left: -6px;
+                            padding: 10px 5px;
+                            font-size: 0.9rem;
+
+                        }
+
+                        .icon {
+                            width: 42px;
+                            text-align: center;
                         }
                     }
 
@@ -516,7 +514,7 @@ export default {
 
                     svg {
                         position: relative;
-                        left: -9px;
+                        left: 6px;
                         top: 2px;
                     }
                 }
