@@ -239,6 +239,7 @@ export default {
         width: 155px;
         height: 32px;
         margin-right: 40px;
+        display: block;
         //display: inline-block;
 
         img {
@@ -419,7 +420,7 @@ export default {
 #newMenu {
     position: fixed;
     right: 50px;
-    top: 100px;
+    top: 167px;
     z-index: 50;
 
     .menu-container {
@@ -444,7 +445,7 @@ export default {
 
             &:first-child {
                 //margin-top: 15px;
-                transform: translateY(15px);
+                transform: translateY(9px);
             }
 
             // &.top {
@@ -453,17 +454,17 @@ export default {
 
             &.center {
                 //margin-top: 87px;
-                transform: translateY(104px);
+                transform: translateY(110px);
             }
 
             &.bottom {
                 //margin-top: 159px;
-                transform: translateY(193px);
+                transform: translateY(213px);
             }
         }
 
         .circle-menu-div {
-            height: 89px;
+            height: 102px;
             display: flex;
             align-items: center;
 
@@ -482,14 +483,14 @@ export default {
             background-size: 100%;
             background-repeat: no-repeat, no-repeat;
             width: 42px;
-            height: 295px;
+            height: 342px;
             position: relative;
             //z-index: 80;
 
             li {
                 display: flex;
                 align-items: center;
-                height: 89px;
+                height: 102px;
                 //text-align: center;
                 background-image: url('/img/bg-nav-center.png');
                 background-position: -100px 0;
@@ -566,7 +567,7 @@ export default {
                         svg {
                             position: relative;
                             left: 4px;
-                            top: 2px;
+                            top: -3px;
                         }
                     }
 
@@ -577,7 +578,7 @@ export default {
                     svg {
                         position: relative;
                         left: 6px;
-                        top: 2px;
+                        top: -4px;
                     }
                 }
             }

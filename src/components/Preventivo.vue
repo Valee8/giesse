@@ -1083,13 +1083,13 @@ section {
                 //box-shadow: inset 0 8px 0 rgba(0, 0, 0, .05);
                 border-radius: 50%;
                 margin: 0 auto;
-                width: 190px;
-                height: 190px;
+                width: 200px;
+                height: 200px;
                 background-color: #eaeaea;
 
                 img {
-                    width: 80px;
-                    height: 100px;
+                    width: 90px;
+                    height: 110px;
                 }
             }
         }
