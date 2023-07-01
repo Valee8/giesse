@@ -32,7 +32,8 @@ export default {
                 quantity: "",
                 net: "",
                 color_name: "",
-                color_image: ""
+                color_image: "",
+                message: ""
             },
             clients: [],
             orders: [],
@@ -468,6 +469,22 @@ export default {
                     behavior: "smooth"
                 });
 
+                axios.post(API_URL + 'order/store', this.newOrder)
+                    .then(res => {
+                        const data = res.data;
+                        const success = data.success;
+
+                        data.response.orders[0].message = this.newOrder.message;
+
+                        console.log(data.response.orders[0].message);
+
+                        if (success) {
+                            this.getOrder();
+                        }
+
+                    })
+                    .catch(error => console.log(error));
+
                 this.currentStep++;
 
                 localStorage.setItem("CurrentStep", this.currentStep.toString());
@@ -662,7 +679,9 @@ export default {
                             :class="{ 'active': zanz.active }">
 
                             <div class="arrows-image">
-                                <img :src="zanz.image" :alt="zanz.name" class="zanz-image">
+                                <div class="zanz-image">
+                                    <img :src="zanz.image" :alt="zanz.name">
+                                </div>
 
                                 <!-- Icona freccia indietro -->
                                 <a class="arrow left" @click="sliderPrev(index)">
@@ -683,7 +702,8 @@ export default {
                         <!-- Seleziona modello -->
                         <span v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex">
                             <select v-if="zanz.active" :required="fixRequiredProblem" v-model="newOrder.model_name">
-                                <option value="" disabled selected hidden>Seleziona il modello *
+                                <option value="" disabled selected hidden>
+                                    Seleziona il modello *
                                 </option>
                                 <option v-for="(nameModel, index) in zanz.models" :value="nameModel" :key="index">
                                     {{ nameModel }}</option>
@@ -799,14 +819,14 @@ export default {
 
                     <!-- Textarea -->
                     <div class="textarea">
-                        <textarea rows="8" placeholder="Messaggio"></textarea>
+                        <textarea v-model="newOrder.message" rows="8" placeholder="Messaggio"></textarea>
                     </div>
 
                     <!-- Bottone per passare allo step successivo -->
                     <div class="form-button confirm">
                         <button @click="prevStep" class="button" id="buttons">Torna indietro</button>
-                        <button @click="nextStep" class="button" id="buttons" v-if="orders.length !== 0">Conferma le
-                            zanzariere</button>
+                        <input type="submit" @click="nextStep" class="button" id="buttons" v-if="orders.length !== 0"
+                            value="Conferma le zanzariere">
                     </div>
 
                 </form>
@@ -861,11 +881,11 @@ export default {
                         </li>
                     </ul>
 
-                    <!-- <div>
+                    <div>
                         Messaggio:
-                        <span v-if="messages">{{ messages[0] }}</span>
+                        <span v-if="newOrder.message">{{ newOrder.message }}</span>
                         <span v-else>Non hai scritto nessun messaggio</span>
-                    </div> -->
+                    </div>
 
 
                     <div class="form-button">
@@ -1035,7 +1055,7 @@ section {
     max-width: 1070px;
     margin: 0 auto;
     text-align: center;
-    padding: 40px;
+    padding: 80px 40px 40px 40px;
 
     hr {
         margin: 60px auto;
@@ -1054,11 +1074,24 @@ section {
             position: relative;
             max-width: 500px;
             margin: 0 auto;
-        }
 
-        img {
-            width: 150px;
-            height: 200px;
+            .zanz-image {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 4px solid $yellow-color;
+                //box-shadow: inset 0 8px 0 rgba(0, 0, 0, .05);
+                border-radius: 50%;
+                margin: 0 auto;
+                width: 190px;
+                height: 190px;
+                background-color: #eaeaea;
+
+                img {
+                    width: 80px;
+                    height: 100px;
+                }
+            }
         }
 
         h2 {
@@ -1080,7 +1113,7 @@ section {
             transform: translateY(-50%);
             font-size: 1.2rem;
             background-color: #e9e9e9;
-            padding: 2px 7px;
+            padding: 2px 8px;
             border-radius: 50px;
 
             &.left {
@@ -1159,6 +1192,7 @@ section {
                 height: 30px;
                 border-radius: 50px;
                 vertical-align: middle;
+                border: 2px solid #000;
             }
         }
     }
@@ -1220,7 +1254,7 @@ section {
         box-shadow: inset 0 3px 0 rgba(0, 0, 0, .1);
         background-color: #cccccc;
         outline: none;
-        padding: 5px 10px;
+        padding: 7px 10px;
         font-size: 0.9rem;
         margin: 0 10px;
         width: 430px;
@@ -1514,7 +1548,7 @@ section {
     .typology-name {
         cursor: pointer;
         font-weight: 500;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         border-radius: 50px;
         background-color: #cccccc;
         border: 2px solid transparent;
@@ -1531,9 +1565,9 @@ section {
     }
 }
 
-// Nomi e immagini colori - parte destra
+// Nomi e immagini colori - parte sotto
 .list-colors {
-    padding: 40px 0;
+    padding: 60px 0;
     //transition: all 1s ease;
 
 
@@ -1554,15 +1588,15 @@ section {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 100px 30px;
+        gap: 150px 30px;
         color: #fff;
-        font-size: 0.8rem;
+        font-size: 1rem;
         font-weight: 500;
 
         // Colore singolo
         .color {
-            width: 140px;
-            height: 140px;
+            width: 180px;
+            height: 180px;
             cursor: pointer;
 
             // Nome colore
@@ -1575,8 +1609,8 @@ section {
                 color: #000;
                 margin-top: 10px;
                 text-align: center;
-                height: 43px;
-                width: 140px;
+                height: 50px;
+                width: 180px;
                 padding: 5px 6px;
                 font-weight: 600;
             }
@@ -1591,6 +1625,7 @@ section {
                 margin-top: -15px;
                 position: relative;
                 z-index: 20;
+                object-fit: cover;
                 //border-bottom: 0;
             }
         }

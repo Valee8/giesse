@@ -139,7 +139,7 @@ export default {
 .arrow-up {
   position: fixed;
   bottom: 80px;
-  left: 80px;
+  right: 80px;
   z-index: 100;
   font-size: 2.5rem;
   cursor: pointer;
@@ -220,6 +220,10 @@ section {
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
+
+    &#not-slider {
+      padding-top: 90px;
+    }
 
     // Rettangolini in alto
     .list-rectangles {

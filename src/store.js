@@ -7,7 +7,7 @@ export const store = reactive({
     classSubmenu: "",
     listModels: [
         {
-            name: "Verticale a molla",
+            name: "Verticale a molla classica",
             hash: "#verticale-molla",
         },
         {
@@ -245,7 +245,7 @@ export const store = reactive({
                 },
                 {
                     name: "Nero 9005",
-                    image: "/img/colori/nero-9005.png"
+                    image: ""
                 },
                 {
                     name: "Bronzo Chiaro Verniciato",

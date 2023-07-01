@@ -77,19 +77,31 @@ export default {
     <nav id="blackMenu">
         <div class="bg">
             <div class="container">
-                <router-link to="/" v-if="$route.name !== 'home'">
-                    <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
-                </router-link>
+                <ul class="ul-container">
+                    <li>
+                        <router-link to="/" class="logo">
+                            <img src="/img/logo-giesse.png" alt="Logo Giesse">
+                        </router-link>
+                    </li>
 
-                <span @click.stop="showSubmenu">
-                    Zanzariere
-                    <span v-if="!store.submenu">
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </span>
-                    <span v-else>
-                        <i class="fa-solid fa-chevron-up"></i>
-                    </span>
-                </span>
+                    <li>
+                        <span @click.stop="showSubmenu">
+                            Zanzariere
+                            <span v-if="!store.submenu">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+                            <span v-else>
+                                <i class="fa-solid fa-chevron-up"></i>
+                            </span>
+                        </span>
+                    </li>
+
+                    <li>
+                        <router-link to="/preventivo">
+                            Richiedi Preventivo
+                        </router-link>
+                    </li>
+                </ul>
             </div>
 
             <div class="submenu" :class="store.classSubmenu">
@@ -151,11 +163,11 @@ export default {
     </nav>
     <!-- Menu nero in alto -->
 
-    <div class="container" :class="{ 'not-home': $route.name !== 'home' }">
+    <!-- <div class="container" :class="{ 'not-home': $route.name !== 'home' }">
         <div class="a-logo">
             <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
         </div>
-    </div>
+    </div> -->
 
     <!-- Vecchio menu -->
     <nav :class="{ 'nav-home': $route.name === 'home', 'nav-section': $route.name !== 'home' }" id="oldMenu">
@@ -214,20 +226,54 @@ export default {
     color: #fff;
     width: 100%;
 
+    .ul-container {
+        display: flex;
+        align-items: center;
+
+        // li:nth-child(2) {
+        //     background-color: red;
+        // }
+    }
+
     .logo {
         width: 155px;
         height: 32px;
         margin-right: 40px;
+        //display: inline-block;
+
+        img {
+            width: 155px;
+            height: 32px;
+        }
     }
 
     .bg {
         background-color: #000;
-        height: 60px;
+        height: 66px;
         user-select: none;
 
-        span {
-            line-height: 60px;
-            cursor: pointer;
+        .ul-container {
+
+            li:nth-child(2) {
+                line-height: 66px;
+                flex-grow: 1;
+
+                span {
+                    cursor: pointer;
+                }
+
+            }
+
+            li:last-child {
+
+                a {
+                    color: #000;
+                    background-color: $yellow-color;
+                    font-size: 0.9rem;
+                    padding: 5px;
+                    border-radius: 5px;
+                }
+            }
         }
 
         // Submenu
@@ -246,7 +292,7 @@ export default {
                 height: 0;
 
                 li {
-                    padding: 2px 0;
+                    padding: 1px 0;
                 }
             }
 
@@ -273,10 +319,11 @@ export default {
                 flex-wrap: wrap;
                 gap: 10px 60px;
                 height: 0;
+                padding-left: 199px;
 
-                &.pl-not-home {
-                    padding-left: 199px;
-                }
+                // &.pl-not-home {
+                //     padding-left: 199px;
+                // }
             }
 
             // h4 {
@@ -294,7 +341,7 @@ export default {
                 z-index: 60;
 
                 a {
-                    display: block;
+                    display: inline-block;
                 }
 
                 ul {
@@ -435,7 +482,7 @@ export default {
             background-size: 100%;
             background-repeat: no-repeat, no-repeat;
             width: 42px;
-            height: 303px;
+            height: 295px;
             position: relative;
             //z-index: 80;
 
@@ -481,7 +528,7 @@ export default {
                             align-items: center;
                             //justify-content: flex-end;
                             background-color: #000;
-                            height: 12px;
+                            height: 16px;
                             position: relative;
                             //left: -6px;
                             padding: 20px;

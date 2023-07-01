@@ -161,12 +161,12 @@ section {
             text-align: center;
 
             h1 {
-                font-size: 2.7rem;
+                font-size: 3.2rem;
             }
 
             p {
                 padding-top: 15px;
-                font-size: 0.9rem;
+                font-size: 1.3rem;
             }
         }
     }
@@ -185,15 +185,19 @@ section {
             .faq-left {
                 width: 40%;
 
+                h2 {
+                    font-size: 1.8rem;
+                }
+
                 p {
                     padding-top: 30px;
                     width: 70%;
-                    font-size: 0.9rem;
+                    font-size: 1.1rem;
                 }
             }
 
             .faq-right {
-                width: 40%;
+                width: 45%;
 
                 ul {
                     user-select: none;
@@ -205,6 +209,7 @@ section {
                         flex-wrap: wrap;
                         padding: 5px 0 10px 0;
                         cursor: pointer;
+                        font-size: 1.2rem;
 
                         &.faq {
                             border-top: 2px solid #fff;
@@ -218,7 +223,7 @@ section {
                             }
 
                             .dot {
-                                font-size: 0.3rem;
+                                font-size: 0.4rem;
                                 vertical-align: middle;
                                 padding-right: 7px;
                             }

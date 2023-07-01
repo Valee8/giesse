@@ -56,8 +56,8 @@ header {
     .container {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        height: 98%;
+        justify-content: flex-end;
+        height: 81%;
 
         // Contenuto header
         .jumbotron {
