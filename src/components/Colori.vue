@@ -127,14 +127,15 @@ export default {
 
     .container {
         display: flex;
-        align-items: center;
-        gap: 0 60px;
-        height: 402px;
+        align-items: flex-start;
+        gap: 0 80px;
+        padding: 100px 0;
+        //height: 660px;
 
         // Elenco tipologie colori - parte sinistra
         .list-typologies {
             text-align: center;
-            width: 8%;
+            width: 10%;
 
             .typologies {
                 padding: 0.1rem 0;
@@ -149,7 +150,7 @@ export default {
             .typology-name {
                 cursor: pointer;
                 font-weight: 500;
-                font-size: 0.9rem;
+                font-size: 1.3rem;
                 padding: 5px 0 5px 4px;
 
                 &.selected {
@@ -171,37 +172,46 @@ export default {
             // Blocco intero colori
             .colors {
                 display: flex;
+                //justify-content: center;
                 flex-wrap: wrap;
-                gap: 15px;
+                gap: 150px 30px;
                 color: #fff;
-                font-size: 0.8rem;
+                font-size: 1rem;
                 font-weight: 500;
 
                 // Colore singolo
                 .color {
-                    width: 140px;
+                    width: 180px;
+                    height: 180px;
 
                     // Nome colore
                     .color-name {
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        background-color: rgba(0, 0, 0, .15);
-                        box-shadow: 0 2px 0 rgba(0, 0, 0, .2);
-                        border-radius: 0 0 10px 10px;
-                        color: #fff;
+                        background-color: #ccc;
+                        border-radius: 50px;
+                        color: #000;
+                        margin-top: 10px;
                         text-align: center;
-                        height: 37px;
-                        padding: 0 5px;
+                        height: 50px;
+                        width: 180px;
+                        padding: 5px 6px;
+                        font-weight: 600;
                     }
 
                     // Immagine colore
                     .color-image {
                         display: block;
                         width: 100%;
-                        height: 75px;
+                        height: 100%;
+                        border-radius: 50%;
+                        border: 3px solid transparent;
+                        margin-top: -15px;
+                        position: relative;
+                        z-index: 20;
                         object-fit: cover;
-                        border-radius: 10px 10px 0 0;
+                        //border-bottom: 0;
                     }
                 }
 

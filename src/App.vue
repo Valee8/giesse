@@ -258,14 +258,15 @@ section {
       // transition-timing-function: ease-in;
 
       &:not(.active) {
-        opacity: 0;
-        height: 0;
+        //opacity: 0;
+        //height: 0;
+        display: none;
       }
 
-      &.active {
-        opacity: 1;
-        height: auto;
-      }
+      // &.active {
+      //   //opacity: 1;
+      //   //height: auto;
+      // }
 
       .div-image {
         position: relative;

@@ -10,11 +10,11 @@ export default {
         }
     },
     computed: {
-        filteredLeft() {
-            return this.store.listModels.slice(0, 8);
+        filteredVertical() {
+            return this.store.listModels.slice(0, 4);
         },
-        filteredRight() {
-            return this.store.listModels.slice(8, 15);
+        filteredHorizontal() {
+            return this.store.listModels.slice(4, 10);
         }
     },
 }
@@ -77,13 +77,51 @@ export default {
                 <div class="border"></div>
 
                 <div class="list">
-                    <ul>
+                    <!-- <ul>
                         <li v-for="(model, index) in filteredLeft" :key="index">
                             {{ model.name }}
                         </li>
                     </ul>
                     <ul>
                         <li v-for="(model, index) in filteredRight" :key="index">
+                            {{ model.name }}
+                        </li>
+                    </ul> -->
+                    <ul>
+                        <li>
+                            <h5>
+                                Verticali
+                            </h5>
+                        </li>
+                        <li v-for="(model, index) in filteredVertical" :key="index">
+                            {{ model.name }}
+                        </li>
+
+                        <li class="pt">
+                            <h5>
+                                Altre
+                            </h5>
+                        </li>
+                        <li>
+                            Porta a battente
+                        </li>
+                        <li>
+                            Scorri
+                        </li>
+                        <li>
+                            Fissa
+                        </li>
+                        <li>
+                            Casper
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <h5>
+                                Laterali
+                            </h5>
+                        </li>
+                        <li v-for="(model, index) in filteredHorizontal" :key="index">
                             {{ model.name }}
                         </li>
                     </ul>
@@ -110,7 +148,7 @@ footer {
     .container {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
 
         .left-footer {
             width: 25%;
@@ -118,7 +156,7 @@ footer {
 
         // Parte centrale footer
         .center-footer {
-            width: 20%;
+            width: 18%;
 
             ul {
                 font-size: 0.75rem;
@@ -142,12 +180,22 @@ footer {
         // }
 
         .right-footer {
-            width: 35%;
+            width: 43%;
 
             .list {
                 display: flex;
                 justify-content: space-between;
-                gap: 50px;
+                align-items: flex-start;
+                //flex-wrap: wrap;
+                //gap: 30px;
+
+                .pt {
+                    padding-top: 10px;
+                }
+
+                h5 {
+                    font-size: 0.8rem;
+                }
             }
         }
 

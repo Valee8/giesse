@@ -272,6 +272,7 @@ export default {
                     background-color: $yellow-color;
                     font-size: 0.9rem;
                     padding: 5px;
+                    font-weight: 500;
                     border-radius: 5px;
                 }
             }
@@ -419,7 +420,7 @@ export default {
 /////// Menu bello, menu figo
 #newMenu {
     position: fixed;
-    right: 50px;
+    right: 30px;
     top: 167px;
     z-index: 50;
 

@@ -54,19 +54,24 @@ header {
     }
 
     .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        height: 81%;
+        //display: flex;
+        //flex-direction: column;
+        //justify-content: flex-end;
+        //height: 81%;
+        //height: 500px;
+        //background-color: red;
 
         // Contenuto header
         .jumbotron {
+            height: 400px;
             width: 500px;
+            padding-top: 50px;
 
             // Titolo
             h1 {
                 color: #fff;
-                font-size: 2.7rem;
+                height: 100%;
+                font-size: 3rem;
             }
 
             // Testo
