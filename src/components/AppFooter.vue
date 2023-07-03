@@ -70,11 +70,11 @@ export default {
             <!-- Parte destra footer -->
             <div class="right-footer">
                 <!-- Titolo -->
-                <h3>
+                <!-- <h3>
                     Le Nostre Zanzariere
-                </h3>
+                </h3> -->
                 <!-- Bordo sotto il titolo -->
-                <div class="border"></div>
+                <!-- <div class="border"></div> -->
 
                 <div class="list">
                     <!-- <ul>
@@ -99,6 +99,16 @@ export default {
 
                         <li class="pt">
                             <h5>
+                                Laterali
+                            </h5>
+                        </li>
+                        <li v-for="(model, index) in filteredHorizontal" :key="index">
+                            {{ model.name }}
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <h5>
                                 Altre
                             </h5>
                         </li>
@@ -113,16 +123,6 @@ export default {
                         </li>
                         <li>
                             Casper
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <h5>
-                                Laterali
-                            </h5>
-                        </li>
-                        <li v-for="(model, index) in filteredHorizontal" :key="index">
-                            {{ model.name }}
                         </li>
                     </ul>
                 </div>
@@ -180,7 +180,7 @@ footer {
         // }
 
         .right-footer {
-            width: 43%;
+            width: 32%;
 
             .list {
                 display: flex;

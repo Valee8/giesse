@@ -38,6 +38,14 @@ export default {
           })
           .catch(error => console.log(error));
 
+        axios.post(API_URL + 'truncate/message')
+          .then(res => {
+            const data = res.data;
+            const success = data.success;
+
+          })
+          .catch(error => console.log(error));
+
         axios.post(API_URL + 'truncate/order')
           .then(res => {
             const data = res.data;
@@ -222,7 +230,7 @@ section {
     margin: 0 auto;
 
     &#not-slider {
-      padding-top: 90px;
+      padding-top: 72px;
     }
 
     // Rettangolini in alto

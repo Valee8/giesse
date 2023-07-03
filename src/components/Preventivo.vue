@@ -35,12 +35,17 @@ export default {
                 color_image: "",
                 message: ""
             },
+            newMessage: {
+                message: ""
+            },
             clients: [],
             orders: [],
+            messages: [],
             ids: [],
             zanzs: [
                 {
                     name: "Verticali a molla classica",
+                    typo: "Verticali",
                     image: "/img/alba.png",
                     active: true,
                     models: [
@@ -54,6 +59,7 @@ export default {
                 },
                 {
                     name: "Verticali a molla (cricchetto)",
+                    typo: "Verticali",
                     image: "/img/laura.png",
                     active: false,
                     models: [
@@ -64,6 +70,7 @@ export default {
                 },
                 {
                     name: "Verticali a catena classica",
+                    typo: "Verticali",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -74,6 +81,7 @@ export default {
                 },
                 {
                     name: "Verticali a catena + molla",
+                    typo: "Verticali",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -83,6 +91,7 @@ export default {
                 },
                 {
                     name: "Laterali a molla classica",
+                    typo: "Orizzontali",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -93,6 +102,7 @@ export default {
                 },
                 {
                     name: "Laterali a molla (guida bassa da 2cm)",
+                    typo: "Orizzontali",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -103,6 +113,7 @@ export default {
                 },
                 {
                     name: "Laterale a molla (guida bassa da 14mm)",
+                    typo: "Orizzontali",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -111,6 +122,7 @@ export default {
                 },
                 {
                     name: "Laterale a molla (guida bassa da 3mm)",
+                    typo: "Orizzontali",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -119,6 +131,7 @@ export default {
                 },
                 {
                     name: "Laterale Frizionata",
+                    typo: "Orizzontali",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -127,6 +140,7 @@ export default {
                 },
                 {
                     name: "Laterale Antivento",
+                    typo: "Orizzontali",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -135,6 +149,7 @@ export default {
                 },
                 {
                     name: "Laterale Plissettata",
+                    typo: "Orizzontali",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -143,6 +158,7 @@ export default {
                 },
                 {
                     name: "Porta a battente",
+                    typo: "Altre",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -151,6 +167,7 @@ export default {
                 },
                 {
                     name: "A pannelli scorrevoli",
+                    typo: "Altre",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -159,6 +176,7 @@ export default {
                 },
                 {
                     name: "Telaio fisso",
+                    typo: "Altre",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -167,6 +185,7 @@ export default {
                 },
                 {
                     name: "Incasso con guida da 50x35",
+                    typo: "Altre",
                     image: "/img/katia.png",
                     active: false,
                     models: [
@@ -183,6 +202,11 @@ export default {
         }
     },
     computed: {
+        returnTypo() {
+            this.zanzs.forEach(element => {
+                return element.name.slice(0, this.zanzs.length);
+            });
+        },
         firstStepValid() {
             if (this.newClient.email.trim() !== "" && this.newClient.email.includes("@") && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "") {
                 this.enableButton = true;
@@ -209,12 +233,15 @@ export default {
             // if (this.currentStep === 4) {
             //     return "Grazie per il preventivo"
             // }
-        }
+        },
+        // filteredMessage() {
+        //     return this.orders.slice(0, this.orders.length);
+        // },
     },
     methods: {
         sliderNext(index) {
 
-            this.selectedModel = "";
+            this.newOrder.model_name = "";
 
             if (index < this.zanzs.length - 1) {
                 index++;
@@ -236,7 +263,7 @@ export default {
         },
         sliderPrev(index) {
 
-            this.selectedModel = "";
+            this.newOrder.model_name = "";
 
             if (index <= this.zanzs.length - 1 && index > 0) {
                 index--;
@@ -282,6 +309,7 @@ export default {
                     if (success) {
                         this.orders = response.orders;
                         this.ids = response.ids;
+                        this.messages = response.messages;
                     }
 
                 })
@@ -443,6 +471,14 @@ export default {
                 })
                 .catch(error => console.log(error));
 
+            axios.post(API_URL + 'truncate/message')
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+
+                })
+                .catch(error => console.log(error));
+
             axios.post(API_URL + 'truncate/order')
                 .then(res => {
                     const data = res.data;
@@ -469,14 +505,26 @@ export default {
                     behavior: "smooth"
                 });
 
-                axios.post(API_URL + 'order/store', this.newOrder)
+                // if (this.message) {
+                //     axios.post(API_URL + 'message/update', {
+                //         message: this.message
+                //     })
+                //         .then(res => {
+                //             const data = res.data;
+                //             const success = data.success;
+
+                //             if (success) {
+                //                 this.getOrder();
+                //             }
+
+                //         })
+                //         .catch(error => console.log(error));
+                // }
+
+                axios.post(API_URL + 'message/store', this.newMessage)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
-
-                        data.response.orders[0].message = this.newOrder.message;
-
-                        console.log(data.response.orders[0].message);
 
                         if (success) {
                             this.getOrder();
@@ -678,6 +726,10 @@ export default {
                         <div class="slider-preventivo" v-for="(zanz, index) in zanzs" :key="index"
                             :class="{ 'active': zanz.active }">
 
+                            <h3>
+                                {{ zanz.typo }}
+                            </h3>
+
                             <div class="arrows-image">
                                 <div class="zanz-image">
                                     <img :src="zanz.image" :alt="zanz.name">
@@ -819,7 +871,7 @@ export default {
 
                     <!-- Textarea -->
                     <div class="textarea">
-                        <textarea v-model="newOrder.message" rows="8" placeholder="Messaggio"></textarea>
+                        <textarea v-model="newMessage.message" rows="8" placeholder="Messaggio"></textarea>
                     </div>
 
                     <!-- Bottone per passare allo step successivo -->
@@ -879,14 +931,20 @@ export default {
                         <li>
                             Misure: {{ order.width }}cm x {{ order.height }}cm
                         </li>
+                        <li v-for="(mess, index) in messages" :key="index" class="summary">
+                            Messaggio:
+                            <span v-if="mess.message">{{ mess.message }}</span>
+                            <span v-else>Non hai scritto nessun messaggio</span>
+                        </li>
                     </ul>
 
-                    <div>
-                        Messaggio:
-                        <span v-if="newOrder.message">{{ newOrder.message }}</span>
-                        <span v-else>Non hai scritto nessun messaggio</span>
-                    </div>
-
+                    <!-- <ul v-for="(mess, index) in filteredMessage" :key="index" class="summary">
+                        <li>
+                            Messaggio:
+                            <span v-if="mess.message">{{ mess.message }}</span>
+                            <span v-else>Non hai scritto nessun messaggio</span>
+                        </li>
+                    </ul> -->
 
                     <div class="form-button">
                         <button @click="complete" class="button" id="buttons">Completa</button>
@@ -962,6 +1020,7 @@ section {
 
             .third {
                 font-size: 0.4em;
+                margin-bottom: 15px;
             }
         }
 
@@ -972,6 +1031,12 @@ section {
 
     .fourth-step {
         text-align: center;
+
+        .button {
+            padding: 15px 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
     }
 
 }
@@ -992,7 +1057,7 @@ section {
         background-color: #d9d9d9;
         padding: 20px;
         max-width: 700px;
-        margin: 0 auto 30px auto;
+        margin: 0 auto;
 
         &:not(.info) {
             div {
@@ -1038,7 +1103,7 @@ section {
 
         button,
         input {
-            //background-color: $yellow-color;
+            background-color: $yellow-color;
             padding: 10px 50px;
             border: 0;
             //color: #000;
@@ -1074,6 +1139,7 @@ section {
             position: relative;
             max-width: 500px;
             margin: 0 auto;
+            padding: 40px 0;
 
             .zanz-image {
                 display: flex;
@@ -1098,9 +1164,13 @@ section {
             padding: 20px 0 60px 0;
         }
 
-        h3 {
-            padding: 40px 0;
-        }
+        // h3:first-of-type {
+        //     padding-bottom: 20px;
+        // }
+
+        // h3:last-of-type {
+        //     padding-top: 20px;
+        // }
 
         &:not(.active) {
             display: none;
@@ -1256,7 +1326,7 @@ section {
         outline: none;
         padding: 7px 10px;
         font-size: 0.9rem;
-        margin: 0 10px;
+        margin: 60px 10px 0 10px;
         width: 430px;
     }
 
@@ -1297,6 +1367,14 @@ section {
     .inputs-center {
         input {
             margin: 0 20px;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #cccccc;
+            border: 0;
+            border-radius: 50px;
+            padding: 8px 10px;
+            font-size: 0.9rem;
+            color: #000;
+            outline: none;
         }
 
         label {
@@ -1313,17 +1391,6 @@ section {
             vertical-align: middle;
             accent-color: #000;
         }
-    }
-
-    input {
-        font-family: 'Montserrat', sans-serif;
-        background-color: #cccccc;
-        border: 0;
-        border-radius: 50px;
-        padding: 8px 10px;
-        font-size: 0.9rem;
-        color: #000;
-        outline: none;
     }
 
     ::placeholder {

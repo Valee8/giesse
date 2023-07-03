@@ -270,9 +270,9 @@ export default {
                 a {
                     color: #000;
                     background-color: $yellow-color;
-                    font-size: 0.9rem;
+                    font-size: 0.8rem;
                     padding: 5px;
-                    font-weight: 500;
+                    font-weight: bold;
                     border-radius: 5px;
                 }
             }

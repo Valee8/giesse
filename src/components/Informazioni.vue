@@ -19,10 +19,10 @@ export default {
 @use '../src/styles/partials/variables' as *;
 
 section {
-    background-color: #000;
+    background-color: #1c1c1c;
     text-align: center;
     color: #fff;
     min-height: 400px;
-    display: none;
+    //display: none;
 }
 </style>

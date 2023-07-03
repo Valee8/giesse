@@ -21,7 +21,7 @@ export default {
             <div class="jumbotron">
                 <!-- Titolo -->
                 <h1>
-                    Proteggi la <div>tua casa</div>
+                    Proteggi <div>la tua casa</div>
                 </h1>
 
                 <!-- Testo -->
@@ -71,7 +71,7 @@ header {
             h1 {
                 color: #fff;
                 height: 100%;
-                font-size: 3rem;
+                font-size: 3.3rem;
             }
 
             // Testo

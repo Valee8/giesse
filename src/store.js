@@ -127,7 +127,7 @@ export const store = reactive({
         {
             model: "LATERALE A MOLLA (con guida bassa da 2cm)",
             name: "LARA (con cuffie) - VALERIA (senza cuffie) - DESI (con cassonetto da 40mm)",
-            //image: "/img/alba.png",
+            image: "/img/lara-rigata.png",
             description: "Il modello LATERALE con guida bassa da 2cm, prodotto di serie con il cassonetto da 50mm, è caratterizzato da una guida inferiore di soli 2cm. Viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm).",
             active: false
         },
@@ -208,7 +208,7 @@ export const store = reactive({
         },
         {
             name: "Scorri",
-            //image: "/img/casper.png"
+            image: "/img/scorri.png"
         },
         {
             name: "Fissa",

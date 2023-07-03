@@ -44,7 +44,7 @@ export default {
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img src="" alt="SCORRI" class="slide-image">
+                        <img src="/img/scorri.png" alt="SCORRI" class="slide-image">
                     </div>
 
                     <!-- Titolo - nome modello -->

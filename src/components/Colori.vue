@@ -150,7 +150,7 @@ export default {
             .typology-name {
                 cursor: pointer;
                 font-weight: 500;
-                font-size: 1.3rem;
+                font-size: 1.2rem;
                 padding: 5px 0 5px 4px;
 
                 &.selected {
@@ -176,13 +176,13 @@ export default {
                 flex-wrap: wrap;
                 gap: 150px 30px;
                 color: #fff;
-                font-size: 1rem;
+                font-size: 0.9rem;
                 font-weight: 500;
 
                 // Colore singolo
                 .color {
-                    width: 180px;
-                    height: 180px;
+                    width: 160px;
+                    height: 160px;
 
                     // Nome colore
                     .color-name {
@@ -195,7 +195,7 @@ export default {
                         margin-top: 10px;
                         text-align: center;
                         height: 50px;
-                        width: 180px;
+                        width: 160px;
                         padding: 5px 6px;
                         font-weight: 600;
                     }

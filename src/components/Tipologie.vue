@@ -52,6 +52,7 @@ export default {
 
 // Sezione Tipologie
 section {
+    padding-bottom: 60px;
 
     // Titolo
     h2 {
