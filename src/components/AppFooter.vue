@@ -69,49 +69,33 @@ export default {
 
             <!-- Parte destra footer -->
             <div class="right-footer">
-                <!-- Titolo -->
-                <!-- <h3>
-                    Le Nostre Zanzariere
-                </h3> -->
-                <!-- Bordo sotto il titolo -->
-                <!-- <div class="border"></div> -->
+                <div class="left">
+                    <!-- Titolo -->
+                    <h3>
+                        Verticali e Orizzontali
+                    </h3>
+                    <!-- Bordo sotto il titolo -->
+                    <div class="border"></div>
 
-                <div class="list">
-                    <!-- <ul>
-                        <li v-for="(model, index) in filteredLeft" :key="index">
-                            {{ model.name }}
-                        </li>
-                    </ul>
                     <ul>
-                        <li v-for="(model, index) in filteredRight" :key="index">
-                            {{ model.name }}
-                        </li>
-                    </ul> -->
-                    <ul>
-                        <li>
-                            <h5>
-                                Verticali
-                            </h5>
-                        </li>
                         <li v-for="(model, index) in filteredVertical" :key="index">
                             {{ model.name }}
                         </li>
 
-                        <li class="pt">
-                            <h5>
-                                Laterali
-                            </h5>
-                        </li>
                         <li v-for="(model, index) in filteredHorizontal" :key="index">
                             {{ model.name }}
                         </li>
                     </ul>
+                </div>
+
+                <div class="right">
+                    <h3>
+                        Altre
+                    </h3>
+                    <!-- Bordo sotto il titolo -->
+                    <div class="border"></div>
+
                     <ul>
-                        <li>
-                            <h5>
-                                Altre
-                            </h5>
-                        </li>
                         <li>
                             Porta a battente
                         </li>
@@ -149,9 +133,10 @@ footer {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
+        //max-width: 1000px;
 
         .left-footer {
-            width: 25%;
+            width: 26%;
         }
 
         // Parte centrale footer
@@ -180,12 +165,15 @@ footer {
         // }
 
         .right-footer {
-            width: 32%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 35%;
 
             .list {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
+                //display: flex;
+                //justify-content: space-between;
+                //align-items: flex-start;
                 //flex-wrap: wrap;
                 //gap: 30px;
 

@@ -931,7 +931,7 @@ export default {
                         <li>
                             Misure: {{ order.width }}cm x {{ order.height }}cm
                         </li>
-                        <li v-for="(mess, index) in messages" :key="index" class="summary">
+                        <li v-for="(mess, index) in messages" :key="messIndex" class="summary" v-if="index === 1">
                             Messaggio:
                             <span v-if="mess.message">{{ mess.message }}</span>
                             <span v-else>Non hai scritto nessun messaggio</span>

@@ -2,7 +2,12 @@
 
 import { store } from '../store.js';
 
+import Informazioni from './Informazioni.vue';
+
 export default {
+    components: {
+        Informazioni
+    },
     name: 'Contatti',
     data() {
         return {
@@ -130,6 +135,8 @@ export default {
                 </div>
             </div>
         </div>
+
+        <Informazioni />
     </section>
 </template>
 
