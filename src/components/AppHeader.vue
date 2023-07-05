@@ -65,7 +65,7 @@ header {
         .jumbotron {
             height: 400px;
             width: 500px;
-            padding-top: 50px;
+            padding-top: 60px;
 
             // Titolo
             h1 {

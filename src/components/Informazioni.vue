@@ -56,7 +56,8 @@ export default {
                 <form @submit="handleSubmit">
                     <input type="text" class="first-input" v-model="newInfo.name_surname" placeholder="Nome e Cognome *"
                         @input="filterNumbers" required>
-                    <input type="email" v-model="newInfo.email" placeholder="Indirizzo e-mail *" required>
+                    <input type="email" class="second-input" v-model="newInfo.email" placeholder="Indirizzo e-mail *"
+                        required>
                     <br>
                     <textarea name="message" v-model="newInfo.message" rows="8" placeholder="Messaggio *"
                         required></textarea>
@@ -121,12 +122,12 @@ export default {
                 color: #000;
             }
 
-            input:not(.submit) {
-                width: 254px;
-
+            .second-input {
+                width: 50%;
             }
 
             .first-input {
+                width: calc(50% - 40px);
                 margin-right: 40px;
             }
 

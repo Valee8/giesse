@@ -129,8 +129,9 @@ export default {
         display: flex;
         align-items: flex-start;
         gap: 0 80px;
+        height: 100%;
         padding: 100px 0;
-        //height: 660px;
+        //max-height: 660px;
 
         // Elenco tipologie colori - parte sinistra
         .list-typologies {

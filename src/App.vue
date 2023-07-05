@@ -228,6 +228,8 @@ section {
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
+    position: relative;
+    height: 800px;
 
     &#not-slider {
       padding-top: 72px;
@@ -240,6 +242,7 @@ section {
       align-content: center;
       gap: 20px;
       padding: 46px 0 20px 0;
+      height: 72px;
 
       .rectangles {
         background-color: rgba(0, 0, 0, .4);
@@ -261,18 +264,26 @@ section {
     .slider {
       font-weight: bold;
       user-select: none;
+      position: absolute;
+      top: 72px;
+      transition: all 0.5s ease;
+      opacity: 0;
       // transition-property: transform, opacity;
       // transition-duration: 500ms;
       // transition-timing-function: ease-in;
 
-      &:not(.active) {
-        //opacity: 0;
-        //height: 0;
-        display: none;
+      // &:not(.active) {
+      //   opacity: 0;
+      //   //display: none;
+      // }
+
+      &.active {
+        opacity: 1;
       }
 
       // &.active {
-      //   //opacity: 1;
+      //   opacity: 1;
+      //   visibility: visible;
       //   //height: auto;
       // }
 
@@ -280,6 +291,7 @@ section {
         position: relative;
         //margin: 0 auto;
         //max-width: 900px;
+        z-index: 100;
 
         .slide-image {
           height: 320px;

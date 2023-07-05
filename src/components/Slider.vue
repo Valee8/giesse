@@ -12,6 +12,7 @@ export default {
     },
     data() {
         return {
+            isAnimating: false,
             store,
             activeItem: "",
         }
@@ -44,47 +45,66 @@ export default {
         // Freccia avanti
         next(index) {
 
-            if (index < slider.length - 1) {
-                index++;
-            }
+            if (!this.isAnimating) {
 
-            else {
-                index = 0;
-            }
+                this.isAnimating = true;
 
-            slider[index].active = true;
-
-            for (let i = 0; i < slider.length; i++) {
-                if (i !== index) {
-                    slider[i].active = false;
+                if (index < slider.length - 1) {
+                    index++;
                 }
+
+                else {
+                    index = 0;
+                }
+
+                slider[index].active = true;
+
+                for (let i = 0; i < slider.length; i++) {
+                    if (i !== index) {
+                        slider[i].active = false;
+                    }
+                }
+
+                if (window.location.hash) {
+                    window.location.hash = "";
+                }
+
+                setTimeout(() => {
+                    this.isAnimating = false;
+                }, 500);
             }
 
-            if (window.location.hash) {
-                window.location.hash = "";
-            }
         },
         // Freccia indietro
         prev(index) {
 
-            if (index <= slider.length - 1 && index > 0) {
-                index--;
-            }
+            if (!this.isAnimating) {
 
-            else {
-                index = slider.length - 1;
-            }
+                this.isAnimating = true;
 
-            slider[index].active = true;
-
-            for (let i = 0; i < slider.length; i++) {
-                if (i !== index) {
-                    slider[i].active = false;
+                if (index <= slider.length - 1 && index > 0) {
+                    index--;
                 }
-            }
 
-            if (window.location.hash) {
-                window.location.hash = "";
+                else {
+                    index = slider.length - 1;
+                }
+
+                slider[index].active = true;
+
+                for (let i = 0; i < slider.length; i++) {
+                    if (i !== index) {
+                        slider[i].active = false;
+                    }
+                }
+
+                if (window.location.hash) {
+                    window.location.hash = "";
+                }
+
+                setTimeout(() => {
+                    this.isAnimating = false;
+                }, 500);
             }
         },
         //Cambio slide premendo i rettangoli in alto

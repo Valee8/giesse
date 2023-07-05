@@ -1135,11 +1135,20 @@ section {
         user-select: none;
         transition: all 500ms ease;
 
+        h3:first-of-type {
+            font-size: 1.4rem;
+        }
+
+        h3:last-of-type {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
         .arrows-image {
             position: relative;
             max-width: 500px;
             margin: 0 auto;
-            padding: 40px 0;
+            padding: 40px 0 50px 0;
 
             .zanz-image {
                 display: flex;
