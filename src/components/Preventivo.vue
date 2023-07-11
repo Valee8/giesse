@@ -25,7 +25,6 @@ export default {
                 city_of_residence: ""
             },
             newOrder: {
-                id: "",
                 model_name: "",
                 width: "",
                 height: "",
@@ -33,7 +32,8 @@ export default {
                 net: "",
                 color_name: "",
                 color_image: "",
-                message: ""
+                message: "",
+                client_id: ""
             },
             newMessage: {
                 message: ""
@@ -41,7 +41,8 @@ export default {
             clients: [],
             orders: [],
             messages: [],
-            ids: [],
+            ids: "",
+            newIds: "",
             zanzs: [
                 {
                     name: "Verticali a molla classica",
@@ -290,6 +291,9 @@ export default {
                     const success = data.success;
                     const response = data.response;
 
+                    this.ids = response.ids[response.ids.length - 1];
+                    this.newOrder.client_id = response.ids[response.ids.length - 1];
+
                     if (success) {
                         this.clients = response.clients;
                     }
@@ -300,7 +304,7 @@ export default {
                 });
         },
         getOrder() {
-            axios.get(API_URL + 'orders')
+            axios.get(API_URL + 'orders/' + this.ids)
                 .then(res => {
                     const data = res.data;
                     const success = data.success;
@@ -308,8 +312,10 @@ export default {
 
                     if (success) {
                         this.orders = response.orders;
-                        this.ids = response.ids;
-                        this.messages = response.messages;
+
+                        if (this.ids) {
+                            localStorage.setItem("ClientId", this.ids.toString());
+                        }
                     }
 
                 })
@@ -325,10 +331,13 @@ export default {
 
                 this.secondStepValid = true;
 
+                //this.newOrder.client_id = 1;
+
                 axios.post(API_URL + 'order/store', this.newOrder)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
+                        //const response = data.response;
 
                         if (success) {
                             this.getOrder();
@@ -463,29 +472,29 @@ export default {
 
             localStorage.setItem("CurrentStep", this.currentStep.toString());
 
-            axios.post(API_URL + 'truncate/client')
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
+            // axios.post(API_URL + 'truncate/client')
+            //     .then(res => {
+            //         const data = res.data;
+            //         const success = data.success;
 
-                })
-                .catch(error => console.log(error));
+            //     })
+            //     .catch(error => console.log(error));
 
-            axios.post(API_URL + 'truncate/message')
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
+            // axios.post(API_URL + 'truncate/message')
+            //     .then(res => {
+            //         const data = res.data;
+            //         const success = data.success;
 
-                })
-                .catch(error => console.log(error));
+            //     })
+            //     .catch(error => console.log(error));
 
-            axios.post(API_URL + 'truncate/order')
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
+            // axios.post(API_URL + 'truncate/order')
+            //     .then(res => {
+            //         const data = res.data;
+            //         const success = data.success;
 
-                })
-                .catch(error => console.log(error));
+            //     })
+            //     .catch(error => console.log(error));
 
             // this.name = "";
             // this.surname = "";
@@ -547,13 +556,13 @@ export default {
                 behavior: "smooth"
             });
 
-            axios.post(API_URL + 'truncate/client')
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
+            // axios.post(API_URL + 'truncate/client')
+            //     .then(res => {
+            //         const data = res.data;
+            //         const success = data.success;
 
-                })
-                .catch(error => console.log(error));
+            //     })
+            //     .catch(error => console.log(error));
 
             this.currentStep--;
 
@@ -588,6 +597,9 @@ export default {
                 })
                 .catch(error => console.log(error));
         }
+    },
+    created() {
+        this.ids = localStorage.getItem("ClientId");
     },
     mounted() {
 
@@ -1214,6 +1226,10 @@ section {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            // &:not(.visible) {
+            //     display: none;
+            // }
 
             .quantity {
                 padding: 0 10px;
