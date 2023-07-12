@@ -125,7 +125,7 @@ footer {
     background-color: #424242;
     color: #fff;
     padding: 30px 0;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     line-height: 15px;
 
     // Container piccolo
@@ -197,7 +197,7 @@ footer {
         // Titolo
         h3 {
             color: $yellow-color;
-            font-size: 1rem;
+            font-size: 1.1rem;
             padding-bottom: 5px;
             line-height: 20px;
         }

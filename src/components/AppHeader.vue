@@ -71,7 +71,7 @@ header {
             h1 {
                 color: #fff;
                 height: 100%;
-                font-size: 3.3rem;
+                font-size: 3.5rem;
             }
 
             // Testo
@@ -79,6 +79,10 @@ header {
                 font-size: 1.2rem;
                 font-weight: bold;
                 padding: 15px 0 20px 0;
+            }
+
+            a {
+                font-size: 1.1rem;
             }
         }
     }
@@ -100,12 +104,18 @@ header {
         .container {
             .jumbotron {
                 width: 300px;
+                padding-top: 30px;
+                height: 220px;
 
                 h1 {
                     font-size: 1.8rem;
                 }
 
                 p {
+                    font-size: 1rem;
+                }
+
+                a {
                     font-size: 1rem;
                 }
             }
@@ -116,6 +126,12 @@ header {
 @media only screen and (min-width: 610px) and (max-width: 1060px) {
     .header-home {
         height: 450px;
+
+        .container {
+            .jumbotron {
+                height: 260px;
+            }
+        }
     }
 }
 

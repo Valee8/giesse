@@ -11,7 +11,8 @@ export default {
             enableButton: false,
             emptyInput: true,
             newInfo: {
-                name_surname: "",
+                name: "",
+                surname: "",
                 email: "",
                 message: ""
             }
@@ -40,7 +41,8 @@ export default {
             }
         },
         filterNumbers() {
-            this.newInfo.name_surname = this.newInfo.name_surname.replace(/[0-9]/g, '');
+            this.newInfo.name = this.newInfo.name.replace(/[0-9]/g, '');
+            this.newInfo.surname = this.newInfo.surname.replace(/[0-9]/g, '');
         },
         handleSubmit(event) {
             event.preventDefault();
@@ -54,7 +56,12 @@ export default {
         <div class="container">
             <div class="left">
                 <form @submit="handleSubmit">
-                    <input type="text" class="first-input" v-model="newInfo.name_surname" placeholder="Nome e Cognome *"
+                    <input class="first-input" type="text" v-model="newInfo.name" placeholder="Nome *"
+                        @input="filterNumbers" required>
+                    <input type="text" class="second-input" v-model="newInfo.surname" placeholder="Cognome *"
+                        @input="filterNumbers" required>
+                    <br><br>
+                    <input type="text" class="first-input" v-model="newInfo.surname" placeholder="Provincia *"
                         @input="filterNumbers" required>
                     <input type="email" class="second-input" v-model="newInfo.email" placeholder="Indirizzo e-mail *"
                         required>
@@ -75,8 +82,7 @@ export default {
             <div class="right">
                 <h1>
                     <div class="border"></div>
-                    Chiedi informazioni per un preventivo
-                    <div>Contattaci</div>
+                    <div>Scrivici</div>
                 </h1>
             </div>
         </div>
@@ -106,7 +112,7 @@ export default {
     .container {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         //height: 100%;
 
         .left {
@@ -193,7 +199,7 @@ export default {
                 height: 200px;
                 font-size: 1.8rem;
                 font-weight: normal;
-                margin-left: auto;
+                //margin-left: auto;
 
                 .border {
                     background-color: $yellow-color;

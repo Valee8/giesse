@@ -1,5 +1,6 @@
 <script>
 
+import { toHandlers } from 'vue';
 import { store } from '../store.js';
 
 import axios from 'axios';
@@ -22,7 +23,7 @@ export default {
                 agency_name: "",
                 email: "",
                 telephone_number: "",
-                city_of_residence: ""
+                city_of_residence: "",
             },
             newOrder: {
                 model_name: "",
@@ -32,17 +33,12 @@ export default {
                 net: "",
                 color_name: "",
                 color_image: "",
-                message: "",
                 client_id: ""
-            },
-            newMessage: {
-                message: ""
             },
             clients: [],
             orders: [],
-            messages: [],
             ids: "",
-            newIds: "",
+            message: "",
             zanzs: [
                 {
                     name: "Verticali a molla classica",
@@ -285,7 +281,7 @@ export default {
 
         },
         getClient() {
-            axios.get(API_URL + 'clients')
+            axios.get(API_URL + 'clients/' + this.ids)
                 .then(res => {
                     const data = res.data;
                     const success = data.success;
@@ -330,8 +326,6 @@ export default {
                 this.fixRequiredProblem = false;
 
                 this.secondStepValid = true;
-
-                //this.newOrder.client_id = 1;
 
                 axios.post(API_URL + 'order/store', this.newOrder)
                     .then(res => {
@@ -431,9 +425,9 @@ export default {
                 }
             }
         },
-        deleteModel() {
+        deleteModel(order) {
 
-            axios.get(API_URL + 'delete/' + this.ids)
+            axios.get(API_URL + 'delete/' + order.id)
                 .then(res => {
                     const data = res.data;
                     const success = data.success;
@@ -472,30 +466,6 @@ export default {
 
             localStorage.setItem("CurrentStep", this.currentStep.toString());
 
-            // axios.post(API_URL + 'truncate/client')
-            //     .then(res => {
-            //         const data = res.data;
-            //         const success = data.success;
-
-            //     })
-            //     .catch(error => console.log(error));
-
-            // axios.post(API_URL + 'truncate/message')
-            //     .then(res => {
-            //         const data = res.data;
-            //         const success = data.success;
-
-            //     })
-            //     .catch(error => console.log(error));
-
-            // axios.post(API_URL + 'truncate/order')
-            //     .then(res => {
-            //         const data = res.data;
-            //         const success = data.success;
-
-            //     })
-            //     .catch(error => console.log(error));
-
             // this.name = "";
             // this.surname = "";
             // this.agency_name = "";
@@ -514,33 +484,35 @@ export default {
                     behavior: "smooth"
                 });
 
-                // if (this.message) {
-                //     axios.post(API_URL + 'message/update', {
-                //         message: this.message
-                //     })
-                //         .then(res => {
-                //             const data = res.data;
-                //             const success = data.success;
+                this.getClient();
 
-                //             if (success) {
-                //                 this.getOrder();
-                //             }
-
-                //         })
-                //         .catch(error => console.log(error));
-                // }
-
-                axios.post(API_URL + 'message/store', this.newMessage)
-                    .then(res => {
-                        const data = res.data;
-                        const success = data.success;
-
-                        if (success) {
-                            this.getOrder();
-                        }
-
+                if (this.message) {
+                    axios.post(API_URL + 'message/update/' + this.ids, {
+                        message: this.message
                     })
-                    .catch(error => console.log(error));
+                        .then(res => {
+                            const data = res.data;
+                            const success = data.success;
+
+                            if (success) {
+                                this.getClient();
+                            }
+
+                        })
+                        .catch(error => console.log(error));
+                }
+
+                // axios.post(API_URL + 'message/store', this.newMessage)
+                //     .then(res => {
+                //         const data = res.data;
+                //         const success = data.success;
+
+                //         if (success) {
+                //             this.getOrder();
+                //         }
+
+                //     })
+                //     .catch(error => console.log(error));
 
                 this.currentStep++;
 
@@ -551,27 +523,27 @@ export default {
 
             event.preventDefault();
 
+            this.newClient.typology = "";
+            this.newClient.name = "";
+            this.newClient.surname = "";
+            this.newClient.agency_name = "";
+            this.newClient.email = "";
+            this.newClient.telephone_number = "";
+            this.newClient.city_of_residence = "";
+
             window.scrollTo({
                 top: 0,
                 behavior: "smooth"
             });
-
-            // axios.post(API_URL + 'truncate/client')
-            //     .then(res => {
-            //         const data = res.data;
-            //         const success = data.success;
-
-            //     })
-            //     .catch(error => console.log(error));
 
             this.currentStep--;
 
             localStorage.setItem("CurrentStep", this.currentStep.toString());
 
         },
-        plus() {
+        plus(order) {
 
-            axios.post(API_URL + 'increment/' + this.ids)
+            axios.post(API_URL + 'increment/' + order.id)
                 .then(res => {
                     const data = res.data;
                     const success = data.success;
@@ -582,10 +554,26 @@ export default {
 
                 })
                 .catch(error => console.log(error));
-        },
-        minus() {
 
-            axios.post(API_URL + 'decrement/' + this.ids)
+            //this.newOrder.quantity++;
+
+            // axios.post(API_URL + 'quantity/update', {
+            //     quantity: this.newOrder.quantity
+            // })
+            //     .then(res => {
+            //         const data = res.data;
+            //         const success = data.success;
+
+            //         if (success) {
+            //             this.getOrder();
+            //         }
+
+            //     })
+            //     .catch(error => console.log(error));
+        },
+        minus(order) {
+
+            axios.post(API_URL + 'decrement/' + order.id)
                 .then(res => {
                     const data = res.data;
                     const success = data.success;
@@ -848,7 +836,7 @@ export default {
 
                     <!-- Elenco zanzariere preventivo -->
                     <ul v-if="orders.length !== 0" class="list-ul">
-                        <li v-for="(order, index) in orders" :key="index" class="list-order">
+                        <li v-for="order in orders" :key="order.id" class="list-order">
                             <span>
                                 {{ typology.replace(/\([^)]*\)/g, "") }} | {{ order.model_name.charAt(0).toUpperCase() +
                                     order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} | {{ order.net }} |
@@ -862,10 +850,10 @@ export default {
                                     </span>
                                 </div>
                                 <div class="minus-plus">
-                                    <button @click="plus">
+                                    <button @click="plus(order)">
                                         <i class="fa-solid fa-angle-up"></i>
                                     </button>
-                                    <button @click="minus">
+                                    <button @click="minus(order)">
                                         <i class="fa-solid fa-angle-down"></i>
                                     </button>
                                 </div>
@@ -875,20 +863,20 @@ export default {
                                 {{ order.width }} cm x {{ order.height }} cm
                             </span>
 
-                            <button @click="deleteModel" class="delete">
+                            <button @click="deleteModel(order)" class="delete">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
                         </li>
                     </ul>
 
                     <!-- Textarea -->
-                    <div class="textarea">
-                        <textarea v-model="newMessage.message" rows="8" placeholder="Messaggio"></textarea>
+                    <div class="textarea" :class="{ 'padding': orders.length === 0 }">
+                        <textarea v-model="message" rows="8" placeholder="Messaggio"></textarea>
                     </div>
 
                     <!-- Bottone per passare allo step successivo -->
                     <div class="form-button confirm">
-                        <button @click="prevStep" class="button" id="buttons">Torna indietro</button>
+                        <!-- <button @click="prevStep" class="button" id="buttons">Torna indietro</button> -->
                         <input type="submit" @click="nextStep" class="button" id="buttons" v-if="orders.length !== 0"
                             value="Conferma le zanzariere">
                     </div>
@@ -901,34 +889,34 @@ export default {
                         Ecco a te il riepilogo
                     </h2>
 
-                    <ul v-for="(list, index) in clients" :key="index" class="summary info">
+                    <ul v-for="client in clients" :key="client.id" class="summary info">
                         <li>
-                            {{ list.typology }}
+                            {{ client.typology }}
                             <hr>
                         </li>
-                        <div v-if="list.typology === 'Privato'">
+                        <div v-if="client.typology === 'Privato'">
                             <li>
-                                Nome: {{ list.name }}
+                                Nome: {{ client.name }}
                             </li>
                             <li>
-                                Cognome: {{ list.surname }}
+                                Cognome: {{ client.surname }}
                             </li>
                         </div>
                         <li v-else>
-                            Nome Azienda: {{ list.agency_name }}
+                            Nome Azienda: {{ client.agency_name }}
                         </li>
                         <li>
-                            Email: {{ list.email }}
+                            Email: {{ client.email }}
                         </li>
                         <li>
-                            Telefono: {{ list.telephone_number }}
+                            Telefono: {{ client.telephone_number }}
                         </li>
                         <li>
-                            Comune: {{ list.city_of_residence }}
+                            Comune: {{ client.city_of_residence }}
                         </li>
                     </ul>
 
-                    <ul v-for="(order, index) in orders" :key="index" class="summary">
+                    <ul v-for="order in orders" :key="order.id" class="summary">
                         <li>
                             Modello zanzariera: {{ order.model_name.charAt(0).toUpperCase() +
                                 order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} - {{ order.net }}
@@ -943,20 +931,15 @@ export default {
                         <li>
                             Misure: {{ order.width }}cm x {{ order.height }}cm
                         </li>
-                        <li v-for="(mess, index) in messages" :key="messIndex" class="summary" v-if="index === 1">
-                            Messaggio:
-                            <span v-if="mess.message">{{ mess.message }}</span>
-                            <span v-else>Non hai scritto nessun messaggio</span>
-                        </li>
                     </ul>
 
-                    <!-- <ul v-for="(mess, index) in filteredMessage" :key="index" class="summary">
-                        <li>
-                            Messaggio:
-                            <span v-if="mess.message">{{ mess.message }}</span>
-                            <span v-else>Non hai scritto nessun messaggio</span>
+                    <ul>
+                        <li v-for="mess in clients" :key="mess.id" class="summary">
+                            <span v-if="mess.message">Messaggio: {{ mess.message
+                            }}</span>
+                            <span v-else>Messaggio: Non hai scritto nessun messaggio</span>
                         </li>
-                    </ul> -->
+                    </ul>
 
                     <div class="form-button">
                         <button @click="complete" class="button" id="buttons">Completa</button>
@@ -1132,7 +1115,7 @@ section {
     max-width: 1070px;
     margin: 0 auto;
     text-align: center;
-    padding: 80px 40px 40px 40px;
+    padding: 60px 40px 40px 40px;
 
     hr {
         margin: 60px auto;
@@ -1170,13 +1153,13 @@ section {
                 //box-shadow: inset 0 8px 0 rgba(0, 0, 0, .05);
                 border-radius: 50%;
                 margin: 0 auto;
-                width: 200px;
-                height: 200px;
+                width: 230px;
+                height: 230px;
                 background-color: #eaeaea;
 
                 img {
-                    width: 90px;
-                    height: 110px;
+                    width: 110px;
+                    height: 130px;
                 }
             }
         }
@@ -1310,7 +1293,9 @@ section {
     }
 
     .textarea {
-        padding-top: 60px;
+        &.padding {
+            padding-top: 60px;
+        }
 
         textarea {
             font-family: 'Montserrat', sans-serif;
@@ -1351,7 +1336,7 @@ section {
         outline: none;
         padding: 7px 10px;
         font-size: 0.9rem;
-        margin: 60px 10px 0 10px;
+        margin: 80px 10px 0 10px;
         width: 430px;
     }
 

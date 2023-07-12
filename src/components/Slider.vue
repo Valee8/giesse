@@ -45,67 +45,67 @@ export default {
         // Freccia avanti
         next(index) {
 
-            if (!this.isAnimating) {
+            //if (!this.isAnimating) {
 
-                this.isAnimating = true;
+            //this.isAnimating = true;
 
-                if (index < slider.length - 1) {
-                    index++;
-                }
-
-                else {
-                    index = 0;
-                }
-
-                slider[index].active = true;
-
-                for (let i = 0; i < slider.length; i++) {
-                    if (i !== index) {
-                        slider[i].active = false;
-                    }
-                }
-
-                if (window.location.hash) {
-                    window.location.hash = "";
-                }
-
-                setTimeout(() => {
-                    this.isAnimating = false;
-                }, 500);
+            if (index < slider.length - 1) {
+                index++;
             }
+
+            else {
+                index = 0;
+            }
+
+            slider[index].active = true;
+
+            for (let i = 0; i < slider.length; i++) {
+                if (i !== index) {
+                    slider[i].active = false;
+                }
+            }
+
+            if (window.location.hash) {
+                window.location.hash = "";
+            }
+
+            setTimeout(() => {
+                this.isAnimating = false;
+            }, 500);
+            //}
 
         },
         // Freccia indietro
         prev(index) {
 
-            if (!this.isAnimating) {
+            //if (!this.isAnimating) {
 
-                this.isAnimating = true;
+            this.isAnimating = true;
 
-                if (index <= slider.length - 1 && index > 0) {
-                    index--;
-                }
-
-                else {
-                    index = slider.length - 1;
-                }
-
-                slider[index].active = true;
-
-                for (let i = 0; i < slider.length; i++) {
-                    if (i !== index) {
-                        slider[i].active = false;
-                    }
-                }
-
-                if (window.location.hash) {
-                    window.location.hash = "";
-                }
-
-                setTimeout(() => {
-                    this.isAnimating = false;
-                }, 500);
+            if (index <= slider.length - 1 && index > 0) {
+                index--;
             }
+
+            else {
+                index = slider.length - 1;
+            }
+
+            slider[index].active = true;
+
+            for (let i = 0; i < slider.length; i++) {
+                if (i !== index) {
+                    slider[i].active = false;
+                }
+            }
+
+            if (window.location.hash) {
+                window.location.hash = "";
+            }
+
+            // setTimeout(() => {
+            //     this.isAnimating = false;
+            // }, 500);
+            //}
         },
         //Cambio slide premendo i rettangoli in alto
         changeSlide(index) {

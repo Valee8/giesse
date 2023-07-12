@@ -122,6 +122,7 @@ section {
                 width: 210px;
                 text-align: center;
                 padding-top: 30px;
+                font-size: 1.3rem;
             }
 
         }
@@ -162,6 +163,7 @@ section {
                     .typology-image,
                     h3 {
                         width: 100%;
+                        //margin-left: auto;
                     }
                 }
             }

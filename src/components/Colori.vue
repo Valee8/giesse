@@ -119,9 +119,11 @@ export default {
         text-align: center;
         margin: 0 auto;
         max-width: 600px;
+        font-size: 1.1rem;
 
         p {
             padding: 10px 0;
+            font-size: 1.1rem;
         }
     }
 

@@ -96,9 +96,15 @@ export default {
                         </span>
                     </li>
 
-                    <li>
+                    <li class="preventivo">
                         <router-link to="/preventivo">
                             Richiedi Preventivo
+                        </router-link>
+                    </li>
+
+                    <li v-for="(link, index) in store.linksNav" :key="index" class="mobile-links">
+                        <router-link :to="{ name: link.href }">
+                            <i :class="link.icon"></i>
                         </router-link>
                     </li>
                 </ul>
@@ -226,6 +232,10 @@ export default {
     color: #fff;
     width: 100%;
 
+    a {
+        color: #fff;
+    }
+
     .ul-container {
         display: flex;
         align-items: center;
@@ -249,7 +259,7 @@ export default {
     }
 
     .bg {
-        background-color: #000;
+        background-color: #1c1c1c;
         height: 66px;
         user-select: none;
 
@@ -265,7 +275,16 @@ export default {
 
             }
 
-            li:last-child {
+            .mobile-links {
+                margin: 0 13px;
+                display: none;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+
+            .preventivo {
 
                 a {
                     color: #000;
@@ -280,7 +299,7 @@ export default {
 
         // Submenu
         .submenu {
-            background-color: #000;
+            background-color: #1c1c1c;
             animation-duration: 0.3s;
             animation-fill-mode: forwards;
             height: 0;
@@ -422,7 +441,7 @@ export default {
     position: fixed;
     right: 30px;
     top: 167px;
-    z-index: 50;
+    z-index: 70;
 
     .menu-container {
         display: flex;
@@ -683,6 +702,32 @@ nav {
 
 }
 
+@media only screen and (min-width: 760px) and (max-width: 1094px) {
+    #blackMenu {
+        .bg {
+            @keyframes expand {
+                from {
+                    height: 0;
+                }
+
+                to {
+                    height: 280px;
+                }
+            }
+
+            @keyframes reduce {
+                from {
+                    height: 280px;
+                }
+
+                to {
+                    height: 0;
+                }
+            }
+        }
+    }
+}
+
 
 @media only screen and (min-width: 760px) and (max-width: 870px) {
 
@@ -743,6 +788,30 @@ nav {
                 }
             }
         }
+    }
+
+    #blackMenu {
+        .bg {
+
+            .ul-container {
+
+                li:nth-child(2) {
+                    visibility: hidden;
+                }
+
+                .mobile-links {
+                    display: block;
+                }
+
+                .preventivo {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    #newMenu {
+        display: none;
     }
 }
 

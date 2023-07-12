@@ -65,7 +65,7 @@ section {
             text-align: center;
             margin: 0 auto;
             max-width: 690px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             padding: 30px 0;
         }

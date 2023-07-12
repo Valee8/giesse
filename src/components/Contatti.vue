@@ -193,18 +193,18 @@ section {
                 width: 40%;
 
                 h2 {
-                    font-size: 1.8rem;
+                    font-size: 2rem;
                 }
 
                 p {
                     padding-top: 30px;
                     width: 70%;
-                    font-size: 1.1rem;
+                    font-size: 1.2rem;
                 }
             }
 
             .faq-right {
-                width: 45%;
+                width: 47%;
 
                 ul {
                     user-select: none;
@@ -216,7 +216,7 @@ section {
                         flex-wrap: wrap;
                         padding: 5px 0 10px 0;
                         cursor: pointer;
-                        font-size: 1.2rem;
+                        font-size: 1.3rem;
 
                         &.faq {
                             border-top: 2px solid #fff;
@@ -230,7 +230,7 @@ section {
                             }
 
                             .dot {
-                                font-size: 0.4rem;
+                                font-size: 0.5rem;
                                 vertical-align: middle;
                                 padding-right: 7px;
                             }
@@ -239,6 +239,7 @@ section {
                         .answer {
                             padding-top: 5px;
                             width: 100%;
+                            font-size: 1.2rem;
                         }
                     }
                 }

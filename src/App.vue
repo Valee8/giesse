@@ -29,30 +29,6 @@ export default {
     $route(to, from) {
       if (!window.location.href.includes("preventivo")) {
         localStorage.clear();
-
-        axios.post(API_URL + 'truncate/client')
-          .then(res => {
-            const data = res.data;
-            const success = data.success;
-
-          })
-          .catch(error => console.log(error));
-
-        axios.post(API_URL + 'truncate/message')
-          .then(res => {
-            const data = res.data;
-            const success = data.success;
-
-          })
-          .catch(error => console.log(error));
-
-        axios.post(API_URL + 'truncate/order')
-          .then(res => {
-            const data = res.data;
-            const success = data.success;
-
-          })
-          .catch(error => console.log(error));
       }
 
       if (window.location.href.includes("verticali")) {
@@ -228,12 +204,17 @@ section {
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
-    position: relative;
-    height: 800px;
+    //position: relative;
+    //height: 800px;
+    //z-index: 1;
 
     &#not-slider {
       padding-top: 72px;
     }
+
+    // &.casper {
+    //   height: 850px;
+    // }
 
     // Rettangolini in alto
     .list-rectangles {
@@ -264,22 +245,22 @@ section {
     .slider {
       font-weight: bold;
       user-select: none;
-      position: absolute;
-      top: 72px;
-      transition: all 0.5s ease;
-      opacity: 0;
+      //position: absolute;
+      //top: 72px;
+      //transition: opacity 0.5s ease;
+      //opacity: 0;
       // transition-property: transform, opacity;
       // transition-duration: 500ms;
       // transition-timing-function: ease-in;
 
-      // &:not(.active) {
-      //   opacity: 0;
-      //   //display: none;
-      // }
-
-      &.active {
-        opacity: 1;
+      &:not(.active) {
+        //opacity: 0;
+        display: none;
       }
+
+      // &.active {
+      //   opacity: 1;
+      // }
 
       // &.active {
       //   opacity: 1;
@@ -291,7 +272,7 @@ section {
         position: relative;
         //margin: 0 auto;
         //max-width: 900px;
-        z-index: 100;
+        //z-index: 100;
 
         .slide-image {
           height: 320px;
@@ -308,7 +289,7 @@ section {
       }
 
       .name {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
 
         div {
           &:nth-child(2) {
@@ -319,7 +300,6 @@ section {
 
       .casper-list {
         padding-top: 10px;
-        padding-bottom: 84px;
         text-align: left;
       }
 
