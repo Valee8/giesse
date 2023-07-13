@@ -4,11 +4,12 @@ import { store } from './store.js';
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import AppFooter from './components/AppFooter.vue';
+
 //import Loader from './components/Loader.vue';
 
-import axios from 'axios';
+//import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/v1/';
+//const API_URL = 'http://localhost:8000/api/v1/';
 
 let slider;
 
@@ -301,6 +302,7 @@ section {
       .casper-list {
         padding-top: 10px;
         text-align: left;
+        padding-bottom: 84px;
       }
 
       .description {

@@ -87,7 +87,7 @@ export const store = reactive({
     vertical: [
         {
             model: "VERTICALE A MOLLA CLASSICA",
-            firstName: "ALBA D.G. (con cuffie) - SONIA D.G. (senza cuffie) - GENNY D.G. (con cassonetto da 40mm)",
+            firstName: "ALBA D.G. (con cuffie) - SONIA D.G. (senza cuffie) - GENNY (con cassonetto da 40mm)",
             secondName: "GIUSY (con cuffie) - ELENA (senza cuffie) - EDDI (con cassonetto da 40mm)",
             image: "/img/alba.png",
             description: "Il modello VERTICALE A MOLLA CLASSICA prodotto di serie con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm).",
@@ -102,7 +102,7 @@ export const store = reactive({
         },
         {
             model: "VERTICALE A CATENA CLASSICA",
-            firstName: "KATIA (con cuffie) - VERA (senza cuffie)",
+            firstName: "KATIA D.G. (con cuffie) - VERA (senza cuffie)",
             secondName: "SARA (senza cuffie)",
             image: "/img/katia.png",
             description: "Il modello VERTICALE A CATENA CLASSICA, prodotto esclusivamente con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm).",

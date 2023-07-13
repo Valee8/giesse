@@ -127,7 +127,7 @@ export default {
                     <ul>
                         <li>
                             <h5>
-                                Laterali
+                                Orizzontali
                             </h5>
                         </li>
                         <li v-for="(model, index) in filteredHorizontal" :key="index">
@@ -474,7 +474,7 @@ export default {
 
             &.center {
                 //margin-top: 87px;
-                transform: translateY(110px);
+                transform: translateY(111px);
             }
 
             &.bottom {

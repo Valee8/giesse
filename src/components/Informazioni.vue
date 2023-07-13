@@ -9,82 +9,176 @@ export default {
     data() {
         return {
             enableButton: false,
-            emptyInput: true,
             newInfo: {
+                typology: "",
                 name: "",
                 surname: "",
-                email: "",
+                agency_name: "",
+                vat_number: "",
+                telephone_number: "",
+                city_of_residence: "",
+                attached_file: "",
                 message: ""
             }
         }
     },
     computed: {
+        firstStepValid() {
+            if (this.newInfo.telephone_number.trim() !== "" && this.newInfo.province.trim() !== "") {
+                this.enableButton = true;
+            }
+
+            if (this.newInfo.typology === "Privato") {
+                if (this.newInfo.name.trim() !== "" && this.newInfo.surname.trim() !== "" && this.enableButton) {
+                    return true;
+                }
+            }
+            else if (this.newInfo.typology === "Azienda") {
+                if (this.newInfo.agency_name.trim() !== "" && this.newInfo.vat_number.trim() !== "" && this.enableButton) {
+                    return true;
+                }
+            }
+            // else {
+            //     return false;
+            // }
+        },
     },
     methods: {
+        onFileChange(e) {
+            let files = e.target.files || e.dataTransfer.files
+            this.newInfo.attached_file = files[0].name;
+        },
         sendEmail() {
 
-            if (this.newInfo.name_surname.trim() !== "" && this.newInfo.email.includes("@") && this.newInfo.message.trim() !== "") {
+            if (this.firstStepValid) {
 
-                //this.emptyInput = true;
 
-                axios.post(API_URL + 'information/store', this.newInfo)
+                axios.post(API_URL + 'message/store', this.newInfo)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
 
                         if (success) {
-                            console.log("OK");
+                            this.newInfo.name = "";
+                            this.newInfo.surname = "";
+                            this.newInfo.telephone_number = "";
+                            this.newInfo.province = "";
+                            this.newInfo.message = "";
+                            this.newInfo.attached_file = "";
                         }
 
                     })
-                    .catch(error => console.log(this.newInfo));
+                    .catch(error => console.log(error));
             }
         },
         filterNumbers() {
             this.newInfo.name = this.newInfo.name.replace(/[0-9]/g, '');
             this.newInfo.surname = this.newInfo.surname.replace(/[0-9]/g, '');
         },
+        filterCharacters() {
+            this.newInfo.telephone_number = this.newInfo.telephone_number.replace(/\D/g, '');
+        },
         handleSubmit(event) {
             event.preventDefault();
         },
-    }
+        resetCommonInputs() {
+            if (this.newClient.typology) {
+                this.newClient.name = "";
+                this.newClient.surname = "";
+                this.newClient.agency_name = "";
+                this.newClient.vat_number = "";
+                this.newClient.email = "";
+                this.newClient.telephone_number = "";
+                this.newClient.city_of_residence = "";
+            }
+        },
+    },
 }
 </script>
 
 <template>
     <div class="info">
+        <h2>
+            Informazioni sui prodotti
+        </h2>
+
         <div class="container">
-            <div class="left">
-                <form @submit="handleSubmit">
-                    <input class="first-input" type="text" v-model="newInfo.name" placeholder="Nome *"
-                        @input="filterNumbers" required>
-                    <input type="text" class="second-input" v-model="newInfo.surname" placeholder="Cognome *"
-                        @input="filterNumbers" required>
-                    <br><br>
-                    <input type="text" class="first-input" v-model="newInfo.surname" placeholder="Provincia *"
-                        @input="filterNumbers" required>
-                    <input type="email" class="second-input" v-model="newInfo.email" placeholder="Indirizzo e-mail *"
-                        required>
-                    <br>
+
+            <form @submit="handleSubmit">
+
+                <div class="left">
+                    <div class="radios">
+                        <label for="privato">
+                            <input type="radio" id="privato" value="Privato" v-model="newInfo.typology"
+                                @change="resetCommonInputs"
+                                :checked="newInfo.typology === '' || newInfo.typology === 'Privato'">
+                            Privato
+                        </label>
+
+                        <label for="azienda">
+                            <input type="radio" id="azienda" value="Azienda" v-model="newInfo.typology"
+                                @change="resetCommonInputs">
+                            Azienda
+                        </label>
+                    </div>
+
+                    <div class="inputs-top">
+                        <div v-if="newInfo.typology === 'Privato' || newInfo.typology === ''">
+                            <input type="text" class="first-input" v-model="newInfo.name" placeholder="Nome *"
+                                @input="filterNumbers" required>
+                            <input type="text" class="second-input" v-model="newInfo.surname" placeholder="Cognome *"
+                                @input="filterNumbers" required>
+                        </div>
+                        <div v-else-if="newInfo.typology === 'Azienda'">
+                            <input type="text" class="first-input" v-model="newInfo.agency_name"
+                                placeholder="Nome Azienda *" required>
+                            <input type="text" class="second-input" v-model="newInfo.vat_number" placeholder="Partita Iva *"
+                                maxlength="11" @input="filterCharacters" required>
+                        </div>
+                    </div>
+
+                    <div class="inputs-bottom">
+                        <input type="text" class="first-input" v-model="newInfo.telephone_number" placeholder="Telefono *"
+                            @input="filterCharacters" required>
+                        <input type="text" class="second-input" v-model="newInfo.city_of_residence" placeholder="Comune *"
+                            @input="filterNumbers" required>
+                    </div>
+
                     <textarea name="message" v-model="newInfo.message" rows="8" placeholder="Messaggio *"
                         required></textarea>
+
                     <div class="obligatory">* Campi obbligatori</div>
+
                     <div class="submit">
                         <input type="submit" value="Invia" @click="sendEmail">
                         <div class="email">
                             <i class="fa-regular fa-envelope"></i>
                         </div>
                     </div>
-                </form>
+                </div>
 
-            </div>
+                <div class="right">
+                    <div class="text-width">
+                        <h1>
+                            <div class="border"></div>
+                            <div>Scrivici</div>
+                        </h1>
 
-            <div class="right">
-                <h1>
-                    <div class="border"></div>
-                    <div>Scrivici</div>
-                </h1>
-            </div>
+                        <h4>
+                            Allega un file
+                        </h4>
+
+                        <p>
+                            E' possibile allegare un file con i seguenti formati .png, .jpg, .jpeg, .dox, .pdf dimensione
+                            massima 20MB
+                        </p>
+
+                        <input type="file" v-on:change="onFileChange" id="file" accept=".png,.jpg,.jpeg,.dox,.pdf">
+                    </div>
+
+                </div>
+            </form>
+
         </div>
     </div>
 </template>
@@ -102,6 +196,10 @@ export default {
     //height: 400px;
     //display: none;
 
+    h2 {
+        padding-bottom: 50px;
+    }
+
     .obligatory {
         font-size: 0.6rem;
         font-weight: bold;
@@ -109,17 +207,44 @@ export default {
         text-align: left;
     }
 
-    .container {
+    form {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         //height: 100%;
 
         .left {
+            text-align: left;
+
+            .radios {
+                padding-bottom: 30px;
+
+                input[type='radio'] {
+                    accent-color: #000;
+                    width: 20px;
+                    height: 20px;
+                    vertical-align: middle;
+                }
+
+                label {
+                    vertical-align: middle;
+                }
+
+                label {
+                    &:first-of-type {
+                        margin-right: 100px;
+
+                    }
+                }
+            }
+
+            .inputs-top {
+                margin-bottom: 20px;
+            }
 
             input:not(.submit),
             textarea {
-                background: #fff;
+                background-color: #fff;
                 padding: 6px 12px 20px 12px;
                 border: 0;
                 font-size: 0.9rem;
@@ -128,13 +253,17 @@ export default {
                 color: #000;
             }
 
+            textarea {
+                resize: none;
+            }
+
             .second-input {
                 width: 50%;
             }
 
             .first-input {
-                width: calc(50% - 40px);
-                margin-right: 40px;
+                width: calc(50% - 35px);
+                margin-right: 35px;
             }
 
             textarea {
@@ -192,11 +321,15 @@ export default {
         }
 
         .right {
+            text-align: left;
+
+            .text-width {
+                width: 71%;
+            }
 
             h1 {
-                text-align: left;
                 width: 282px;
-                height: 200px;
+                height: 175px;
                 font-size: 1.8rem;
                 font-weight: normal;
                 //margin-left: auto;
@@ -205,7 +338,6 @@ export default {
                     background-color: $yellow-color;
                     width: 70px;
                     height: 10px;
-                    margin-bottom: 10px;
                 }
 
                 div {
@@ -214,6 +346,35 @@ export default {
                     font-size: 2.7rem;
                     padding-top: 5px;
                 }
+            }
+
+            p {
+                font-size: 0.9rem;
+                padding: 20px 0;
+            }
+
+
+            #file {
+                font-family: 'Montserrat', sans-serif;
+                background: #000;
+                color: #fff;
+                border-bottom: 2px solid $yellow-color;
+                display: block;
+                //width: 350px;
+                width: 100%;
+                padding: 10px 0;
+            }
+
+
+            input::file-selector-button {
+                font-family: 'Montserrat', sans-serif;
+                background-color: $yellow-color;
+                padding: 3px 11px;
+                font-size: 0.9rem;
+                margin-right: 122px;
+                border: 0;
+                cursor: pointer;
+                margin-left: 8px;
             }
         }
 

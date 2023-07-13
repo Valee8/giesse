@@ -1,6 +1,6 @@
 <script>
 
-import { toHandlers } from 'vue';
+//import { toHandlers } from 'vue';
 import { store } from '../store.js';
 
 import axios from 'axios';
@@ -21,6 +21,7 @@ export default {
                 name: "",
                 surname: "",
                 agency_name: "",
+                vat_number: "",
                 email: "",
                 telephone_number: "",
                 city_of_residence: "",
@@ -46,8 +47,8 @@ export default {
                     image: "/img/alba.png",
                     active: true,
                     models: [
-                        "ALBA (guida telescopica, con cuffie)",
-                        "SONIA (guida telescopica, senza cuffie)",
+                        "ALBA D.G. (guida telescopica, con cuffie)",
+                        "SONIA D.G. (guida telescopica, senza cuffie)",
                         "GENNY (guida telescopica, cassonetto da 40mm)",
                         "GIUSY (guida singola, con cuffie)",
                         "ELENA (guida singola, senza cuffie)",
@@ -71,7 +72,7 @@ export default {
                     image: "/img/katia.png",
                     active: false,
                     models: [
-                        "KATIA (guida telesopica, con cuffie)",
+                        "KATIA D.G. (guida telescopica, con cuffie)",
                         "VERA (guida telescopica, senza cuffie)",
                         "SARA (guida singola, senza cuffie)"
                     ]
@@ -109,7 +110,7 @@ export default {
                     ]
                 },
                 {
-                    name: "Laterale a molla (guida bassa da 14mm)",
+                    name: "Laterale a molla (guida arrotondata da 14mm)",
                     typo: "Orizzontali",
                     image: "/img/katia.png",
                     active: false,
@@ -214,8 +215,10 @@ export default {
                     return true;
                 }
             }
-            else if (this.newClient.typology === "Azienda" && this.enableButton) {
-                return this.newClient.agency_name.trim() !== "";
+            else if (this.newClient.typology === "Azienda") {
+                if (this.newClient.agency_name.trim() !== "" && this.newClient.vat_number.trim() !== "" && this.enableButton) {
+                    return true;
+                }
             }
             // else {
             //     return false;
@@ -395,7 +398,7 @@ export default {
                     behavior: "smooth"
                 });
 
-                this.newClient.typology = "";
+                //this.newClient.typology = "";
             }
         },
         resetCommonInputs() {
@@ -403,6 +406,7 @@ export default {
                 this.newClient.name = "";
                 this.newClient.surname = "";
                 this.newClient.agency_name = "";
+                this.newClient.vat_number = "";
                 this.newClient.email = "";
                 this.newClient.telephone_number = "";
                 this.newClient.city_of_residence = "";
@@ -441,6 +445,7 @@ export default {
         },
         filterCharacters() {
             this.newClient.telephone_number = this.newClient.telephone_number.replace(/\D/g, '');
+            this.newClient.vat_number = this.newClient.vat_number.replace(/\D/g, '');
         },
         filterNumbers() {
             this.newClient.name = this.newClient.name.replace(/[0-9]/g, '');
@@ -527,6 +532,7 @@ export default {
             this.newClient.name = "";
             this.newClient.surname = "";
             this.newClient.agency_name = "";
+            this.newClient.vat_number = "";
             this.newClient.email = "";
             this.newClient.telephone_number = "";
             this.newClient.city_of_residence = "";
@@ -671,6 +677,9 @@ export default {
                         </div>
                         <div v-else-if="newClient.typology === 'Azienda'">
                             <input type="text" v-model="newClient.agency_name" placeholder="Nome Azienda *" required>
+                            <br>
+                            <input type="text" v-model="newClient.vat_number" placeholder="Partita Iva *" maxlength="11"
+                                @input="filterCharacters" required>
                         </div>
                         <div>
                             <input type="email" v-model="newClient.email" placeholder="E-mail *" required>
@@ -1306,6 +1315,7 @@ section {
             color: #b9b9b9;
             font-weight: 500;
             outline: none;
+            resize: none;
         }
 
         ::placeholder {
