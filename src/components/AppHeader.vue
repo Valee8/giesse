@@ -20,16 +20,22 @@ export default {
             <!-- Contenuto header -->
             <div class="jumbotron">
                 <!-- Titolo -->
-                <h1>
-                    Proteggi <div>la tua casa</div>
-                </h1>
+                <div class="title">
+                    <h1>
+                        Proteggi <div>la tua casa</div>
+                    </h1>
+
+                    <p>
+                        Affidati a noi che produciamo zanzariere da pi&ugrave; di 20 anni
+                    </p>
+                </div>
 
                 <!-- Testo -->
-                <p>Jolly, la Laterale Frizionata</p>
+                <div class="name-zanz">Jolly, la Laterale Frizionata</div>
 
                 <!-- Bottone scopri di piu' -->
                 <router-link :to="{ name: 'orizzontali', params: { id: 1 }, hash: '#jolly-' + 4 }" class="button header">
-                    Scopri di pi&ugrave;
+                    Scopri di pi&ugrave; su Jolly
                 </router-link>
             </div>
 
@@ -64,18 +70,27 @@ header {
         // Contenuto header
         .jumbotron {
             height: 400px;
-            width: 500px;
+            //width: 680px;
             padding-top: 60px;
 
             // Titolo
-            h1 {
-                color: #fff;
-                height: 100%;
-                font-size: 3.5rem;
+            .title {
+                height: 105%;
+
+                h1 {
+                    color: #fff;
+                    font-size: 3.5rem;
+                }
+
+                p {
+                    font-style: italic;
+                    font-size: 1.4rem;
+                    font-weight: 500;
+                }
             }
 
             // Testo
-            p {
+            .name-zanz {
                 font-size: 1.2rem;
                 font-weight: bold;
                 padding: 15px 0 20px 0;
