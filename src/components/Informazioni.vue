@@ -323,6 +323,7 @@ export default {
 
         .right {
             text-align: left;
+            padding-top: 52px;
 
             .text-width {
                 width: 71%;

@@ -79,7 +79,7 @@ header {
 
                 h1 {
                     color: #fff;
-                    font-size: 3.5rem;
+                    font-size: 4rem;
                 }
 
                 p {
