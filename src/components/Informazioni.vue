@@ -77,19 +77,20 @@ export default {
         },
         filterCharacters() {
             this.newInfo.telephone_number = this.newInfo.telephone_number.replace(/\D/g, '');
+            this.newInfo.vat_number = this.newInfo.vat_number.replace(/\D/g, '');
         },
         handleSubmit(event) {
             event.preventDefault();
         },
         resetCommonInputs() {
-            if (this.newClient.typology) {
-                this.newClient.name = "";
-                this.newClient.surname = "";
-                this.newClient.agency_name = "";
-                this.newClient.vat_number = "";
-                this.newClient.email = "";
-                this.newClient.telephone_number = "";
-                this.newClient.city_of_residence = "";
+            if (this.newInfo.typology) {
+                this.newInfo.name = "";
+                this.newInfo.surname = "";
+                this.newInfo.agency_name = "";
+                this.newInfo.vat_number = "";
+                this.newInfo.email = "";
+                this.newInfo.telephone_number = "";
+                this.newInfo.city_of_residence = "";
             }
         },
     },
