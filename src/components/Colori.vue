@@ -138,7 +138,7 @@ export default {
         // Elenco tipologie colori - parte sinistra
         .list-typologies {
             text-align: center;
-            width: 10%;
+            width: 13%;
 
             .typologies {
                 padding: 0.1rem 0;
@@ -220,6 +220,80 @@ export default {
 
             }
 
+        }
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 700px) {
+    .info-colors {
+        padding-left: 30px;
+        padding-right: 30px;
+
+        .container {
+            flex-wrap: wrap;
+            gap: 50px;
+
+            .list-typologies {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                gap: 20px;
+
+                .typologies {
+                    &:first-child {
+                        border-top: 0;
+                    }
+                }
+
+                .typology-name {
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    border-left: 4px solid transparent;
+                    border-top: 1px solid #fff;
+
+                    // &:first-child {
+                    //     border-top: 0;
+                    // }
+
+                    // &:first-child {
+                    //     border-top: 0;
+                    // }
+
+
+                    &.selected {
+                        padding-left: 8px;
+                    }
+                }
+            }
+
+            .list-colors {
+                width: 100%;
+
+                .colors {
+                    justify-content: center;
+
+                    .color {
+                        width: 150px;
+                        height: 150px;
+
+                        .color-name {
+                            width: 150px;
+                            font-size: 0.8rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 701px) and (max-width: 1028px) {
+    .info-colors {
+        .container {
+
+            .list-typologies {
+                width: 22%;
+            }
         }
     }
 }
