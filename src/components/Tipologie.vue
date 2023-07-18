@@ -76,11 +76,12 @@ section {
                 width: 210px;
                 display: block;
                 color: #000;
+                transition: all 0.5s ease-in-out;
 
                 &:hover {
-                    img {
-                        transform: scale(0.8);
-                    }
+                    //img {
+                    transform: scale(0.8);
+                    //}
                 }
             }
 
@@ -88,7 +89,7 @@ section {
             .typology-image {
                 width: 210px;
                 display: block;
-                transition: all 0.5s ease;
+                //transition: all 0.5s ease-in-out;
             }
 
             &:nth-child(1),
