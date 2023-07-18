@@ -221,6 +221,7 @@ export default {
                 padding-bottom: 30px;
 
                 input[type='radio'] {
+                    cursor: pointer;
                     accent-color: #000;
                     width: 20px;
                     height: 20px;
@@ -228,6 +229,7 @@ export default {
                 }
 
                 label {
+                    cursor: pointer;
                     vertical-align: middle;
                 }
 
@@ -384,6 +386,19 @@ export default {
         .right {
             width: 45%;
             //height: 100%;
+        }
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 900px) {
+    .info {
+        form {
+            flex-wrap: wrap;
+
+            .left,
+            .right {
+                width: 100%;
+            }
         }
     }
 }

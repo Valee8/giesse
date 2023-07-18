@@ -188,9 +188,10 @@ section {
         .container {
             display: flex;
             justify-content: center;
+            align-items: center;
 
             .faq-left {
-                width: 40%;
+                width: 45%;
 
                 h2 {
                     font-size: 2rem;
@@ -204,7 +205,7 @@ section {
             }
 
             .faq-right {
-                width: 47%;
+                width: 55%;
 
                 ul {
                     user-select: none;
@@ -216,7 +217,7 @@ section {
                         flex-wrap: wrap;
                         padding: 5px 0 10px 0;
                         cursor: pointer;
-                        font-size: 1.3rem;
+                        font-size: 1.2rem;
 
                         &.faq {
                             border-top: 2px solid #fff;
@@ -246,5 +247,165 @@ section {
             }
         }
     }
+}
+
+
+@media only screen and (min-width: 955px) and (max-width: 1000px) {
+
+    section {
+        .faq-section {
+
+            .container {
+                gap: 30px;
+
+                .faq-left {
+                    p {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1050px) {
+    section {
+        .faq-section {
+
+            .container {
+                gap: 30px;
+
+                .faq-left {
+
+                    h2 {
+                        font-size: 1.8rem;
+                    }
+
+                    p {
+                        width: 100%;
+                    }
+                }
+
+                .faq-right {
+                    width: 59%;
+
+                    ul {
+                        li {
+                            font-size: 1.2rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (min-width: 900px) and (max-width: 1000px) {
+
+    section {
+        .faq-section {
+
+            .container {
+                align-items: center;
+
+                .faq-left {
+                    p {
+                        font-size: 1rem;
+                    }
+                }
+
+                .faq-right {
+                    width: 60%;
+
+                    ul {
+                        li {
+                            font-size: 1.1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (min-width: 1001px) and (max-width: 1044px) {
+    section {
+        .faq-section {
+
+            .container {
+
+                .faq-left {
+                    width: 35%;
+                }
+
+                .faq-right {
+                    width: 65%;
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (min-width: 480px) and (max-width: 920px) {
+
+    section {
+        .faq-section {
+
+            .container {
+                flex-wrap: wrap;
+                gap: 40px;
+
+                .faq-left {
+                    text-align: center;
+
+                    p {
+                        width: 100%;
+                    }
+                }
+
+                .faq-right {
+                    ul {
+
+                        li {
+                            font-size: 1rem;
+
+                            .answer {
+                                font-size: 1rem;
+                            }
+                        }
+
+                        .arrow {
+                            font-size: 0.9rem;
+                        }
+                    }
+                }
+
+
+                .faq-left,
+                .faq-right {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 650px) and (max-width: 900px) {
+
+    section {
+        .faq-section {
+
+            .container {
+
+                .faq-right {
+                    width: 75%;
+                }
+            }
+        }
+    }
+
 }
 </style>

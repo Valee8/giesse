@@ -310,19 +310,20 @@ section {
         //margin: 0 auto;
         //max-width: 900px;
         font-size: 1.05rem;
+        padding: 50px 0 90px 0;
 
-        &.casper {
-          padding-top: 84px;
-        }
+        // &.casper {
+        //   padding-top: 84px;
+        // }
 
-        &:not(.casper) {
-          padding: 96px 0;
+        // &:not(.casper) {
+        //   padding: 96px 0;
 
-        }
+        // }
 
-        &.giada {
-          padding: 102px 0;
-        }
+        // &.giada {
+        //   padding: 102px 0;
+        // }
       }
 
       .arrow {

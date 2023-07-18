@@ -122,17 +122,27 @@ header {
                 padding-top: 30px;
                 height: 220px;
 
-                h1 {
-                    font-size: 1.8rem;
+                .title {
+                    h1 {
+                        font-size: 2rem;
+                    }
+
+                    p {
+                        padding-top: 10px;
+                        font-style: italic;
+                        font-size: 1rem;
+                        font-weight: 500;
+                    }
                 }
 
-                p {
-                    font-size: 1rem;
-                }
-
+                .name-zanz,
                 a {
                     font-size: 1rem;
                 }
+
+                // a {
+                //     font-size: 1rem;
+                // }
             }
         }
     }
@@ -145,6 +155,18 @@ header {
         .container {
             .jumbotron {
                 height: 260px;
+                padding-top: 20px;
+
+                .title {
+                    h1 {
+                        font-size: 2.5rem;
+                    }
+
+                    p {
+                        padding-right: 90px;
+                    }
+                }
+
             }
         }
     }

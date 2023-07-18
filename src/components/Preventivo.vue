@@ -849,7 +849,8 @@ export default {
                             <span>
                                 {{ typology.replace(/\([^)]*\)/g, "") }} | {{ order.model_name.charAt(0).toUpperCase() +
                                     order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} | {{ order.net }} |
-                                <img :src="order.color_image" :alt="order.color_name" class="order-image">
+                                <!-- <img :src="order.color_image" :alt="order.color_name" class="order-image"> -->
+                                {{ order.color_name }}
                             </span>
                             <span class="quantity">
                                 <div class="text">
@@ -1749,5 +1750,287 @@ section {
     //     border: 2px solid $yellow-color;
     //     border-top: 0;
     // }
+}
+
+
+@media only screen and (min-width: 480px) and (max-width: 840px) {
+
+    .third-step {
+
+        .summary {
+            margin: 0 30px;
+        }
+    }
+
+    .thank-you {
+        .bottom {
+            h1 {
+                .first {
+                    font-size: 2.7rem;
+                }
+            }
+        }
+
+        .fourth-step {
+            .button {
+                font-size: 1rem;
+            }
+        }
+    }
+
+
+
+}
+
+@media only screen and (min-width: 480px) and (max-width: 700px) {
+    .container {
+
+        .top {
+            flex-wrap: wrap;
+            max-width: 100%;
+
+            h1 {
+                text-align: center;
+
+                div {
+                    display: inline-block;
+                }
+
+            }
+
+            .steps-circles {
+                width: 100%;
+
+                hr {
+                    width: calc(100% / 3);
+                }
+
+            }
+        }
+
+        .steps-text {
+            max-width: 100%;
+
+
+            .step {
+                width: 100%;
+            }
+        }
+    }
+
+    .first-step {
+        width: 100%;
+        position: relative;
+
+        .first-step-left {
+            margin: 0 auto;
+            width: 380px;
+            padding-top: 30px;
+
+            input[type] {
+                width: 100%;
+            }
+        }
+
+        .first-step-right {
+            padding-top: 65px;
+            width: 380px;
+            margin: 0 auto;
+
+            .radios {
+                position: absolute;
+                top: 25px;
+            }
+
+            label {
+                top: 0;
+                font-size: 0.9rem;
+                display: inline-block;
+
+                &:last-child {
+                    padding-left: 30px;
+                }
+            }
+
+            input[type="submit"] {
+                font-size: 1.1rem;
+                top: 0;
+                margin: 0 auto;
+                display: block;
+            }
+        }
+    }
+
+    .second-step {
+
+        select {
+            margin-top: 20px;
+        }
+
+        .slider-preventivo {
+
+            .arrows-image {
+                .zanz-image {
+                    width: 160px;
+                    height: 160px;
+
+                    img {
+                        width: 80px;
+                        height: 90px;
+                    }
+                }
+            }
+
+            .arrow {
+                font-size: 1rem;
+                padding: 1px 6px;
+            }
+        }
+
+        .list-colors {
+            .colors {
+                .color {
+                    width: 130px;
+                    height: 130px;
+
+                    .color-name {
+                        width: 130px;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+        }
+
+
+        .form-button {
+            input {
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 700px) and (max-width: 1028px) {
+
+    .second-step {
+
+        .slider-preventivo {
+
+            .arrows-image {
+                .zanz-image {
+                    width: 200px;
+                    height: 200px;
+
+                    img {
+                        width: 120px;
+                        height: 130px;
+                    }
+                }
+            }
+        }
+
+        .list-typologies {
+            flex-wrap: wrap;
+
+            .typology-name {
+                padding: 10px;
+                font-size: 1.2rem;
+            }
+        }
+
+        .list-colors {
+            .colors {
+                .color {
+                    width: 160px;
+                    height: 160px;
+
+                    .color-name {
+                        width: 160px;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+@media only screen and (min-width: 480px) and (max-width: 1028px) {
+    .second-step {
+
+        select {
+            width: 350px;
+            margin-left: 0;
+            //margin-top: 20px;
+        }
+
+        .inputs-center {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            label {
+                margin: 0 auto;
+                line-height: 53px;
+            }
+
+            input {
+                margin: 10px;
+            }
+        }
+
+        .inputs-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+
+            label {
+                margin: 0;
+            }
+        }
+
+        hr {
+            width: 100%;
+        }
+
+        .list-typologies {
+            flex-wrap: wrap;
+            gap: 20px;
+
+            .typology-name {
+                padding: 10px;
+                font-size: 1.2rem;
+            }
+        }
+
+        .list-ul {
+            .list-order {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px 0;
+
+                span:first-child {
+                    line-height: 30px;
+                }
+
+                li {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 700px) and (max-width: 840px) {
+    .first-step-right {
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px 0;
+        }
+    }
 }
 </style>

@@ -236,9 +236,26 @@ footer {
     }
 }
 
+@media only screen and (min-width: 850px) and (max-width: 1170px) {
+
+    footer {
+        .container {
+
+            .right-footer {
+                width: 30%;
+                flex-wrap: wrap;
+
+                .right {
+                    padding-top: 50px;
+                }
+            }
+        }
+    }
+}
 
 
-@media only screen and (min-width: 590px) and (max-width: 770px) {
+
+@media only screen and (min-width: 610px) and (max-width: 850px) {
     footer {
         .container {
             justify-content: center;
@@ -246,14 +263,23 @@ footer {
             //gap: 30px;
 
             .left-footer {
+                width: 50%;
+
                 p {
                     width: 240px;
                 }
             }
 
+            .center-footer {
+                width: 50%;
+            }
+
+            .right-footer {
+                width: 100%;
+            }
+
             div {
                 &[class*="footer"] {
-                    width: 50%;
                     padding: 20px 0;
                     //width: calc(50% - 15px);
                 }

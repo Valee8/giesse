@@ -151,11 +151,11 @@ section {
     }
 }
 
-@media only screen and (min-width: 610px) and (max-width: 890px) {
+@media only screen and (min-width: 610px) and (max-width: 990px) {
     section {
         .list-typologies {
             .typologies {
-                width: 40%;
+                width: 35%;
 
                 .link {
                     width: 100%;
@@ -165,6 +165,7 @@ section {
                         width: 100%;
                         //margin-left: auto;
                     }
+
                 }
             }
         }

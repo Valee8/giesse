@@ -753,7 +753,7 @@ nav {
 
 }
 
-@media only screen and (min-width: 480px) and (max-width: 760px) {
+@media only screen and (min-width: 480px) and (max-width: 800px) {
 
     nav {
 
@@ -810,12 +810,55 @@ nav {
         }
     }
 
+    #blackMenu {
+        .bg {
+
+            .ul-container {
+
+                li:nth-child(2) {
+                    visibility: hidden;
+                }
+
+                .mobile-links {
+                    display: block;
+                }
+
+                .preventivo {
+                    display: none;
+                }
+            }
+        }
+    }
+
     #newMenu {
         display: none;
     }
 }
 
 // Fine versioni mobile, tablet e intermedie
+
+@media only screen and (min-width: 800px) and (max-width: 1010px) {
+
+    #blackMenu {
+        .bg {
+
+            .ul-container {
+
+                .mobile-links {
+                    display: block;
+                }
+
+                .preventivo {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    #newMenu {
+        display: none;
+    }
+}
 
 
 
