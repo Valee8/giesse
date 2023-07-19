@@ -188,7 +188,7 @@ section {
         .container {
             display: flex;
             justify-content: center;
-            align-items: center;
+            //align-items: center;
 
             .faq-left {
                 width: 45%;
@@ -300,36 +300,6 @@ section {
     }
 }
 
-
-@media only screen and (min-width: 900px) and (max-width: 1000px) {
-
-    section {
-        .faq-section {
-
-            .container {
-                align-items: center;
-
-                .faq-left {
-                    p {
-                        font-size: 1rem;
-                    }
-                }
-
-                .faq-right {
-                    width: 60%;
-
-                    ul {
-                        li {
-                            font-size: 1.1rem;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-
 @media only screen and (min-width: 1001px) and (max-width: 1044px) {
     section {
         .faq-section {
@@ -407,5 +377,33 @@ section {
         }
     }
 
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1000px) {
+
+    section {
+        .faq-section {
+
+            .container {
+                align-items: center;
+
+                .faq-left {
+                    p {
+                        font-size: 1rem;
+                    }
+                }
+
+                .faq-right {
+                    width: 60%;
+
+                    ul {
+                        li {
+                            font-size: 1.1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 </style>

@@ -2,10 +2,104 @@
 
 import AppNavbar from './AppNavbar.vue';
 
+let interval;
+
 export default {
     name: 'AppHeader',
     components: {
         AppNavbar
+    },
+    data() {
+        return {
+            currentSlideIndex: 0,
+            isMouseOver: false,
+            slider_content: [
+                {
+                    name_zanz: "Jolly, la Laterale Frizionata",
+                    text_button: "Scopri di più sulla Jolly",
+                    active: true
+                },
+                {
+                    name_zanz: "Laura",
+                    text_button: "Scopri di più sulla Laura",
+                    active: false
+                },
+                {
+                    name_zanz: "Luna",
+                    text_button: "Scopri di più sulla Luna",
+                    active: false
+                },
+                {
+                    name_zanz: "Zelig",
+                    text_button: "Scopri di più sulla Zelig",
+                    active: false
+                }
+            ]
+        }
+    },
+    methods: {
+        changeSlide() {
+
+            this.isMouseOver = false;
+
+            interval = setInterval(() => {
+
+                if (!this.isMouseOver) {
+                    if (this.currentSlideIndex < this.slider_content.length - 1) {
+                        this.currentSlideIndex++;
+                    }
+
+                    else {
+                        this.currentSlideIndex = 0;
+                    }
+
+                    this.slider_content[this.currentSlideIndex].active = true;
+
+                    for (let i = 0; i < this.slider_content.length; i++) {
+                        if (i !== this.currentSlideIndex) {
+                            this.slider_content[i].active = false;
+                        }
+                    }
+
+                }
+
+            }, 3000);
+        },
+        blockSlide() {
+
+            this.isMouseOver = true;
+
+            if (this.isMouseOver) {
+                clearInterval(interval);
+            }
+        },
+        changeSlideRectangles(index) {
+
+            this.currentSlideIndex = index;
+
+            for (let i = 0; i < this.slider_content.length; i++) {
+                if (i !== this.currentSlideIndex) {
+                    this.slider_content[i].active = false;
+                }
+            }
+
+            this.slider_content[this.currentSlideIndex].active = true;
+        },
+    },
+    mounted() {
+        this.changeSlide();
+    },
+    created() {
+
+        // this.slider_content[0].active = true;
+
+        // for (let i = 0; i < this.slider_content.length; i++) {
+        //     if (i !== 0) {
+        //         this.slider_content[i].active = false;
+        //     }
+        // }
+
+        //this.changeSlide();
     }
 }
 </script>
@@ -30,23 +124,78 @@ export default {
                     </p>
                 </div>
 
-                <!-- Testo -->
-                <div class="name-zanz">Jolly, la Laterale Frizionata</div>
+                <div class="container-slide">
+                    <div class="slider-header" v-for="(slide, index) in slider_content" :key="index"
+                        :class="{ 'active': index === currentSlideIndex }" @mouseout="changeSlide(index)"
+                        @mouseover="blockSlide">
+                        <!-- Testo -->
+                        <div class="name-zanz">{{ slide.name_zanz }}</div>
 
-                <!-- Bottone scopri di piu' -->
-                <router-link :to="{ name: 'orizzontali', params: { id: 1 }, hash: '#jolly-' + 4 }" class="button header">
-                    Scopri di pi&ugrave; su Jolly
-                </router-link>
+                        <!-- Bottone scopri di piu' -->
+                        <router-link :to="{ name: 'orizzontali', params: { id: 1 }, hash: '#jolly-' + 4 }"
+                            class="button header">
+                            {{ slide.text_button }}
+                        </router-link>
+                    </div>
+                </div>
             </div>
 
         </div>
     </header>
+
+    <div class="container" v-if="$route.name === 'home'">
+        <div class="list-rectangles">
+            <div class="rectangles" v-for="(rectangles, index) in slider_content" :key="index"
+                :class="{ 'active': rectangles.active }" @click="changeSlideRectangles(index)">
+            </div>
+        </div>
+    </div>
 </template>
 
 <style lang="scss" scoped>
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+// Rettangolini in alto
+.list-rectangles {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 30px;
+    padding-top: 30px;
+    height: 72px;
+
+    .rectangles {
+        background-color: rgba(0, 0, 0, .4);
+        width: 45px;
+        height: 8px;
+        transition: all 1s ease-in-out;
+
+        &.active {
+            background-color: #000;
+
+        }
+
+        &:not(.active) {
+            cursor: pointer;
+        }
+    }
+}
+
+.container-slide {
+    position: relative;
+}
+
+.slider-header {
+    position: absolute;
+    top: 0;
+    transition: all 1s ease-in-out;
+
+    &:not(.active) {
+        opacity: 0;
+    }
+}
 
 // Header
 header {

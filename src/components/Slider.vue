@@ -12,7 +12,7 @@ export default {
     },
     data() {
         return {
-            isAnimating: false,
+            //isAnimating: false,
             store,
             activeItem: "",
         }
@@ -69,9 +69,9 @@ export default {
                 window.location.hash = "";
             }
 
-            setTimeout(() => {
-                this.isAnimating = false;
-            }, 500);
+            // setTimeout(() => {
+            //     this.isAnimating = false;
+            // }, 500);
             //}
 
         },
@@ -80,7 +80,7 @@ export default {
 
             //if (!this.isAnimating) {
 
-            this.isAnimating = true;
+            //this.isAnimating = true;
 
             if (index <= slider.length - 1 && index > 0) {
                 index--;
