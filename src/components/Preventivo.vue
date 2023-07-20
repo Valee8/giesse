@@ -1566,7 +1566,7 @@ section {
 
             .circle {
                 border: 3px solid #fff;
-                border-radius: 50px;
+                border-radius: 50%;
                 width: 70px;
                 height: 70px;
                 line-height: 70px;
@@ -1782,12 +1782,35 @@ section {
 
 }
 
+
+@media only screen and (min-width: 480px) and (max-width: 550px) {
+    .container {
+
+        .top {
+
+            .steps-circles {
+                width: 100%;
+
+                .circle {
+                    height: 60px;
+                    line-height: 60px;
+                }
+
+                hr {
+                    width: calc(100% / 3);
+                }
+
+            }
+        }
+    }
+}
+
 @media only screen and (min-width: 480px) and (max-width: 700px) {
     .container {
 
         .top {
             flex-wrap: wrap;
-            max-width: 100%;
+            max-width: 90%;
 
             h1 {
                 text-align: center;
@@ -1813,7 +1836,17 @@ section {
 
 
             .step {
+                margin-left: 0;
                 width: 100%;
+
+                div {
+                    width: calc(100% / 3);
+
+                    &:first-child {
+                        left: -20px;
+                    }
+                }
+
             }
         }
     }
@@ -1988,6 +2021,8 @@ section {
 
             label {
                 margin: 0;
+                padding-left: 8px;
+                padding-right: 8px;
             }
         }
 

@@ -17,21 +17,33 @@ export default {
                 {
                     name_zanz: "Jolly, la Laterale Frizionata",
                     text_button: "Scopri di più sulla Jolly",
-                    active: true
+                    name: "orizzontali",
+                    id: 1,
+                    hash: "#jolly-" + 4,
+                    active: true,
                 },
                 {
                     name_zanz: "Laura",
                     text_button: "Scopri di più sulla Laura",
-                    active: false
+                    name: "verticali",
+                    id: 0,
+                    hash: "#laura-" + 1,
+                    active: false,
                 },
                 {
                     name_zanz: "Luna",
                     text_button: "Scopri di più sulla Luna",
+                    name: "orizzontali",
+                    id: 1,
+                    hash: "#luna-" + 2,
                     active: false
                 },
                 {
                     name_zanz: "Zelig",
                     text_button: "Scopri di più sulla Zelig",
+                    name: "orizzontali",
+                    id: 1,
+                    hash: "#zelig-" + 3,
                     active: false
                 }
             ]
@@ -73,34 +85,22 @@ export default {
                 clearInterval(interval);
             }
         },
-        changeSlideRectangles(index) {
+        // changeSlideRectangles(index) {
 
-            this.currentSlideIndex = index;
+        //     this.currentSlideIndex = index;
 
-            for (let i = 0; i < this.slider_content.length; i++) {
-                if (i !== this.currentSlideIndex) {
-                    this.slider_content[i].active = false;
-                }
-            }
+        //     for (let i = 0; i < this.slider_content.length; i++) {
+        //         if (i !== this.currentSlideIndex) {
+        //             this.slider_content[i].active = false;
+        //         }
+        //     }
 
-            this.slider_content[this.currentSlideIndex].active = true;
-        },
+        //     this.slider_content[this.currentSlideIndex].active = true;
+        // },
     },
     mounted() {
         this.changeSlide();
     },
-    created() {
-
-        // this.slider_content[0].active = true;
-
-        // for (let i = 0; i < this.slider_content.length; i++) {
-        //     if (i !== 0) {
-        //         this.slider_content[i].active = false;
-        //     }
-        // }
-
-        //this.changeSlide();
-    }
 }
 </script>
 
@@ -132,7 +132,7 @@ export default {
                         <div class="name-zanz">{{ slide.name_zanz }}</div>
 
                         <!-- Bottone scopri di piu' -->
-                        <router-link :to="{ name: 'orizzontali', params: { id: 1 }, hash: '#jolly-' + 4 }"
+                        <router-link :to="{ name: slide.name, params: { id: slide.id }, hash: slide.hash }"
                             class="button header">
                             {{ slide.text_button }}
                         </router-link>
@@ -177,9 +177,9 @@ export default {
 
         }
 
-        &:not(.active) {
-            cursor: pointer;
-        }
+        // &:not(.active) {
+        //     cursor: pointer;
+        // }
     }
 }
 
@@ -194,6 +194,11 @@ export default {
 
     &:not(.active) {
         opacity: 0;
+        z-index: 1;
+    }
+
+    &.active {
+        z-index: 20;
     }
 }
 
