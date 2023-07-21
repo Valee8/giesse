@@ -284,43 +284,47 @@ export default {
 
         },
         getClient() {
-            axios.get(API_URL + 'clients/' + this.ids)
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
-                    const response = data.response;
+            if (this.ids) {
+                axios.get(API_URL + 'clients/' + this.ids)
+                    .then(res => {
+                        const data = res.data;
+                        const success = data.success;
+                        const response = data.response;
 
-                    this.ids = response.ids[response.ids.length - 1];
-                    this.newOrder.client_id = response.ids[response.ids.length - 1];
+                        this.ids = response.ids[response.ids.length - 1];
+                        this.newOrder.client_id = response.ids[response.ids.length - 1];
 
-                    if (success) {
-                        this.clients = response.clients;
-                    }
+                        if (success) {
+                            this.clients = response.clients;
+                        }
 
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
         },
         getOrder() {
-            axios.get(API_URL + 'orders/' + this.ids)
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
-                    const response = data.response;
+            if (this.ids) {
+                axios.get(API_URL + 'orders/' + this.ids)
+                    .then(res => {
+                        const data = res.data;
+                        const success = data.success;
+                        const response = data.response;
 
-                    if (success) {
-                        this.orders = response.orders;
+                        if (success) {
+                            this.orders = response.orders;
 
-                        if (this.ids) {
-                            localStorage.setItem("ClientId", this.ids.toString());
+                            if (this.ids) {
+                                localStorage.setItem("ClientId", this.ids.toString());
+                            }
                         }
-                    }
 
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
         },
         addZanz() {
 

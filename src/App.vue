@@ -7,10 +7,6 @@ import AppFooter from './components/AppFooter.vue';
 
 //import Loader from './components/Loader.vue';
 
-//import axios from 'axios';
-
-//const API_URL = 'http://localhost:8000/api/v1/';
-
 let slider;
 
 export default {
@@ -81,6 +77,11 @@ export default {
         this.store.classSubmenu = "reduce";
       }
 
+      if (this.store.classHamburger === "visible") {
+        this.store.menuHamburger = false;
+        this.store.classHamburger = "hidden";
+      }
+
     },
     handleBackButton() {
       if (!window.location.href.includes("preventivo")) {
@@ -120,6 +121,24 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+
+// .body-container {
+//   display: flex;
+// }
+
+// #home-body {
+//   width: 65%;
+
+// }
+
+// .hamburger {
+//   background-color: #000;
+//   width: 35%;
+
+//   a {
+//     color: #fff;
+//   }
+// }
 
 .arrow-up {
   position: fixed;

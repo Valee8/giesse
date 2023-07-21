@@ -16,31 +16,27 @@ export default {
             slider_content: [
                 {
                     name_zanz: "Jolly, la Laterale Frizionata",
-                    text_button: "Scopri di più sulla Jolly",
                     name: "orizzontali",
                     id: 1,
                     hash: "#jolly-" + 4,
                     active: true,
                 },
                 {
-                    name_zanz: "Laura",
-                    text_button: "Scopri di più sulla Laura",
+                    name_zanz: "Laura, con sistema a cricchetto",
                     name: "verticali",
                     id: 0,
                     hash: "#laura-" + 1,
                     active: false,
                 },
                 {
-                    name_zanz: "Luna",
-                    text_button: "Scopri di più sulla Luna",
+                    name_zanz: "Luna, con guida arrotondata da 14mm",
                     name: "orizzontali",
                     id: 1,
                     hash: "#luna-" + 2,
                     active: false
                 },
                 {
-                    name_zanz: "Zelig",
-                    text_button: "Scopri di più sulla Zelig",
+                    name_zanz: "Zelig, con guida bassa da 3mm",
                     name: "orizzontali",
                     id: 1,
                     hash: "#zelig-" + 3,
@@ -75,7 +71,7 @@ export default {
 
                 }
 
-            }, 3000);
+            }, 4000);
         },
         blockSlide() {
 
@@ -120,7 +116,7 @@ export default {
                     </h1>
 
                     <p>
-                        Affidati a noi che produciamo zanzariere da pi&ugrave; di 20 anni
+                        Affidati a noi che produciamo zanzariere da pi&ugrave; di 30 anni
                     </p>
                 </div>
 
@@ -134,7 +130,7 @@ export default {
                         <!-- Bottone scopri di piu' -->
                         <router-link :to="{ name: slide.name, params: { id: slide.id }, hash: slide.hash }"
                             class="button header">
-                            {{ slide.text_button }}
+                            Scopri di pi&ugrave; sulla {{ slide.name_zanz.replace(/,(.*?)[\s\w]*/g, "") }}
                         </router-link>
                     </div>
                 </div>
@@ -185,6 +181,7 @@ export default {
 
 .container-slide {
     position: relative;
+    height: 90px;
 }
 
 .slider-header {
@@ -234,6 +231,7 @@ header {
                 h1 {
                     color: #fff;
                     font-size: 4rem;
+                    line-height: 110%;
                 }
 
                 p {
@@ -272,19 +270,19 @@ header {
 
         .container {
             .jumbotron {
-                width: 300px;
                 padding-top: 30px;
                 height: 220px;
 
                 .title {
                     h1 {
-                        font-size: 2rem;
+                        font-size: 2.3rem;
                     }
 
                     p {
+                        width: 300px;
                         padding-top: 10px;
                         font-style: italic;
-                        font-size: 1rem;
+                        font-size: 1.1rem;
                         font-weight: 500;
                     }
                 }

@@ -3,6 +3,8 @@ import { reactive } from 'vue';
 export const store = reactive({
     // Tipologie zanzariere
     //isLoading: true,
+    menuHamburger: false,
+    classHamburger: "",
     submenu: false,
     classSubmenu: "",
     listModels: [
@@ -134,7 +136,7 @@ export const store = reactive({
         {
             model: "LATERALE A MOLLA (con guida arrotondata da 14mm)",
             name: "LUNA",
-            //image: "/img/alba.png",
+            image: "/img/luna.png",
             description: "Il modello LUNA, prodotto esclusivamente con il cassonetto da 50mm, è caratterizzato da una guida inferiore (arrotondata) di soli 14mm. Viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm).",
             active: false
         },

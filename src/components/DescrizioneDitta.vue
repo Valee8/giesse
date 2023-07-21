@@ -16,7 +16,7 @@ export default {
 
             <!-- Testo - descrizione ditta -->
             <p>
-                La <span>Giesse Zanzariere</span>, da pi&ugrave; di 20 anni impegnata nella realizzazione di zanzariere, è
+                La <span>Giesse Zanzariere</span>, da pi&ugrave; di 30 anni impegnata nella realizzazione di zanzariere, è
                 attrezzata per la produzione di <span>ZANZARIERE SU MISURA</span> con rete saldata e bottoncini antivento.
                 Possono essere fornite con: <span>CUFFIE LATERALI</span> - <span>TESTATA SINGOLA</span> - <span>CASSONETTO
                     DA 40mm</span>.

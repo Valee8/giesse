@@ -58,6 +58,16 @@ export default {
                 this.store.submenu = false;
                 this.store.classSubmenu = "reduce";
             }
+        },
+        showHamburger() {
+            if (!this.store.menuHamburger) {
+                this.store.menuHamburger = true;
+                this.store.classHamburger = "visible";
+            }
+            else {
+                this.store.menuHamburger = false;
+                this.store.classHamburger = "hidden";
+            }
         }
     },
     computed: {
@@ -102,10 +112,13 @@ export default {
                         </router-link>
                     </li>
 
-                    <li v-for="(link, index) in store.linksNav" :key="index" class="mobile-links">
+                    <!-- <li v-for="(link, index) in store.linksNav" :key="index" class="mobile-links">
                         <router-link :to="{ name: link.href }">
                             <i :class="link.icon"></i>
                         </router-link>
+                    </li> -->
+                    <li class="icon-hamburger" @click.stop="showHamburger">
+                        <i class="fa-solid fa-bars"></i>
                     </li>
                 </ul>
             </div>
@@ -166,6 +179,17 @@ export default {
                 </div>
             </div>
         </div>
+
+        <ul class="hamburger" :class="store.classHamburger">
+            <li v-for="(link, index) in store.linksNav" :key="index">
+                <div class="icons">
+                    <router-link :to="{ name: link.href }">
+                        <span class="icon"><i :class="link.icon"></i> </span>
+                        <span class="text">{{ link.text }}</span>
+                    </router-link>
+                </div>
+            </li>
+        </ul>
     </nav>
     <!-- Menu nero in alto -->
 
@@ -226,6 +250,87 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+.icon-hamburger {
+    font-size: 1.2rem;
+}
+
+.hamburger {
+    background-color: #1c1c1c;
+    width: 240px;
+    position: absolute;
+    right: 0;
+    z-index: 30;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+    top: 66px;
+    height: 0;
+
+    li {
+        padding: 15px 25px;
+        opacity: 0;
+        height: 0;
+
+        a {
+            color: #fff;
+            display: none;
+        }
+
+        .icon {
+            padding-right: 10px;
+        }
+    }
+
+    &.hidden {
+        animation-name: hidden;
+        z-index: 40;
+
+        li {
+            opacity: 0;
+            height: 0;
+
+            a {
+                display: none;
+            }
+        }
+    }
+
+    &.visible {
+        animation-name: visible;
+        height: auto;
+        z-index: 60;
+
+        li {
+            transition-duration: 2s;
+            opacity: 1;
+            height: auto;
+
+            a {
+                display: inline-block;
+            }
+        }
+    }
+
+    @keyframes visible {
+        from {
+            height: 0;
+        }
+
+        to {
+            height: 160px;
+        }
+    }
+
+    @keyframes hidden {
+        from {
+            height: 160px;
+        }
+
+        to {
+            height: 0;
+        }
+    }
+}
 
 // Menu in alto nero
 #blackMenu {
@@ -294,6 +399,10 @@ export default {
                     font-weight: bold;
                     border-radius: 5px;
                 }
+            }
+
+            .icon-hamburger {
+                display: none;
             }
         }
 
@@ -753,7 +862,7 @@ nav {
 
 }
 
-@media only screen and (min-width: 480px) and (max-width: 800px) {
+@media only screen and (min-width: 480px) and (max-width: 900px) {
 
     nav {
 
@@ -799,36 +908,44 @@ nav {
                     visibility: hidden;
                 }
 
-                .mobile-links {
-                    display: block;
-                }
+                // .mobile-links {
+                //     display: block;
+                // }
 
                 .preventivo {
                     display: none;
+                }
+
+                .icon-hamburger {
+                    display: block;
                 }
             }
         }
     }
 
-    #blackMenu {
-        .bg {
+    // #blackMenu {
+    //     .bg {
 
-            .ul-container {
+    //         .ul-container {
 
-                li:nth-child(2) {
-                    visibility: hidden;
-                }
+    //             li:nth-child(2) {
+    //                 visibility: hidden;
+    //             }
 
-                .mobile-links {
-                    display: block;
-                }
+    //             // .mobile-links {
+    //             //     display: block;
+    //             // }
 
-                .preventivo {
-                    display: none;
-                }
-            }
-        }
-    }
+    //             .preventivo {
+    //                 display: none;
+    //             }
+
+    //             .icon-hamburger {
+    //                 display: block;
+    //             }
+    //         }
+    //     }
+    // }
 
     #newMenu {
         display: none;
@@ -837,28 +954,24 @@ nav {
 
 // Fine versioni mobile, tablet e intermedie
 
-@media only screen and (min-width: 800px) and (max-width: 1010px) {
+// @media only screen and (min-width: 800px) and (max-width: 900px) {
 
-    #blackMenu {
-        .bg {
+//     #blackMenu {
+//         .bg {
 
-            .ul-container {
+//             .ul-container {
 
-                .mobile-links {
-                    display: block;
-                }
+//                 li:nth-child(2) {
+//                     visibility: visible;
+//                 }
+//             }
+//         }
+//     }
 
-                .preventivo {
-                    display: none;
-                }
-            }
-        }
-    }
-
-    #newMenu {
-        display: none;
-    }
-}
+//     #newMenu {
+//         display: none;
+//     }
+// }
 
 
 
