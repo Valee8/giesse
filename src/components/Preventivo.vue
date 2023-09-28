@@ -36,9 +36,12 @@ export default {
                 color_image: "",
                 client_id: ""
             },
+            newEmail: {
+                email: ""
+            },
             clients: [],
             orders: [],
-            ids: "",
+            clientId: "",
             message: "",
             zanzs: [
                 {
@@ -284,18 +287,19 @@ export default {
 
         },
         getClient() {
-            if (this.ids) {
-                axios.get(API_URL + 'clients/' + this.ids)
+            if (this.clientId) {
+                axios.get(API_URL + 'clients/' + this.clientId)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
                         const response = data.response;
 
-                        this.ids = response.ids[response.ids.length - 1];
-                        this.newOrder.client_id = response.ids[response.ids.length - 1];
+                        //ids = response.clients[response.clients.length - 1].id;
+                        //this.newOrder.client_id = response.ids[response.ids.length - 1];
 
                         if (success) {
                             this.clients = response.clients;
+
                         }
 
                     })
@@ -305,8 +309,8 @@ export default {
             }
         },
         getOrder() {
-            if (this.ids) {
-                axios.get(API_URL + 'orders/' + this.ids)
+            if (this.clientId) {
+                axios.get(API_URL + 'orders/' + this.clientId)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
@@ -315,9 +319,9 @@ export default {
                         if (success) {
                             this.orders = response.orders;
 
-                            if (this.ids) {
-                                localStorage.setItem("ClientId", this.ids.toString());
-                            }
+                            // if (this.ids) {
+                            //     localStorage.setItem("ClientId", this.ids.toString());
+                            // }
                         }
 
                     })
@@ -334,11 +338,15 @@ export default {
 
                 this.secondStepValid = true;
 
+                this.newOrder.client_id = this.clientId;
+
                 axios.post(API_URL + 'order/store', this.newOrder)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
                         //const response = data.response;
+
+                        //this.newOrder.client_id = this.ids;
 
                         if (success) {
                             this.getOrder();
@@ -384,12 +392,27 @@ export default {
                         const data = res.data;
                         const success = data.success;
 
+                        const response = data.response;
+
+                        this.clientId = response.id;
+
+                        if (this.clientId) {
+                            localStorage.setItem("ClientId", this.clientId.toString());
+                        }
+
+                        //localStorage.setItem("ClientId", this.clientId.toString());
+
+                        //ids = response.clients[response.clients.length - 1].id;
+
+                        //localStorage.setItem("ClientId", ids.toString());
+
                         if (success) {
                             this.getClient();
                         }
 
                     })
                     .catch(error => console.log(error));
+
 
                 event.preventDefault();
 
@@ -466,6 +489,19 @@ export default {
         complete(event) {
             event.preventDefault();
 
+            this.newEmail.email = "oirelav95@gmail.com";
+
+            axios.post(API_URL + 'email', this.newEmail)
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+
+                    if (success) {
+                        console.log("Tuttapposto");
+                    }
+                })
+                .catch(error => console.log(error.response.data));
+
             window.scrollTo({
                 top: 0,
                 behavior: "smooth"
@@ -496,7 +532,7 @@ export default {
                 this.getClient();
 
                 if (this.message) {
-                    axios.post(API_URL + 'message/update/' + this.ids, {
+                    axios.post(API_URL + 'message/update/' + this.clientId, {
                         message: this.message
                     })
                         .then(res => {
@@ -597,7 +633,7 @@ export default {
         }
     },
     created() {
-        this.ids = localStorage.getItem("ClientId");
+        this.clientId = localStorage.getItem("ClientId");
     },
     mounted() {
 
@@ -613,6 +649,12 @@ export default {
         }
 
         localStorage.setItem("CurrentStep", this.currentStep.toString());
+
+        // if (localStorage.getItem("ClientId") !== null) {
+        //     this.clientId = parseInt(localStorage.getItem("ClientId"), 10);
+        // }
+
+        // localStorage.setItem("ClientId", this.clientId.toString());
 
         this.typology = this.zanzs[0].name;
     }
@@ -956,7 +998,7 @@ export default {
                     </ul>
 
                     <div class="form-button">
-                        <button @click="complete" class="button" id="buttons">Completa</button>
+                        <input type="submit" @click="complete" class="button" id="buttons" value="Completa">
                     </div>
                 </form>
 
