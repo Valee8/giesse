@@ -574,7 +574,7 @@ export default {
 
             &:first-child {
                 //margin-top: 15px;
-                transform: translateY(9px);
+                transform: translateY(14px);
             }
 
             // &.top {
@@ -583,12 +583,12 @@ export default {
 
             &.center {
                 //margin-top: 87px;
-                transform: translateY(111px);
+                transform: translateY(115px);
             }
 
             &.bottom {
                 //margin-top: 159px;
-                transform: translateY(213px);
+                transform: translateY(219px);
             }
         }
 
@@ -680,7 +680,7 @@ export default {
                 }
 
                 &:first-child {
-                    margin-top: 14px;
+                    margin-top: 19px;
                 }
 
                 &:not(.active) {
