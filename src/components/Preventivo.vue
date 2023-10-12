@@ -11,6 +11,7 @@ export default {
     name: 'Preventivo',
     data() {
         return {
+            showMessageEmailConfirm: "",
             fixRequiredProblem: false,
             secondStepValid: false,
             store,
@@ -23,6 +24,7 @@ export default {
                 agency_name: "",
                 vat_number: "",
                 email: "",
+                confirm_email: "",
                 telephone_number: "",
                 city_of_residence: "",
             },
@@ -37,12 +39,12 @@ export default {
                 client_id: ""
             },
             newEmail: {
-                email: "",
+                ownerEmail: "",
+                clientEmail: "",
                 //order_id: ""
             },
             clients: [],
             orders: [],
-            clientId: "",
             message: "",
             zanzs: [
                 {
@@ -204,13 +206,23 @@ export default {
         }
     },
     computed: {
+        emailConfirmMessage() {
+            let message;
+            if (!this.showMessageEmailConfirm) {
+                message = "Le due e-mail non coincidono";
+            }
+            else {
+                message = "Le due e-mail coincidono";
+            }
+            return message;
+        },
         returnTypo() {
             this.zanzs.forEach(element => {
                 return element.name.slice(0, this.zanzs.length);
             });
         },
         firstStepValid() {
-            if (this.newClient.email.trim() !== "" && this.newClient.email.includes("@") && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "") {
+            if (this.newClient.email.trim() !== "" && this.newClient.email.trim() !== "" && this.newClient.confirm_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.email === this.newClient.confirm_email) {
                 this.enableButton = true;
             }
 
@@ -388,45 +400,52 @@ export default {
 
             if (this.firstStepValid) {
 
-                axios.post(API_URL + 'client/store', this.newClient)
-                    .then(res => {
-                        const data = res.data;
-                        const success = data.success;
+                this.showMessageEmailConfirm = true;
 
-                        const response = data.response;
+                setTimeout(() => {
+                    axios.post(API_URL + 'client/store', this.newClient)
+                        .then(res => {
+                            const data = res.data;
+                            const success = data.success;
 
-                        this.clientId = response.id;
+                            const response = data.response;
 
-                        if (this.clientId) {
-                            localStorage.setItem("ClientId", this.clientId.toString());
-                        }
+                            this.clientId = response.id;
 
-                        //localStorage.setItem("ClientId", this.clientId.toString());
+                            if (this.clientId) {
+                                localStorage.setItem("ClientId", this.clientId.toString());
+                            }
 
-                        //ids = response.clients[response.clients.length - 1].id;
+                            //localStorage.setItem("ClientId", this.clientId.toString());
 
-                        //localStorage.setItem("ClientId", ids.toString());
+                            //ids = response.clients[response.clients.length - 1].id;
 
-                        if (success) {
-                            this.getClient();
-                        }
+                            //localStorage.setItem("ClientId", ids.toString());
 
-                    })
-                    .catch(error => console.log(error));
+                            if (success) {
+                                this.getClient();
+                            }
+
+                        })
+                        .catch(error => console.log(error));
 
 
-                //event.preventDefault();
+                    //event.preventDefault();
 
-                this.currentStep++;
+                    this.currentStep++;
 
-                localStorage.setItem("CurrentStep", this.currentStep.toString());
+                    localStorage.setItem("CurrentStep", this.currentStep.toString());
 
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                }, 2000);
 
                 //this.newClient.typology = "";
+            }
+            if (this.newClient.email !== this.newClient.confirm_email) {
+                this.showMessageEmailConfirm = false;
             }
         },
         resetCommonInputs() {
@@ -490,7 +509,8 @@ export default {
         complete() {
             //event.preventDefault();
 
-            this.newEmail.email = "oirelav95@gmail.com";
+            this.newEmail.ownerEmail = "oirelav95@gmail.com";
+            this.newEmail.clientEmail = this.newClient.email;
             //this.newEmail.order_id = this.clientId;
 
             axios.post(API_URL + 'email/' + this.clientId, this.newEmail)
@@ -719,25 +739,35 @@ export default {
                         <div class="first-step-left">
                             <div v-if="newClient.typology === 'Privato' || newClient.typology === ''">
                                 <input type="text" v-model="newClient.name" placeholder="Nome *" @input="filterNumbers"
-                                    required>
+                                    title="Inserisci il nome" required>
                                 <br>
                                 <input type="text" v-model="newClient.surname" placeholder="Cognome *"
-                                    @input="filterNumbers" required>
+                                    title="Inserisci il cognome" @input="filterNumbers" required>
                             </div>
                             <div v-else-if="newClient.typology === 'Azienda'">
-                                <input type="text" v-model="newClient.agency_name" placeholder="Nome Azienda *" required>
+                                <input type="text" v-model="newClient.agency_name" placeholder="Nome Azienda *"
+                                    title="Inserisci il nome dell'azienda" required>
                                 <br>
                                 <input type="text" v-model="newClient.vat_number" placeholder="Partita Iva *" maxlength="11"
-                                    @input="filterCharacters" required>
+                                    title="Inserisci la Partita Iva" @input="filterCharacters" required>
                             </div>
                             <div>
-                                <input type="email" v-model="newClient.email" placeholder="E-mail *" required>
+                                <input type="email" v-model="newClient.email" placeholder="E-mail *"
+                                    title="Inserisci l'email" required>
+                                <br>
+                                <input type="email" v-model="newClient.confirm_email" placeholder="Conferma e-mail *"
+                                    title="Conferma l'email" required>
+                                <div v-if="showMessageEmailConfirm !== ''"
+                                    :class="showMessageEmailConfirm ? 'error-green' : 'error-red'">
+                                    {{ emailConfirmMessage }}
+                                </div>
                                 <br>
                                 <input type="text" v-model="newClient.telephone_number" placeholder="Telefono *"
-                                    maxlength="10" @input="filterCharacters" required>
+                                    maxlength="10" @input="filterCharacters" title="Inserisci il numero di telefono"
+                                    required>
                                 <br>
                                 <input type="text" v-model="newClient.city_of_residence" placeholder="Comune *"
-                                    @input="filterNumbers" required>
+                                    title="Inserisci il comune" @input="filterNumbers" required>
 
                                 <div class="obligatory">
                                     i cambi contrassegnati con &ast; sono obbligatori
@@ -1506,7 +1536,7 @@ section {
     }
 
     .first-step-left {
-        height: 292px;
+        min-height: 336px;
 
         input[type] {
             margin: 6px 0;
@@ -1518,6 +1548,14 @@ section {
             font-family: 'Montserrat', sans-serif;
             outline: none;
             color: #000;
+        }
+
+        .error-green {
+            color: green;
+        }
+
+        .error-red {
+            color: red;
         }
 
         .obligatory {
