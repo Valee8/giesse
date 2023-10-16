@@ -236,9 +236,7 @@ export default {
                     return true;
                 }
             }
-            // else {
-            //     return false;
-            // }
+            return false;
         },
         printNameSection() {
             for (let i = 0; i < store.linksNav.length; i++) {
@@ -770,7 +768,7 @@ export default {
                                     title="Inserisci il comune" @input="filterNumbers" required>
 
                                 <div class="obligatory">
-                                    i cambi contrassegnati con &ast; sono obbligatori
+                                    i campi contrassegnati con &ast; sono obbligatori
                                 </div>
                             </div>
                         </div>
@@ -921,6 +919,10 @@ export default {
                                 Aggiungi Zanzariera
                             </button>
                         </div>
+
+                        <h2 v-if="orders.length !== 0">
+                            Il tuo elenco
+                        </h2>
 
                         <!-- Elenco zanzariere preventivo -->
                         <ul v-if="orders.length !== 0" class="list-ul">
@@ -1292,7 +1294,7 @@ section {
 
     .list-ul {
         border: 1px solid #000;
-        margin: 40px 0;
+        margin: 20px 0 40px 0;
 
         .list-order {
             padding: 20px;
@@ -1514,7 +1516,7 @@ section {
     .form-button {
         button {
             border-radius: 10px;
-            margin: 0 10px;
+            margin: 0 10px 50px 10px;
         }
     }
 }
