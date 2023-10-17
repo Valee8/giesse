@@ -10,7 +10,6 @@ export default {
     data() {
         return {
             error2: "",
-            sizeVariable: "",
             error: "",
             messageSuccess: "",
             files: [],
@@ -27,19 +26,10 @@ export default {
                 message: "",
                 infoEmail: ""
             },
-            format: [
-                ".png",
-                ".jpg",
-                ".jpeg",
-                ".docx",
-                ".pdf"
-            ]
+            formats: [".png", ".jpg", ".jpeg", ".docx", ".pdf"]
         }
     },
     computed: {
-        prova() {
-
-        },
         firstStepValid() {
             if (this.newInfo.telephone_number.trim() !== "" && this.newInfo.city_of_residence.trim() !== "" && this.newInfo.message !== "") {
                 this.enableButton = true;
@@ -66,31 +56,31 @@ export default {
             this.error = "";
             this.error2 = "";
 
-
             for (let i = 0; i < this.files.length; i++) {
+
+                const fileName = this.files[i].name;
 
                 if (parseInt(this.files[i].size) > 15728640) {
                     this.error = "Dimensioni per questo file troppo grandi";
                 }
 
+                if (!this.formats.some(format => fileName.endsWith(format))) {
+                    this.error2 = "Formato del file non valido";
+                    break;  // Esci dal ciclo se il formato non è valido
+                }
+
                 this.newInfo.attached_files[i] = this.files[i].name.replace(/\s/g, '');
             }
 
-            for (let i = 0; i < this.format.length; i++) {
-
-
-                for (let j = 0; j < this.files.length; j++) {
-                    if (!this.files[j].name.endsWith(this.format[i])) {
-                    }
-                }
-            }
         },
-        deleteAttach() {
+        deleteAttached() {
 
-            this.$refs.fileInput.value = null;
+            this.$refs.fileInput.value = "";
 
             this.error = "";
             this.error2 = "";
+            this.files = [];
+
         },
         sendEmail() {
 
@@ -133,7 +123,7 @@ export default {
 
                             setTimeout(() => {
                                 location.reload();
-                            }, 2000);
+                            }, 1000);
                         }
 
                     })
@@ -146,6 +136,7 @@ export default {
         filterNumbers() {
             this.newInfo.name = this.newInfo.name.replace(/[0-9]/g, '');
             this.newInfo.surname = this.newInfo.surname.replace(/[0-9]/g, '');
+            this.newInfo.city_of_residence = this.newInfo.city_of_residence.replace(/[0-9]/g, '');
         },
         filterCharacters() {
             this.newInfo.telephone_number = this.newInfo.telephone_number.replace(/\D/g, '');
@@ -160,7 +151,7 @@ export default {
                 this.newInfo.surname = "";
                 this.newInfo.agency_name = "";
                 this.newInfo.vat_number = "";
-                this.newInfo.email = "";
+                this.newInfo.message = "";
                 this.newInfo.telephone_number = "";
                 this.newInfo.city_of_residence = "";
             }
@@ -176,8 +167,8 @@ export default {
 
 <template>
     <div class="info">
-        <div v-if="messageSuccess !== ''">
-            {{ messageSuccess }}
+        <div v-if="messageSuccess !== ''" class="message-ok">
+            {{ messageSuccess }} <i class="fa-solid fa-circle-check"></i>
         </div>
 
         <div v-else>
@@ -223,7 +214,7 @@ export default {
                         <div class="inputs-bottom">
                             <input type="text" class="first-input" v-model="newInfo.telephone_number"
                                 placeholder="Telefono *" @input="filterCharacters" title="Inserisci il numero di telefono"
-                                required>
+                                maxlength="10" required>
                             <input type="text" class="second-input" v-model="newInfo.city_of_residence"
                                 placeholder="Comune *" @input="filterNumbers" title="Inserisci il Comune" required>
                         </div>
@@ -258,16 +249,19 @@ export default {
                             <input type="file" @change="onFileChange" ref="fileInput" id="file"
                                 accept=".png, .jpg, .jpeg, .docx, .pdf" multiple>
 
-                            <div @click="deleteAttach" v-if="files.length > 0">Rimuovi file
+                            <div @click="deleteAttached" v-if="files.length > 0" class="delete-attached">Rimuovi file
                                 allegato</div>
 
-                            <div>
+                            <div class="error">
                                 {{ error }}
                             </div>
 
-                            <div>
+                            <div class="error">
                                 {{ error2 }}
                             </div>
+
+                            <div v-if="error || error2" class="error"> Per inviare il messaggio devi modificare il file
+                                allegato</div>
                         </div>
 
                     </div>
@@ -292,6 +286,10 @@ export default {
     padding: 50px 0;
     //height: 400px;
     //display: none;
+
+    .message-ok {
+        color: green;
+    }
 
     h2 {
         padding-bottom: 50px;
@@ -471,6 +469,24 @@ export default {
                 border: 0;
                 cursor: pointer;
                 margin-left: 8px;
+            }
+
+            .error {
+                color: red;
+                font-size: 0.8rem;
+                padding: 1px 0;
+            }
+
+            .delete-attached {
+                font-size: 0.9rem;
+                margin-top: 10px;
+                cursor: pointer;
+                color: $yellow-color;
+                width: 39%;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
 
