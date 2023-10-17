@@ -142,7 +142,7 @@ export default {
     <div class="container" v-if="$route.name === 'home'">
         <div class="list-rectangles">
             <div class="rectangles" v-for="(rectangles, index) in slider_content" :key="index"
-                :class="{ 'active': rectangles.active }" @click="changeSlideRectangles(index)">
+                :class="{ 'active': rectangles.active }">
             </div>
         </div>
     </div>
