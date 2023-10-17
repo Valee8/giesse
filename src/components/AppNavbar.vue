@@ -251,91 +251,15 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-.icon-hamburger {
-    font-size: 1.2rem;
-}
-
 .hamburger {
-    background-color: #1c1c1c;
-    width: 240px;
-    position: absolute;
-    right: 0;
-    z-index: 30;
-    animation-duration: 0.4s;
-    animation-fill-mode: forwards;
-    top: 66px;
-    height: 0;
-
-    li {
-        padding: 15px 25px;
-        opacity: 0;
-        height: 0;
-
-        a {
-            color: #fff;
-            display: none;
-        }
-
-        .icon {
-            padding-right: 10px;
-        }
-    }
-
-    &.hidden {
-        animation-name: hidden;
-        z-index: 40;
-
-        li {
-            opacity: 0;
-            height: 0;
-
-            a {
-                display: none;
-            }
-        }
-    }
-
-    &.visible {
-        animation-name: visible;
-        height: auto;
-        z-index: 60;
-
-        li {
-            transition-duration: 2s;
-            opacity: 1;
-            height: auto;
-
-            a {
-                display: inline-block;
-            }
-        }
-    }
-
-    @keyframes visible {
-        from {
-            height: 0;
-        }
-
-        to {
-            height: 160px;
-        }
-    }
-
-    @keyframes hidden {
-        from {
-            height: 160px;
-        }
-
-        to {
-            height: 0;
-        }
-    }
+    display: none;
 }
 
 // Menu in alto nero
 #blackMenu {
     color: #fff;
     width: 100%;
+    height: 67px;
 
     a {
         color: #fff;
@@ -360,12 +284,17 @@ export default {
         img {
             width: 155px;
             height: 32px;
+            transition: all 1s ease;
+
+            &:hover {
+                transform: scale(1.2);
+            }
         }
     }
 
     .bg {
         background-color: #1c1c1c;
-        height: 66px;
+        height: 67px;
         user-select: none;
 
         .ul-container {
@@ -583,7 +512,7 @@ export default {
 
             &.center {
                 //margin-top: 87px;
-                transform: translateY(115px);
+                transform: translateY(116px);
             }
 
             &.bottom {
@@ -641,15 +570,18 @@ export default {
                     &:hover {
 
                         .icons {
-                            //width: 192px;
+                            position: relative;
                             margin-left: -188px;
+                            width: 230px;
+                            top: -20px;
 
                             a {
                                 display: flex;
                                 justify-content: flex-end;
                                 align-items: center;
                                 gap: 5px;
-                                width: 230px;
+                                position: absolute;
+                                right: 0;
                             }
                         }
 
@@ -659,7 +591,7 @@ export default {
                             //justify-content: flex-end;
                             background-color: #000;
                             height: 16px;
-                            position: relative;
+                            //position: relative;
                             //left: -6px;
                             padding: 20px;
                             font-size: 0.9rem;
@@ -864,6 +796,89 @@ nav {
 
 @media only screen and (min-width: 480px) and (max-width: 900px) {
 
+    .icon-hamburger {
+        font-size: 1.2rem;
+    }
+
+    .hamburger {
+        display: block;
+        //visibility: hidden;
+        background-color: #1c1c1c;
+        width: 240px;
+        position: absolute;
+        right: 0;
+        z-index: 30;
+        animation-duration: 0.4s;
+        animation-fill-mode: forwards;
+        top: 66px;
+        height: 0;
+
+        li {
+            padding: 15px 25px;
+            opacity: 0;
+            height: 0;
+
+            a {
+                color: #fff;
+                display: none;
+            }
+
+            .icon {
+                padding-right: 10px;
+            }
+        }
+
+        &.hidden {
+            animation-name: hidden;
+            z-index: 40;
+
+            li {
+                opacity: 0;
+                height: 0;
+
+                a {
+                    display: none;
+                }
+            }
+        }
+
+        &.visible {
+            animation-name: visible;
+            height: auto;
+            z-index: 60;
+
+            li {
+                transition-duration: 2s;
+                opacity: 1;
+                height: auto;
+
+                a {
+                    display: inline-block;
+                }
+            }
+        }
+
+        @keyframes visible {
+            from {
+                height: 0;
+            }
+
+            to {
+                height: 160px;
+            }
+        }
+
+        @keyframes hidden {
+            from {
+                height: 160px;
+            }
+
+            to {
+                height: 0;
+            }
+        }
+    }
+
     nav {
 
         .container {
@@ -900,7 +915,12 @@ nav {
     }
 
     #blackMenu {
+
         .bg {
+
+            .submenu {
+                display: none;
+            }
 
             .ul-container {
 
