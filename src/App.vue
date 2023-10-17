@@ -51,12 +51,12 @@ export default {
     }
   },
   updated() {
-    window.addEventListener('clearStorage', this.handleBackButton);
+    //window.addEventListener('clearStorage', this.handleBackButton);
     window.addEventListener('scroll', this.handleScroll);
   },
 
   beforeDestroy() {
-    window.removeEventListener('clearStorage', this.handleBackButton);
+    // window.removeEventListener('clearStorage', this.handleBackButton);
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -83,11 +83,11 @@ export default {
       }
 
     },
-    handleBackButton() {
-      if (!window.location.href.includes("preventivo")) {
-        localStorage.clear();
-      }
-    },
+    // handleBackButton() {
+    //   if (!window.location.href.includes("preventivo")) {
+    //     localStorage.clear();
+    //   }
+    // },
     scrollToTop() {
       window.scrollTo({
         top: 0,
