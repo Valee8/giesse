@@ -11,6 +11,7 @@ export default {
     name: 'Preventivo',
     data() {
         return {
+            showPopup: false,
             showMessageEmailConfirm: "",
             fixRequiredProblem: false,
             secondStepValid: false,
@@ -361,6 +362,7 @@ export default {
 
                         if (success) {
                             this.getOrder();
+                            this.showPopup = true;
                         }
 
                     })
@@ -453,6 +455,7 @@ export default {
                 this.newClient.agency_name = "";
                 this.newClient.vat_number = "";
                 this.newClient.email = "";
+                this.newClient.confirm_email = "";
                 this.newClient.telephone_number = "";
                 this.newClient.city_of_residence = "";
             }
@@ -913,9 +916,9 @@ export default {
                         </div>
 
                         <!-- Bottone aggiungi zanzariera -->
-                        <div class="form-button">
+                        <div class="form-button" :class="{ 'padding': orders.length !== 0 }">
 
-                            <button @click="addZanz()" class="button">
+                            <button @click=" addZanz()" class="button">
                                 Aggiungi Zanzariera
                             </button>
                         </div>
@@ -924,41 +927,57 @@ export default {
                             Il tuo elenco
                         </h2>
 
-                        <!-- Elenco zanzariere preventivo -->
-                        <ul v-if="orders.length !== 0" class="list-ul">
-                            <li v-for="order in orders" :key="order.id" class="list-order">
-                                <span>
-                                    {{ typology.replace(/\([^)]*\)/g, "") }} | {{ order.model_name.charAt(0).toUpperCase() +
-                                        order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} | {{ order.net }} |
-                                    <!-- <img :src="order.color_image" :alt="order.color_name" class="order-image"> -->
-                                    {{ order.color_name }}
-                                </span>
-                                <span class="quantity">
-                                    <div class="text">
-                                        Quantit&agrave;:
-                                        <span class="number">
-                                            {{ order.quantity }}
-                                        </span>
-                                    </div>
-                                    <div class="minus-plus">
-                                        <button @click="plus(order)">
-                                            <i class="fa-solid fa-angle-up"></i>
-                                        </button>
-                                        <button @click="minus(order)">
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </button>
-                                    </div>
-                                </span>
+                        <div class="div-popup">
 
-                                <span>
-                                    {{ order.width }} cm x {{ order.height }} cm
-                                </span>
+                            <!-- Elenco zanzariere preventivo -->
+                            <ul v-if="orders.length !== 0" class="list-ul">
+                                <li v-for=" order  in  orders " :key="order.id" class="list-order">
+                                    <span>
+                                        {{ typology.replace(/\([^)]*\)/g, "") }} | {{
+                                            order.model_name.charAt(0).toUpperCase() +
+                                            order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }}
+                                        | {{ order.net }} |
+                                        <!-- <img :src="order.color_image" :alt="order.color_name" class="order-image"> -->
+                                        {{ order.color_name }}
+                                    </span>
+                                    <span class="quantity">
+                                        <div class="text">
+                                            Quantit&agrave;:
+                                            <span class="number">
+                                                {{ order.quantity }}
+                                            </span>
+                                        </div>
+                                        <div class="minus-plus">
+                                            <button @click="plus(order)" :disabled="showPopup">
+                                                <i class="fa-solid fa-angle-up"></i>
+                                            </button>
+                                            <button @click="minus(order)" :disabled="showPopup">
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </button>
+                                        </div>
+                                    </span>
 
-                                <button @click="deleteModel(order)" class="delete">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </li>
-                        </ul>
+                                    <span>
+                                        {{ order.width }} cm x {{ order.height }} cm
+                                    </span>
+
+                                    <button @click="deleteModel(order)" class="delete" :disabled="showPopup">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </li>
+                            </ul>
+
+                            <div id="popup" v-if="showPopup">
+                                Zanzariera aggiunta con successo!
+                                <br>
+                                Puoi aggiungere altre zanzariere ricompilando i campi o
+                                proseguire con il bottone "Conferma le zanzariere"
+
+                                <div @click="showPopup = false" class="ok-popup">
+                                    OK
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Textarea -->
                         <div class="textarea" :class="{ 'padding': orders.length === 0 }">
@@ -980,7 +999,7 @@ export default {
                             Ecco a te il riepilogo
                         </h2>
 
-                        <ul v-for="client in clients" :key="client.id" class="summary info">
+                        <ul v-for=" client  in  clients " :key="client.id" class="summary info">
                             <li>
                                 {{ client.typology }}
                                 <hr>
@@ -993,9 +1012,14 @@ export default {
                                     Cognome: {{ client.surname }}
                                 </li>
                             </div>
-                            <li v-else>
-                                Nome Azienda: {{ client.agency_name }}
-                            </li>
+                            <div v-else>
+                                <li>
+                                    Nome Azienda: {{ client.agency_name }}
+                                </li>
+                                <li>
+                                    Partita Iva: {{ client.vat_number }}
+                                </li>
+                            </div>
                             <li>
                                 Email: {{ client.email }}
                             </li>
@@ -1007,7 +1031,7 @@ export default {
                             </li>
                         </ul>
 
-                        <ul v-for="order in orders" :key="order.id" class="summary">
+                        <ul v-for=" order  in  orders " :key="order.id" class="summary">
                             <li>
                                 Modello zanzariera: {{ order.model_name.charAt(0).toUpperCase() +
                                     order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} - {{ order.net }}
@@ -1025,7 +1049,7 @@ export default {
                         </ul>
 
                         <ul>
-                            <li v-for="mess in clients" :key="mess.id" class="summary">
+                            <li v-for=" mess  in  clients " :key="mess.id" class="summary">
                                 <span v-if="mess.message">Messaggio: {{ mess.message
                                 }}</span>
                                 <span v-else>Messaggio: Non hai scritto nessun messaggio</span>
@@ -1061,6 +1085,50 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+.div-popup {
+    position: relative;
+}
+
+#popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #fff;
+    width: 400px;
+    padding: 0 40px;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    z-index: 50;
+    color: #000;
+    border-radius: 5px;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, .5);
+    animation: fade-in-down 2s ease;
+    transform: translate(-50%, 0);
+    top: 10%;
+
+    .ok-popup {
+        background-color: #686868;
+        color: #fff;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 5px;
+    }
+}
+
+@keyframes fade-in-down {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
 
 
 section {
@@ -1208,6 +1276,7 @@ section {
     margin: 0 auto;
     text-align: center;
     padding: 60px 40px 40px 40px;
+    position: relative;
 
     hr {
         margin: 60px auto;
@@ -1256,9 +1325,10 @@ section {
             }
         }
 
-        h2 {
-            padding: 20px 0 60px 0;
-        }
+        // h2 {
+        //     padding: 20px 0 60px 0;
+        //     background-color: red !important;
+        // }
 
         // h3:first-of-type {
         //     padding-bottom: 20px;
@@ -1514,9 +1584,13 @@ section {
     }
 
     .form-button {
+        &.padding {
+            padding-bottom: 50px;
+        }
+
         button {
             border-radius: 10px;
-            margin: 0 10px 50px 10px;
+            margin: 0 10px;
         }
     }
 }
@@ -1591,6 +1665,7 @@ section {
             margin: 8px 0;
             font-weight: 500;
             font-size: 1.1rem;
+            cursor: pointer;
         }
 
         .radios {
