@@ -1,5 +1,6 @@
 <script>
 
+// Importo store
 import { store } from '../store';
 
 export default {
@@ -10,11 +11,13 @@ export default {
         }
     },
     methods: {
-        // Cambio colore cliccando il nome della tipologia
+        // Metodo per cambiare colore cliccando il nome della tipologia
         changeColorTypology(index) {
 
+            // Assegno true all'active dell'elemento corrente dell'array colors (presente nel file store.js)
             this.store.colors[index].active = true;
 
+            // Assegno false agli active di tutti gli altri elementi
             for (let i = 0; i < this.store.colors.length; i++) {
                 if (i !== index) {
                     this.store.colors[i].active = false;
@@ -27,11 +30,14 @@ export default {
         },
     },
     mounted() {
+        // All'avvio della pagina dovra' essere sempre il primo elemento quello corrente, lo faccio tramite questi codici
         for (let i = 0; i < this.store.colors.length; i++) {
+            // Se tutti gli elementi active sono false assegno true al primo elemento
             if (!this.store.colors[i].active)
                 this.store.colors[0].active = true;
         }
 
+        // Se l'elemento attivo e' il primo, assegno false a tutti gli altri
         if (this.store.colors[0].active) {
             for (let i = 0; i < this.store.colors.length; i++) {
                 if (i !== 0) {
@@ -39,9 +45,12 @@ export default {
                 }
             }
         }
+        // Altrimenti se non lo e' 
         else {
+            // Assegno true al primo elemento
             this.store.colors[0].active = true;
 
+            // E assegno false a tutti gli altri
             for (let i = 0; i < this.store.colors.length; i++) {
                 if (i !== 0) {
                     this.store.colors[i].active = false;
@@ -224,6 +233,8 @@ export default {
     }
 }
 
+
+// Inizio versioni mobile, tablet e intermedie
 @media only screen and (min-width: 480px) and (max-width: 700px) {
     .info-colors {
         padding-left: 30px;
@@ -297,4 +308,6 @@ export default {
         }
     }
 }
+
+// Fine versioni mobile, tablet e intermedie
 </style>

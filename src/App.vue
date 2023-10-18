@@ -7,6 +7,7 @@ import AppFooter from './components/AppFooter.vue';
 
 //import Loader from './components/Loader.vue';
 
+// Dichiaro variabile slider che conterra' l'elenco delle Verticali o delle Orizzontali a seconda della sezione
 let slider;
 
 export default {
@@ -19,64 +20,82 @@ export default {
   data() {
     return {
       store,
-      showBackToTop: false
+      showArrowUp: false
     }
   },
   watch: {
     $route(to, from) {
+      // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
       if (!window.location.href.includes("preventivo")) {
+        // Svuoto il contenuto di localStorage
         localStorage.clear();
       }
 
+      // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
       if (window.location.href.includes("verticali")) {
         slider = this.store.vertical;
       }
+      // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal 
       else if (window.location.href.includes("orizzontali")) {
         slider = this.store.horizontal;
       }
 
+      // Se hash e' presente
       if (to.hash && window.location.hash) {
+        // Scorro lo slider con ciclo for
         for (let i = 0; i < slider.length; i++) {
-          if (i !== parseInt(to.hash.replace(/[^0-9]+/g, ''), 10)) {
+          // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
+          let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
+          // Se l'i-esimo elemento e' diverso da hashNumber
+          if (i !== hashNumber) {
+            // Assegno a tutti gli active il valore false
             slider[i].active = false;
-            slider[parseInt(to.hash.replace(/[^0-9]+/g, ''), 10)].active = true;
+            // Assegno true all'active di hashNumber 
+            slider[hashNumber].active = true;
           }
         }
       }
 
+      // Se classSubmenu (presente nel file store.js) e' uguale a "expand"
       if (this.store.classSubmenu === "expand") {
+        // Assegno false a submenu (presente nel file store.js) 
         this.store.submenu = false;
+        // Assegno a classSubmenu "reduce"
         this.store.classSubmenu = "reduce";
       }
     }
   },
   updated() {
     //window.addEventListener('clearStorage', this.handleBackButton);
+    // Aggiungo evento per lo scroll 
     window.addEventListener('scroll', this.handleScroll);
   },
-
-  beforeDestroy() {
-    // window.removeEventListener('clearStorage', this.handleBackButton);
-  },
+  // beforeDestroy() {
+  //   window.removeEventListener('clearStorage', this.handleBackButton);
+  // },
   destroyed() {
+    // Rimuovo evento per lo scroll
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
+    // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
     handleScroll() {
       if (window.scrollY > 700) {
-        this.showBackToTop = true;
+        this.showArrowUp = true;
       }
       else {
-        this.showBackToTop = false;
+        this.showArrowUp = false;
       }
     },
+    // Metodo per
     closeMenu() {
-
+      // chiudere il sottomenu di "Zanzariere" quando si clicca in un qualsiasi punto della pagina
       if (this.store.classSubmenu === "expand") {
         this.store.submenu = false;
         this.store.classSubmenu = "reduce";
       }
 
+      // chiudere il sottomenu del menu hamburger quando si clicca in un qualsiasi punto della pagina
       if (this.store.classHamburger === "visible") {
         this.store.menuHamburger = false;
         this.store.classHamburger = "hidden";
@@ -88,6 +107,7 @@ export default {
     //     localStorage.clear();
     //   }
     // },
+    // Scrollo in alto quando clicco la freccia
     scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -99,7 +119,8 @@ export default {
 </script>
 
 <template>
-  <div :class="{ 'show': showBackToTop }" @click="scrollToTop" class="arrow-up" v-if="$route.name !== 'preventivo'">
+  <!-- Freccia per scrollare in alto con la pagina -->
+  <div :class="{ 'show': showArrowUp }" @click="scrollToTop" class="arrow-up" v-if="$route.name !== 'preventivo'">
     <i class="fa-solid fa-chevron-up"></i>
   </div>
 
@@ -121,25 +142,7 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-
-// .body-container {
-//   display: flex;
-// }
-
-// #home-body {
-//   width: 65%;
-
-// }
-
-// .hamburger {
-//   background-color: #000;
-//   width: 35%;
-
-//   a {
-//     color: #fff;
-//   }
-// }
-
+// Freccia per scrollare in alto
 .arrow-up {
   position: fixed;
   bottom: 80px;
@@ -219,7 +222,7 @@ section {
 // Sezioni Verticali/Orizzontali/Battente/Scorri/Fissa/Casper
 section {
 
-  // Inizio contenuto slider
+  // Inizio contenuto slider presente in Verticali e Orizzontali
   .slider-container {
     text-align: center;
     max-width: 900px;
@@ -371,6 +374,8 @@ section {
   }
 }
 
+
+// Inizio versioni mobile, tablet e intermedie
 @media only screen and (min-width: 1800px) and (max-width: 2000px) {
 
   section {
@@ -404,4 +409,6 @@ section {
     }
   }
 }
+
+// Fine versioni mobile, tablet e intermedie
 </style>

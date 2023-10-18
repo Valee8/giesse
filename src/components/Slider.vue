@@ -1,8 +1,12 @@
 <script>
+
+// Importo store
 import { store } from '../store';
 
+// Importo Colori
 import Colori from './Colori.vue';
 
+// Dichiaro variabile slider che conterra' l'elenco delle Verticali o delle Orizzontali a seconda della sezione
 let slider;
 
 export default {
@@ -14,6 +18,7 @@ export default {
         return {
             //isAnimating: false,
             store,
+            // Elemento attivo
             activeItem: "",
         }
     },
@@ -65,6 +70,7 @@ export default {
                 }
             }
 
+            // Azzero valore hash che appare quando clicco il bottone "Scopri di piu'" presente nella home
             if (window.location.hash) {
                 window.location.hash = "";
             }
@@ -98,6 +104,7 @@ export default {
                 }
             }
 
+            // Azzero valore hash che appare quando clicco il bottone "Scopri di piu'" presente nella home
             if (window.location.hash) {
                 window.location.hash = "";
             }
@@ -122,6 +129,7 @@ export default {
         // Stampa nome sezione nel titolo
         printNameSection() {
             let nameSection;
+            // Stampo Verticali o Orizzontali a seconda che ci sia 0 o 1 nell'url ("verticali/0" e "orizzontali/1")
             if (window.location.href.includes(0)) {
                 nameSection = this.store.typologies[0].name;
             }
@@ -131,14 +139,18 @@ export default {
 
             return nameSection;
         },
+        // Metodo per ottenere contenuto slider
         getSlider() {
+            // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
             if (window.location.href.includes("verticali")) {
                 slider = this.store.vertical;
             }
+            // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal
             else {
                 slider = this.store.horizontal;
             }
 
+            // Ritorno slider
             return slider;
         }
     },
@@ -195,6 +207,7 @@ export default {
                     <div class="name" v-if="slide.name">
                         {{ slide.name }}
                     </div>
+
                     <div class="name" v-else>
                         <div>Con guida telescopica:</div> {{ slide.firstName }}
 

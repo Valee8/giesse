@@ -1,5 +1,6 @@
 <script>
 
+// Importo store
 import { store } from '../store.js';
 
 export default {

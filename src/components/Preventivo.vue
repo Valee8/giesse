@@ -1,52 +1,87 @@
 <script>
 
-//import { toHandlers } from 'vue';
+// Imposto store
 import { store } from '../store.js';
 
+// Importo axios
 import axios from 'axios';
 
+// URL per la chiamata API
 const API_URL = 'http://localhost:8000/api/v1/';
 
 export default {
     name: 'Preventivo',
     data() {
         return {
+            // Per attivare i bottoni plus e minus e il bottone elimina (icona cestino) degli ordini dopo che il popup e' scomparso
+            enablePlusMinus: false,
+            // Per mostrare il popup se aggiungo una zanzariera
             showPopup: false,
+            // Per far apparire il messaggio se le e-mail coincidono o no
             showMessageEmailConfirm: "",
             fixRequiredProblem: false,
+            // Per verificare che ci siano le condizioni per passare dallo step 2 allo step 3
             secondStepValid: false,
             store,
+            // Step corrente del preventivo
             currentStep: 1,
+            // Abilito pulsante invia a seconda che enableButton sia true o false
             enableButton: false,
+            // Oggetto che contiene le informazioni di un cliente
             newClient: {
+                // Tipologia (Privato o Azienda)
                 typology: "",
+                // Nome
                 name: "",
+                // Cognome
                 surname: "",
+                // Nome Azienda
                 agency_name: "",
+                // Partita Iva
                 vat_number: "",
+                // Email
                 email: "",
+                // Conferma Email
                 confirm_email: "",
+                // Numero di telefono
                 telephone_number: "",
+                // Comune
                 city_of_residence: "",
             },
+            // Oggetto che contiene le informazioni della zanzariera
             newOrder: {
+                // Nome modello
                 model_name: "",
+                // Larghezza
                 width: "",
+                // Altezza
                 height: "",
+                // Quantita'
                 quantity: "",
+                // Tipo di rete
                 net: "",
+                // Nome colore
                 color_name: "",
+                // Immagine colore
                 color_image: "",
+                // Id del cliente
                 client_id: ""
             },
+            // Oggetto che contiene le informazioni dell'email
             newEmail: {
+                // Email destinatario
                 ownerEmail: "",
+                // Email inserita dal cliente quando compila il form
                 clientEmail: "",
                 //order_id: ""
             },
+            // Array contenente i dati del cliente
             clients: [],
+            // Array contenente i dati dell'ordine
             orders: [],
+            // Contiene messaggio inserito dall'utente nell'ordine
             message: "",
+            // Elenco zanzariere
             zanzs: [
                 {
                     name: "Verticali a molla classica",
@@ -198,6 +233,7 @@ export default {
                     ]
                 }
             ],
+            // Elenco tipologie reti
             nets: [
                 "Rete normale",
                 "Rete rigata",
@@ -207,6 +243,7 @@ export default {
         }
     },
     computed: {
+        // Stampo messaggio corrispondente a seconda che le email coincidano oppure no
         emailConfirmMessage() {
             let message;
             if (!this.showMessageEmailConfirm) {
@@ -217,21 +254,26 @@ export default {
             }
             return message;
         },
-        returnTypo() {
-            this.zanzs.forEach(element => {
-                return element.name.slice(0, this.zanzs.length);
-            });
-        },
+        // returnTypo() {
+        //     this.zanzs.forEach(element => {
+        //         return element.name.slice(0, this.zanzs.length);
+        //     });
+        // },
+
+        // Verifico che i campi del form non siano vuoti, se non lo sono ritorno true altrimenti false
         firstStepValid() {
-            if (this.newClient.email.trim() !== "" && this.newClient.email.trim() !== "" && this.newClient.confirm_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.email === this.newClient.confirm_email) {
+            // Se email, email di conferma, numero di telefono e comune non sono vuoti e se email e email di conferma coincidono allora assegno true a enableButton
+            if (this.newClient.email.trim() !== "" && this.newClient.confirm_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.email === this.newClient.confirm_email) {
                 this.enableButton = true;
             }
 
+            // Se la tipologia e' "Privato" i campi che non devono rimanere vuoti sono nome, cognome + quelli sopra 
             if (this.newClient.typology === "Privato") {
                 if (this.newClient.name.trim() !== "" && this.newClient.surname.trim() !== "" && this.enableButton) {
                     return true;
                 }
             }
+            // Se la tipologia e' "Azienda" i campi che non devono rimanere vuoti sono nome azienda, partita iva + quelli sopra
             else if (this.newClient.typology === "Azienda") {
                 if (this.newClient.agency_name.trim() !== "" && this.newClient.vat_number.trim() !== "" && this.enableButton) {
                     return true;
@@ -239,6 +281,7 @@ export default {
             }
             return false;
         },
+        // Stampo nome sezione
         printNameSection() {
             for (let i = 0; i < store.linksNav.length; i++) {
                 if (i === 0)
@@ -254,8 +297,16 @@ export default {
         // },
     },
     methods: {
+        // Metodo per far scomparire popup e attivare bottoni plus e minus e il bottone elimina (icona cestino) degli ordini
+        hiddenPopup() {
+            this.showPopup = false;
+
+            this.enablePlusMinus = true;
+        },
+        // Freccia avanti nel secondo step del Preventivo
         sliderNext(index) {
 
+            // Svuoto contenuto del select con il nome del modello se cambio slide
             this.newOrder.model_name = "";
 
             if (index < this.zanzs.length - 1) {
@@ -276,8 +327,10 @@ export default {
             }
 
         },
+        // Freccia indietro nel secondo step del Preventivo
         sliderPrev(index) {
 
+            // Svuoto contenuto del select con il nome del modello se cambio slide
             this.newOrder.model_name = "";
 
             if (index <= this.zanzs.length - 1 && index > 0) {
@@ -298,7 +351,9 @@ export default {
             }
 
         },
+        // getClient per ottenere i dati dei clienti
         getClient() {
+            // Se clientId e' presente eseguo la chiama API
             if (this.clientId) {
                 axios.get(API_URL + 'clients/' + this.clientId)
                     .then(res => {
@@ -320,7 +375,9 @@ export default {
                     });
             }
         },
+        // getClient per ottenere i dati degli ordini
         getOrder() {
+            // Se clientId e' presente eseguo la chiama API
             if (this.clientId) {
                 axios.get(API_URL + 'orders/' + this.clientId)
                     .then(res => {
@@ -342,16 +399,21 @@ export default {
                     });
             }
         },
+        // Metodo per aggiungere una zanzariera
         addZanz() {
 
+            // Se i campi dei valori di newOrder non sono vuoti
             if (this.newOrder.model_name !== "" && this.newOrder.width !== "" && this.newOrder.height !== "" && this.newOrder.quantity !== 0 && this.newOrder.net !== "" && this.newOrder.color_name !== "") {
 
                 this.fixRequiredProblem = false;
 
+                // Assegno true a secondStepValid
                 this.secondStepValid = true;
 
+                // Assegno l'id di client a clientId
                 this.newOrder.client_id = this.clientId;
 
+                // Chiamata API per creare un nuovo ordine
                 axios.post(API_URL + 'order/store', this.newOrder)
                     .then(res => {
                         const data = res.data;
@@ -360,6 +422,7 @@ export default {
 
                         //this.newOrder.client_id = this.ids;
 
+                        // Se tutto e' andato a buon fine richiamo this.getOrder e faccio apparire il popup 
                         if (success) {
                             this.getOrder();
                             this.showPopup = true;
@@ -368,6 +431,7 @@ export default {
                     })
                     .catch(error => console.log(error));
 
+                // Svuoto valori cosi' posso inserire nuove zanzariere
                 this.newOrder.quantity = "";
                 this.newOrder.width = "";
                 this.newOrder.height = "";
@@ -376,15 +440,19 @@ export default {
                 this.newOrder.net = "";
                 //this.message = "";
 
+                // Assegno true all'active del primo elemento dei colori
                 this.store.colors[0].active = true;
 
+                // Assegno false a tutti gli altri
                 for (let i = 0; i < this.store.colors.length; i++) {
                     if (i !== 0)
                         this.store.colors[i].active = false;
                 }
 
+                // Assegno true all'active del primo elemento dello slider delle zanzariere
                 this.zanzs[0].active = true;
 
+                //Assegno false a tutti gli altri
                 for (let i = 0; i < this.zanzs.length; i++) {
                     if (i !== 0) {
                         this.zanzs[i].active = false;
@@ -396,13 +464,19 @@ export default {
 
             }
         },
+        // Metodo per creare nuovo cliente
         clientSubmit() {
 
+            // Se firstStepValid e' true
             if (this.firstStepValid) {
 
+                // showMessageEmailConfirm e' uguale a true e mi appare messaggio di conferma
                 this.showMessageEmailConfirm = true;
 
+                // Funzione setTimeout per eseguire azioni dopo tot secondi (2 in questo caso)
                 setTimeout(() => {
+
+                    // Eseguo chiamata api
                     axios.post(API_URL + 'client/store', this.newClient)
                         .then(res => {
                             const data = res.data;
@@ -412,6 +486,7 @@ export default {
 
                             this.clientId = response.id;
 
+                            // Salvo clientId in localStorage cosi' non ci sono problemi se dovessi aggiornare la pagina
                             if (this.clientId) {
                                 localStorage.setItem("ClientId", this.clientId.toString());
                             }
@@ -422,6 +497,7 @@ export default {
 
                             //localStorage.setItem("ClientId", ids.toString());
 
+                            // Se tutto e' andato a buon fine richiamo richiamo getClient
                             if (success) {
                                 this.getClient();
                             }
@@ -432,10 +508,13 @@ export default {
 
                     //event.preventDefault();
 
+                    // Incremento il valore di currentStep
                     this.currentStep++;
 
+                    // Aggiorno valore currentStep in localStorage
                     localStorage.setItem("CurrentStep", this.currentStep.toString());
 
+                    // Scrollo in alto per evitare problemi di visualizzazione pagina
                     window.scrollTo({
                         top: 0,
                         behavior: "smooth"
@@ -444,10 +523,13 @@ export default {
 
                 //this.newClient.typology = "";
             }
+
+            // Se le email inserite dall'utente non coincidono non faccio proseguire e assegno false a showMessageEmailConfirm
             if (this.newClient.email !== this.newClient.confirm_email) {
                 this.showMessageEmailConfirm = false;
             }
         },
+        // Resetto valori dei campi del primo step se cambio tipologia
         resetCommonInputs() {
             if (this.newClient.typology) {
                 this.newClient.name = "";
@@ -460,10 +542,11 @@ export default {
                 this.newClient.city_of_residence = "";
             }
         },
+        // getColor mi permette di ottenere il nome e l'immagine del colore selezionati nello step 2
         getColor(index, colorIndex) {
-            for (let i = 0; i < store.colors.length; i++) {
-                this.newOrder.color_image = store.colors[index].colorInfo[colorIndex].image;
-                this.newOrder.color_name = store.colors[index].colorInfo[colorIndex].name;
+            for (let i = 0; i < this.store.colors.length; i++) {
+                this.newOrder.color_image = this.store.colors[index].colorInfo[colorIndex].image;
+                this.newOrder.color_name = this.store.colors[index].colorInfo[colorIndex].name;
             }
         },
         // Cambio colore cliccando il nome della tipologia
@@ -477,13 +560,16 @@ export default {
                 }
             }
         },
+        // Elimina ordine dalla lista che compare
         deleteModel(order) {
 
+            // Chiamata API per eliminare ordine
             axios.get(API_URL + 'delete/' + order.id)
                 .then(res => {
                     const data = res.data;
                     const success = data.success;
 
+                    // Richiamo getOrder
                     if (success) {
                         this.getOrder();
                     }
@@ -491,47 +577,59 @@ export default {
                 .catch(error => console.log(error));
 
         },
+        // Impedisco che questi campi possano contenere lettere e simboli
         filterCharacters() {
             this.newClient.telephone_number = this.newClient.telephone_number.replace(/\D/g, '');
             this.newClient.vat_number = this.newClient.vat_number.replace(/\D/g, '');
         },
+        // Impedisco che questi campi possano contenere dei numeri
         filterNumbers() {
             this.newClient.name = this.newClient.name.replace(/[0-9]/g, '');
             this.newClient.surname = this.newClient.surname.replace(/[0-9]/g, '');
             this.newClient.city_of_residence = this.newClient.city_of_residence.replace(/[0-9]/g, '');
         },
+        // Impedisco che questi campi possano contenere lettere
         filterSizes() {
             this.newOrder.width = this.newOrder.width.replace(/^[a-zA-Z]*$/g, '');
             this.newOrder.height = this.newOrder.height.replace(/^[a-zA-Z]*$/g, '');
         },
+        // PreventDefault per evitare che la pagina ricarichi con l'invio del form
         handleSubmit(event) {
             event.preventDefault();
         },
+        // Metodo per inviare informazioni tramite email (passo dallo step 3 allo step 4)
         complete() {
             //event.preventDefault();
 
+            // Assegno email destinatario
             this.newEmail.ownerEmail = "oirelav95@gmail.com";
+
+            // Assegno email cliente
             this.newEmail.clientEmail = this.newClient.email;
             //this.newEmail.order_id = this.clientId;
 
+            // Chiamata API per inviare email con le informazioni del preventivo
             axios.post(API_URL + 'email/' + this.clientId, this.newEmail)
                 .then(res => {
                     const data = res.data;
                     const success = data.success;
 
-                    if (success) {
-                        console.log("Tuttapposto");
-                    }
+                    // if (success) {
+                    //     console.log("Tuttapposto");
+                    // }
                 })
-                .catch(error => console.log(error)); // error.response.data
+                .catch(error => console.log(error.response.data)); // error.response.data
 
+            // Scrollo verso l'alto
             window.scrollTo({
                 top: 0,
                 behavior: "smooth"
             });
 
+            // Incremento currentStep
             this.currentStep++;
 
+            // Salvo valore di currentStep in localStorage
             localStorage.setItem("CurrentStep", this.currentStep.toString());
 
             // this.name = "";
@@ -541,20 +639,26 @@ export default {
             // this.telephone = "";
             // this.city_of_residence = "";
         },
+        // Metodo per passare dal secondo al terzo step
         nextStep() {
 
+            // Se currentStep e' uguale a 2 e se orders contiene elementi allora posso proseguire
             if (this.currentStep === 2 && this.orders.length !== 0) {
 
                 //event.preventDefault();
 
+                // Scrollo verso l'alto
                 window.scrollTo({
                     top: 0,
                     behavior: "smooth"
                 });
 
+                // Richiamo getClient
                 this.getClient();
 
+                // Se il messaggio e' presente
                 if (this.message) {
+                    // Chiamata api per modificare il messaggio (inizialmente vuoto)
                     axios.post(API_URL + 'message/update/' + this.clientId, {
                         message: this.message
                     })
@@ -562,6 +666,7 @@ export default {
                             const data = res.data;
                             const success = data.success;
 
+                            // Se success = true richiamo getClient, aggiorno dati cliente
                             if (success) {
                                 this.getClient();
                             }
@@ -582,34 +687,37 @@ export default {
                 //     })
                 //     .catch(error => console.log(error));
 
+                // Incremento currentStep
                 this.currentStep++;
 
+                // Aggiorno valore currentStep in localStorage
                 localStorage.setItem("CurrentStep", this.currentStep.toString());
             }
         },
-        prevStep() {
+        // prevStep() {
 
-            //event.preventDefault();
+        //     //event.preventDefault();
 
-            this.newClient.typology = "";
-            this.newClient.name = "";
-            this.newClient.surname = "";
-            this.newClient.agency_name = "";
-            this.newClient.vat_number = "";
-            this.newClient.email = "";
-            this.newClient.telephone_number = "";
-            this.newClient.city_of_residence = "";
+        //     this.newClient.typology = "";
+        //     this.newClient.name = "";
+        //     this.newClient.surname = "";
+        //     this.newClient.agency_name = "";
+        //     this.newClient.vat_number = "";
+        //     this.newClient.email = "";
+        //     this.newClient.telephone_number = "";
+        //     this.newClient.city_of_residence = "";
 
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+        //     window.scrollTo({
+        //         top: 0,
+        //         behavior: "smooth"
+        //     });
 
-            this.currentStep--;
+        //     this.currentStep--;
 
-            localStorage.setItem("CurrentStep", this.currentStep.toString());
+        //     localStorage.setItem("CurrentStep", this.currentStep.toString());
 
-        },
+        // },
+        // Metodo per aumentare quantita' ordini
         plus(order) {
 
             axios.post(API_URL + 'increment/' + order.id)
@@ -640,6 +748,7 @@ export default {
             //     })
             //     .catch(error => console.log(error));
         },
+        // Metodo per diminuire quantita' ordini
         minus(order) {
 
             axios.post(API_URL + 'decrement/' + order.id)
@@ -656,21 +765,27 @@ export default {
         }
     },
     created() {
+        // Salvo valore clientId in localStorage
         this.clientId = localStorage.getItem("ClientId");
     },
     mounted() {
 
+        // Richiamo getClient e getOrder
         this.getClient();
         this.getOrder();
 
+        // Assegno la tipologia "Privato" come tipologia di default appena si apre la pagina perche' altrimenti sarebbe uguale a stringa vuota
         if (this.newClient.typology === "") {
             this.newClient.typology = "Privato";
         }
 
+        // Controllo che non via currentStep in localStorage
         if (localStorage.getItem("CurrentStep") !== null) {
+            // Richiamo il suo valore da localStorage
             this.currentStep = parseInt(localStorage.getItem("CurrentStep"), 10);
         }
 
+        // Salvo valore currentStep in localStorage
         localStorage.setItem("CurrentStep", this.currentStep.toString());
 
         // if (localStorage.getItem("ClientId") !== null) {
@@ -679,6 +794,7 @@ export default {
 
         // localStorage.setItem("ClientId", this.clientId.toString());
 
+        // Ottengo valore tipologia
         this.typology = this.zanzs[0].name;
     }
 }
@@ -738,6 +854,7 @@ export default {
 
                         <!-- Parte sinistra step 1 con gl input -->
                         <div class="first-step-left">
+
                             <div v-if="newClient.typology === 'Privato' || newClient.typology === ''">
                                 <input type="text" v-model="newClient.name" placeholder="Nome *" @input="filterNumbers"
                                     title="Inserisci il nome" required>
@@ -745,6 +862,7 @@ export default {
                                 <input type="text" v-model="newClient.surname" placeholder="Cognome *"
                                     title="Inserisci il cognome" @input="filterNumbers" required>
                             </div>
+
                             <div v-else-if="newClient.typology === 'Azienda'">
                                 <input type="text" v-model="newClient.agency_name" placeholder="Nome Azienda *"
                                     title="Inserisci il nome dell'azienda" required>
@@ -752,27 +870,28 @@ export default {
                                 <input type="text" v-model="newClient.vat_number" placeholder="Partita Iva *" maxlength="11"
                                     title="Inserisci la Partita Iva" @input="filterCharacters" required>
                             </div>
-                            <div>
-                                <input type="email" v-model="newClient.email" placeholder="E-mail *"
-                                    title="Inserisci l'email" required>
-                                <br>
-                                <input type="email" v-model="newClient.confirm_email" placeholder="Conferma e-mail *"
-                                    title="Conferma l'email" required>
-                                <div v-if="showMessageEmailConfirm !== ''"
-                                    :class="showMessageEmailConfirm ? 'error-green' : 'error-red'">
-                                    {{ emailConfirmMessage }}
-                                </div>
-                                <br>
-                                <input type="text" v-model="newClient.telephone_number" placeholder="Telefono *"
-                                    maxlength="10" @input="filterCharacters" title="Inserisci il numero di telefono"
-                                    required>
-                                <br>
-                                <input type="text" v-model="newClient.city_of_residence" placeholder="Comune *"
-                                    title="Inserisci il comune" @input="filterNumbers" required>
 
-                                <div class="obligatory">
-                                    i campi contrassegnati con &ast; sono obbligatori
-                                </div>
+                            <input type="email" v-model="newClient.email" placeholder="E-mail *" title="Inserisci l'email"
+                                required>
+                            <br>
+                            <input type="email" v-model="newClient.confirm_email" placeholder="Conferma e-mail *"
+                                title="Conferma l'email" required>
+
+                            <!-- Messaggio che fa capire se le email coincidono oppure no -->
+                            <div v-if="showMessageEmailConfirm !== ''"
+                                :class="showMessageEmailConfirm ? 'message-green' : 'message-red'">
+                                {{ emailConfirmMessage }}
+                            </div>
+
+                            <br>
+                            <input type="text" v-model="newClient.telephone_number" placeholder="Telefono *" maxlength="10"
+                                @input="filterCharacters" title="Inserisci il numero di telefono" required>
+                            <br>
+                            <input type="text" v-model="newClient.city_of_residence" placeholder="Comune *"
+                                title="Inserisci il comune" @input="filterNumbers" required>
+
+                            <div class="obligatory">
+                                i campi contrassegnati con &ast; sono obbligatori
                             </div>
                         </div>
 
@@ -801,8 +920,6 @@ export default {
                         </div>
                     </div>
 
-
-                    <!-- @submit="handleSubmit" -->
                     <!-- Inizio step 2 -->
                     <div v-else-if="currentStep === 2" class="second-step">
 
@@ -815,10 +932,12 @@ export default {
                             <div class="slider-preventivo" v-for="(zanz, index) in zanzs" :key="index"
                                 :class="{ 'active': zanz.active }">
 
+                                <!-- Titolo con modello zanzariera -->
                                 <h3>
                                     {{ zanz.typo }}
                                 </h3>
 
+                                <!-- Immagini zanzariere -->
                                 <div class="arrows-image">
                                     <div class="zanz-image">
                                         <img :src="zanz.image" :alt="zanz.name">
@@ -835,6 +954,7 @@ export default {
                                     </a>
                                 </div>
 
+                                <!-- Nome zanzariera -->
                                 <h3>
                                     {{ zanz.name }}
                                 </h3>
@@ -923,12 +1043,13 @@ export default {
                             </button>
                         </div>
 
+                        <!-- Titolo -->
                         <h2 v-if="orders.length !== 0">
                             Il tuo elenco
                         </h2>
 
+                        <!-- Blocco popup -->
                         <div class="div-popup">
-
                             <!-- Elenco zanzariere preventivo -->
                             <ul v-if="orders.length !== 0" class="list-ul">
                                 <li v-for=" order  in  orders " :key="order.id" class="list-order">
@@ -948,10 +1069,10 @@ export default {
                                             </span>
                                         </div>
                                         <div class="minus-plus">
-                                            <button @click="plus(order)" :disabled="showPopup">
+                                            <button @click="plus(order)" :disabled="!enablePlusMinus">
                                                 <i class="fa-solid fa-angle-up"></i>
                                             </button>
-                                            <button @click="minus(order)" :disabled="showPopup">
+                                            <button @click="minus(order)" :disabled="!enablePlusMinus">
                                                 <i class="fa-solid fa-angle-down"></i>
                                             </button>
                                         </div>
@@ -961,19 +1082,22 @@ export default {
                                         {{ order.width }} cm x {{ order.height }} cm
                                     </span>
 
-                                    <button @click="deleteModel(order)" class="delete" :disabled="showPopup">
+                                    <button @click="deleteModel(order)" class="delete" :disabled="!enablePlusMinus">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </li>
                             </ul>
 
-                            <div id="popup" v-if="showPopup">
-                                Zanzariera aggiunta con successo!
-                                <br>
+                            <!-- Popup messaggio -->
+                            <div id="popup" v-if="showPopup && !enablePlusMinus">
+                                <p>
+                                <div>Zanzariera aggiunta con successo!</div>
                                 Puoi aggiungere altre zanzariere ricompilando i campi o
                                 proseguire con il bottone "Conferma le zanzariere"
+                                </p>
 
-                                <div @click="showPopup = false" class="ok-popup">
+                                <!-- Tasto OK -->
+                                <div @click="hiddenPopup" class="ok-popup">
                                     OK
                                 </div>
                             </div>
@@ -995,10 +1119,12 @@ export default {
 
                     <!-- Inizio terzo step -->
                     <div v-else-if="currentStep === 3" class="third-step">
+                        <!-- Titolo -->
                         <h2>
                             Ecco a te il riepilogo
                         </h2>
 
+                        <!-- Riepilogo info cliente -->
                         <ul v-for=" client  in  clients " :key="client.id" class="summary info">
                             <li>
                                 {{ client.typology }}
@@ -1031,6 +1157,7 @@ export default {
                             </li>
                         </ul>
 
+                        <!-- Riepilogo info ordine -->
                         <ul v-for=" order  in  orders " :key="order.id" class="summary">
                             <li>
                                 Modello zanzariera: {{ order.model_name.charAt(0).toUpperCase() +
@@ -1048,19 +1175,26 @@ export default {
                             </li>
                         </ul>
 
+                        <!-- Messaggio -->
                         <ul>
                             <li v-for=" mess  in  clients " :key="mess.id" class="summary">
-                                <span v-if="mess.message">Messaggio: {{ mess.message
-                                }}</span>
-                                <span v-else>Messaggio: Non hai scritto nessun messaggio</span>
+                                <span v-if="mess.message">
+                                    Messaggio: {{ mess.message }}
+                                </span>
+
+                                <span v-else>
+                                    Messaggio: Non hai scritto nessun messaggio
+                                </span>
                             </li>
                         </ul>
 
+                        <!-- Bottone per proseguire con lo step successivo -->
                         <div class="form-button">
                             <input type="submit" @click="complete" class="button" id="buttons" value="Completa">
                         </div>
                     </div>
 
+                    <!-- Quarto e ultimo step -->
                     <div v-else class="fourth-step">
                         <h1>
                             <div class="first">
@@ -1085,51 +1219,6 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
-
-.div-popup {
-    position: relative;
-}
-
-#popup {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    background-color: #fff;
-    width: 400px;
-    padding: 0 40px;
-    height: 200px;
-    position: absolute;
-    left: 50%;
-    z-index: 50;
-    color: #000;
-    border-radius: 5px;
-    box-shadow: 0 3px 2px rgba(0, 0, 0, .5);
-    animation: fade-in-down 2s ease;
-    transform: translate(-50%, 0);
-    top: 10%;
-
-    .ok-popup {
-        background-color: #686868;
-        color: #fff;
-        cursor: pointer;
-        padding: 5px;
-        border-radius: 5px;
-    }
-}
-
-@keyframes fade-in-down {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -20px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translate(-50%, 0);
-    }
-}
-
 
 section {
     background-color: #686868;
@@ -1277,6 +1366,56 @@ section {
     text-align: center;
     padding: 60px 40px 40px 40px;
     position: relative;
+
+    .div-popup {
+        position: relative;
+    }
+
+    #popup {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        background-color: #fff;
+        width: 400px;
+        padding: 0 40px;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        z-index: 50;
+        color: #000;
+        border-radius: 5px;
+        box-shadow: 0 3px 2px rgba(0, 0, 0, .5);
+        animation: fade-in-down 2s ease;
+        transform: translate(-50%, 0);
+        top: 10%;
+
+        p {
+            div {
+                font-weight: bold;
+            }
+        }
+
+        .ok-popup {
+            background-color: #686868;
+            color: #fff;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    }
+
+    @keyframes fade-in-down {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+    }
 
     hr {
         margin: 60px auto;
@@ -1626,11 +1765,11 @@ section {
             color: #000;
         }
 
-        .error-green {
+        .message-green {
             color: green;
         }
 
-        .error-red {
+        .message-red {
             color: red;
         }
 

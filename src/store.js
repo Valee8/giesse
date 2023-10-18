@@ -1,12 +1,16 @@
 import { reactive } from 'vue';
 
 export const store = reactive({
-    // Tipologie zanzariere
     //isLoading: true,
+    // menuHamburger per mostrare e nascondere il sottomenu del menu hamburger
     menuHamburger: false,
+    // classHamburger mi serve per aggiungere le classi css per gli effetti del sottomenu
     classHamburger: "",
+    // submenu per mostrare e nascondere il sottomenu della scritta "Zanzariere"
     submenu: false,
+    // classSubmenu mi serve per aggiungere le classi css per gli effetti del sottomenu di "Zanzariere"
     classSubmenu: "",
+    // Lista modelli zanzariere
     listModels: [
         {
             name: "Verticale a molla classica",
@@ -65,6 +69,7 @@ export const store = reactive({
             name: "Casper",
         },
     ],
+    // Lista links per ogni nav (Menu bello e menu hamburger)
     linksNav: [
         {
             text: "Richiedi Preventivo",
@@ -118,6 +123,7 @@ export const store = reactive({
             active: false
         }
     ],
+    // Array di oggetti 'horizontal' - contiene informazioni zanzariere
     horizontal: [
         {
             model: "LATERALE A MOLLA CLASSICA",
@@ -195,6 +201,7 @@ export const store = reactive({
     //         description: "Il modello CASPER è una zanzariera da incasso per falegnami. Viene prodotto con il cassonetto da 45 o 55mm e con una guida da 50x35. Questo modello può essere realizzato in tutte le versioni:"
     //     }
     // ],
+    // Elenco tipologie presenti nella Home 
     typologies: [
         {
             name: "Verticali",
@@ -221,7 +228,7 @@ export const store = reactive({
             image: "/img/casper.jpg"
         },
     ],
-    // Colori zanzariere
+    // Colori zanzariere presenti sia nel Preventivo sia nelle sezioni delle zanzariere
     colors: [
         {
             typology: "Standard",

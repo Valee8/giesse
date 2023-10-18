@@ -1,5 +1,5 @@
 <script>
-
+// LOADER FORSE DA ELIMINARE
 import { store } from '../store.js';
 
 export default {

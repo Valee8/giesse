@@ -1,7 +1,9 @@
 <script>
 
+// Importo store
 import { store } from '../store';
 
+// Importo Colori
 import Colori from './Colori.vue';
 
 export default {
@@ -15,6 +17,7 @@ export default {
         }
     },
     computed: {
+        // Metodo per stampare il nome della sezione (elemento 2 dell'array typologies presente nel file store.js)
         printNameSection() {
             return this.store.typologies[2].name;
         },

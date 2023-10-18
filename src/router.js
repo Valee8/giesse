@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+// Importo componenti
 import App from './App.vue';
 import Verticali from './components/Verticali.vue';
 import Orizzontali from './components/Orizzontali.vue';
@@ -76,7 +77,7 @@ const router = createRouter({
         },
     ],
     scrollBehavior(to, from, savedPosition) {
-        // always scroll to top
+        // Per scrollare in alto
         return { top: 0 }
     },
 });

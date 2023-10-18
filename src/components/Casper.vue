@@ -1,7 +1,9 @@
 <script>
 
+// Importo store
 import { store } from '../store';
 
+// Importo Colori
 import Colori from './Colori.vue';
 
 export default {
@@ -15,6 +17,7 @@ export default {
         }
     },
     computed: {
+        // Metodo per stampare il nome della sezione (elemento 5 dell'array typologies presente nel file store.js)
         printNameSection() {
             return this.store.typologies[5].name;
         },
@@ -65,6 +68,7 @@ export default {
                         versioni:
                     </p>
 
+                    <!-- Lista vari tipi di casper -->
                     <ul class="casper-list">
                         <li>VERTICALE A MOLLA CLASSICA (CASPER A MOLLA)</li>
                         <li>VERTICALE A MOLLA CON SISTEMA A CRICCHETTO (CASPER A CRICCHETTO)</li>

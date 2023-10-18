@@ -1,17 +1,20 @@
 <script>
 
+// Importo store
 import { store } from '../store.js';
 
+// Importo Informazioni
 import Informazioni from './Informazioni.vue';
 
 export default {
+    name: 'Contatti',
     components: {
         Informazioni
     },
-    name: 'Contatti',
     data() {
         return {
             store,
+            // Array contenente le faq
             faqs: [
                 {
                     question: "Dove ci troviamo?",
@@ -136,6 +139,7 @@ export default {
             </div>
         </div>
 
+        <!-- Blocco Informazioni con messaggio da inviare -->
         <Informazioni />
     </section>
 </template>
@@ -249,7 +253,7 @@ section {
     }
 }
 
-
+// Inizio versioni mobile, tablet e intermedie
 @media only screen and (min-width: 955px) and (max-width: 1000px) {
 
     section {
@@ -406,4 +410,6 @@ section {
         }
     }
 }
+
+// Fine versioni mobile, tablet e intermedie
 </style>
