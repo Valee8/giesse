@@ -1,4 +1,5 @@
 <script>
+// Importo componenti in AppMain
 import DescrizioneDitta from './DescrizioneDitta.vue';
 import Tipologie from './Tipologie.vue';
 import Verticali from './Verticali.vue';

@@ -1,7 +1,9 @@
 <script>
 
+// Importo AppNavbar
 import AppNavbar from './AppNavbar.vue';
 
+// Variabile per la funzione setInterval, dichiarata qui perche' se lo facessi all'interno del metodo changeSlide non potrei fare clearInterval(interval) su blockSlide (riga 90)
 let interval;
 
 export default {
@@ -11,9 +13,12 @@ export default {
     },
     data() {
         return {
+            // Index corrente dello slider
             currentSlideIndex: 0,
+            // isMouseOver inizialmente a false, con cui controllo se il puntatore e' sopra lo slider
             isMouseOver: false,
-            slider_content: [
+            // Contenuto slider
+            sliderContent: [
                 {
                     name_zanz: "Jolly, la Laterale Frizionata",
                     name: "orizzontali",
@@ -46,37 +51,48 @@ export default {
         }
     },
     methods: {
+        // Metodo per far scorrere lo slider
         changeSlide() {
 
+            // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
             this.isMouseOver = false;
 
+            // Inizio funzione setInterval
             interval = setInterval(() => {
 
+                // Se isMouseOver e' false lo slider parte
                 if (!this.isMouseOver) {
-                    if (this.currentSlideIndex < this.slider_content.length - 1) {
+                    // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
+                    if (this.currentSlideIndex < this.sliderContent.length - 1) {
                         this.currentSlideIndex++;
                     }
 
+                    // Altrimenti sono arrivato all'ultimo elemento dello slider e ricomincio da capo con index = 0
                     else {
                         this.currentSlideIndex = 0;
                     }
 
-                    this.slider_content[this.currentSlideIndex].active = true;
+                    // Assegno true all'active dello slider corrente
+                    this.sliderContent[this.currentSlideIndex].active = true;
 
-                    for (let i = 0; i < this.slider_content.length; i++) {
+                    // Scorro l'array sliderContent con for e assegno false a tutti gli altri active che non sono correnti
+                    for (let i = 0; i < this.sliderContent.length; i++) {
                         if (i !== this.currentSlideIndex) {
-                            this.slider_content[i].active = false;
+                            this.sliderContent[i].active = false;
                         }
                     }
 
                 }
 
-            }, 4000);
+            }, 4000); // Lo slider scorre ogni 4 secondi
         },
+        // Metodo per bloccare lo slider se ci vado sopra con il puntatore
         blockSlide() {
 
+            // Assegno true a isMouseOver per bloccare lo slider
             this.isMouseOver = true;
 
+            // Se isMouseOver e' true allora interrompo l'esecuzione del timer con clearInterval
             if (this.isMouseOver) {
                 clearInterval(interval);
             }
@@ -95,6 +111,7 @@ export default {
         // },
     },
     mounted() {
+        // Richiamo il metodo changeSlide su mounted
         this.changeSlide();
     },
 }
@@ -120,12 +137,15 @@ export default {
                     </p>
                 </div>
 
+                <!-- Inizio contenuto slider -->
                 <div class="container-slide">
-                    <div class="slider-header" v-for="(slide, index) in slider_content" :key="index"
+                    <div class="slider-header" v-for="(slide, index) in sliderContent" :key="index"
                         :class="{ 'active': index === currentSlideIndex }" @mouseout="changeSlide(index)"
                         @mouseover="blockSlide">
                         <!-- Testo -->
-                        <div class="name-zanz">{{ slide.name_zanz }}</div>
+                        <div class="name-zanz">
+                            {{ slide.name_zanz }}
+                        </div>
 
                         <!-- Bottone scopri di piu' -->
                         <router-link :to="{ name: slide.name, params: { id: slide.id }, hash: slide.hash }"
@@ -139,9 +159,10 @@ export default {
         </div>
     </header>
 
+    <!-- Rettangoli al centro sotto lo sfondo dell'header -->
     <div class="container" v-if="$route.name === 'home'">
         <div class="list-rectangles">
-            <div class="rectangles" v-for="(rectangles, index) in slider_content" :key="index"
+            <div class="rectangles" v-for="(rectangles, index) in sliderContent" :key="index"
                 :class="{ 'active': rectangles.active }">
             </div>
         </div>
@@ -179,6 +200,7 @@ export default {
     }
 }
 
+// Slider
 .container-slide {
     position: relative;
     height: 90px;

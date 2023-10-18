@@ -1,5 +1,6 @@
 <script>
 
+// Importo store.js
 import { store } from '../store.js';
 
 export default {
@@ -10,9 +11,11 @@ export default {
         }
     },
     computed: {
+        // Estraggo le Verticali dalla posizione 0 (incluso) alla posizione 4 (escluso) dell'array listModels presente nel file store.js
         filteredVertical() {
             return this.store.listModels.slice(0, 4);
         },
+        // Estraggo le Orizzontali dalla posizione 4 (incluso) alla posizione 10 (escluso) dell'array listModels presente nel file store.js
         filteredHorizontal() {
             return this.store.listModels.slice(4, 10);
         }
@@ -78,10 +81,12 @@ export default {
                     <div class="border"></div>
 
                     <ul>
+                        <!-- Stampo zanzariere verticali -->
                         <li v-for="(model, index) in filteredVertical" :key="index">
                             {{ model.name }}
                         </li>
 
+                        <!-- Stampo zanzariere orizzontali -->
                         <li v-for="(model, index) in filteredHorizontal" :key="index">
                             {{ model.name }}
                         </li>
@@ -95,6 +100,7 @@ export default {
                     <!-- Bordo sotto il titolo -->
                     <div class="border"></div>
 
+                    <!-- Elenco altre zanzariere -->
                     <ul>
                         <li>
                             Porta a battente
@@ -252,7 +258,6 @@ footer {
         }
     }
 }
-
 
 
 @media only screen and (min-width: 610px) and (max-width: 850px) {

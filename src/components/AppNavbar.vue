@@ -1,5 +1,6 @@
 <script>
 
+// Importo store
 import { store } from '../store.js';
 
 export default {
@@ -7,73 +8,111 @@ export default {
     data() {
         return {
             store,
+            // Nome classe css che assegno all'elemento corrente del menu'
             activeSection: "",
         }
     },
+    // updated: viene chiamato dopo che la componente viene aggiornata
     updated() {
-
-        if (window.location.href.includes('preventivo')) {
+        // Se l'url include "preventivo"
+        if (window.location.href.includes("preventivo")) {
+            // Assegno true all'active del primo elemento dell'array linksNav presente nel file store.js
             this.store.linksNav[0].active = true;
+            // Assegno "active top" come classe css del primo elemento
             this.activeSection = "active top";
 
+            // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
             for (let i = 0; i < this.store.linksNav.length; i++) {
                 if (i !== 0) {
                     this.store.linksNav[i].active = false;
                 }
             }
         }
-        else if (window.location.href.includes('sede')) {
+        // Se l'url include "sede"
+        else if (window.location.href.includes("sede")) {
+            // Assegno true all'active del secondo elemento dell'array linksNav presente nel file store.js
             this.store.linksNav[1].active = true;
+            // Assegno "active center" come classe css del secondo elemento
             this.activeSection = "active center";
 
+            // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
             for (let i = 0; i < this.store.linksNav.length; i++) {
                 if (i !== 1) {
                     this.store.linksNav[i].active = false;
                 }
             }
         }
-        else if (window.location.href.includes('contatti')) {
+        // Se l'url include "contatti"
+        else if (window.location.href.includes("contatti")) {
+            // Assegno true all'active del terzo elemento dell'array linksNav presente nel file store.js
             this.store.linksNav[2].active = true;
+            // Assegno "active bottom" come classe css del secondo elemento
             this.activeSection = "active bottom";
+
+            // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
             for (let i = 0; i < this.store.linksNav.length; i++) {
                 if (i !== 2) {
                     this.store.linksNav[i].active = false;
                 }
             }
         }
+        // Se l'url non contiene preventivo, sede o contatti
         else {
+            // Non assegno nessuna classe css e activeSection e' azzerato
             this.activeSection = "";
+
+            // Scorro l'array linksNav e assegno false a tutti gli active
             for (let i = 0; i < this.store.linksNav.length; i++) {
                 this.store.linksNav[i].active = false;
             }
         }
     },
     methods: {
+        // Metodo showSubmenu per mostrare il sottomenu quando viene cliccata la scritta "Zanzariere" nel nav
         showSubmenu() {
+            // Se submenu (presente nel file store.js) e' false
             if (!this.store.submenu) {
+                // Assegno true a submenu
                 this.store.submenu = true;
+
+                // Assegno la classe css "expand" a classSubmenu (presente nel file store.js)
                 this.store.classSubmenu = "expand";
             }
+            // Se submenu (presente nel file store.js) e' true
             else {
+                // Assegno false a submenu
                 this.store.submenu = false;
+
+                // Assegno la classe css "reduce" a classSubmenu 
                 this.store.classSubmenu = "reduce";
             }
         },
+        // Metodo showHamburger per mostrare il sottomenu delle versioni mobile/tablet che sostituisce il menu' figo, menu' bello della versione desktop
         showHamburger() {
+            // Se menuHamburger (presente nel file store.js) e' false
             if (!this.store.menuHamburger) {
+                // Assegno true a menuHamburger
                 this.store.menuHamburger = true;
+
+                // Assegno la classe css "visible" a classHamburger (presente nel file store.js)
                 this.store.classHamburger = "visible";
             }
+            // Se menuHamburger e' true
             else {
+                // Assegno false a menuHamburger
                 this.store.menuHamburger = false;
+
+                // Assegno la classe css "hidden" a classHamburger
                 this.store.classHamburger = "hidden";
             }
         }
     },
     computed: {
+        // Estraggo le Verticali dalla posizione 0 (incluso) alla posizione 4 (escluso) dell'array listModels presente nel file store.js
         filteredVertical() {
             return this.store.listModels.slice(0, 4);
         },
+        // Estraggo le Orizzontali dalla posizione 4 (incluso) alla posizione 10 (escluso) dell'array listModels presente nel file store.js
         filteredHorizontal() {
             return this.store.listModels.slice(4, 10);
         }
@@ -88,15 +127,18 @@ export default {
         <div class="bg">
             <div class="container">
                 <ul class="ul-container">
+                    <!-- Logo sulla sinistra -->
                     <li>
                         <router-link to="/" class="logo">
                             <img src="/img/logo-giesse.png" alt="Logo Giesse">
                         </router-link>
                     </li>
 
+                    <!-- Scritta Zanzariere -->
                     <li>
                         <span @click.stop="showSubmenu">
                             Zanzariere
+                            <!-- Icone frecce -->
                             <span v-if="!store.submenu">
                                 <i class="fa-solid fa-chevron-down"></i>
                             </span>
@@ -106,6 +148,7 @@ export default {
                         </span>
                     </li>
 
+                    <!-- Scritta "richiede preventivo" sulla destra -->
                     <li class="preventivo">
                         <router-link to="/preventivo">
                             Richiedi Preventivo
@@ -117,44 +160,61 @@ export default {
                             <i :class="link.icon"></i>
                         </router-link>
                     </li> -->
+
+                    <!-- Icona hamburger per le versioni mobile/tablet -->
                     <li class="icon-hamburger" @click.stop="showHamburger">
                         <i class="fa-solid fa-bars"></i>
                     </li>
                 </ul>
             </div>
 
+            <!-- Sottomenu che appare se cliccata la scritta "Zanzariere" -->
             <div class="submenu" :class="store.classSubmenu">
                 <div class="container" :class="{ 'pl-not-home': $route.name !== 'home' }">
+                    <!-- Prima lista -->
                     <ul>
                         <li>
+                            <!-- Titolo -->
                             <h5>
                                 Verticali
                             </h5>
                         </li>
+
+                        <!-- Elenco zanzariere verticali -->
                         <li v-for="(model, index) in filteredVertical" :key="index">
                             <router-link :to="{ name: 'verticali', params: { id: 0 }, hash: model.hash + '-' + index }">
                                 {{ model.name }}
                             </router-link>
                         </li>
                     </ul>
+
+                    <!-- Seconda lista -->
                     <ul>
                         <li>
+                            <!-- Titolo -->
                             <h5>
                                 Orizzontali
                             </h5>
                         </li>
+
+                        <!-- Elenco zanzariere Orizzontali -->
                         <li v-for="(model, index) in filteredHorizontal" :key="index">
                             <router-link :to="{ name: 'orizzontali', params: { id: 1 }, hash: model.hash + '-' + index }">
                                 {{ model.name }}
                             </router-link>
                         </li>
                     </ul>
+
+                    <!-- Terza lista -->
                     <ul>
                         <li>
+                            <!-- Titolo -->
                             <h5>
                                 Altre
                             </h5>
                         </li>
+
+                        <!-- Elenco Altre zanzariere -->
                         <li>
                             <router-link :to="{ name: 'porta-a-battente', params: { id: 2 } }">
                                 Porta a battente
@@ -180,12 +240,20 @@ export default {
             </div>
         </div>
 
+        <!-- Sottomenu hamburger che appare dopo aver cliccato l'icona hamburger nelle versioni mobile/tablet -->
         <ul class="hamburger" :class="store.classHamburger">
             <li v-for="(link, index) in store.linksNav" :key="index">
                 <div class="icons">
                     <router-link :to="{ name: link.href }">
-                        <span class="icon"><i :class="link.icon"></i> </span>
-                        <span class="text">{{ link.text }}</span>
+                        <!-- Icona -->
+                        <span class="icon">
+                            <i :class="link.icon"></i>
+                        </span>
+
+                        <!-- Scritta -->
+                        <span class="text">
+                            {{ link.text }}
+                        </span>
                     </router-link>
                 </div>
             </li>
@@ -199,7 +267,7 @@ export default {
         </div>
     </div> -->
 
-    <!-- Vecchio menu -->
+    <!-- VECCHIO MENU -->
     <nav :class="{ 'nav-home': $route.name === 'home', 'nav-section': $route.name !== 'home' }" id="oldMenu">
         <div class="container">
             <!-- Logo -->
@@ -217,24 +285,33 @@ export default {
             </ul>
         </div>
     </nav>
-    <!-- Vecchio menu -->
+    <!-- VECCHIO MENU -->
 
 
-    <!-- Menu attuale -->
+    <!-- MENU ATTUALE, MENU BELLO, MENU FIGO -->
     <nav id="newMenu">
         <div class="menu-container">
+            <!-- Parte sinistra contenente il cerchio che si sposta verticalmente -->
             <div id="circle-menu" :class="activeSection">
                 <div class="circle-menu-div">
                     <div class="circle"></div>
                 </div>
             </div>
+
+            <!-- Parte destra con scritte e icone -->
             <div class="icons-menu">
                 <ul>
                     <li v-for="(link, index) in store.linksNav" :key="index" :class="link.active ? 'active' : ''">
                         <div class="icons">
                             <router-link :to="{ name: link.href }">
-                                <span class="text">{{ link.text }}</span>
-                                <span class="icon"><i :class="link.icon"></i>
+                                <!-- Scritta -->
+                                <span class="text">
+                                    {{ link.text }}
+                                </span>
+
+                                <!-- Icona -->
+                                <span class="icon">
+                                    <i :class="link.icon"></i>
                                 </span>
                             </router-link>
                         </div>
@@ -243,17 +320,13 @@ export default {
             </div>
         </div>
     </nav>
-    <!-- Menu attuale -->
+    <!-- MENU ATTUALE, MENU BELLO, MENU FIGO -->
 </template>
 
 <style lang="scss" scoped>
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
-
-.hamburger {
-    display: none;
-}
 
 // Menu in alto nero
 #blackMenu {
@@ -460,6 +533,10 @@ export default {
             }
         }
     }
+
+    .hamburger {
+        display: none;
+    }
 }
 
 // Header scompare nelle altre sezioni, appare solo in homepage
@@ -501,14 +578,10 @@ export default {
                 transition: all 500ms ease-in-out;
             }
 
-            &:first-child {
+            &.top {
                 //margin-top: 15px;
                 transform: translateY(14px);
             }
-
-            // &.top {
-            //     margin-top: 15px;
-            // }
 
             &.center {
                 //margin-top: 87px;
@@ -682,7 +755,6 @@ nav {
     }
 }
 
-// VECCHIO MENU
 // Navbar della home - sfondo nero - vecchio menu
 .nav-home {
     padding-top: 45px;
@@ -700,7 +772,6 @@ nav {
     }
 }
 
-// VECCHIO MENU
 // Navbar bianca sezioni - vecchio menu
 .nav-section {
     background-color: #fff;
@@ -721,6 +792,8 @@ nav {
         height: 32px;
     }
 }
+
+// VECCHIO MENU
 
 
 // Inizio versioni mobile, tablet e intermedie

@@ -319,7 +319,7 @@ section {
       }
 
       .casper-list {
-        padding-top: 10px;
+        //padding-top: 10px;
         text-align: left;
         padding-bottom: 84px;
       }
@@ -329,7 +329,14 @@ section {
         //margin: 0 auto;
         //max-width: 900px;
         font-size: 1.05rem;
-        padding: 50px 0 90px 0;
+
+        &:not(.casper) {
+          padding: 50px 0 90px 0;
+        }
+
+        &.casper {
+          padding: 30px 0;
+        }
 
         // &.casper {
         //   padding-top: 84px;
