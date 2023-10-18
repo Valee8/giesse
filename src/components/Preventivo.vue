@@ -524,8 +524,8 @@ export default {
                 //this.newClient.typology = "";
             }
 
-            // Se le email inserite dall'utente non coincidono non faccio proseguire e assegno false a showMessageEmailConfirm
-            if (this.newClient.email !== this.newClient.confirm_email) {
+            // Se le email inserite dall'utente non coincidono assegno false a showMessageEmailConfirm
+            if (this.newClient.email !== this.newClient.confirm_email && this.newClient.email.trim() !== "" && this.newClient.confirm_email.trim() !== "") {
                 this.showMessageEmailConfirm = false;
             }
         },
@@ -1069,10 +1069,10 @@ export default {
                                             </span>
                                         </div>
                                         <div class="minus-plus">
-                                            <button @click="plus(order)" :disabled="!enablePlusMinus">
+                                            <button @click="plus(order)" :disabled="showPopup && !enablePlusMinus">
                                                 <i class="fa-solid fa-angle-up"></i>
                                             </button>
-                                            <button @click="minus(order)" :disabled="!enablePlusMinus">
+                                            <button @click="minus(order)" :disabled="showPopup && !enablePlusMinus">
                                                 <i class="fa-solid fa-angle-down"></i>
                                             </button>
                                         </div>
@@ -1082,7 +1082,8 @@ export default {
                                         {{ order.width }} cm x {{ order.height }} cm
                                     </span>
 
-                                    <button @click="deleteModel(order)" class="delete" :disabled="!enablePlusMinus">
+                                    <button @click="deleteModel(order)" class="delete"
+                                        :disabled="showPopup && !enablePlusMinus && orders.length === 1">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </li>
