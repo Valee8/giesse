@@ -359,9 +359,9 @@ export default {
             height: 32px;
             transition: all 1s ease;
 
-            &:hover {
-                transform: scale(1.2);
-            }
+            // &:hover {
+            //     transform: scale(1.2);
+            // }
         }
     }
 
