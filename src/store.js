@@ -254,7 +254,7 @@ export const store = reactive({
                 },
                 {
                     name: "Nero 9005",
-                    image: "/img/colori/nero-9005.jpg"
+                    image: "/img/colori/nero-9005.png"
                 },
                 {
                     name: "Bronzo Chiaro Verniciato",
