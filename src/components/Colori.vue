@@ -97,7 +97,9 @@ export default {
                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                     <div v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                         <!-- Immagine colore -->
-                        <img :src="color.image" :alt="color.name" class="color-image">
+                        <div v-if="color.name === 'Nero 9005'" class="black">
+                        </div>
+                        <img :src="color.image" :alt="color.name" class="color-image" v-else>
 
                         <!-- Nome colore -->
                         <div class="color-name">
@@ -212,6 +214,14 @@ export default {
                         font-weight: 600;
                     }
 
+                    .black {
+                        width: 160px;
+                        height: 160px;
+                        border-radius: 50%;
+                        margin-top: -15px;
+                        background-color: #0F0D0E;
+                    }
+
                     // Immagine colore
                     .color-image {
                         display: block;
@@ -224,6 +234,14 @@ export default {
                         z-index: 20;
                         object-fit: cover;
                         //border-bottom: 0;
+
+                        // &.bronzo-chiaro-verniciato {
+                        //     object-position: 14%;
+                        // }
+
+                        // &.bronzo-scuro-verniciato {
+                        //     object-position: 100%;
+                        // }
                     }
                 }
 

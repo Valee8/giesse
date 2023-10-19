@@ -254,15 +254,15 @@ export const store = reactive({
                 },
                 {
                     name: "Nero 9005",
-                    image: ""
+                    image: "/img/colori/nero-9005.jpg"
                 },
                 {
                     name: "Bronzo Chiaro Verniciato",
-                    image: ""
+                    image: "/img/colori/bronzo-chiaro-verniciato-3.png"
                 },
                 {
                     name: "Bronzo Scuro Verniciato",
-                    image: ""
+                    image: "/img/colori/bronzo-scuro-verniciato-2.png"
                 },
                 {
                     name: "Argento",
