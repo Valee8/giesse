@@ -266,7 +266,7 @@ export const store = reactive({
                 },
                 {
                     name: "Argento",
-                    image: ""
+                    image: "/img/colori/argento-2.png"
                 },
                 {
                     name: "Rosso Gotico",
