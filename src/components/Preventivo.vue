@@ -239,7 +239,8 @@ export default {
                 "Rete rigata",
                 "Oscurante bianco",
                 "Oscurante nero",
-            ]
+            ],
+            showNet: true
         }
     },
     computed: {
@@ -326,6 +327,14 @@ export default {
                 }
             }
 
+            if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10) {
+                this.showNet = false;
+            }
+            else {
+                this.showNet = true;
+            }
+
+
         },
         // Freccia indietro nel secondo step del Preventivo
         sliderPrev(index) {
@@ -348,6 +357,13 @@ export default {
                 if (i !== index) {
                     this.zanzs[i].active = false;
                 }
+            }
+
+            if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10) {
+                this.showNet = false;
+            }
+            else {
+                this.showNet = true;
             }
 
         },
@@ -988,11 +1004,13 @@ export default {
 
                         <!-- Input sotto - input radio scelta rete -->
                         <div class="inputs-bottom">
-                            <label v-for="(net, index) in nets" :key="index">
-                                {{ net }}
-                                <input type="radio" name="net" :value="net" v-model="newOrder.net"
-                                    :required="fixRequiredProblem">
-                            </label>
+                            <span v-for="(net, index) in nets" :key="index">
+                                <label v-if="showNet || index === 0 || index === 1">
+                                    {{ net }}
+                                    <input type="radio" name="net" :value="net" v-model="newOrder.net"
+                                        :required="fixRequiredProblem">
+                                </label>
+                            </span>
                         </div>
 
                         <!-- Bordo separazione -->
