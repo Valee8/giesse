@@ -438,7 +438,7 @@ export default {
                 this.newOrder.color_name = "";
                 this.newOrder.model_name = "";
                 this.newOrder.net = "";
-                //this.message = "";
+                this.message = "";
 
                 // Assegno true all'active del primo elemento dei colori
                 this.store.colors[0].active = true;
@@ -481,7 +481,6 @@ export default {
                         .then(res => {
                             const data = res.data;
                             const success = data.success;
-
                             const response = data.response;
 
                             this.clientId = response.id;
@@ -504,7 +503,6 @@ export default {
 
                         })
                         .catch(error => console.log(error));
-
 
                     //event.preventDefault();
 
