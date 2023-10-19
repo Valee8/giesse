@@ -97,9 +97,9 @@ export default {
                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                     <div v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                         <!-- Immagine colore -->
-                        <div v-if="color.name === 'Nero 9005'" class="black">
-                        </div>
-                        <img :src="color.image" :alt="color.name" class="color-image" v-else>
+                        <!-- <div v-if="color.name === 'Nero 9005'" class="black">
+                        </div> -->
+                        <img :src="color.image" :alt="color.name" class="color-image">
 
                         <!-- Nome colore -->
                         <div class="color-name">
