@@ -13,6 +13,9 @@ export default {
     },
     data() {
         return {
+            // headerStyle: {
+            //     backgroundImage: "url('/img/jumbotron-min.png')"
+            // },
             // Index corrente dello slider
             currentSlideIndex: 0,
             // isMouseOver inizialmente a false, con cui controllo se il puntatore e' sopra lo slider
@@ -111,6 +114,13 @@ export default {
         // },
     },
     mounted() {
+
+        // const image = new Image();
+        // image.src = '/img/jumbotron.png';
+        // image.onload = () => {
+        //     this.headerStyle.backgroundImage = `url(${image.src})`;
+        // };
+
         // Richiamo il metodo changeSlide su mounted
         this.changeSlide();
     },
@@ -119,7 +129,7 @@ export default {
 
 <template>
     <!-- Inizio Header -->
-    <header :class="{ 'header-home': $route.name === 'home' }">
+    <header :class="{ 'header-home': $route.name === 'home' }" :style="headerStyle">
         <!-- Navbar -->
         <AppNavbar />
 
@@ -279,7 +289,7 @@ header {
 
 // Sfondo con immagine dell'header nella home
 .header-home {
-    background-image: url('/img/jumbotron.png');
+    background-image: url('/img/jumbotron-min.png');
     background-size: cover;
     background-position: 0 -95px;
     height: 610px;

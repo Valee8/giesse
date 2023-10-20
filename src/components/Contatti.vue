@@ -13,6 +13,9 @@ export default {
     },
     data() {
         return {
+            // headerStyle: {
+            //     backgroundImage: "url('/img/sfond-faq-min.png')"
+            // },
             store,
             // Array contenente le faq
             faqs: [
@@ -47,14 +50,21 @@ export default {
                     return store.linksNav[i].text;
             }
         }
-    }
+    },
+    // mounted() {
+    //     const image = new Image();
+    //     image.src = '/img/sfondo-faq.png';
+    //     image.onload = () => {
+    //         this.headerStyle.backgroundImage = `url(${image.src})`;
+    //     };
+    // }
 }
 </script>
 
 <template>
     <section class>
         <!-- Parte in alto con immagine come sfondo -->
-        <div class="bg-section">
+        <div class="bg-section" :style="headerStyle">
 
             <div class="container">
                 <div class="section-title">
@@ -154,7 +164,7 @@ section {
     color: #fff;
 
     .bg-section {
-        background-image: url('/img/sfondo-faq.png');
+        background-image: url('/img/sfondo-faq-min.png');
         background-size: cover;
         background-position: center;
         height: 410px;
