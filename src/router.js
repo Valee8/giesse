@@ -23,55 +23,55 @@ const router = createRouter({
         },
         // Rotta Verticali
         {
-            path: '/verticali/:id',
+            path: '/giesse/verticali/:id',
             name: 'verticali',
             component: Verticali
         },
         // Rotta Orizzontali
         {
-            path: '/orizzontali/:id',
+            path: '/giesse/orizzontali/:id',
             name: 'orizzontali',
             component: Orizzontali
         },
         // Rotta Porta a Battente
         {
-            path: '/porta-a-battente/:id',
+            path: '/giesse/porta-a-battente/:id',
             name: 'porta-a-battente',
             component: PortaABattente
         },
         // Rotta Scorri
         {
-            path: '/scorri/:id',
+            path: '/giesse/scorri/:id',
             name: 'scorri',
             component: Scorri
         },
         // Rotta Fissa
         {
-            path: '/fissa/:id',
+            path: '/giesse/fissa/:id',
             name: 'fissa',
             component: Fissa
         },
         // Rotta Casper
         {
-            path: '/casper/:id',
+            path: '/giesse/casper/:id',
             name: 'casper',
             component: Casper
         },
         // Rotta preventivo
         {
-            path: '/preventivo',
+            path: '/giesse/preventivo',
             name: 'preventivo',
             component: Preventivo
         },
         // Rotta Sede
         {
-            path: '/sede',
+            path: '/giesse/sede',
             name: 'sede',
             component: Sede
         },
         // Rotta Contatti
         {
-            path: '/contatti',
+            path: '/giesse/contatti',
             name: 'contatti',
             component: Contatti
         },
