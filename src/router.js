@@ -24,63 +24,63 @@ const router = createRouter({
         },
         // Rotta Verticali
         {
-            path: '/giesse/verticali/:id',
+            path: '/verticali/:id',
             alias: '/verticali/:id',
             name: 'verticali',
             component: Verticali
         },
         // Rotta Orizzontali
         {
-            path: '/giesse/orizzontali/:id',
+            path: '/orizzontali/:id',
             alias: '/orizzontali/:id',
             name: 'orizzontali',
             component: Orizzontali
         },
         // Rotta Porta a Battente
         {
-            path: '/giesse/porta-a-battente/:id',
+            path: '/porta-a-battente/:id',
             alias: '/porta-a-battente/:id',
             name: 'porta-a-battente',
             component: PortaABattente
         },
         // Rotta Scorri
         {
-            path: '/giesse/scorri/:id',
+            path: '/scorri/:id',
             alias: '/scorri/:id',
             name: 'scorri',
             component: Scorri
         },
         // Rotta Fissa
         {
-            path: '/giesse/fissa/:id',
+            path: '/fissa/:id',
             alias: '/fissa/:id',
             name: 'fissa',
             component: Fissa
         },
         // Rotta Casper
         {
-            path: '/giesse/casper/:id',
+            path: '/casper/:id',
             alias: '/casper/:id',
             name: 'casper',
             component: Casper
         },
         // Rotta preventivo
         {
-            path: '/giesse/preventivo',
+            path: '/preventivo',
             alias: '/preventivo',
             name: 'preventivo',
             component: Preventivo
         },
         // Rotta Sede
         {
-            path: '/giesse/sede',
+            path: '/sede',
             alias: '/sede',
             name: 'sede',
             component: Sede
         },
         // Rotta Contatti
         {
-            path: '/giesse/contatti',
+            path: '/contatti',
             alias: '/contatti',
             name: 'contatti',
             component: Contatti
