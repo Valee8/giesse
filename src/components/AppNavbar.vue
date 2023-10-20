@@ -129,7 +129,7 @@ export default {
                 <ul class="ul-container">
                     <!-- Logo sulla sinistra -->
                     <li>
-                        <router-link to="/" class="logo">
+                        <router-link to="/giesse/" class="logo">
                             <img src="/img/logo-giesse.png" alt="Logo Giesse">
                         </router-link>
                     </li>
