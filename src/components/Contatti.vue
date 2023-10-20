@@ -64,12 +64,12 @@ export default {
 <template>
     <section class>
         <!-- Parte in alto con immagine come sfondo -->
-        <div class="bg-section" :style="headerStyle">
+        <div class="bg-section">
 
             <div class="container">
                 <div class="section-title">
                     <!-- Scritta Home -->
-                    <router-link to="/giesse/">Home</router-link>
+                    <router-link :to="{ name: 'home' }">Home</router-link>
                     <!-- Icone freccia -->
                     <i class="fa-solid fa-chevron-right"></i>
                     <!-- Nome sezione -->

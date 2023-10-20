@@ -129,7 +129,7 @@ export default {
                 <ul class="ul-container">
                     <!-- Logo sulla sinistra -->
                     <li>
-                        <router-link to="/giesse/" class="logo">
+                        <router-link :to="{ name: 'home' }" class="logo">
                             <img src="/img/logo-giesse.png" alt="Logo Giesse">
                         </router-link>
                     </li>
@@ -150,7 +150,7 @@ export default {
 
                     <!-- Scritta "richiede preventivo" sulla destra -->
                     <li class="preventivo">
-                        <router-link to="/preventivo">
+                        <router-link :to="{ name: 'preventivo' }">
                             Richiedi Preventivo
                         </router-link>
                     </li>

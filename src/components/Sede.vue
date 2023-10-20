@@ -27,7 +27,7 @@ export default {
         <div class="container">
             <div class="section-title">
                 <!-- Scritta Home -->
-                <router-link to="/giesse/">Home</router-link>
+                <router-link :to="{ name: 'home' }">Home</router-link>
                 <!-- Icone freccia -->
                 <i class="fa-solid fa-chevron-right"></i>
                 <!-- Nome sezione -->

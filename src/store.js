@@ -1,5 +1,7 @@
 import { reactive } from 'vue';
 
+const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
+
 export const store = reactive({
     //isLoading: true,
     // menuHamburger per mostrare e nascondere il sottomenu del menu hamburger
@@ -205,19 +207,19 @@ export const store = reactive({
     typologies: [
         {
             name: "Verticali",
-            image: "/giesse/img/alba.png",
+            image: imagePrefix + "img/alba.png",
         },
         {
             name: "Orizzontali",
-            image: "/giesse/img/lara.png",
+            image: imagePrefix + "img/lara.png",
         },
         {
             name: "Porta a battente",
-            image: "/giesse/img/porta-a-battente.jpg"
+            image: imagePrefix + "img/porta-a-battente.jpg"
         },
         {
             name: "Scorri",
-            image: "/giesse/img/scorri.png"
+            image: imagePrefix + "img/scorri.png"
         },
         {
             name: "Fissa",
@@ -225,7 +227,7 @@ export const store = reactive({
         },
         {
             name: "Casper",
-            image: "/giesse/img/casper.jpg"
+            image: imagePrefix + "img/casper.jpg"
         },
     ],
     // Colori zanzariere presenti sia nel Preventivo sia nelle sezioni delle zanzariere
@@ -236,11 +238,11 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Bianco 9010",
-                    image: "/giesse/img/colori/bianco-9010.png"
+                    image: imagePrefix + "img/colori/bianco-9010.png"
                 },
                 {
                     name: "Avorio 1013",
-                    image: "/giesse/img/colori/avorio-1013.png"
+                    image: imagePrefix + "img/colori/avorio-1013.png"
                 },
             ]
         },
@@ -250,39 +252,39 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Marrone 8017",
-                    image: "/giesse/img/colori/marrone-8017.png"
+                    image: imagePrefix + "img/colori/marrone-8017.png"
                 },
                 {
                     name: "Nero 9005",
-                    image: "/giesse/img/colori/nero-9005.png"
+                    image: imagePrefix + "img/colori/nero-9005.png"
                 },
                 {
                     name: "Bronzo Chiaro Verniciato",
-                    image: "/giesse/img/colori/bronzo-chiaro-verniciato-3.png"
+                    image: imagePrefix + "img/colori/bronzo-chiaro-verniciato-3.png"
                 },
                 {
                     name: "Bronzo Scuro Verniciato",
-                    image: "/giesse/img/colori/bronzo-scuro-verniciato-2.png"
+                    image: imagePrefix + "img/colori/bronzo-scuro-verniciato-2.png"
                 },
                 {
                     name: "Argento",
-                    image: "/giesse/img/colori/argento-2.png"
+                    image: imagePrefix + "img/colori/argento-2.png"
                 },
                 {
                     name: "Rosso Gotico",
-                    image: "/giesse/img/colori/rosso-gotico.png"
+                    image: imagePrefix + "img/colori/rosso-gotico.png"
                 },
                 {
                     name: "Verde Gotico",
-                    image: "/giesse/img/colori/verde-gotico.png"
+                    image: imagePrefix + "img/colori/verde-gotico.png"
                 },
                 {
                     name: "Marrone Gotico",
-                    image: "/giesse/img/colori/marrone-gotico.png"
+                    image: imagePrefix + "img/colori/marrone-gotico.png"
                 },
                 {
                     name: "Grigio Gotico",
-                    image: "/giesse/img/colori/grigio-gotico.png"
+                    image: imagePrefix + "img/colori/grigio-gotico.png"
                 }
             ]
         },
@@ -292,31 +294,31 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Noce Chiaro NH31",
-                    image: "/giesse/img/colori/noce-chiaro-nh31.png"
+                    image: imagePrefix + "img/colori/noce-chiaro-nh31.png"
                 },
                 {
                     name: "Noce Scuro NH30",
-                    image: "/giesse/img/colori/noce-scuro-nh30.png"
+                    image: imagePrefix + "img/colori/noce-scuro-nh30.png"
                 },
                 {
                     name: "Verde GH30",
-                    image: "/giesse/img/colori/verde-gh30.png"
+                    image: imagePrefix + "img/colori/verde-gh30.png"
                 },
                 {
                     name: "Ciliegio CH30",
-                    image: "/giesse/img/colori/ciliegio-ch30.png"
+                    image: imagePrefix + "img/colori/ciliegio-ch30.png"
                 },
                 {
                     name: "Bianco WH30",
-                    image: "/giesse/img/colori/bianco-wh30.png"
+                    image: imagePrefix + "img/colori/bianco-wh30.png"
                 },
                 {
                     name: "Renolit Chiaro Effecta",
-                    image: "/giesse/img/colori/renolit-chiaro-effecta.png"
+                    image: imagePrefix + "img/colori/renolit-chiaro-effecta.png"
                 },
                 {
                     name: "Renolit Scuro Effecta",
-                    image: "/giesse/img/colori/renolit-scuro-effecta.png"
+                    image: imagePrefix + "img/colori/renolit-scuro-effecta.png"
                 },
             ]
         },
@@ -326,27 +328,27 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Ciliegio Scuro",
-                    image: "/giesse/img/colori/ciliegio-scuro.png"
+                    image: imagePrefix + "img/colori/ciliegio-scuro.png"
                 },
                 {
                     name: "Castano",
-                    image: "/giesse/img/colori/castano.png"
+                    image: imagePrefix + "img/colori/castano.png"
                 },
                 {
                     name: "Renolit Chiaro Sublimall",
-                    image: "/giesse/img/colori/renolit-chiaro-sublimall.png"
+                    image: imagePrefix + "img/colori/renolit-chiaro-sublimall.png"
                 },
                 {
                     name: "Renolit Scuro Sublimall",
-                    image: "/giesse/img/colori/renolit-scuro-sublimall.png"
+                    image: imagePrefix + "img/colori/renolit-scuro-sublimall.png"
                 },
                 {
                     name: "Renolit Bianco Sublimall",
-                    image: "/giesse/img/colori/renolit-bianco-sublimall.png"
+                    image: imagePrefix + "img/colori/renolit-bianco-sublimall.png"
                 },
                 {
                     name: "Renolit Marrone Sublimall",
-                    image: "/giesse/img/colori/renolit-marrone-sublimall.png"
+                    image: imagePrefix + "img/colori/renolit-marrone-sublimall.png"
                 }
             ]
         },

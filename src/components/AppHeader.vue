@@ -129,7 +129,7 @@ export default {
 
 <template>
     <!-- Inizio Header -->
-    <header :class="{ 'header-home': $route.name === 'home' }" :style="headerStyle">
+    <header :class="{ 'header-home': $route.name === 'home' }">
         <!-- Navbar -->
         <AppNavbar />
 
