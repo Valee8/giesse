@@ -25,6 +25,14 @@ export default {
   },
   watch: {
     $route(to, from) {
+
+      // if (!window.location.href.includes("valee8")) {
+      //   this.store.imagePrefix = "/";
+      // }
+      // else {
+      //   this.store.imagePrefix = "/giesse/";
+      // }
+
       // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
       if (!window.location.href.includes("preventivo")) {
         // Svuoto il contenuto di localStorage
@@ -197,6 +205,8 @@ section {
 
   a {
     color: #000;
+    margin-right: 4px;
+
 
     &:hover {
       text-decoration: underline;
@@ -204,7 +214,6 @@ section {
   }
 
   svg {
-    padding-left: 4px;
     padding-right: 1px;
     font-size: 0.8rem;
   }
