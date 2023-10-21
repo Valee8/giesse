@@ -86,11 +86,11 @@ export default {
 
         </div>
 
-        <div class="loading" v-else>
+        <!-- <div class="loading" v-else>
             <div class="spinner">
                 <i class="fa-solid fa-spinner"></i>
             </div>
-        </div>
+        </div> -->
 
         <!-- Parte sotto - faq -->
         <div class="faq-section">
@@ -158,16 +158,16 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-.loading {
-    height: 410px;
-}
+// .loading {
+//     height: 410px;
+// }
 
 // Sezione Contatti
 section {
     color: #fff;
 
     .bg-section {
-        background-image: url('/img/sfondo-faq.png');
+        background-image: url('/img/sfondo-faq-min.png');
         background-size: cover;
         background-position: center;
         height: 410px;

@@ -7,7 +7,6 @@ export default {
     name: 'Colori',
     data() {
         return {
-            colorLoading: true,
             store,
         }
     },
@@ -31,14 +30,6 @@ export default {
         },
     },
     mounted() {
-
-        setTimeout(() => {
-            this.colorLoading = false;
-        }, 400);
-
-        // setTimeout(() => {
-        //     this.colorLoading = false;
-        // }, 400);
 
         // All'avvio della pagina dovra' essere sempre il primo elemento quello corrente, lo faccio tramite questi codici
         for (let i = 0; i < this.store.colors.length; i++) {
@@ -109,12 +100,7 @@ export default {
                         <!-- Immagine colore -->
                         <!-- <div v-if="color.name === 'Nero 9005'" class="black">
                         </div> -->
-                        <img :src="color.image" :alt="color.name" class="color-image" v-if="!colorLoading">
-                        <div class="loading" v-else>
-                            <div class="spinner">
-                                <i class="fa-solid fa-spinner"></i>
-                            </div>
-                        </div>
+                        <img :src="color.image" :alt="color.name" class="color-image">
 
                         <!-- Nome colore -->
                         <div class="color-name">
@@ -132,12 +118,12 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-.loading {
-    width: 160px;
-    height: 160px;
-    margin-top: -15px;
-    color: #fff;
-}
+// .loading {
+//     width: 160px;
+//     height: 160px;
+//     margin-top: -15px;
+//     color: #fff;
+// }
 
 // Parte tipologie colori e nomi colori
 .info-colors {

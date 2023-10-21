@@ -66,6 +66,23 @@ export default {
       }
     }
   },
+  created() {
+    // Aggiungi un listener per il cambio di rotta
+    this.$router.beforeEach((to, from, next) => {
+      // Mostra il loader quando la rotta inizia a cambiare
+      this.store.isLoading = true;
+
+      // Passa alla prossima rotta dopo un certo periodo di tempo (ad esempio, 2 secondi)
+      setTimeout(() => {
+        next();
+      }, 400);
+    });
+
+    // Dopo il completamento del cambio di rotta, nascondi il loader
+    this.$router.afterEach(() => {
+      this.store.isLoading = false;
+    });
+  },
   updated() {
     //window.addEventListener('clearStorage', this.handleBackButton);
     // Aggiungo evento per lo scroll 
@@ -78,11 +95,11 @@ export default {
     // Rimuovo evento per lo scroll
     window.removeEventListener('scroll', this.handleScroll);
   },
-  mounted() {
-    setTimeout(() => {
-      this.store.isLoading = false;
-    }, 400);
-  },
+  // mounted() {
+  //   setTimeout(() => {
+  //     this.store.isLoading = false;
+  //   }, 400);
+  // },
   methods: {
     handlePageReload() {
       // Esegui il codice prima di aggiornare la pagina
@@ -132,6 +149,12 @@ export default {
 </script>
 
 <template>
+  <div class="loading" v-if="store.isLoading">
+    <div class="spinner">
+      <i class="fa-solid fa-spinner"></i>
+    </div>
+  </div>
+
   <!-- Freccia per scrollare in alto con la pagina -->
   <div :class="{ 'show': showArrowUp }" @click="scrollToTop" class="arrow-up" v-if="$route.name !== 'preventivo'">
     <i class="fa-solid fa-chevron-up"></i>
@@ -161,6 +184,7 @@ export default {
   justify-content: center;
   font-size: 2rem;
   color: #000;
+  height: 100vh;
 
   .spinner {
     animation: spin 1s linear infinite;

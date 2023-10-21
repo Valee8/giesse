@@ -166,11 +166,11 @@ export default {
             </div>
         </div>
 
-        <div class="loading" v-else-if="store.isLoading && $route.name === 'home'">
+        <!-- <div class="loading" v-else-if="store.isLoading && $route.name === 'home'">
             <div class="spinner">
                 <i class="fa-solid fa-spinner"></i>
             </div>
-        </div>
+        </div> -->
     </header>
 
 
@@ -190,9 +190,9 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-.loading {
-    height: 543px;
-}
+// .loading {
+//     height: 543px;
+// }
 
 // Rettangolini in alto
 .list-rectangles {
@@ -292,7 +292,7 @@ header {
 
 // Sfondo con immagine dell'header nella home
 .header-container {
-    background-image: url('/img/jumbotron.png');
+    background-image: url('/img/jumbotron-min.png');
     background-size: cover;
     background-position: 0 -162px;
     height: 543px;
