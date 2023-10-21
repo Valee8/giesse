@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 // Importo componenti
 import App from './App.vue';
@@ -13,7 +13,8 @@ import Sede from './components/Sede.vue';
 import Contatti from './components/Contatti.vue';
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
+    //mode: "hash",
     routes: [
         // Rotta Home
         {
@@ -25,63 +26,54 @@ const router = createRouter({
         // Rotta Verticali
         {
             path: '/verticali/:id',
-            alias: '/verticali/:id',
             name: 'verticali',
             component: Verticali
         },
         // Rotta Orizzontali
         {
             path: '/orizzontali/:id',
-            alias: '/orizzontali/:id',
             name: 'orizzontali',
             component: Orizzontali
         },
         // Rotta Porta a Battente
         {
             path: '/porta-a-battente/:id',
-            alias: '/porta-a-battente/:id',
             name: 'porta-a-battente',
             component: PortaABattente
         },
         // Rotta Scorri
         {
             path: '/scorri/:id',
-            alias: '/scorri/:id',
             name: 'scorri',
             component: Scorri
         },
         // Rotta Fissa
         {
             path: '/fissa/:id',
-            alias: '/fissa/:id',
             name: 'fissa',
             component: Fissa
         },
         // Rotta Casper
         {
             path: '/casper/:id',
-            alias: '/casper/:id',
             name: 'casper',
             component: Casper
         },
         // Rotta preventivo
         {
             path: '/preventivo',
-            alias: '/preventivo',
             name: 'preventivo',
             component: Preventivo
         },
         // Rotta Sede
         {
             path: '/sede',
-            alias: '/sede',
             name: 'sede',
             component: Sede
         },
         // Rotta Contatti
         {
             path: '/contatti',
-            alias: '/contatti',
             name: 'contatti',
             component: Contatti
         },

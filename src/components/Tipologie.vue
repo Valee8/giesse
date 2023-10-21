@@ -7,7 +7,25 @@ export default {
     name: 'Tipologie',
     data() {
         return {
+            url: "",
             store
+        }
+    },
+    computed: {
+        getUrl() {
+            // Ottieni l'URL corrente
+            const currentURL = window.location.href;
+
+            // Verifica se l'URL contiene "localhost"
+            if (currentURL.includes('localhost')) {
+                // Fai qualcosa se l'app è in esecuzione in locale
+                this.url = "/giesse/";
+            } else {
+                // Fai qualcosa se l'app è in esecuzione in un altro ambiente (deploy)
+                this.url = "/";
+            }
+
+            return this.url;
         }
     }
 }
