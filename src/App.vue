@@ -214,8 +214,11 @@ section {
   }
 
   svg {
-    padding-right: 1px;
     font-size: 0.8rem;
+  }
+
+  span {
+    padding-left: 5px;
   }
 }
 

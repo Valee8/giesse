@@ -824,7 +824,7 @@ export default {
                 <!-- Icone freccia -->
                 <i class="fa-solid fa-chevron-right"></i>
                 <!-- Nome sezione -->
-                {{ printNameSection }}
+                <span>{{ printNameSection }}</span>
             </div>
 
             <div class="top" :class="{ 'none': currentStep > 3 }">

@@ -73,7 +73,7 @@ export default {
                     <!-- Icone freccia -->
                     <i class="fa-solid fa-chevron-right"></i>
                     <!-- Nome sezione -->
-                    {{ printNameSection }}
+                    <span>{{ printNameSection }}</span>
                 </div>
 
                 <!-- Contenuto parte in alto sezione -->
