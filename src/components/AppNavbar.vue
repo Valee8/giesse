@@ -534,9 +534,9 @@ export default {
         }
     }
 
-    .hamburger {
-        display: none;
-    }
+    // .hamburger {
+    //     display: none;
+    // }
 }
 
 // Header scompare nelle altre sezioni, appare solo in homepage
