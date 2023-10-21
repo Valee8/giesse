@@ -3,6 +3,9 @@
 // Importo AppNavbar
 import AppNavbar from './AppNavbar.vue';
 
+// Importo store
+import { store } from '../store.js';
+
 // Variabile per la funzione setInterval, dichiarata qui perche' se lo facessi all'interno del metodo changeSlide non potrei fare clearInterval(interval) su blockSlide (riga 90)
 let interval;
 
@@ -13,9 +16,7 @@ export default {
     },
     data() {
         return {
-            // headerStyle: {
-            //     backgroundImage: "url('/img/jumbotron-min.png')"
-            // },
+            store,
             // Index corrente dello slider
             currentSlideIndex: 0,
             // isMouseOver inizialmente a false, con cui controllo se il puntatore e' sopra lo slider
@@ -115,12 +116,6 @@ export default {
     },
     mounted() {
 
-        // const image = new Image();
-        // image.src = '/img/jumbotron.png';
-        // image.onload = () => {
-        //     this.headerStyle.backgroundImage = `url(${image.src})`;
-        // };
-
         // Richiamo il metodo changeSlide su mounted
         this.changeSlide();
     },
@@ -129,48 +124,59 @@ export default {
 
 <template>
     <!-- Inizio Header -->
-    <header :class="{ 'header-home': $route.name === 'home' }">
+    <header>
         <!-- Navbar -->
         <AppNavbar />
 
-        <div class="container">
-            <!-- Contenuto header -->
-            <div class="jumbotron">
-                <!-- Titolo -->
-                <div class="title">
-                    <h1>
-                        Proteggi <div>la tua casa</div>
-                    </h1>
+        <div class="header-container" v-if="!store.isLoading && $route.name === 'home'">
 
-                    <p>
-                        Affidati a noi che produciamo zanzariere da pi&ugrave; di 30 anni
-                    </p>
-                </div>
+            <div class="container">
+                <!-- Contenuto header -->
+                <div class="jumbotron">
+                    <!-- Titolo -->
+                    <div class="title">
+                        <h1>
+                            Proteggi <div>la tua casa</div>
+                        </h1>
 
-                <!-- Inizio contenuto slider -->
-                <div class="container-slide">
-                    <div class="slider-header" v-for="(slide, index) in sliderContent" :key="index"
-                        :class="{ 'active': index === currentSlideIndex }" @mouseout="changeSlide(index)"
-                        @mouseover="blockSlide">
-                        <!-- Testo -->
-                        <div class="name-zanz">
-                            {{ slide.name_zanz }}
+                        <p>
+                            Affidati a noi che produciamo zanzariere da pi&ugrave; di 30 anni
+                        </p>
+                    </div>
+
+                    <!-- Inizio contenuto slider -->
+                    <div class="container-slide">
+                        <div class="slider-header" v-for="(slide, index) in sliderContent" :key="index"
+                            :class="{ 'active': index === currentSlideIndex }" @mouseout="changeSlide(index)"
+                            @mouseover="blockSlide">
+                            <!-- Testo -->
+                            <div class="name-zanz">
+                                {{ slide.name_zanz }}
+                            </div>
+
+                            <!-- Bottone scopri di piu' -->
+                            <router-link :to="{ name: slide.name, params: { id: slide.id }, hash: slide.hash }"
+                                class="button header">
+                                Scopri di pi&ugrave; sulla {{ slide.name_zanz.replace(/,(.*?)[\s\w]*/g, "") }}
+                            </router-link>
                         </div>
-
-                        <!-- Bottone scopri di piu' -->
-                        <router-link :to="{ name: slide.name, params: { id: slide.id }, hash: slide.hash }"
-                            class="button header">
-                            Scopri di pi&ugrave; sulla {{ slide.name_zanz.replace(/,(.*?)[\s\w]*/g, "") }}
-                        </router-link>
                     </div>
                 </div>
-            </div>
 
+            </div>
+        </div>
+
+        <div class="loading" v-else-if="store.isLoading && $route.name === 'home'">
+            <div class="spinner">
+                <i class="fa-solid fa-spinner"></i>
+            </div>
         </div>
     </header>
 
+
+
     <!-- Rettangoli al centro sotto lo sfondo dell'header -->
-    <div class="container" v-if="$route.name === 'home'">
+    <div class="container" v-if="$route.name === 'home' && !store.isLoading">
         <div class="list-rectangles">
             <div class="rectangles" v-for="(rectangles, index) in sliderContent" :key="index"
                 :class="{ 'active': rectangles.active }">
@@ -183,6 +189,10 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+.loading {
+    height: 543px;
+}
 
 // Rettangolini in alto
 .list-rectangles {
@@ -235,13 +245,6 @@ export default {
 header {
     color: #fff;
 
-    // Nascondo sfondo header nelle sezioni
-    &:not(.header-home) {
-        .container {
-            display: none;
-        }
-    }
-
     .container {
         //display: flex;
         //flex-direction: column;
@@ -288,11 +291,11 @@ header {
 }
 
 // Sfondo con immagine dell'header nella home
-.header-home {
-    background-image: url('/img/jumbotron-min.png');
+.header-container {
+    background-image: url('/img/jumbotron.png');
     background-size: cover;
-    background-position: 0 -95px;
-    height: 610px;
+    background-position: 0 -162px;
+    height: 543px;
 }
 
 // Inizio versioni mobile, tablet e intermedie

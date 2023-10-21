@@ -50,21 +50,14 @@ export default {
                     return store.linksNav[i].text;
             }
         }
-    },
-    // mounted() {
-    //     const image = new Image();
-    //     image.src = '/img/sfondo-faq.png';
-    //     image.onload = () => {
-    //         this.headerStyle.backgroundImage = `url(${image.src})`;
-    //     };
-    // }
+    }
 }
 </script>
 
 <template>
     <section class>
         <!-- Parte in alto con immagine come sfondo -->
-        <div class="bg-section">
+        <div class="bg-section" v-if="!store.isLoading">
 
             <div class="container">
                 <div class="section-title">
@@ -91,6 +84,12 @@ export default {
                 </div>
             </div>
 
+        </div>
+
+        <div class="loading" v-else>
+            <div class="spinner">
+                <i class="fa-solid fa-spinner"></i>
+            </div>
         </div>
 
         <!-- Parte sotto - faq -->
@@ -159,12 +158,16 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+.loading {
+    height: 410px;
+}
+
 // Sezione Contatti
 section {
     color: #fff;
 
     .bg-section {
-        background-image: url('/img/sfondo-faq-min.png');
+        background-image: url('/img/sfondo-faq.png');
         background-size: cover;
         background-position: center;
         height: 410px;

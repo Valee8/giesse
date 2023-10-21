@@ -71,9 +71,13 @@ export default {
             }
 
             // Azzero valore hash che appare quando clicco il bottone "Scopri di piu'" presente nella home
-            // if (window.location.hash && window.location.href.includes("i") || window.location.href.includes("o")) {
-            //     window.location.hash = "";
-            // }
+            if (window.location.hash && window.location.href.includes("verticali")) {
+                window.location.hash = "/verticali/" + 0;
+            }
+
+            if (window.location.hash && window.location.href.includes("orizzontali")) {
+                window.location.hash = "/orizzontali/" + 1;
+            }
 
             // setTimeout(() => {
             //     this.isAnimating = false;
@@ -105,9 +109,13 @@ export default {
             }
 
             // Azzero valore hash che appare quando clicco il bottone "Scopri di piu'" presente nella home
-            // if (window.location.hash && window.location.href.includes("i") || window.location.href.includes("o")) {
-            //     window.location.hash = "";
-            // }
+            if (window.location.hash && window.location.href.includes("verticali")) {
+                window.location.hash = "/verticali/" + 0;
+            }
+
+            if (window.location.hash && window.location.href.includes("orizzontali")) {
+                window.location.hash = "/orizzontali/" + 1;
+            }
 
             // setTimeout(() => {
             //     this.isAnimating = false;

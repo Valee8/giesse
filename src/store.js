@@ -3,6 +3,8 @@ import { reactive } from 'vue';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 export const store = reactive({
+    prova: false,
+    isLoading: true,
     //isLoading: true,
     // menuHamburger per mostrare e nascondere il sottomenu del menu hamburger
     menuHamburger: false,

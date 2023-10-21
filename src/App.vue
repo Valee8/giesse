@@ -26,13 +26,6 @@ export default {
   watch: {
     $route(to, from) {
 
-      // if (!window.location.href.includes("valee8")) {
-      //   this.store.imagePrefix = "/";
-      // }
-      // else {
-      //   this.store.imagePrefix = "/giesse/";
-      // }
-
       // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
       if (!window.location.href.includes("preventivo")) {
         // Svuoto il contenuto di localStorage
@@ -85,7 +78,19 @@ export default {
     // Rimuovo evento per lo scroll
     window.removeEventListener('scroll', this.handleScroll);
   },
+  mounted() {
+    setTimeout(() => {
+      this.store.isLoading = false;
+    }, 400);
+  },
   methods: {
+    handlePageReload() {
+      // Esegui il codice prima di aggiornare la pagina
+      setTimeout(() => {
+        // Imposta isLoading su false dopo 400 millisecondi
+        this.isLoading = false;
+      }, 400);
+    },
     // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
     handleScroll() {
       if (window.scrollY > 700) {
@@ -149,6 +154,24 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #000;
+
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(360deg);
+    }
+  }
+}
 
 // Freccia per scrollare in alto
 .arrow-up {
