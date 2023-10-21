@@ -71,9 +71,9 @@ export default {
             }
 
             // Azzero valore hash che appare quando clicco il bottone "Scopri di piu'" presente nella home
-            if (window.location.hash) {
-                window.location.hash = "";
-            }
+            // if (window.location.hash && window.location.href.includes("i") || window.location.href.includes("o")) {
+            //     window.location.hash = "";
+            // }
 
             // setTimeout(() => {
             //     this.isAnimating = false;
@@ -105,9 +105,9 @@ export default {
             }
 
             // Azzero valore hash che appare quando clicco il bottone "Scopri di piu'" presente nella home
-            if (window.location.hash) {
-                window.location.hash = "";
-            }
+            // if (window.location.hash && window.location.href.includes("i") || window.location.href.includes("o")) {
+            //     window.location.hash = "";
+            // }
 
             // setTimeout(() => {
             //     this.isAnimating = false;
@@ -164,7 +164,7 @@ export default {
             <!-- Titolo in alto a sinistra -->
             <div class="section-title">
                 <!-- Scritta Home -->
-                <router-link to="/giesse/">Home</router-link>
+                <router-link :to="{ name: 'home' }">Home</router-link>
                 <!-- Icone freccia -->
                 <i class="fa-solid fa-chevron-right"></i>
                 <!-- Nome sezione -->

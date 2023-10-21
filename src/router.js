@@ -18,8 +18,8 @@ const router = createRouter({
     routes: [
         // Rotta Home
         {
-            path: '/giesse/',
-            alias: '/',
+            path: '/',
+            alias: '/giesse/',
             name: 'home',
             component: App
         },
