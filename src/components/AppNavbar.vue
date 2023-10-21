@@ -534,9 +534,9 @@ export default {
         }
     }
 
-    // .hamburger {
-    //     display: none;
-    // }
+    .hamburger {
+        display: none;
+    }
 }
 
 // Header scompare nelle altre sezioni, appare solo in homepage
@@ -869,85 +869,87 @@ nav {
 
 @media only screen and (min-width: 480px) and (max-width: 900px) {
 
-    .icon-hamburger {
-        font-size: 1.2rem;
-    }
-
-    .hamburger {
-        display: block;
-        //visibility: hidden;
-        background-color: #1c1c1c;
-        width: 240px;
-        position: absolute;
-        right: 0;
-        z-index: 30;
-        animation-duration: 0.4s;
-        animation-fill-mode: forwards;
-        top: 66px;
-        height: 0;
-
-        li {
-            padding: 15px 25px;
-            opacity: 0;
-            height: 0;
-
-            a {
-                color: #fff;
-                display: none;
-            }
-
-            .icon {
-                padding-right: 10px;
-            }
+    #blackMenu {
+        .icon-hamburger {
+            font-size: 1.2rem;
         }
 
-        &.hidden {
-            animation-name: hidden;
-            z-index: 40;
+        .hamburger {
+            display: block;
+            //visibility: hidden;
+            background-color: #1c1c1c;
+            width: 240px;
+            position: absolute;
+            right: 0;
+            z-index: 30;
+            animation-duration: 0.4s;
+            animation-fill-mode: forwards;
+            top: 66px;
+            height: 0;
 
             li {
+                padding: 15px 25px;
                 opacity: 0;
                 height: 0;
 
                 a {
+                    color: #fff;
                     display: none;
                 }
-            }
-        }
 
-        &.visible {
-            animation-name: visible;
-            height: auto;
-            z-index: 60;
-
-            li {
-                transition-duration: 2s;
-                opacity: 1;
-                height: auto;
-
-                a {
-                    display: inline-block;
+                .icon {
+                    padding-right: 10px;
                 }
             }
-        }
 
-        @keyframes visible {
-            from {
-                height: 0;
+            &.hidden {
+                animation-name: hidden;
+                z-index: 40;
+
+                li {
+                    opacity: 0;
+                    height: 0;
+
+                    a {
+                        display: none;
+                    }
+                }
             }
 
-            to {
-                height: 160px;
-            }
-        }
+            &.visible {
+                animation-name: visible;
+                height: auto;
+                z-index: 60;
 
-        @keyframes hidden {
-            from {
-                height: 160px;
+                li {
+                    transition-duration: 2s;
+                    opacity: 1;
+                    height: auto;
+
+                    a {
+                        display: inline-block;
+                    }
+                }
             }
 
-            to {
-                height: 0;
+            @keyframes visible {
+                from {
+                    height: 0;
+                }
+
+                to {
+                    height: 160px;
+                }
+            }
+
+            @keyframes hidden {
+                from {
+                    height: 160px;
+                }
+
+                to {
+                    height: 0;
+                }
             }
         }
     }
