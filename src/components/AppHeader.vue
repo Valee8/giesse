@@ -182,9 +182,9 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-// .loading {
-//     height: 543px;
-// }
+.loading {
+    height: 543px;
+}
 
 // Rettangolini in alto
 .list-rectangles {

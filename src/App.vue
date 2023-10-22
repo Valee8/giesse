@@ -122,7 +122,7 @@ export default {
   justify-content: center;
   font-size: 2rem;
   color: #000;
-  height: 100vh;
+  //height: 100vh;
 
   .spinner {
     animation: spin 1s linear infinite;

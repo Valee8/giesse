@@ -50,6 +50,12 @@ export default {
                     return store.linksNav[i].text;
             }
         }
+    },
+    mounted() {
+        setTimeout(() => {
+            this.store.isLoading = false;
+        }, 700);
+
     }
 }
 </script>
@@ -86,11 +92,11 @@ export default {
 
         </div>
 
-        <!-- <div class="loading" v-else>
+        <div class="loading" v-else>
             <div class="spinner">
                 <i class="fa-solid fa-spinner"></i>
             </div>
-        </div> -->
+        </div>
 
         <!-- Parte sotto - faq -->
         <div class="faq-section">
@@ -158,9 +164,9 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-// .loading {
-//     height: 410px;
-// }
+.loading {
+    height: 410px;
+}
 
 // Sezione Contatti
 section {
