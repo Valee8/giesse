@@ -13,10 +13,6 @@ export default {
     },
     data() {
         return {
-            backgroundImage: {
-                image: '/img/sfondo-faq-super-min.jpg',
-                showTemporary: true
-            },
             // headerStyle: {
             //     backgroundImage: "url('/img/sfond-faq-min.png')"
             // },
@@ -47,13 +43,6 @@ export default {
         }
     },
     computed: {
-        backgroundImageStyle() {
-            const { showTemporary } = this.backgroundImage;
-
-            return {
-                'background-image': `url(${showTemporary ? '/img/sfondo-faq-super-min.jpg' : '/img/sfondo-faq-min.png'})`
-            };
-        },
         // Stampa nome sezione nel titolo
         printNameSection() {
             for (let i = 0; i < store.linksNav.length; i++) {
@@ -61,11 +50,6 @@ export default {
                     return store.linksNav[i].text;
             }
         }
-    },
-    mounted() {
-        setTimeout(() => {
-            this.backgroundImage.showTemporary = false;
-        }, 3000);
     }
 }
 </script>
@@ -73,7 +57,7 @@ export default {
 <template>
     <section class>
         <!-- Parte in alto con immagine come sfondo -->
-        <div class="bg-section" v-if="!store.isLoading" :style="backgroundImageStyle">
+        <div class="bg-section" v-if="!store.isLoading">
 
             <div class="container">
                 <div class="section-title">
@@ -183,7 +167,7 @@ section {
     color: #fff;
 
     .bg-section {
-        //background-image: url('/img/sfondo-faq-super-min.jpg');
+        background-image: url('/img/sfondo-faq-min.png');
         background-size: cover;
         background-position: center;
         height: 410px;

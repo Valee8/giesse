@@ -16,10 +16,6 @@ export default {
     },
     data() {
         return {
-            backgroundImage: {
-                image: '/img/jumbotron-super-min.jpg',
-                showTemporary: true
-            },
             store,
             // Index corrente dello slider
             currentSlideIndex: 0,
@@ -106,20 +102,7 @@ export default {
             }
         },
     },
-    computed: {
-        backgroundImageStyle() {
-            const { showTemporary } = this.backgroundImage;
-
-            return {
-                'background-image': `url(${showTemporary ? '/img/jumbotron-super-min.jpg' : '/img/jumbotron-min.png'})`
-            };
-        }
-    },
     mounted() {
-
-        setTimeout(() => {
-            this.backgroundImage.showTemporary = false;
-        }, 3000);
 
         // Richiamo il metodo changeSlide su mounted
         this.changeSlide();
@@ -133,7 +116,7 @@ export default {
         <!-- Navbar -->
         <AppNavbar />
 
-        <div class="header-container" v-if="!store.isLoading && $route.name === 'home'" :style="backgroundImageStyle">
+        <div class="header-container" v-if="!store.isLoading && $route.name === 'home'">
 
             <div class="container">
                 <!-- Contenuto header -->
@@ -286,7 +269,7 @@ header {
 
 // Sfondo con immagine dell'header nella home
 .header-container {
-    //background-image: url('/img/jumbotron-super-min.jpg');
+    background-image: url('/img/jumbotron-min.png');
     background-size: cover;
     background-position: 0 -162px;
     height: 543px;
