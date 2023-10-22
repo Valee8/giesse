@@ -104,20 +104,6 @@ export default {
     },
     mounted() {
 
-        const image = new Image();
-        const startTime = performance.now(); // Registra il timestamp iniziale
-
-        // Assegna un gestore di eventi per il caricamento dell'immagine
-        image.onload = function () {
-            const endTime = performance.now(); // Registra il timestamp finale
-            const loadTime = endTime - startTime; // Calcola il tempo di caricamento in millisecondi
-            console.log(`Tempo di caricamento dell'immagine: ${loadTime} millisecondi`);
-        };
-
-        // Imposta la sorgente dell'immagine per iniziare il caricamento
-        image.src = '/img/jumbotron-min.png';
-
-
         setTimeout(() => {
             this.store.isLoading = false;
         }, 700);
