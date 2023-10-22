@@ -16,6 +16,10 @@ export default {
     },
     data() {
         return {
+            isLoading: true,
+            headerStyle: {
+                backgroundImage: "url('/img/jumbotron-super-min.jpg')"
+            },
             store,
             // Index corrente dello slider
             currentSlideIndex: 0,
@@ -104,6 +108,20 @@ export default {
     },
     mounted() {
 
+        setTimeout(() => {
+            this.store.isLoading = false;
+        }, 700);
+
+        const preloader = new Image();
+        preloader.src = "/img/jumbotron-min.png";
+
+        // Assegna un gestore di eventi per il caricamento dell'immagine originale
+        preloader.onload = () => {
+            this.isLoading = false;
+            this.headerStyle.backgroundImage = "url('/img/jumbotron-min.png')";
+        };
+
+
         // Richiamo il metodo changeSlide su mounted
         this.changeSlide();
     },
@@ -116,7 +134,7 @@ export default {
         <!-- Navbar -->
         <AppNavbar />
 
-        <div class="header-container" v-if="!store.isLoading && $route.name === 'home'">
+        <div class="header-container" v-if="!store.isLoading && $route.name === 'home'" :style="headerStyle">
 
             <div class="container">
                 <!-- Contenuto header -->
@@ -151,6 +169,12 @@ export default {
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <div class="loading" v-else-if="store.isLoading && $route.name === 'home'">
+            <div class="spinner">
+                <i class="fa-solid fa-spinner"></i>
             </div>
         </div>
     </header>
@@ -263,10 +287,11 @@ header {
 
 // Sfondo con immagine dell'header nella home
 .header-container {
-    background-image: url('/img/jumbotron-min.png');
+    //background-image: url('/img/jumbotron-min.png');
     background-size: cover;
     background-position: 0 -162px;
     height: 543px;
+    width: 100%;
 }
 
 // Inizio versioni mobile, tablet e intermedie

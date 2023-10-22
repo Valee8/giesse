@@ -171,6 +171,7 @@ section {
         background-size: cover;
         background-position: center;
         height: 410px;
+        width: 100%;
 
         .section-title {
 
