@@ -26,22 +26,6 @@ export default {
         localStorage.clear();
       }
 
-      // Se hash e' presente
-      if (to.hash && window.location.hash) {
-        // Scorro lo slider con ciclo for
-        for (let i = 0; i < slider.length; i++) {
-          // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
-          let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
-          // Se l'i-esimo elemento e' diverso da hashNumber
-          if (i !== hashNumber) {
-            // Assegno a tutti gli active il valore false
-            slider[i].active = false;
-            // Assegno true all'active di hashNumber 
-            slider[hashNumber].active = true;
-          }
-        }
-      }
-
       // Se classSubmenu (presente nel file store.js) e' uguale a "expand"
       if (this.store.classSubmenu === "expand") {
         // Assegno false a submenu (presente nel file store.js) 

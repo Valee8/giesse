@@ -6,9 +6,6 @@ import { store } from '../store';
 // Importo Colori
 import Colori from './Colori.vue';
 
-// Dichiaro variabile slider che conterra' l'elenco delle Verticali o delle Orizzontali a seconda della sezione
-let slider;
-
 export default {
     name: 'Slider',
     components: {
@@ -24,11 +21,11 @@ export default {
     mounted() {
 
         if (!window.location.hash) {
-            slider[0].active = true;
+            this.store.slider[0].active = true;
 
-            for (let i = 0; i < slider.length; i++) {
+            for (let i = 0; i < this.store.slider.length; i++) {
                 if (i !== 0) {
-                    slider[i].active = false;
+                    this.store.slider[i].active = false;
                 }
             }
         }
@@ -38,7 +35,7 @@ export default {
         // Freccia avanti
         next(index) {
 
-            if (index < slider.length - 1) {
+            if (index < this.store.slider.length - 1) {
                 index++;
             }
 
@@ -46,11 +43,11 @@ export default {
                 index = 0;
             }
 
-            slider[index].active = true;
+            this.store.slider[index].active = true;
 
-            for (let i = 0; i < slider.length; i++) {
+            for (let i = 0; i < this.store.slider.length; i++) {
                 if (i !== index) {
-                    slider[i].active = false;
+                    this.store.slider[i].active = false;
                 }
             }
 
@@ -67,19 +64,19 @@ export default {
         // Freccia indietro
         prev(index) {
 
-            if (index <= slider.length - 1 && index > 0) {
+            if (index <= this.store.slider.length - 1 && index > 0) {
                 index--;
             }
 
             else {
-                index = slider.length - 1;
+                index = this.store.slider.length - 1;
             }
 
-            slider[index].active = true;
+            this.store.slider[index].active = true;
 
-            for (let i = 0; i < slider.length; i++) {
+            for (let i = 0; i < this.store.slider.length; i++) {
                 if (i !== index) {
-                    slider[i].active = false;
+                    this.store.slider[i].active = false;
                 }
             }
 
@@ -94,13 +91,13 @@ export default {
         },
         //Cambio slide premendo i rettangoli in alto
         changeSlide(index) {
-            for (let i = 0; i < slider.length; i++) {
+            for (let i = 0; i < this.store.slider.length; i++) {
                 if (i !== index) {
-                    slider[i].active = false;
+                    this.store.slider[i].active = false;
                 }
             }
 
-            slider[index].active = true;
+            this.store.slider[index].active = true;
         },
     },
     computed: {
@@ -121,15 +118,15 @@ export default {
         getSlider() {
             // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
             if (window.location.href.includes("verticali")) {
-                slider = this.store.vertical;
+                this.store.slider = this.store.vertical;
             }
             // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal
             else {
-                slider = this.store.horizontal;
+                this.store.slider = this.store.horizontal;
             }
 
             // Ritorno slider
-            return slider;
+            return this.store.slider;
         }
     },
 }
