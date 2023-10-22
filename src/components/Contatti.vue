@@ -100,12 +100,6 @@ export default {
 
         </div>
 
-        <!-- <div class="loading" v-else>
-            <div class="spinner">
-                <i class="fa-solid fa-spinner"></i>
-            </div>
-        </div> -->
-
         <!-- Parte sotto - faq -->
         <div class="faq-section">
             <div class="container">

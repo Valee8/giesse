@@ -54,6 +54,18 @@ export default {
                 }
             }
         }
+    },
+    mounted() {
+        setTimeout(() => {
+            if (this.store.colors[0].active) {
+                this.store.isLoading = false;
+            }
+        }, 1200);
+    },
+    updated() {
+        setTimeout(() => {
+            this.store.isLoading = false;
+        }, 1200);
     }
 }
 </script>
@@ -94,7 +106,13 @@ export default {
                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                     <div v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                         <!-- Immagine colore -->
-                        <img :src="color.image" :alt="color.name" class="color-image">
+                        <img :src="color.image" :alt="color.name" class="color-image" v-if="!store.isLoading">
+
+                        <div class="loading" v-else>
+                            <div class="spinner">
+                                <i class="fa-solid fa-spinner"></i>
+                            </div>
+                        </div>
 
                         <!-- Nome colore -->
                         <div class="color-name">
@@ -112,12 +130,22 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-// .loading {
-//     width: 160px;
-//     height: 160px;
-//     margin-top: -15px;
-//     color: #fff;
-// }
+.loading {
+    width: 160px;
+    height: 160px;
+    margin-top: -15px;
+    color: #fff;
+
+    .spinner {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(360deg);
+        }
+    }
+}
 
 // Parte tipologie colori e nomi colori
 .info-colors {
