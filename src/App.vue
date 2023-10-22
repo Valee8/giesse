@@ -21,10 +21,10 @@ export default {
     $route(to, from) {
 
       // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
-      if (!window.location.href.includes("preventivo")) {
-        // Svuoto il contenuto di localStorage
-        localStorage.clear();
-      }
+      // if (!window.location.href.includes("preventivo")) {
+      //   // Svuoto il contenuto di localStorage
+      //   localStorage.clear();
+      // }
 
       // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
       if (window.location.href.includes("verticali")) {
