@@ -13,9 +13,6 @@ export default {
     },
     data() {
         return {
-            // headerStyle: {
-            //     backgroundImage: "url('/img/sfond-faq-min.png')"
-            // },
             store,
             // Array contenente le faq
             faqs: [
@@ -52,9 +49,18 @@ export default {
         }
     },
     mounted() {
-        setTimeout(() => {
-            this.store.isLoading = false;
-        }, 700);
+
+        const blurredImageDiv = document.querySelector(".bg-section");
+        const img = blurredImageDiv.querySelector(".image");
+        function loaded() {
+            blurredImageDiv.classList.add("loaded");
+        }
+
+        if (img.complete) {
+            loaded();
+        } else {
+            img.addEventListener("load", loaded);
+        }
 
     }
 }
@@ -64,6 +70,8 @@ export default {
     <section class>
         <!-- Parte in alto con immagine come sfondo -->
         <div class="bg-section">
+
+            <img :src="store.imagePath2" loading="lazy" class="image">
 
             <div class="container">
                 <div class="section-title">
@@ -164,6 +172,93 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+.bg-section {
+    background-image: url('/img/sfondo-faq-mini.png');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    height: 410px;
+    width: 100%;
+    position: relative;
+
+    .image {
+        height: 410px;
+        object-fit: cover;
+        width: 100%;
+        object-position: center;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 250ms ease-in-out;
+    }
+
+    .section-title {
+
+        a {
+            color: #fff;
+        }
+    }
+
+    .content {
+        padding-top: 30px;
+        color: #fff;
+        text-align: center;
+
+        h1 {
+            font-size: 3.2rem;
+        }
+
+        p {
+            padding-top: 15px;
+            font-size: 1.3rem;
+        }
+    }
+}
+
+.bg-section {
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        animation: pulse 2.5s infinite;
+        height: 543px;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.bg-section {
+    &.loaded {
+        &::before {
+            animation: none;
+            content: none;
+        }
+    }
+}
+
+.bg-section {
+    &.loaded {
+        .image {
+            opacity: 1;
+        }
+    }
+}
+
 .loading {
     height: 410px;
 }
@@ -171,36 +266,6 @@ export default {
 // Sezione Contatti
 section {
     color: #fff;
-
-    .bg-section {
-        background-image: url('/img/sfondo-faq-min.png');
-        background-size: cover;
-        background-position: center;
-        height: 410px;
-        width: 100%;
-
-        .section-title {
-
-            a {
-                color: #fff;
-            }
-        }
-
-        .content {
-            padding-top: 30px;
-            color: #fff;
-            text-align: center;
-
-            h1 {
-                font-size: 3.2rem;
-            }
-
-            p {
-                padding-top: 15px;
-                font-size: 1.3rem;
-            }
-        }
-    }
 
     .faq-section {
         display: flex;

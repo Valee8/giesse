@@ -101,34 +101,28 @@ export default {
                 clearInterval(interval);
             }
         },
-        imageLoaded() {
-            this.$nextTick(() => {
-                this.$refs.headerContainer.classList.add("loaded");
-            });
-        }
-    },
-    mounted() {
-
-        // Richiamo il metodo changeSlide su mounted
-        this.changeSlide();
     },
     updated() {
+        // Richiamo il metodo changeSlide su mounted
+        //if (this.$route.name === "home") {
 
-        if (this.$route.name === "home") {
-
-            const blurredImageDiv = document.querySelector(".header-container");
-            const img = blurredImageDiv.querySelector("img");
-            function loaded() {
-                blurredImageDiv.classList.add("loaded");
-            }
-
-            if (img.complete) {
-                loaded();
-            } else {
-                img.addEventListener("load", loaded);
-            }
-
+        const blurredImageDiv = document.querySelector(".header-container");
+        const img = blurredImageDiv.querySelector(".image");
+        function loaded() {
+            blurredImageDiv.classList.add("loaded");
         }
+
+        if (img.complete) {
+            loaded();
+        } else {
+            img.addEventListener("load", loaded);
+        }
+
+        //}
+    },
+    mounted() {
+        this.changeSlide();
+
     }
 }
 </script>
@@ -139,9 +133,9 @@ export default {
         <!-- Navbar -->
         <AppNavbar />
 
-        <div class="header-container" :class="{ 'home': $route.name === 'home' }" ref="headerContainer">
+        <div class="header-container" :class="{ 'home': $route.name === 'home' }">
 
-            <img :src="store.imagePath" loading="lazy" @load="imageLoaded">
+            <img :src="store.imagePath" loading="lazy" class="image">
 
             <div class="container">
                 <!-- Contenuto header -->
@@ -294,8 +288,9 @@ header {
 
 // Sfondo con immagine dell'header nella home
 .header-container {
-    //background-image: url('/img/jumbotron-min.png');
+    background-image: url('/img/jumbotron-mini.png');
     background-size: cover;
+    background-repeat: repeat;
     background-position: 0 -162px;
     height: 543px;
     width: 100%;
@@ -305,24 +300,29 @@ header {
         display: none;
     }
 
-    img {
+    .image {
         height: 543px;
         object-fit: cover;
         width: 100%;
         object-position: 0 -162px;
+        display: block;
         position: absolute;
         top: 0;
         left: 0;
+        opacity: 0;
+        transition: opacity 250ms ease-in-out;
     }
 }
 
-.header-container::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    animation: pulse 2.5s infinite;
-    background-color: var(--text-color);
+.header-container {
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        animation: pulse 2.5s infinite;
+        height: 543px;
+    }
 }
 
 @keyframes pulse {
@@ -339,18 +339,21 @@ header {
     }
 }
 
-.header-container.loaded::before {
-    animation: none;
-    content: none;
+.header-container {
+    &.loaded {
+        &::before {
+            animation: none;
+            content: none;
+        }
+    }
 }
 
-.header-container img {
-    opacity: 0;
-    transition: opacity 250ms ease-in-out;
-}
-
-.header-container.loaded img {
-    opacity: 1;
+.header-container {
+    &.loaded {
+        .image {
+            opacity: 1;
+        }
+    }
 }
 
 // Inizio versioni mobile, tablet e intermedie

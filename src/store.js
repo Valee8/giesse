@@ -4,6 +4,7 @@ const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 export const store = reactive({
     imagePath: imagePrefix + "img/jumbotron-min.png",
+    imagePath2: imagePrefix + "img/sfondo-faq-min.png",
     slider: [],
     isLoading: true,
     // menuHamburger per mostrare e nascondere il sottomenu del menu hamburger
