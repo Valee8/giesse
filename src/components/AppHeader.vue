@@ -102,14 +102,21 @@ export default {
                 clearInterval(interval);
             }
         },
+        imageLoaded() {
+            this.$nextTick(() => {
+                this.$refs.headerContainer.classList.add("loaded");
+            });
+        }
     },
     mounted() {
+
         // Richiamo il metodo changeSlide su mounted
         this.changeSlide();
     },
     updated() {
 
         if (this.$route.name === "home") {
+
             const blurredImageDiv = document.querySelector(".header-container")
             const img = blurredImageDiv.querySelector("img")
             function loaded() {
@@ -121,6 +128,7 @@ export default {
             } else {
                 img.addEventListener("load", loaded)
             }
+
         }
     }
 }
@@ -132,9 +140,9 @@ export default {
         <!-- Navbar -->
         <AppNavbar />
 
-        <div class="header-container" :class="{ 'home': $route.name === 'home' }">
+        <div class="header-container" :class="{ 'home': $route.name === 'home' }" ref="headerContainer">
 
-            <img src="/img/jumbotron-min.png" loading="lazy" @load="loaded">
+            <img :src="imagePath" loading="lazy" @load="imageLoaded">
 
             <div class="container">
                 <!-- Contenuto header -->
