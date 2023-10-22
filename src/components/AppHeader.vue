@@ -16,6 +16,7 @@ export default {
     },
     data() {
         return {
+            imagePath: "/img/jumbotron-min.png",
             store,
             // Index corrente dello slider
             currentSlideIndex: 0,
@@ -103,14 +104,25 @@ export default {
         },
     },
     mounted() {
-
-        setTimeout(() => {
-            this.store.isLoading = false;
-        }, 8000);
-
         // Richiamo il metodo changeSlide su mounted
         this.changeSlide();
     },
+    updated() {
+
+        if (this.$route.name === "home") {
+            const blurredImageDiv = document.querySelector(".header-container")
+            const img = blurredImageDiv.querySelector("img")
+            function loaded() {
+                blurredImageDiv.classList.add("loaded")
+            }
+
+            if (img.complete) {
+                loaded()
+            } else {
+                img.addEventListener("load", loaded)
+            }
+        }
+    }
 }
 </script>
 
@@ -120,7 +132,9 @@ export default {
         <!-- Navbar -->
         <AppNavbar />
 
-        <div class="header-container" v-if="!store.isLoading && $route.name === 'home'">
+        <div class="header-container" :class="{ 'home': $route.name === 'home' }">
+
+            <img src="/img/jumbotron-min.png" loading="lazy" @load="loaded">
 
             <div class="container">
                 <!-- Contenuto header -->
@@ -158,17 +172,17 @@ export default {
             </div>
         </div>
 
-        <div class="loading" v-else-if="store.isLoading && $route.name === 'home'">
+        <!-- <div class="loading" v-else-if="store.isLoading && $route.name === 'home'">
             <div class="spinner">
                 <i class="fa-solid fa-spinner"></i>
             </div>
-        </div>
+        </div> -->
     </header>
 
 
 
     <!-- Rettangoli al centro sotto lo sfondo dell'header -->
-    <div class="container" v-if="$route.name === 'home' && !store.isLoading">
+    <div class="container" v-if="$route.name === 'home'">
         <div class="list-rectangles">
             <div class="rectangles" v-for="(rectangles, index) in sliderContent" :key="index"
                 :class="{ 'active': rectangles.active }">
@@ -273,11 +287,63 @@ header {
 
 // Sfondo con immagine dell'header nella home
 .header-container {
-    background-image: url('/img/jumbotron-min.png');
+    //background-image: url('/img/jumbotron-min.png');
     background-size: cover;
     background-position: 0 -162px;
     height: 543px;
     width: 100%;
+    position: relative;
+
+    &:not(.home) {
+        display: none;
+    }
+
+    img {
+        height: 543px;
+        object-fit: cover;
+        width: 100%;
+        object-position: 0 -162px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.header-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: pulse 2.5s infinite;
+    background-color: var(--text-color);
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.header-container.loaded::before {
+    animation: none;
+    content: none;
+}
+
+.header-container img {
+    opacity: 0;
+    transition: opacity 250ms ease-in-out;
+}
+
+.header-container.loaded img {
+    opacity: 1;
 }
 
 // Inizio versioni mobile, tablet e intermedie

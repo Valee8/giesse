@@ -63,7 +63,7 @@ export default {
 <template>
     <section class>
         <!-- Parte in alto con immagine come sfondo -->
-        <div class="bg-section" v-if="!store.isLoading">
+        <div class="bg-section">
 
             <div class="container">
                 <div class="section-title">
@@ -92,11 +92,11 @@ export default {
 
         </div>
 
-        <div class="loading" v-else>
+        <!-- <div class="loading" v-else>
             <div class="spinner">
                 <i class="fa-solid fa-spinner"></i>
             </div>
-        </div>
+        </div> -->
 
         <!-- Parte sotto - faq -->
         <div class="faq-section">
