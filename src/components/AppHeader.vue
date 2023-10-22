@@ -16,10 +16,6 @@ export default {
     },
     data() {
         return {
-            isLoading: true,
-            // headerStyle: {
-            //     backgroundImage: "url('/img/jumbotron-super-min.jpg')"
-            // },
             store,
             // Index corrente dello slider
             currentSlideIndex: 0,
@@ -111,16 +107,6 @@ export default {
         setTimeout(() => {
             this.store.isLoading = false;
         }, 700);
-
-        // const preloader = new Image();
-        // preloader.src = "/img/jumbotron-min.png";
-
-        // // Assegna un gestore di eventi per il caricamento dell'immagine originale
-        // preloader.onload = () => {
-        //     this.isLoading = false;
-        //     this.headerStyle.backgroundImage = "url('/img/jumbotron-min.png')";
-        // };
-
 
         // Richiamo il metodo changeSlide su mounted
         this.changeSlide();
