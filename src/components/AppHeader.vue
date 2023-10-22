@@ -16,7 +16,6 @@ export default {
     },
     data() {
         return {
-            imagePath: "/img/jumbotron-min.png",
             store,
             // Index corrente dello slider
             currentSlideIndex: 0,
@@ -142,7 +141,7 @@ export default {
 
         <div class="header-container" :class="{ 'home': $route.name === 'home' }" ref="headerContainer">
 
-            <img :src="imagePath" loading="lazy" @load="imageLoaded">
+            <img :src="store.imagePath" loading="lazy" @load="imageLoaded">
 
             <div class="container">
                 <!-- Contenuto header -->
