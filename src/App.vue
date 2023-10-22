@@ -26,6 +26,31 @@ export default {
         localStorage.clear();
       }
 
+      // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
+      if (window.location.href.includes("verticali")) {
+        this.store.slider = this.store.vertical;
+      }
+      // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal 
+      else if (window.location.href.includes("orizzontali")) {
+        this.store.slider = this.store.horizontal;
+      }
+
+      // Se hash e' presente
+      if (to.hash && window.location.hash) {
+        // Scorro lo slider con ciclo for
+        for (let i = 0; i < this.store.slider.length; i++) {
+          // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
+          let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
+          // Se l'i-esimo elemento e' diverso da hashNumber
+          if (i !== hashNumber) {
+            // Assegno a tutti gli active il valore false
+            this.store.slider[i].active = false;
+            // Assegno true all'active di hashNumber 
+            this.store.slider[hashNumber].active = true;
+          }
+        }
+      }
+
       // Se classSubmenu (presente nel file store.js) e' uguale a "expand"
       if (this.store.classSubmenu === "expand") {
         // Assegno false a submenu (presente nel file store.js) 
