@@ -115,21 +115,21 @@ export default {
     },
     updated() {
 
-        if (this.$route.name === "home") {
+        //if (this.$route.name === "home") {
 
-            const blurredImageDiv = document.querySelector(".header-container")
-            const img = blurredImageDiv.querySelector("img")
-            function loaded() {
-                blurredImageDiv.classList.add("loaded")
-            }
-
-            if (img.complete) {
-                loaded()
-            } else {
-                img.addEventListener("load", loaded)
-            }
-
+        const blurredImageDiv = document.querySelector(".header-container")
+        const img = blurredImageDiv.querySelector("img")
+        function loaded() {
+            blurredImageDiv.classList.add("loaded")
         }
+
+        if (img.complete) {
+            loaded()
+        } else {
+            img.addEventListener("load", loaded)
+        }
+
+        //}
     }
 }
 </script>
