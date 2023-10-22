@@ -5,9 +5,6 @@ import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import AppFooter from './components/AppFooter.vue';
 
-// Dichiaro variabile slider che conterra' l'elenco delle Verticali o delle Orizzontali a seconda della sezione
-let slider;
-
 export default {
   components: {
     AppHeader,
@@ -20,57 +17,48 @@ export default {
       showArrowUp: false
     }
   },
-  // watch: {
-  //   $route(to, from) {
+  watch: {
+    $route(to, from) {
 
-  //     // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
-  //     if (!window.location.href.includes("preventivo")) {
-  //       // Svuoto il contenuto di localStorage
-  //       localStorage.clear();
-  //     }
+      // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
+      if (!window.location.href.includes("preventivo")) {
+        // Svuoto il contenuto di localStorage
+        localStorage.clear();
+      }
 
-  //     // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
-  //     if (window.location.href.includes("verticali")) {
-  //       slider = this.store.vertical;
-  //     }
-  //     // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal 
-  //     else if (window.location.href.includes("orizzontali")) {
-  //       slider = this.store.horizontal;
-  //     }
+      // Se hash e' presente
+      if (to.hash && window.location.hash) {
+        // Scorro lo slider con ciclo for
+        for (let i = 0; i < slider.length; i++) {
+          // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
+          let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
+          // Se l'i-esimo elemento e' diverso da hashNumber
+          if (i !== hashNumber) {
+            // Assegno a tutti gli active il valore false
+            slider[i].active = false;
+            // Assegno true all'active di hashNumber 
+            slider[hashNumber].active = true;
+          }
+        }
+      }
 
-  //     // Se hash e' presente
-  //     if (to.hash && window.location.hash) {
-  //       // Scorro lo slider con ciclo for
-  //       for (let i = 0; i < slider.length; i++) {
-  //         // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
-  //         let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
-  //         // Se l'i-esimo elemento e' diverso da hashNumber
-  //         if (i !== hashNumber) {
-  //           // Assegno a tutti gli active il valore false
-  //           slider[i].active = false;
-  //           // Assegno true all'active di hashNumber 
-  //           slider[hashNumber].active = true;
-  //         }
-  //       }
-  //     }
-
-  //     // Se classSubmenu (presente nel file store.js) e' uguale a "expand"
-  //     if (this.store.classSubmenu === "expand") {
-  //       // Assegno false a submenu (presente nel file store.js) 
-  //       this.store.submenu = false;
-  //       // Assegno a classSubmenu "reduce"
-  //       this.store.classSubmenu = "reduce";
-  //     }
-  //   }
-  // },
-  // updated() {
-  //   // Aggiungo evento per lo scroll 
-  //   window.addEventListener('scroll', this.handleScroll);
-  // },
-  // destroyed() {
-  //   // Rimuovo evento per lo scroll
-  //   window.removeEventListener('scroll', this.handleScroll);
-  // },
+      // Se classSubmenu (presente nel file store.js) e' uguale a "expand"
+      if (this.store.classSubmenu === "expand") {
+        // Assegno false a submenu (presente nel file store.js) 
+        this.store.submenu = false;
+        // Assegno a classSubmenu "reduce"
+        this.store.classSubmenu = "reduce";
+      }
+    }
+  },
+  updated() {
+    // Aggiungo evento per lo scroll 
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed() {
+    // Rimuovo evento per lo scroll
+    window.removeEventListener('scroll', this.handleScroll);
+  },
   methods: {
     // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
     handleScroll() {

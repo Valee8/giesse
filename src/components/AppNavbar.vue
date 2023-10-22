@@ -13,60 +13,60 @@ export default {
         }
     },
     // updated: viene chiamato dopo che la componente viene aggiornata
-    // updated() {
-    //     // Se l'url include "preventivo"
-    //     if (window.location.href.includes("preventivo")) {
-    //         // Assegno true all'active del primo elemento dell'array linksNav presente nel file store.js
-    //         this.store.linksNav[0].active = true;
-    //         // Assegno "active top" come classe css del primo elemento
-    //         this.activeSection = "active top";
+    updated() {
+        // Se l'url include "preventivo"
+        if (window.location.href.includes("preventivo")) {
+            // Assegno true all'active del primo elemento dell'array linksNav presente nel file store.js
+            this.store.linksNav[0].active = true;
+            // Assegno "active top" come classe css del primo elemento
+            this.activeSection = "active top";
 
-    //         // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
-    //         for (let i = 0; i < this.store.linksNav.length; i++) {
-    //             if (i !== 0) {
-    //                 this.store.linksNav[i].active = false;
-    //             }
-    //         }
-    //     }
-    //     // Se l'url include "sede"
-    //     else if (window.location.href.includes("sede")) {
-    //         // Assegno true all'active del secondo elemento dell'array linksNav presente nel file store.js
-    //         this.store.linksNav[1].active = true;
-    //         // Assegno "active center" come classe css del secondo elemento
-    //         this.activeSection = "active center";
+            // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                if (i !== 0) {
+                    this.store.linksNav[i].active = false;
+                }
+            }
+        }
+        // Se l'url include "sede"
+        else if (window.location.href.includes("sede")) {
+            // Assegno true all'active del secondo elemento dell'array linksNav presente nel file store.js
+            this.store.linksNav[1].active = true;
+            // Assegno "active center" come classe css del secondo elemento
+            this.activeSection = "active center";
 
-    //         // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
-    //         for (let i = 0; i < this.store.linksNav.length; i++) {
-    //             if (i !== 1) {
-    //                 this.store.linksNav[i].active = false;
-    //             }
-    //         }
-    //     }
-    //     // Se l'url include "contatti"
-    //     else if (window.location.href.includes("contatti")) {
-    //         // Assegno true all'active del terzo elemento dell'array linksNav presente nel file store.js
-    //         this.store.linksNav[2].active = true;
-    //         // Assegno "active bottom" come classe css del secondo elemento
-    //         this.activeSection = "active bottom";
+            // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                if (i !== 1) {
+                    this.store.linksNav[i].active = false;
+                }
+            }
+        }
+        // Se l'url include "contatti"
+        else if (window.location.href.includes("contatti")) {
+            // Assegno true all'active del terzo elemento dell'array linksNav presente nel file store.js
+            this.store.linksNav[2].active = true;
+            // Assegno "active bottom" come classe css del secondo elemento
+            this.activeSection = "active bottom";
 
-    //         // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
-    //         for (let i = 0; i < this.store.linksNav.length; i++) {
-    //             if (i !== 2) {
-    //                 this.store.linksNav[i].active = false;
-    //             }
-    //         }
-    //     }
-    //     // Se l'url non contiene preventivo, sede o contatti
-    //     else {
-    //         // Non assegno nessuna classe css e activeSection e' azzerato
-    //         this.activeSection = "";
+            // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                if (i !== 2) {
+                    this.store.linksNav[i].active = false;
+                }
+            }
+        }
+        // Se l'url non contiene preventivo, sede o contatti
+        else {
+            // Non assegno nessuna classe css e activeSection e' azzerato
+            this.activeSection = "";
 
-    //         // Scorro l'array linksNav e assegno false a tutti gli active
-    //         for (let i = 0; i < this.store.linksNav.length; i++) {
-    //             this.store.linksNav[i].active = false;
-    //         }
-    //     }
-    // },
+            // Scorro l'array linksNav e assegno false a tutti gli active
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                this.store.linksNav[i].active = false;
+            }
+        }
+    },
     methods: {
         // Metodo showSubmenu per mostrare il sottomenu quando viene cliccata la scritta "Zanzariere" nel nav
         showSubmenu() {
