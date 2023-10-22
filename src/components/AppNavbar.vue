@@ -13,100 +13,100 @@ export default {
         }
     },
     // updated: viene chiamato dopo che la componente viene aggiornata
-    // updated() {
-    //     // Se l'url include "preventivo"
-    //     if (window.location.href.includes("preventivo")) {
-    //         // Assegno true all'active del primo elemento dell'array linksNav presente nel file store.js
-    //         this.store.linksNav[0].active = true;
-    //         // Assegno "active top" come classe css del primo elemento
-    //         this.activeSection = "active top";
+    updated() {
+        // Se l'url include "preventivo"
+        if (window.location.href.includes("preventivo")) {
+            // Assegno true all'active del primo elemento dell'array linksNav presente nel file store.js
+            this.store.linksNav[0].active = true;
+            // Assegno "active top" come classe css del primo elemento
+            this.activeSection = "active top";
 
-    //         // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
-    //         for (let i = 0; i < this.store.linksNav.length; i++) {
-    //             if (i !== 0) {
-    //                 this.store.linksNav[i].active = false;
-    //             }
-    //         }
-    //     }
-    //     // Se l'url include "sede"
-    //     else if (window.location.href.includes("sede")) {
-    //         // Assegno true all'active del secondo elemento dell'array linksNav presente nel file store.js
-    //         this.store.linksNav[1].active = true;
-    //         // Assegno "active center" come classe css del secondo elemento
-    //         this.activeSection = "active center";
+            // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                if (i !== 0) {
+                    this.store.linksNav[i].active = false;
+                }
+            }
+        }
+        // Se l'url include "sede"
+        else if (window.location.href.includes("sede")) {
+            // Assegno true all'active del secondo elemento dell'array linksNav presente nel file store.js
+            this.store.linksNav[1].active = true;
+            // Assegno "active center" come classe css del secondo elemento
+            this.activeSection = "active center";
 
-    //         // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
-    //         for (let i = 0; i < this.store.linksNav.length; i++) {
-    //             if (i !== 1) {
-    //                 this.store.linksNav[i].active = false;
-    //             }
-    //         }
-    //     }
-    //     // Se l'url include "contatti"
-    //     else if (window.location.href.includes("contatti")) {
-    //         // Assegno true all'active del terzo elemento dell'array linksNav presente nel file store.js
-    //         this.store.linksNav[2].active = true;
-    //         // Assegno "active bottom" come classe css del secondo elemento
-    //         this.activeSection = "active bottom";
+            // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                if (i !== 1) {
+                    this.store.linksNav[i].active = false;
+                }
+            }
+        }
+        // Se l'url include "contatti"
+        else if (window.location.href.includes("contatti")) {
+            // Assegno true all'active del terzo elemento dell'array linksNav presente nel file store.js
+            this.store.linksNav[2].active = true;
+            // Assegno "active bottom" come classe css del secondo elemento
+            this.activeSection = "active bottom";
 
-    //         // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
-    //         for (let i = 0; i < this.store.linksNav.length; i++) {
-    //             if (i !== 2) {
-    //                 this.store.linksNav[i].active = false;
-    //             }
-    //         }
-    //     }
-    //     // Se l'url non contiene preventivo, sede o contatti
-    //     else {
-    //         // Non assegno nessuna classe css e activeSection e' azzerato
-    //         this.activeSection = "";
+            // Scorro l'array linksNav e assegno false all'active di tutti gli altri elementi 
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                if (i !== 2) {
+                    this.store.linksNav[i].active = false;
+                }
+            }
+        }
+        // Se l'url non contiene preventivo, sede o contatti
+        else {
+            // Non assegno nessuna classe css e activeSection e' azzerato
+            this.activeSection = "";
 
-    //         // Scorro l'array linksNav e assegno false a tutti gli active
-    //         for (let i = 0; i < this.store.linksNav.length; i++) {
-    //             this.store.linksNav[i].active = false;
-    //         }
-    //     }
-    // },
-    // methods: {
-    //     // Metodo showSubmenu per mostrare il sottomenu quando viene cliccata la scritta "Zanzariere" nel nav
-    //     showSubmenu() {
-    //         // Se submenu (presente nel file store.js) e' false
-    //         if (!this.store.submenu) {
-    //             // Assegno true a submenu
-    //             this.store.submenu = true;
+            // Scorro l'array linksNav e assegno false a tutti gli active
+            for (let i = 0; i < this.store.linksNav.length; i++) {
+                this.store.linksNav[i].active = false;
+            }
+        }
+    },
+    methods: {
+        // Metodo showSubmenu per mostrare il sottomenu quando viene cliccata la scritta "Zanzariere" nel nav
+        showSubmenu() {
+            // Se submenu (presente nel file store.js) e' false
+            if (!this.store.submenu) {
+                // Assegno true a submenu
+                this.store.submenu = true;
 
-    //             // Assegno la classe css "expand" a classSubmenu (presente nel file store.js)
-    //             this.store.classSubmenu = "expand";
-    //         }
-    //         // Se submenu (presente nel file store.js) e' true
-    //         else {
-    //             // Assegno false a submenu
-    //             this.store.submenu = false;
+                // Assegno la classe css "expand" a classSubmenu (presente nel file store.js)
+                this.store.classSubmenu = "expand";
+            }
+            // Se submenu (presente nel file store.js) e' true
+            else {
+                // Assegno false a submenu
+                this.store.submenu = false;
 
-    //             // Assegno la classe css "reduce" a classSubmenu 
-    //             this.store.classSubmenu = "reduce";
-    //         }
-    //     },
-    //     // Metodo showHamburger per mostrare il sottomenu delle versioni mobile/tablet che sostituisce il menu' figo, menu' bello della versione desktop
-    //     showHamburger() {
-    //         // Se menuHamburger (presente nel file store.js) e' false
-    //         if (!this.store.menuHamburger) {
-    //             // Assegno true a menuHamburger
-    //             this.store.menuHamburger = true;
+                // Assegno la classe css "reduce" a classSubmenu 
+                this.store.classSubmenu = "reduce";
+            }
+        },
+        // Metodo showHamburger per mostrare il sottomenu delle versioni mobile/tablet che sostituisce il menu' figo, menu' bello della versione desktop
+        showHamburger() {
+            // Se menuHamburger (presente nel file store.js) e' false
+            if (!this.store.menuHamburger) {
+                // Assegno true a menuHamburger
+                this.store.menuHamburger = true;
 
-    //             // Assegno la classe css "visible" a classHamburger (presente nel file store.js)
-    //             this.store.classHamburger = "visible";
-    //         }
-    //         // Se menuHamburger e' true
-    //         else {
-    //             // Assegno false a menuHamburger
-    //             this.store.menuHamburger = false;
+                // Assegno la classe css "visible" a classHamburger (presente nel file store.js)
+                this.store.classHamburger = "visible";
+            }
+            // Se menuHamburger e' true
+            else {
+                // Assegno false a menuHamburger
+                this.store.menuHamburger = false;
 
-    //             // Assegno la classe css "hidden" a classHamburger
-    //             this.store.classHamburger = "hidden";
-    //         }
-    //     }
-    // },
+                // Assegno la classe css "hidden" a classHamburger
+                this.store.classHamburger = "hidden";
+            }
+        }
+    },
     computed: {
         // Estraggo le Verticali dalla posizione 0 (incluso) alla posizione 4 (escluso) dell'array listModels presente nel file store.js
         filteredVertical() {

@@ -16,6 +16,10 @@ export default {
     },
     data() {
         return {
+            backgroundImage: {
+                image: '/img/jumbotron-super-min.jpg',
+                showTemporary: true
+            },
             store,
             // Index corrente dello slider
             currentSlideIndex: 0,
@@ -101,20 +105,21 @@ export default {
                 clearInterval(interval);
             }
         },
-        // changeSlideRectangles(index) {
+    },
+    computed: {
+        backgroundImageStyle() {
+            const { showTemporary } = this.backgroundImage;
 
-        //     this.currentSlideIndex = index;
-
-        //     for (let i = 0; i < this.slider_content.length; i++) {
-        //         if (i !== this.currentSlideIndex) {
-        //             this.slider_content[i].active = false;
-        //         }
-        //     }
-
-        //     this.slider_content[this.currentSlideIndex].active = true;
-        // },
+            return {
+                'background-image': `url(${showTemporary ? '/img/jumbotron-super-min.jpg' : '/img/jumbotron-min.png'})`
+            };
+        }
     },
     mounted() {
+
+        setTimeout(() => {
+            this.backgroundImage.showTemporary = false;
+        }, 3000);
 
         // Richiamo il metodo changeSlide su mounted
         this.changeSlide();
@@ -128,7 +133,7 @@ export default {
         <!-- Navbar -->
         <AppNavbar />
 
-        <div class="header-container" v-if="!store.isLoading && $route.name === 'home'">
+        <div class="header-container" v-if="!store.isLoading && $route.name === 'home'" :style="backgroundImageStyle">
 
             <div class="container">
                 <!-- Contenuto header -->
@@ -213,10 +218,6 @@ export default {
             background-color: #000;
 
         }
-
-        // &:not(.active) {
-        //     cursor: pointer;
-        // }
     }
 }
 
@@ -246,17 +247,10 @@ header {
     color: #fff;
 
     .container {
-        //display: flex;
-        //flex-direction: column;
-        //justify-content: flex-end;
-        //height: 81%;
-        //height: 500px;
-        //background-color: red;
 
         // Contenuto header
         .jumbotron {
             height: 400px;
-            //width: 680px;
             padding-top: 60px;
 
             // Titolo
@@ -292,7 +286,7 @@ header {
 
 // Sfondo con immagine dell'header nella home
 .header-container {
-    background-image: url('/img/jumbotron-min.png');
+    //background-image: url('/img/jumbotron-super-min.jpg');
     background-size: cover;
     background-position: 0 -162px;
     height: 543px;

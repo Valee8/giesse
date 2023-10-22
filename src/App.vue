@@ -23,128 +23,128 @@ export default {
       showArrowUp: false
     }
   },
-  // watch: {
-  //   $route(to, from) {
+  watch: {
+    $route(to, from) {
 
-  //     // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
-  //     if (!window.location.href.includes("preventivo")) {
-  //       // Svuoto il contenuto di localStorage
-  //       localStorage.clear();
-  //     }
+      // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
+      if (!window.location.href.includes("preventivo")) {
+        // Svuoto il contenuto di localStorage
+        localStorage.clear();
+      }
 
-  //     // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
-  //     if (window.location.href.includes("verticali")) {
-  //       slider = this.store.vertical;
-  //     }
-  //     // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal 
-  //     else if (window.location.href.includes("orizzontali")) {
-  //       slider = this.store.horizontal;
-  //     }
+      // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
+      if (window.location.href.includes("verticali")) {
+        slider = this.store.vertical;
+      }
+      // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal 
+      else if (window.location.href.includes("orizzontali")) {
+        slider = this.store.horizontal;
+      }
 
-  //     // Se hash e' presente
-  //     if (to.hash && window.location.hash) {
-  //       // Scorro lo slider con ciclo for
-  //       for (let i = 0; i < slider.length; i++) {
-  //         // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
-  //         let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
-  //         // Se l'i-esimo elemento e' diverso da hashNumber
-  //         if (i !== hashNumber) {
-  //           // Assegno a tutti gli active il valore false
-  //           slider[i].active = false;
-  //           // Assegno true all'active di hashNumber 
-  //           slider[hashNumber].active = true;
-  //         }
-  //       }
-  //     }
+      // Se hash e' presente
+      if (to.hash && window.location.hash) {
+        // Scorro lo slider con ciclo for
+        for (let i = 0; i < slider.length; i++) {
+          // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
+          let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
+          // Se l'i-esimo elemento e' diverso da hashNumber
+          if (i !== hashNumber) {
+            // Assegno a tutti gli active il valore false
+            slider[i].active = false;
+            // Assegno true all'active di hashNumber 
+            slider[hashNumber].active = true;
+          }
+        }
+      }
 
-  //     // Se classSubmenu (presente nel file store.js) e' uguale a "expand"
-  //     if (this.store.classSubmenu === "expand") {
-  //       // Assegno false a submenu (presente nel file store.js) 
-  //       this.store.submenu = false;
-  //       // Assegno a classSubmenu "reduce"
-  //       this.store.classSubmenu = "reduce";
-  //     }
-  //   }
+      // Se classSubmenu (presente nel file store.js) e' uguale a "expand"
+      if (this.store.classSubmenu === "expand") {
+        // Assegno false a submenu (presente nel file store.js) 
+        this.store.submenu = false;
+        // Assegno a classSubmenu "reduce"
+        this.store.classSubmenu = "reduce";
+      }
+    }
+  },
+  created() {
+    // Aggiungi un listener per il cambio di rotta
+    this.$router.beforeEach((to, from, next) => {
+      // Mostra il loader quando la rotta inizia a cambiare
+      this.store.isLoading = true;
+
+      // Passa alla prossima rotta dopo un certo periodo di tempo (ad esempio, 2 secondi)
+      setTimeout(() => {
+        next();
+      }, 400);
+    });
+
+    // Dopo il completamento del cambio di rotta, nascondi il loader
+    this.$router.afterEach(() => {
+      this.store.isLoading = false;
+    });
+  },
+  updated() {
+    //window.addEventListener('clearStorage', this.handleBackButton);
+    // Aggiungo evento per lo scroll 
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  // beforeDestroy() {
+  //   window.removeEventListener('clearStorage', this.handleBackButton);
   // },
-  // created() {
-  //   // Aggiungi un listener per il cambio di rotta
-  //   this.$router.beforeEach((to, from, next) => {
-  //     // Mostra il loader quando la rotta inizia a cambiare
-  //     this.store.isLoading = true;
-
-  //     // Passa alla prossima rotta dopo un certo periodo di tempo (ad esempio, 2 secondi)
-  //     setTimeout(() => {
-  //       next();
-  //     }, 400);
-  //   });
-
-  //   // Dopo il completamento del cambio di rotta, nascondi il loader
-  //   this.$router.afterEach(() => {
+  destroyed() {
+    // Rimuovo evento per lo scroll
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  // mounted() {
+  //   setTimeout(() => {
   //     this.store.isLoading = false;
-  //   });
+  //   }, 400);
   // },
-  // updated() {
-  //   //window.addEventListener('clearStorage', this.handleBackButton);
-  //   // Aggiungo evento per lo scroll 
-  //   window.addEventListener('scroll', this.handleScroll);
-  // },
-  // // beforeDestroy() {
-  // //   window.removeEventListener('clearStorage', this.handleBackButton);
-  // // },
-  // destroyed() {
-  //   // Rimuovo evento per lo scroll
-  //   window.removeEventListener('scroll', this.handleScroll);
-  // },
-  // // mounted() {
-  // //   setTimeout(() => {
-  // //     this.store.isLoading = false;
-  // //   }, 400);
-  // // },
-  // methods: {
-  //   handlePageReload() {
-  //     // Esegui il codice prima di aggiornare la pagina
-  //     setTimeout(() => {
-  //       // Imposta isLoading su false dopo 400 millisecondi
-  //       this.isLoading = false;
-  //     }, 400);
-  //   },
-  //   // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
-  //   handleScroll() {
-  //     if (window.scrollY > 700) {
-  //       this.showArrowUp = true;
-  //     }
-  //     else {
-  //       this.showArrowUp = false;
-  //     }
-  //   },
-  //   // Metodo per
-  //   closeMenu() {
-  //     // chiudere il sottomenu di "Zanzariere" quando si clicca in un qualsiasi punto della pagina
-  //     if (this.store.classSubmenu === "expand") {
-  //       this.store.submenu = false;
-  //       this.store.classSubmenu = "reduce";
-  //     }
+  methods: {
+    handlePageReload() {
+      // Esegui il codice prima di aggiornare la pagina
+      setTimeout(() => {
+        // Imposta isLoading su false dopo 400 millisecondi
+        this.isLoading = false;
+      }, 400);
+    },
+    // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
+    handleScroll() {
+      if (window.scrollY > 700) {
+        this.showArrowUp = true;
+      }
+      else {
+        this.showArrowUp = false;
+      }
+    },
+    // Metodo per
+    closeMenu() {
+      // chiudere il sottomenu di "Zanzariere" quando si clicca in un qualsiasi punto della pagina
+      if (this.store.classSubmenu === "expand") {
+        this.store.submenu = false;
+        this.store.classSubmenu = "reduce";
+      }
 
-  //     // chiudere il sottomenu del menu hamburger quando si clicca in un qualsiasi punto della pagina
-  //     if (this.store.classHamburger === "visible") {
-  //       this.store.menuHamburger = false;
-  //       this.store.classHamburger = "hidden";
-  //     }
+      // chiudere il sottomenu del menu hamburger quando si clicca in un qualsiasi punto della pagina
+      if (this.store.classHamburger === "visible") {
+        this.store.menuHamburger = false;
+        this.store.classHamburger = "hidden";
+      }
 
-  //   },
-  //   // handleBackButton() {
-  //   //   if (!window.location.href.includes("preventivo")) {
-  //   //     localStorage.clear();
-  //   //   }
-  //   // },
-  //   // Scrollo in alto quando clicco la freccia
-  //   scrollToTop() {
-  //     window.scrollTo({
-  //       top: 0,
-  //       behavior: "smooth"
-  //     });
-  //   }
-  // }
+    },
+    // handleBackButton() {
+    //   if (!window.location.href.includes("preventivo")) {
+    //     localStorage.clear();
+    //   }
+    // },
+    // Scrollo in alto quando clicco la freccia
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+  }
 }
 </script>
 

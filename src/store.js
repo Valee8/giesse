@@ -240,11 +240,11 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Bianco 9010",
-                    image: imagePrefix + "img/colori/bianco-9010.png"
+                    image: imagePrefix + "img/colori/bianco-9010.jpg"
                 },
                 {
                     name: "Avorio 1013",
-                    image: imagePrefix + "img/colori/avorio-1013.png"
+                    image: imagePrefix + "img/colori/avorio-1013.jpg"
                 },
             ]
         },
@@ -254,39 +254,39 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Marrone 8017",
-                    image: imagePrefix + "img/colori/marrone-8017.png"
+                    image: imagePrefix + "img/colori/marrone-8017.jpg"
                 },
                 {
                     name: "Nero 9005",
-                    image: imagePrefix + "img/colori/nero-9005.png"
+                    image: imagePrefix + "img/colori/nero-9005.jpg"
                 },
                 {
                     name: "Bronzo Chiaro Verniciato",
-                    image: imagePrefix + "img/colori/bronzo-chiaro-verniciato-3.png"
+                    image: imagePrefix + "img/colori/bronzo-chiaro-verniciato.jpg"
                 },
                 {
                     name: "Bronzo Scuro Verniciato",
-                    image: imagePrefix + "img/colori/bronzo-scuro-verniciato-2.png"
+                    image: imagePrefix + "img/colori/bronzo-scuro-verniciato.jpg"
                 },
                 {
                     name: "Argento",
-                    image: imagePrefix + "img/colori/argento-2.png"
+                    image: imagePrefix + "img/colori/argento.jpg"
                 },
                 {
                     name: "Rosso Gotico",
-                    image: imagePrefix + "img/colori/rosso-gotico.png"
+                    image: imagePrefix + "img/colori/rosso-gotico.jpg"
                 },
                 {
                     name: "Verde Gotico",
-                    image: imagePrefix + "img/colori/verde-gotico.png"
+                    image: imagePrefix + "img/colori/verde-gotico.jpg"
                 },
                 {
                     name: "Marrone Gotico",
-                    image: imagePrefix + "img/colori/marrone-gotico.png"
+                    image: imagePrefix + "img/colori/marrone-gotico.jpg"
                 },
                 {
                     name: "Grigio Gotico",
-                    image: imagePrefix + "img/colori/grigio-gotico.png"
+                    image: imagePrefix + "img/colori/grigio-gotico.jpg"
                 }
             ]
         },
@@ -296,31 +296,31 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Noce Chiaro NH31",
-                    image: imagePrefix + "img/colori/noce-chiaro-nh31.png"
+                    image: imagePrefix + "img/colori/noce-chiaro-nh31.jpg"
                 },
                 {
                     name: "Noce Scuro NH30",
-                    image: imagePrefix + "img/colori/noce-scuro-nh30.png"
+                    image: imagePrefix + "img/colori/noce-scuro-nh30.jpg"
                 },
                 {
                     name: "Verde GH30",
-                    image: imagePrefix + "img/colori/verde-gh30.png"
+                    image: imagePrefix + "img/colori/verde-gh30.jpg"
                 },
                 {
                     name: "Ciliegio CH30",
-                    image: imagePrefix + "img/colori/ciliegio-ch30.png"
+                    image: imagePrefix + "img/colori/ciliegio-ch30.jpg"
                 },
                 {
                     name: "Bianco WH30",
-                    image: imagePrefix + "img/colori/bianco-wh30.png"
+                    image: imagePrefix + "img/colori/bianco-wh30.jpg"
                 },
                 {
                     name: "Renolit Chiaro Effecta",
-                    image: imagePrefix + "img/colori/renolit-chiaro-effecta.png"
+                    image: imagePrefix + "img/colori/renolit-chiaro-effecta.jpg"
                 },
                 {
                     name: "Renolit Scuro Effecta",
-                    image: imagePrefix + "img/colori/renolit-scuro-effecta.png"
+                    image: imagePrefix + "img/colori/renolit-scuro-effecta.jpg"
                 },
             ]
         },
@@ -330,27 +330,27 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Ciliegio Scuro",
-                    image: imagePrefix + "img/colori/ciliegio-scuro.png"
+                    image: imagePrefix + "img/colori/ciliegio-scuro.jpg"
                 },
                 {
                     name: "Castano",
-                    image: imagePrefix + "img/colori/castano.png"
+                    image: imagePrefix + "img/colori/castano.jpg"
                 },
                 {
                     name: "Renolit Chiaro Sublimall",
-                    image: imagePrefix + "img/colori/renolit-chiaro-sublimall.png"
+                    image: imagePrefix + "img/colori/renolit-chiaro-sublimall.jpg"
                 },
                 {
                     name: "Renolit Scuro Sublimall",
-                    image: imagePrefix + "img/colori/renolit-scuro-sublimall.png"
+                    image: imagePrefix + "img/colori/renolit-scuro-sublimall.jpg"
                 },
                 {
                     name: "Renolit Bianco Sublimall",
-                    image: imagePrefix + "img/colori/renolit-bianco-sublimall.png"
+                    image: imagePrefix + "img/colori/renolit-bianco-sublimall.jpg"
                 },
                 {
                     name: "Renolit Marrone Sublimall",
-                    image: imagePrefix + "img/colori/renolit-marrone-sublimall.png"
+                    image: imagePrefix + "img/colori/renolit-marrone-sublimall.jpg"
                 }
             ]
         },
