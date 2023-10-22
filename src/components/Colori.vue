@@ -23,10 +23,6 @@ export default {
                     this.store.colors[i].active = false;
                 }
             }
-
-            // if (this.store.colors[0].active) {
-            //     this.store.colors[0].active = false;
-            // }
         },
     },
     mounted() {
@@ -98,8 +94,6 @@ export default {
                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                     <div v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                         <!-- Immagine colore -->
-                        <!-- <div v-if="color.name === 'Nero 9005'" class="black">
-                        </div> -->
                         <img :src="color.image" :alt="color.name" class="color-image">
 
                         <!-- Nome colore -->
@@ -130,8 +124,6 @@ export default {
     color: #fff;
     background-color: #686868;
     padding: 20px 0 0 0;
-    //min-height: 300px;
-
 
     // Titolo - testo in alto
     .title-info-colors {
@@ -152,7 +144,6 @@ export default {
         gap: 0 80px;
         height: 100%;
         padding: 100px 0;
-        //max-height: 660px;
 
         // Elenco tipologie colori - parte sinistra
         .list-typologies {
@@ -241,15 +232,6 @@ export default {
                         position: relative;
                         z-index: 20;
                         object-fit: cover;
-                        //border-bottom: 0;
-
-                        // &.bronzo-chiaro-verniciato {
-                        //     object-position: 14%;
-                        // }
-
-                        // &.bronzo-scuro-verniciato {
-                        //     object-position: 100%;
-                        // }
                     }
                 }
 
@@ -287,15 +269,6 @@ export default {
                     padding-right: 8px;
                     border-left: 4px solid transparent;
                     border-top: 1px solid #fff;
-
-                    // &:first-child {
-                    //     border-top: 0;
-                    // }
-
-                    // &:first-child {
-                    //     border-top: 0;
-                    // }
-
 
                     &.selected {
                         padding-left: 8px;

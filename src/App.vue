@@ -5,8 +5,6 @@ import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import AppFooter from './components/AppFooter.vue';
 
-//import Loader from './components/Loader.vue';
-
 // Dichiaro variabile slider che conterra' l'elenco delle Verticali o delle Orizzontali a seconda della sezione
 let slider;
 
@@ -15,7 +13,6 @@ export default {
     AppHeader,
     AppMain,
     AppFooter,
-    //Loader
   },
   data() {
     return {
@@ -66,48 +63,15 @@ export default {
       }
     }
   },
-  created() {
-    // Aggiungi un listener per il cambio di rotta
-    this.$router.beforeEach((to, from, next) => {
-      // Mostra il loader quando la rotta inizia a cambiare
-      this.store.isLoading = true;
-
-      // Passa alla prossima rotta dopo un certo periodo di tempo (ad esempio, 2 secondi)
-      setTimeout(() => {
-        next();
-      }, 400);
-    });
-
-    // Dopo il completamento del cambio di rotta, nascondi il loader
-    this.$router.afterEach(() => {
-      this.store.isLoading = false;
-    });
-  },
   updated() {
-    //window.addEventListener('clearStorage', this.handleBackButton);
     // Aggiungo evento per lo scroll 
     window.addEventListener('scroll', this.handleScroll);
   },
-  // beforeDestroy() {
-  //   window.removeEventListener('clearStorage', this.handleBackButton);
-  // },
   destroyed() {
     // Rimuovo evento per lo scroll
     window.removeEventListener('scroll', this.handleScroll);
   },
-  // mounted() {
-  //   setTimeout(() => {
-  //     this.store.isLoading = false;
-  //   }, 400);
-  // },
   methods: {
-    handlePageReload() {
-      // Esegui il codice prima di aggiornare la pagina
-      setTimeout(() => {
-        // Imposta isLoading su false dopo 400 millisecondi
-        this.isLoading = false;
-      }, 400);
-    },
     // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
     handleScroll() {
       if (window.scrollY > 700) {
@@ -132,11 +96,6 @@ export default {
       }
 
     },
-    // handleBackButton() {
-    //   if (!window.location.href.includes("preventivo")) {
-    //     localStorage.clear();
-    //   }
-    // },
     // Scrollo in alto quando clicco la freccia
     scrollToTop() {
       window.scrollTo({
@@ -149,20 +108,12 @@ export default {
 </script>
 
 <template>
-  <div class="loading" v-if="store.isLoading">
-    <div class="spinner">
-      <i class="fa-solid fa-spinner"></i>
-    </div>
-  </div>
-
   <!-- Freccia per scrollare in alto con la pagina -->
   <div :class="{ 'show': showArrowUp }" @click="scrollToTop" class="arrow-up" v-if="$route.name !== 'preventivo'">
     <i class="fa-solid fa-chevron-up"></i>
   </div>
 
-  <!-- <Loader /> -->
   <div @click="closeMenu">
-    <!-- <AppHeader v-if="!store.isLoading" /> -->
     <AppHeader />
 
     <main>
@@ -222,9 +173,6 @@ export default {
 // Sezioni senza id: tutte le altre
 // Sezione con class: Contatti
 section {
-  // &:not([id]) {
-  //   padding-top: 30px;
-  // }
 
   &[id] {
     padding-top: 60px;
@@ -233,10 +181,6 @@ section {
   &[class] {
     padding-top: 0;
   }
-
-  // &.thank-you {
-  //   padding-top: 0;
-  // }
 }
 
 // Logo nav e footer
@@ -286,17 +230,10 @@ section {
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
-    //position: relative;
-    //height: 800px;
-    //z-index: 1;
 
     &#not-slider {
       padding-top: 72px;
     }
-
-    // &.casper {
-    //   height: 850px;
-    // }
 
     // Rettangolini in alto
     .list-rectangles {
@@ -327,34 +264,13 @@ section {
     .slider {
       font-weight: bold;
       user-select: none;
-      //position: absolute;
-      //top: 72px;
-      //transition: opacity 0.5s ease;
-      //opacity: 0;
-      // transition-property: transform, opacity;
-      // transition-duration: 500ms;
-      // transition-timing-function: ease-in;
 
       &:not(.active) {
-        //opacity: 0;
         display: none;
       }
 
-      // &.active {
-      //   opacity: 1;
-      // }
-
-      // &.active {
-      //   opacity: 1;
-      //   visibility: visible;
-      //   //height: auto;
-      // }
-
       .div-image {
         position: relative;
-        //margin: 0 auto;
-        //max-width: 900px;
-        //z-index: 100;
 
         .slide-image {
           height: 320px;
@@ -381,15 +297,12 @@ section {
       }
 
       .casper-list {
-        //padding-top: 10px;
         text-align: left;
         padding-bottom: 84px;
       }
 
       .description {
         text-align: justify;
-        //margin: 0 auto;
-        //max-width: 900px;
         font-size: 1.05rem;
 
         &:not(.casper) {
@@ -399,19 +312,6 @@ section {
         &.casper {
           padding: 30px 0;
         }
-
-        // &.casper {
-        //   padding-top: 84px;
-        // }
-
-        // &:not(.casper) {
-        //   padding: 96px 0;
-
-        // }
-
-        // &.giada {
-        //   padding: 102px 0;
-        // }
       }
 
       .arrow {

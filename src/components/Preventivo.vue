@@ -255,12 +255,6 @@ export default {
             }
             return message;
         },
-        // returnTypo() {
-        //     this.zanzs.forEach(element => {
-        //         return element.name.slice(0, this.zanzs.length);
-        //     });
-        // },
-
         // Verifico che i campi del form non siano vuoti, se non lo sono ritorno true altrimenti false
         firstStepValid() {
             // Se email, email di conferma, numero di telefono e comune non sono vuoti e se email e email di conferma coincidono allora assegno true a enableButton
@@ -288,14 +282,7 @@ export default {
                 if (i === 0)
                     return store.linksNav[i].text;
             }
-
-            // if (this.currentStep === 4) {
-            //     return "Grazie per il preventivo"
-            // }
         },
-        // filteredMessage() {
-        //     return this.orders.slice(0, this.orders.length);
-        // },
     },
     methods: {
         // Metodo per far scomparire popup e attivare bottoni plus e minus e il bottone elimina (icona cestino) degli ordini
@@ -377,12 +364,8 @@ export default {
                         const success = data.success;
                         const response = data.response;
 
-                        //ids = response.clients[response.clients.length - 1].id;
-                        //this.newOrder.client_id = response.ids[response.ids.length - 1];
-
                         if (success) {
                             this.clients = response.clients;
-
                         }
 
                     })
@@ -403,10 +386,6 @@ export default {
 
                         if (success) {
                             this.orders = response.orders;
-
-                            // if (this.ids) {
-                            //     localStorage.setItem("ClientId", this.ids.toString());
-                            // }
                         }
 
                     })
@@ -434,9 +413,6 @@ export default {
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
-                        //const response = data.response;
-
-                        //this.newOrder.client_id = this.ids;
 
                         // Se tutto e' andato a buon fine richiamo this.getOrder e faccio apparire il popup 
                         if (success) {
@@ -506,12 +482,6 @@ export default {
                                 localStorage.setItem("ClientId", this.clientId.toString());
                             }
 
-                            //localStorage.setItem("ClientId", this.clientId.toString());
-
-                            //ids = response.clients[response.clients.length - 1].id;
-
-                            //localStorage.setItem("ClientId", ids.toString());
-
                             // Se tutto e' andato a buon fine richiamo richiamo getClient
                             if (success) {
                                 this.getClient();
@@ -519,8 +489,6 @@ export default {
 
                         })
                         .catch(error => console.log(error));
-
-                    //event.preventDefault();
 
                     // Incremento il valore di currentStep
                     this.currentStep++;
@@ -534,8 +502,6 @@ export default {
                         behavior: "smooth"
                     });
                 }, 2000);
-
-                //this.newClient.typology = "";
             }
 
             // Se le email inserite dall'utente non coincidono assegno false a showMessageEmailConfirm
@@ -645,21 +611,12 @@ export default {
 
             // Salvo valore di currentStep in localStorage
             localStorage.setItem("CurrentStep", this.currentStep.toString());
-
-            // this.name = "";
-            // this.surname = "";
-            // this.agency_name = "";
-            // this.email = "";
-            // this.telephone = "";
-            // this.city_of_residence = "";
         },
         // Metodo per passare dal secondo al terzo step
         nextStep() {
 
             // Se currentStep e' uguale a 2 e se orders contiene elementi allora posso proseguire
             if (this.currentStep === 2 && this.orders.length !== 0) {
-
-                //event.preventDefault();
 
                 // Scrollo verso l'alto
                 window.scrollTo({
@@ -689,18 +646,6 @@ export default {
                         .catch(error => console.log(error));
                 }
 
-                // axios.post(API_URL + 'message/store', this.newMessage)
-                //     .then(res => {
-                //         const data = res.data;
-                //         const success = data.success;
-
-                //         if (success) {
-                //             this.getOrder();
-                //         }
-
-                //     })
-                //     .catch(error => console.log(error));
-
                 // Incremento currentStep
                 this.currentStep++;
 
@@ -708,29 +653,6 @@ export default {
                 localStorage.setItem("CurrentStep", this.currentStep.toString());
             }
         },
-        // prevStep() {
-
-        //     //event.preventDefault();
-
-        //     this.newClient.typology = "";
-        //     this.newClient.name = "";
-        //     this.newClient.surname = "";
-        //     this.newClient.agency_name = "";
-        //     this.newClient.vat_number = "";
-        //     this.newClient.email = "";
-        //     this.newClient.telephone_number = "";
-        //     this.newClient.city_of_residence = "";
-
-        //     window.scrollTo({
-        //         top: 0,
-        //         behavior: "smooth"
-        //     });
-
-        //     this.currentStep--;
-
-        //     localStorage.setItem("CurrentStep", this.currentStep.toString());
-
-        // },
         // Metodo per aumentare quantita' ordini
         plus(order) {
 
@@ -745,22 +667,6 @@ export default {
 
                 })
                 .catch(error => console.log(error));
-
-            //this.newOrder.quantity++;
-
-            // axios.post(API_URL + 'quantity/update', {
-            //     quantity: this.newOrder.quantity
-            // })
-            //     .then(res => {
-            //         const data = res.data;
-            //         const success = data.success;
-
-            //         if (success) {
-            //             this.getOrder();
-            //         }
-
-            //     })
-            //     .catch(error => console.log(error));
         },
         // Metodo per diminuire quantita' ordini
         minus(order) {
@@ -801,12 +707,6 @@ export default {
 
         // Salvo valore currentStep in localStorage
         localStorage.setItem("CurrentStep", this.currentStep.toString());
-
-        // if (localStorage.getItem("ClientId") !== null) {
-        //     this.clientId = parseInt(localStorage.getItem("ClientId"), 10);
-        // }
-
-        // localStorage.setItem("ClientId", this.clientId.toString());
 
         // Ottengo valore tipologia
         this.typology = this.zanzs[0].name;
@@ -928,7 +828,6 @@ export default {
 
                             <div class="form-button">
                                 <input type="submit" @click="clientSubmit" class="button" value="Completa i dati">
-                                <!-- <button v-if="infoList.length === 1" @click="nextStep">Completa i dati</button> -->
                             </div>
 
                         </div>
@@ -1074,7 +973,6 @@ export default {
                                             order.model_name.charAt(0).toUpperCase() +
                                             order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }}
                                         | {{ order.net }} |
-                                        <!-- <img :src="order.color_image" :alt="order.color_name" class="order-image"> -->
                                         {{ order.color_name }}
                                     </span>
                                     <span class="quantity">
@@ -1255,9 +1153,6 @@ section {
 
 // QUARTO STEP, parte ringraziamenti
 .thank-you {
-    //background-image: url('/img/sfondo-ringraziamento.png');
-
-    //min-height: 1000px;
 
     .bottom {
         //padding-top: 50px;
@@ -1360,14 +1255,12 @@ section {
     }
 
     .form-button {
-        //padding-top: 50px;
 
         button,
         input {
             background-color: $yellow-color;
             padding: 10px 50px;
             border: 0;
-            //color: #000;
             font-size: 1.5rem;
             font-weight: bold;
             cursor: pointer;
@@ -1467,7 +1360,6 @@ section {
                 justify-content: center;
                 align-items: center;
                 border: 4px solid $yellow-color;
-                //box-shadow: inset 0 8px 0 rgba(0, 0, 0, .05);
                 border-radius: 50%;
                 margin: 0 auto;
                 width: 230px;
@@ -1480,19 +1372,6 @@ section {
                 }
             }
         }
-
-        // h2 {
-        //     padding: 20px 0 60px 0;
-        //     background-color: red !important;
-        // }
-
-        // h3:first-of-type {
-        //     padding-bottom: 20px;
-        // }
-
-        // h3:last-of-type {
-        //     padding-top: 20px;
-        // }
 
         &:not(.active) {
             display: none;
@@ -1527,10 +1406,6 @@ section {
             display: flex;
             justify-content: space-between;
             align-items: center;
-
-            // &:not(.visible) {
-            //     display: none;
-            // }
 
             .quantity {
                 padding: 0 10px;
@@ -1853,7 +1728,6 @@ section {
 .container {
     color: #fff;
     padding-bottom: 20px;
-    //max-width: 550px;
 
     .top {
         display: flex;
@@ -1941,17 +1815,7 @@ section {
     display: flex;
     justify-content: center;
     gap: 40px;
-    //padding: 20px 0;
     padding-bottom: 20px;
-
-    // .typologies {
-    //     padding: 0.1rem 0;
-    //     border-bottom: 1px solid #fff;
-
-    //     &:first-child {
-    //         border-top: 1px solid #fff;
-    //     }
-    // }
 
     // Nome tipologia
     .typology-name {
@@ -1962,7 +1826,6 @@ section {
         background-color: #cccccc;
         border: 2px solid transparent;
         padding: 5px 25px;
-        //padding: 5px 0 5px 4px;
 
         &.selected {
             color: $yellow-color;
@@ -1977,19 +1840,10 @@ section {
 // Nomi e immagini colori - parte sotto
 .list-colors {
     padding: 60px 0;
-    //transition: all 1s ease;
-
-
-    // &.selected {
-    //     //height: auto;
-    //     //opacity: 1;
-    // }
 
 
     &:not(.selected) {
         display: none;
-        //opacity: 0;
-        //height: 0;
     }
 
     // Blocco intero colori
@@ -2045,7 +1899,6 @@ section {
 
 .color-choice {
     margin: 0 auto;
-    //height: 450px;
     padding: 60px 20px;
 
 
@@ -2063,14 +1916,7 @@ section {
 
     [type=radio]:checked+.color-image {
         border: 3px solid $yellow-color;
-        //border-bottom: 0;
     }
-
-    /* CHECKED STYLES */
-    // [type=radio]:checked+.color-image+.color-name {
-    //     border: 2px solid $yellow-color;
-    //     border-top: 0;
-    // }
 }
 
 
@@ -2099,16 +1945,11 @@ section {
         }
     }
 
-
-
 }
-
 
 @media only screen and (min-width: 480px) and (max-width: 550px) {
     .container {
-
         .top {
-
             .steps-circles {
                 width: 100%;
 
@@ -2128,7 +1969,6 @@ section {
 
 @media only screen and (min-width: 480px) and (max-width: 700px) {
     .container {
-
         .top {
             flex-wrap: wrap;
             max-width: 90%;
@@ -2268,7 +2108,6 @@ section {
 @media only screen and (min-width: 700px) and (max-width: 1028px) {
 
     .second-step {
-
         .slider-preventivo {
 
             .arrows-image {
@@ -2316,7 +2155,6 @@ section {
         select {
             width: 350px;
             margin-left: 0;
-            //margin-top: 20px;
         }
 
         .inputs-center {

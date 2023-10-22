@@ -155,12 +155,6 @@ export default {
                         </router-link>
                     </li>
 
-                    <!-- <li v-for="(link, index) in store.linksNav" :key="index" class="mobile-links">
-                        <router-link :to="{ name: link.href }">
-                            <i :class="link.icon"></i>
-                        </router-link>
-                    </li> -->
-
                     <!-- Icona hamburger per le versioni mobile/tablet -->
                     <li class="icon-hamburger" @click.stop="showHamburger">
                         <i class="fa-solid fa-bars"></i>
@@ -261,33 +255,6 @@ export default {
     </nav>
     <!-- Menu nero in alto -->
 
-    <!-- <div class="container" :class="{ 'not-home': $route.name !== 'home' }">
-        <div class="a-logo">
-            <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
-        </div>
-    </div> -->
-
-    <!-- VECCHIO MENU -->
-    <nav :class="{ 'nav-home': $route.name === 'home', 'nav-section': $route.name !== 'home' }" id="oldMenu">
-        <div class="container">
-            <!-- Logo -->
-            <router-link to="/">
-                <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
-            </router-link>
-
-            <!-- Links utili navbar -->
-            <ul class="links-nav">
-                <li v-for="(link, index) in store.linksNav" :key="index">
-                    <router-link :to="{ name: link.href }">
-                        <i :class="link.icon"></i> <span class="nav-text">{{ link.text }}</span>
-                    </router-link>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <!-- VECCHIO MENU -->
-
-
     <!-- MENU ATTUALE, MENU BELLO, MENU FIGO -->
     <nav id="newMenu">
         <div class="menu-container">
@@ -341,10 +308,6 @@ export default {
     .ul-container {
         display: flex;
         align-items: center;
-
-        // li:nth-child(2) {
-        //     background-color: red;
-        // }
     }
 
     .logo {
@@ -352,16 +315,11 @@ export default {
         height: 32px;
         margin-right: 40px;
         display: block;
-        //display: inline-block;
 
         img {
             width: 155px;
             height: 32px;
             transition: all 1s ease;
-
-            // &:hover {
-            //     transform: scale(1.2);
-            // }
         }
     }
 
@@ -452,20 +410,11 @@ export default {
                 gap: 10px 60px;
                 height: 0;
                 padding-left: 199px;
-
-                // &.pl-not-home {
-                //     padding-left: 199px;
-                // }
             }
-
-            // h4 {
-            //     width: 100%;
-            // }
 
             li,
             h4 {
                 opacity: 0;
-                //height: 0;
             }
 
             &.expand {
@@ -579,17 +528,14 @@ export default {
             }
 
             &.top {
-                //margin-top: 15px;
                 transform: translateY(14px);
             }
 
             &.center {
-                //margin-top: 87px;
                 transform: translateY(116px);
             }
 
             &.bottom {
-                //margin-top: 159px;
                 transform: translateY(219px);
             }
         }
@@ -616,13 +562,11 @@ export default {
             width: 42px;
             height: 342px;
             position: relative;
-            //z-index: 80;
 
             li {
                 display: flex;
                 align-items: center;
                 height: 102px;
-                //text-align: center;
                 background-image: url('/img/bg-nav-center.png');
                 background-position: -100px 0;
                 cursor: pointer;
@@ -661,11 +605,8 @@ export default {
                         .text {
                             display: flex;
                             align-items: center;
-                            //justify-content: flex-end;
                             background-color: #000;
                             height: 16px;
-                            //position: relative;
-                            //left: -6px;
                             padding: 20px;
                             font-size: 0.9rem;
                             border-radius: 50px;
@@ -693,7 +634,6 @@ export default {
                 }
 
                 &.active {
-                    //background-image: url('/img/bg-nav-center.png');
                     background-size: 100%;
                     background-position: 0 0;
 
@@ -714,41 +654,6 @@ export default {
                         left: 6px;
                         top: -4px;
                     }
-                }
-            }
-        }
-    }
-}
-
-// VECCHIO MENU
-nav {
-
-    &#oldMenu {
-        display: none;
-
-        .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            // Links sulla destra - Contatti, Sede, Preventivo
-            .links-nav {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 50px;
-
-                // Scritte
-                a {
-                    font-size: 0.7rem;
-                    font-weight: 500;
-                }
-
-                // Icone
-                svg {
-                    font-size: 0.8rem;
-                    padding-right: 10px;
-                    vertical-align: middle;
                 }
             }
         }
@@ -876,7 +781,6 @@ nav {
 
         .hamburger {
             display: block;
-            //visibility: hidden;
             background-color: #1c1c1c;
             width: 240px;
             position: absolute;
@@ -1003,10 +907,6 @@ nav {
                     visibility: hidden;
                 }
 
-                // .mobile-links {
-                //     display: block;
-                // }
-
                 .preventivo {
                     display: none;
                 }
@@ -1018,56 +918,12 @@ nav {
         }
     }
 
-    // #blackMenu {
-    //     .bg {
-
-    //         .ul-container {
-
-    //             li:nth-child(2) {
-    //                 visibility: hidden;
-    //             }
-
-    //             // .mobile-links {
-    //             //     display: block;
-    //             // }
-
-    //             .preventivo {
-    //                 display: none;
-    //             }
-
-    //             .icon-hamburger {
-    //                 display: block;
-    //             }
-    //         }
-    //     }
-    // }
-
     #newMenu {
         display: none;
     }
 }
 
 // Fine versioni mobile, tablet e intermedie
-
-// @media only screen and (min-width: 800px) and (max-width: 900px) {
-
-//     #blackMenu {
-//         .bg {
-
-//             .ul-container {
-
-//                 li:nth-child(2) {
-//                     visibility: visible;
-//                 }
-//             }
-//         }
-//     }
-
-//     #newMenu {
-//         display: none;
-//     }
-// }
-
 
 
 // Schermo gigante

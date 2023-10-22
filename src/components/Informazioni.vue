@@ -150,10 +150,6 @@ export default {
                         });
                 }
 
-                // for (let i = 0; i < this.files.length; i++) {
-                //     this.sizes[i] = this.files[i].size;
-                // }
-
                 // Assegno l'email del destinatario
                 this.newInfo.infoEmail = "oirelav95@gmail.com";
 
@@ -363,8 +359,6 @@ export default {
     text-align: center;
     color: #fff;
     padding: 50px 0;
-    //height: 400px;
-    //display: none;
 
     .message-ok {
         color: green;
@@ -385,7 +379,6 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        //height: 100%;
 
         .left {
             text-align: left;
@@ -505,7 +498,6 @@ export default {
                 height: 175px;
                 font-size: 1.8rem;
                 font-weight: normal;
-                //margin-left: auto;
 
                 .border {
                     background-color: $yellow-color;
@@ -533,7 +525,6 @@ export default {
                 color: #fff;
                 border-bottom: 2px solid $yellow-color;
                 display: block;
-                //width: 350px;
                 width: 100%;
                 padding: 10px 0;
             }
@@ -572,7 +563,6 @@ export default {
         .left,
         .right {
             width: 45%;
-            //height: 100%;
         }
     }
 }

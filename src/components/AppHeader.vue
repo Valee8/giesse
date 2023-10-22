@@ -153,12 +153,6 @@ export default {
 
             </div>
         </div>
-
-        <!-- <div class="loading" v-else-if="store.isLoading && $route.name === 'home'">
-            <div class="spinner">
-                <i class="fa-solid fa-spinner"></i>
-            </div>
-        </div> -->
     </header>
 
 
@@ -303,10 +297,6 @@ header {
                 a {
                     font-size: 1rem;
                 }
-
-                // a {
-                //     font-size: 1rem;
-                // }
             }
         }
     }

@@ -87,7 +87,6 @@ section {
 
         // Blocco singolo
         .typologies {
-            //width: 210px;
             width: calc(100% / 3);
             padding: 50px 0;
 
@@ -98,9 +97,7 @@ section {
                 transition: all 0.5s ease-in-out;
 
                 &:hover {
-                    //img {
                     transform: scale(0.8);
-                    //}
                 }
             }
 
@@ -108,7 +105,6 @@ section {
             .typology-image {
                 width: 210px;
                 display: block;
-                //transition: all 0.5s ease-in-out;
             }
 
             &:nth-child(1),
@@ -183,7 +179,6 @@ section {
                     .typology-image,
                     h3 {
                         width: 100%;
-                        //margin-left: auto;
                     }
 
                 }

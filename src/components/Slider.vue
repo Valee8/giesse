@@ -16,7 +16,6 @@ export default {
     },
     data() {
         return {
-            //isAnimating: false,
             store,
             // Elemento attivo
             activeItem: "",
@@ -34,25 +33,10 @@ export default {
             }
         }
 
-        // if (window.location.href.includes("verticali")) {
-        //     slider = this.store.vertical;
-        // }
-        // else {
-        //     slider = this.store.horizontal;
-        // }
-
-        //const description = document.querySelector(".description");
-
-        //description.innerHTML = "Il modello <span>VERTICALE A MOLLA CLASSICA</span> " + this.vertical[0].description;
-
     },
     methods: {
         // Freccia avanti
         next(index) {
-
-            //if (!this.isAnimating) {
-
-            //this.isAnimating = true;
 
             if (index < slider.length - 1) {
                 index++;
@@ -79,18 +63,9 @@ export default {
                 window.location.hash = "/orizzontali/" + 1;
             }
 
-            // setTimeout(() => {
-            //     this.isAnimating = false;
-            // }, 500);
-            //}
-
         },
         // Freccia indietro
         prev(index) {
-
-            //if (!this.isAnimating) {
-
-            //this.isAnimating = true;
 
             if (index <= slider.length - 1 && index > 0) {
                 index--;
@@ -116,11 +91,6 @@ export default {
             if (window.location.hash && window.location.href.includes("orizzontali")) {
                 window.location.hash = "/orizzontali/" + 1;
             }
-
-            // setTimeout(() => {
-            //     this.isAnimating = false;
-            // }, 500);
-            //}
         },
         //Cambio slide premendo i rettangoli in alto
         changeSlide(index) {
