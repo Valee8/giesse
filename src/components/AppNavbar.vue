@@ -117,6 +117,19 @@ export default {
             return this.store.listModels.slice(4, 10);
         }
     },
+    mounted() {
+        const blurredImageDiv = document.querySelector(".logo-container");
+        const img = blurredImageDiv.querySelector(".logo-image");
+        function loaded() {
+            blurredImageDiv.classList.add("loaded");
+        }
+
+        if (img.complete) {
+            loaded();
+        } else {
+            img.addEventListener("load", loaded);
+        }
+    }
 
 }
 </script>
@@ -129,9 +142,11 @@ export default {
                 <ul class="ul-container">
                     <!-- Logo sulla sinistra -->
                     <li>
-                        <router-link :to="{ name: 'home' }" class="logo">
-                            <img src="/img/logo-giesse.png" alt="Logo Giesse">
-                        </router-link>
+                        <div class="logo-container">
+                            <router-link :to="{ name: 'home' }" class="logo">
+                                <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo-image">
+                            </router-link>
+                        </div>
                     </li>
 
                     <!-- Scritta Zanzariere -->
@@ -295,6 +310,68 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+.logo-container {
+    background-image: url('/img/logo-mini.png');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    height: 32px;
+    width: 155px;
+    position: relative;
+    margin-right: 40px;
+    border-radius: 2px;
+
+    .logo-image {
+        object-fit: cover;
+        object-position: center;
+        opacity: 0;
+        transition: opacity 250ms ease-in-out;
+        background-color: #000;
+    }
+}
+
+.logo-container {
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        animation: pulse 2.5s infinite;
+        height: 32px;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.logo-container {
+    &.loaded {
+        &::before {
+            animation: none;
+            content: none;
+        }
+    }
+}
+
+.logo-container {
+    &.loaded {
+        .logo-image {
+            opacity: 1;
+        }
+    }
+}
+
 // Menu in alto nero
 #blackMenu {
     color: #fff;
@@ -313,13 +390,11 @@ export default {
     .logo {
         width: 155px;
         height: 32px;
-        margin-right: 40px;
         display: block;
 
         img {
             width: 155px;
             height: 32px;
-            transition: all 1s ease;
         }
     }
 
