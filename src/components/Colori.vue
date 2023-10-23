@@ -38,6 +38,9 @@ export default {
     mounted() {
 
         if (this.store.colors[0].active) {
+            this.colorClass = "";
+            this.loadingClass = "";
+
             setTimeout(() => {
                 this.colorClass = "visible";
                 this.loadingClass = "hidden";
