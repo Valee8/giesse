@@ -17,6 +17,7 @@ export default {
     data() {
         return {
             store,
+            isLoaded: false,
             // Index corrente dello slider
             currentSlideIndex: 0,
             // isMouseOver inizialmente a false, con cui controllo se il puntatore e' sopra lo slider
@@ -55,6 +56,9 @@ export default {
         }
     },
     methods: {
+        loaded() {
+            this.isLoaded = true;
+        },
         // Metodo per far scorrere lo slider
         changeSlide() {
 
@@ -103,26 +107,25 @@ export default {
         },
     },
     updated() {
-        // Richiamo il metodo changeSlide su mounted
-        //if (this.$route.name === "home") {
 
-        const blurredImageDiv = document.querySelector(".header-container");
-        const img = blurredImageDiv.querySelector(".image");
-        function loaded() {
-            blurredImageDiv.classList.add("loaded");
-        }
+        // const blurredImageDiv = document.querySelector(".header-container");
+        // const img = blurredImageDiv.querySelector(".image");
+        // function loaded() {
+        //     blurredImageDiv.classList.add("loaded");
+        // }
 
-        if (img.complete) {
-            loaded();
-        } else {
-            img.addEventListener("load", loaded);
-        }
-
-        //}
+        // if (img.complete) {
+        //     loaded();
+        // }
+        // else {
+        //     img.addEventListener("load", loaded);
+        // }
     },
     mounted() {
+        // Richiamo il metodo changeSlide su mounted
+
         this.changeSlide();
-    }
+    },
 }
 </script>
 
@@ -132,9 +135,9 @@ export default {
         <!-- Navbar -->
         <AppNavbar />
 
-        <div class="header-container" :class="{ 'home': $route.name === 'home' }">
+        <div class="header-container" :class="{ 'home': $route.name === 'home', 'loaded': isLoaded }">
 
-            <img :src="store.imagePath" loading="lazy" class="image">
+            <img :src="store.imagePath" loading="lazy" class="image" @load="loaded">
 
             <div class="container">
                 <!-- Contenuto header -->
@@ -298,25 +301,25 @@ header {
     width: 100%;
     position: relative;
 
-    &::before {
+    &::after {
         content: "";
         position: absolute;
         inset: 0;
         animation: pulse 2.5s infinite;
-        background-color: rgba(255, 255, 255, .1);
+        background-color: #fff;
     }
 
     @keyframes pulse {
         0% {
-            background-color: rgba(255, 255, 255, 0);
+            opacity: 0;
         }
 
         50% {
-            background-color: rgba(255, 255, 255, .1);
+            opacity: 1;
         }
 
         100% {
-            background-color: rgba(255, 255, 255, 0);
+            opacity: 0;
         }
     }
 
@@ -343,7 +346,7 @@ header {
     }
 
     &.loaded {
-        &::before {
+        &::after {
             animation: none;
             content: none;
         }
