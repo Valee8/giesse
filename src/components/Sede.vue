@@ -100,4 +100,13 @@ section {
         }
     }
 }
+
+@media only screen and (min-width: 300px) and (max-width: 479px) {
+    section {
+        .info-giesse {
+            padding: 50px 20px;
+        }
+
+    }
+}
 </style>

@@ -286,9 +286,46 @@ export default {
     }
 }
 
+@media only screen and (min-width: 300px) and (max-width: 479px) {
+    .info-colors {
+        padding-left: 30px;
+        padding-right: 30px;
+
+        .container {
+            flex-wrap: wrap;
+            gap: 80px;
+            padding: 50px 0 100px 0;
+
+            .list-typologies {
+                display: block;
+                width: 180px;
+                margin: 0 auto;
+            }
+
+            .list-colors {
+                width: 100%;
+
+                .colors {
+                    justify-content: center;
+
+                    .color {
+                        width: 150px;
+                        height: 150px;
+
+                        .color-name {
+                            width: 150px;
+                            font-size: 0.8rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 // Inizio versioni mobile, tablet e intermedie
-@media only screen and (min-width: 300px) and (max-width: 700px) {
+@media only screen and (min-width: 480px) and (max-width: 700px) {
     .info-colors {
         padding-left: 30px;
         padding-right: 30px;
@@ -300,6 +337,7 @@ export default {
             .list-typologies {
                 display: flex;
                 justify-content: center;
+                flex-wrap: wrap;
                 width: 100%;
                 gap: 20px;
 

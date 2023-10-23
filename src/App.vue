@@ -330,6 +330,39 @@ section {
   }
 }
 
+
+@media only screen and (min-width: 300px) and (max-width: 479px) {
+  .arrow-up {
+    display: none;
+  }
+
+  section {
+
+    // Inizio contenuto slider presente in Verticali e Orizzontali
+    .slider-container {
+
+      // Contenuto slider
+      .slider {
+
+        h2 {
+          font-size: 1.8rem;
+        }
+
+        .div-image {
+
+          .slide-image {
+            height: 200px;
+          }
+        }
+
+        .arrow {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
 // Inizio versioni mobile, tablet e intermedie
 @media only screen and (min-width: 1800px) and (max-width: 2000px) {
 

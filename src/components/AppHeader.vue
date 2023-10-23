@@ -376,6 +376,7 @@ header {
 
         .header-container {
             height: 350px;
+            background-position: 0 -350px;
 
             .image {
                 object-position: 0 -350px;
@@ -411,24 +412,32 @@ header {
 }
 
 @media only screen and (min-width: 610px) and (max-width: 1060px) {
-    .header-home {
-        height: 450px;
+    header {
+        .header-container {
+            height: 450px;
+            background-position: 0 -450px;
 
-        .container {
-            .jumbotron {
-                height: 260px;
-                padding-top: 20px;
+            .image {
+                object-position: 0 -450px;
+            }
 
-                .title {
-                    h1 {
-                        font-size: 2.5rem;
+
+            .container {
+                .jumbotron {
+                    height: 260px;
+                    padding-top: 20px;
+
+                    .title {
+                        h1 {
+                            font-size: 2.5rem;
+                        }
+
+                        p {
+                            padding-right: 90px;
+                        }
                     }
 
-                    p {
-                        padding-right: 90px;
-                    }
                 }
-
             }
         }
     }
@@ -437,6 +446,8 @@ header {
 @media only screen and (min-width: 300px) and (max-width: 1060px) {
     header {
         .header-container {
+            background-position: top center;
+
             .image {
                 object-position: top center;
             }

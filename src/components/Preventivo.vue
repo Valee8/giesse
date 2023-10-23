@@ -2167,9 +2167,10 @@ section {
 
 @media only screen and (min-width: 300px) and (max-width: 1028px) {
     .second-step {
+        padding: 20px;
 
         select {
-            width: 350px;
+            width: 100%;
             margin-left: 0;
         }
 
@@ -2194,10 +2195,14 @@ section {
             justify-content: center;
             gap: 20px;
 
-            label {
-                margin: 0;
-                padding-left: 8px;
-                padding-right: 8px;
+            span {
+                margin: 10px;
+
+                label {
+                    margin: 0;
+                    padding-left: 8px;
+                    padding-right: 8px;
+                }
             }
         }
 
