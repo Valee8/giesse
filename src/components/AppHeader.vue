@@ -378,7 +378,7 @@ header {
             height: 350px;
 
             .image {
-                object-position: top center;
+                object-position: 0 -350px;
             }
         }
 

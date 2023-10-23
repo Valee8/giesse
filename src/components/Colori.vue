@@ -22,7 +22,7 @@ export default {
             setTimeout(() => {
                 this.colorClass = "visible";
                 this.loadingClass = "hidden";
-            }, 100);
+            }, 200);
 
             // Assegno true all'active dell'elemento corrente dell'array colors (presente nel file store.js)
             this.store.colors[index].active = true;
@@ -40,7 +40,7 @@ export default {
         setTimeout(() => {
             this.colorClass = "visible";
             this.loadingClass = "hidden";
-        }, 100);
+        }, 200);
 
         // All'avvio della pagina dovra' essere sempre il primo elemento quello corrente, lo faccio tramite questi codici
         for (let i = 0; i < this.store.colors.length; i++) {

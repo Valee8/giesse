@@ -63,9 +63,6 @@ export default {
         else {
             img.addEventListener("load", loaded);
         }
-
-        console.log(img);
-
     }
 }
 </script>
@@ -171,40 +168,18 @@ export default {
 @use '../src/styles/partials/variables' as *;
 
 .bg-section {
-    background-image: url('/img/sfondo-faq-mini.png');
-    background-repeat: no-repeat;
+    background-image: url('/img/sfondo-faq-bad.jpeg');
     background-size: cover;
+    background-position: center;
     height: 410px;
     width: 100%;
     position: relative;
 
-    &::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        animation: pulse 2.5s infinite;
-        background-color: rgba(255, 255, 255, .3);
-    }
-
-    @keyframes pulse {
-        0% {
-            background-color: rgba(255, 255, 255, 0);
-        }
-
-        50% {
-            background-color: rgba(255, 255, 255, .3);
-        }
-
-        100% {
-            background-color: rgba(255, 255, 255, 0);
-        }
-    }
-
     .image {
         height: 100%;
         object-fit: cover;
-        width: 100%;
         object-position: center;
+        width: 100%;
         display: block;
         position: absolute;
         top: 0;
@@ -216,13 +191,6 @@ export default {
     &.loaded {
         .image {
             opacity: 1;
-        }
-    }
-
-    &.loaded {
-        &::after {
-            animation: none;
-            content: none;
         }
     }
 

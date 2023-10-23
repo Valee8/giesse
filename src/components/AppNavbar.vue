@@ -313,56 +313,29 @@ export default {
 @use '../src/styles/partials/variables' as *;
 
 .logo-container {
-    background-image: url('/img/logo-mini.png');
-    background-repeat: no-repeat;
+    background-image: url('/img/logo-bad.jpeg');
     background-size: cover;
-    background-position: center;
     height: 32px;
     width: 155px;
     position: relative;
     margin-right: 40px;
-    border-radius: 2px;
-
-    &::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        animation: pulse 2.5s infinite;
-        background-color: rgba(255, 255, 255, .3);
-    }
-
-    @keyframes pulse {
-        0% {
-            background-color: rgba(255, 255, 255, 0);
-        }
-
-        50% {
-            background-color: rgba(255, 255, 255, .3);
-        }
-
-        100% {
-            background-color: rgba(255, 255, 255, 0);
-        }
-    }
+    border-radius: 5px;
+    border: 1px solid #000;
 
     .logo-image {
-        object-fit: cover;
-        object-position: center;
+        width: 100%;
+        height: 100%;
+        //object-fit: cover;
+        //object-position: center;
         opacity: 0;
         transition: opacity 250ms ease-in-out;
-        background-color: #000;
+        // border-radius: 5px;
+        border: 1px solid transparent;
     }
 
     &.loaded {
         .logo-image {
             opacity: 1;
-        }
-    }
-
-    &.loaded {
-        &::after {
-            animation: none;
-            content: none;
         }
     }
 }
@@ -387,11 +360,6 @@ export default {
         width: 155px;
         height: 32px;
         display: block;
-
-        img {
-            width: 155px;
-            height: 32px;
-        }
     }
 
     .bg {
