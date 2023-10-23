@@ -21,7 +21,7 @@ export default {
     $route(to, from) {
 
       // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
-      if (!window.location.href.includes("preventivo")) {
+      if (!window.location.href.includes("preventivo") && localStorage.length > 0) {
         // Svuoto il contenuto di localStorage
         localStorage.clear();
       }
