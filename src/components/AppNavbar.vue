@@ -120,6 +120,7 @@ export default {
     mounted() {
         const blurredImageDiv = document.querySelector(".logo-container");
         const img = blurredImageDiv.querySelector(".logo-image");
+
         function loaded() {
             blurredImageDiv.classList.add("loaded");
         }

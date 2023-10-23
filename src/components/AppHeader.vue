@@ -105,7 +105,9 @@ export default {
     updated() {
 
         const blurredImageDiv = document.querySelector(".header-container");
+
         const img = blurredImageDiv.querySelector(".image");
+
         function loaded() {
             blurredImageDiv.classList.add("loaded");
         }

@@ -52,15 +52,19 @@ export default {
 
         const blurredImageDiv = document.querySelector(".bg-section");
         const img = blurredImageDiv.querySelector(".image");
+
         function loaded() {
             blurredImageDiv.classList.add("loaded");
         }
 
         if (img.complete) {
             loaded();
-        } else {
+        }
+        else {
             img.addEventListener("load", loaded);
         }
+
+        console.log(img);
 
     }
 }

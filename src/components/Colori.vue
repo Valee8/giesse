@@ -8,17 +8,21 @@ export default {
     data() {
         return {
             store,
+            colorClass: "",
+            loadingClass: "",
         }
     },
     methods: {
         // Metodo per cambiare colore cliccando il nome della tipologia
         changeColorTypology(index) {
 
-            this.store.isLoading = true;
+            this.colorClass = "";
+            this.loadingClass = "";
 
             if (this.store.isLoading) {
                 setTimeout(() => {
-                    this.store.isLoading = false;
+                    this.colorClass = "visible";
+                    this.loadingClass = "hidden";
                 }, 1000);
             }
 
@@ -37,7 +41,8 @@ export default {
 
         if (this.store.colors[0].active) {
             setTimeout(() => {
-                this.store.isLoading = false;
+                this.colorClass = "visible";
+                this.loadingClass = "hidden";
             }, 1000);
         }
 
@@ -108,9 +113,9 @@ export default {
                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                     <div v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                         <!-- Immagine colore -->
-                        <img :src="color.image" :alt="color.name" class="color-image" v-if="!store.isLoading">
+                        <img :src="color.image" :alt="color.name" class="color-image" :class="colorClass">
 
-                        <div class="loading" v-else>
+                        <div class="loading" :class="loadingClass">
                             <div class="spinner">
                                 <i class="fa-solid fa-spinner"></i>
                             </div>
@@ -135,8 +140,15 @@ export default {
 .loading {
     width: 160px;
     height: 160px;
-    margin-top: -15px;
     color: #fff;
+    opacity: 1;
+    position: absolute;
+    top: -15px;
+    left: 0;
+
+    &.hidden {
+        opacity: 0;
+    }
 
     .spinner {
         animation: spin 1s linear infinite;
@@ -226,6 +238,7 @@ export default {
                 .color {
                     width: 160px;
                     height: 160px;
+                    position: relative;
 
                     // Nome colore
                     .color-name {
@@ -262,6 +275,12 @@ export default {
                         position: relative;
                         z-index: 20;
                         object-fit: cover;
+                        opacity: 0;
+                        transition: all 1s ease-in-out;
+
+                        &.visible {
+                            opacity: 1;
+                        }
                     }
                 }
 

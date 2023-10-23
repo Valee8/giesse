@@ -6,7 +6,6 @@ export const store = reactive({
     imagePath: imagePrefix + "img/jumbotron-min.png",
     imagePath2: imagePrefix + "img/sfondo-faq-min.png",
     slider: [],
-    isLoading: true,
     // menuHamburger per mostrare e nascondere il sottomenu del menu hamburger
     menuHamburger: false,
     // classHamburger mi serve per aggiungere le classi css per gli effetti del sottomenu
