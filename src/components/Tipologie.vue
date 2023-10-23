@@ -146,7 +146,7 @@ section {
 }
 
 // Inizio versioni mobile, tablet e intermedie
-@media only screen and (min-width: 480px) and (max-width: 610px) {
+@media only screen and (min-width: 300px) and (max-width: 610px) {
     section {
 
         .list-typologies {

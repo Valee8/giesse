@@ -351,10 +351,36 @@ header {
     }
 }
 
+//
+
+@media only screen and (min-width: 300px) and (max-width: 479px) {
+    .list-rectangles {
+        transform: scale(0.7);
+    }
+
+    header {
+        .header-container {
+
+            .container-slide {
+                .button {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
+}
+
 // Inizio versioni mobile, tablet e intermedie
-@media only screen and (min-width: 480px) and (max-width: 610px) {
-    .header-home {
-        height: 400px;
+@media only screen and (min-width: 300px) and (max-width: 610px) {
+    header {
+
+        .header-container {
+            height: 350px;
+
+            .image {
+                object-position: top center;
+            }
+        }
 
         .container {
             .jumbotron {
@@ -367,7 +393,7 @@ header {
                     }
 
                     p {
-                        width: 300px;
+                        //width: 300px;
                         padding-top: 10px;
                         font-style: italic;
                         font-size: 1.1rem;
@@ -408,9 +434,13 @@ header {
     }
 }
 
-@media only screen and (min-width: 480px) and (max-width: 1060px) {
-    .header-home {
-        background-position: center;
+@media only screen and (min-width: 300px) and (max-width: 1060px) {
+    header {
+        .header-container {
+            .image {
+                object-position: top center;
+            }
+        }
     }
 }
 

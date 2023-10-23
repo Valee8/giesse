@@ -380,6 +380,7 @@ export default {
     .ul-container {
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
 
     .logo {
@@ -842,7 +843,7 @@ export default {
 
 }
 
-@media only screen and (min-width: 480px) and (max-width: 900px) {
+@media only screen and (min-width: 300px) and (max-width: 900px) {
 
     #blackMenu {
         .icon-hamburger {
@@ -991,6 +992,24 @@ export default {
     #newMenu {
         display: none;
     }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 479px) {
+    #blackMenu {
+
+        .bg {
+            height: 100%;
+
+            .ul-container {
+                height: 67px;
+
+                li:nth-child(2) {
+                    display: none;
+                }
+            }
+        }
+    }
+
 }
 
 // Fine versioni mobile, tablet e intermedie

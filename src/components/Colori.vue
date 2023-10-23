@@ -288,7 +288,7 @@ export default {
 
 
 // Inizio versioni mobile, tablet e intermedie
-@media only screen and (min-width: 480px) and (max-width: 700px) {
+@media only screen and (min-width: 300px) and (max-width: 700px) {
     .info-colors {
         padding-left: 30px;
         padding-right: 30px;

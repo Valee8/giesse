@@ -567,8 +567,20 @@ export default {
     }
 }
 
+@media only screen and (min-width: 300px) and (max-width: 479px) {
+
+    .info {
+        form {
+
+            .radios {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}
+
 // Inizio versioni mobile, tablet e intermedie
-@media only screen and (min-width: 480px) and (max-width: 900px) {
+@media only screen and (min-width: 300px) and (max-width: 900px) {
     .info {
         form {
             flex-wrap: wrap;

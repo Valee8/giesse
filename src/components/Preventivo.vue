@@ -1920,7 +1920,7 @@ section {
 }
 
 
-@media only screen and (min-width: 480px) and (max-width: 840px) {
+@media only screen and (min-width: 300px) and (max-width: 840px) {
 
     .third-step {
 
@@ -1947,8 +1947,24 @@ section {
 
 }
 
-@media only screen and (min-width: 480px) and (max-width: 550px) {
+@media only screen and (min-width: 300px) and (max-width: 479px) {
+    .first-step {
+        .first-step-right {
+            .form-button {
+                .button {
+                    width: 184px;
+                    font-size: 0.8rem;
+                    padding: 10px 0;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 550px) {
+
     .container {
+
         .top {
             .steps-circles {
                 width: 100%;
@@ -1967,7 +1983,7 @@ section {
     }
 }
 
-@media only screen and (min-width: 480px) and (max-width: 700px) {
+@media only screen and (min-width: 300px) and (max-width: 700px) {
     .container {
         .top {
             flex-wrap: wrap;
@@ -2149,7 +2165,7 @@ section {
 }
 
 
-@media only screen and (min-width: 480px) and (max-width: 1028px) {
+@media only screen and (min-width: 300px) and (max-width: 1028px) {
     .second-step {
 
         select {

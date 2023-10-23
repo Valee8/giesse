@@ -398,7 +398,7 @@ section {
 }
 
 
-@media only screen and (min-width: 480px) and (max-width: 920px) {
+@media only screen and (min-width: 300px) and (max-width: 920px) {
 
     section {
         .faq-section {
