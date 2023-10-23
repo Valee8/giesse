@@ -58,6 +58,10 @@ export default {
         // Metodo per far scorrere lo slider
         changeSlide() {
 
+            const blurredImageDiv = document.querySelector(".header-container");
+
+            const img = blurredImageDiv.querySelector(".image");
+
             // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
             this.isMouseOver = false;
 
@@ -65,7 +69,7 @@ export default {
             interval = setInterval(() => {
 
                 // Se isMouseOver e' false lo slider parte
-                if (!this.isMouseOver) {
+                if (!this.isMouseOver && img.complete) {
                     // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
                     if (this.currentSlideIndex < this.sliderContent.length - 1) {
                         this.currentSlideIndex++;
