@@ -14,6 +14,10 @@ export default {
         // Metodo per cambiare colore cliccando il nome della tipologia
         changeColorTypology(index) {
 
+            setTimeout(() => {
+                this.store.isLoading = false;
+            }, 1200);
+
             // Assegno true all'active dell'elemento corrente dell'array colors (presente nel file store.js)
             this.store.colors[index].active = true;
 
@@ -60,11 +64,6 @@ export default {
             if (this.store.colors[0].active) {
                 this.store.isLoading = false;
             }
-        }, 1200);
-    },
-    updated() {
-        setTimeout(() => {
-            this.store.isLoading = false;
         }, 1200);
     }
 }
