@@ -174,8 +174,30 @@ export default {
     width: 100%;
     position: relative;
 
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        animation: pulse 2.5s infinite;
+        background-color: rgba(255, 255, 255, .3);
+    }
+
+    @keyframes pulse {
+        0% {
+            background-color: rgba(255, 255, 255, 0);
+        }
+
+        50% {
+            background-color: rgba(255, 255, 255, .3);
+        }
+
+        100% {
+            background-color: rgba(255, 255, 255, 0);
+        }
+    }
+
     .image {
-        height: 410px;
+        height: 100%;
         object-fit: cover;
         width: 100%;
         object-position: center;
@@ -185,6 +207,19 @@ export default {
         left: 0;
         opacity: 0;
         transition: opacity 250ms ease-in-out;
+    }
+
+    &.loaded {
+        .image {
+            opacity: 1;
+        }
+    }
+
+    &.loaded {
+        &::after {
+            animation: none;
+            content: none;
+        }
     }
 
     .section-title {
@@ -206,48 +241,6 @@ export default {
         p {
             padding-top: 15px;
             font-size: 1.3rem;
-        }
-    }
-}
-
-.bg-section {
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        animation: pulse 2.5s infinite;
-        height: 543px;
-    }
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 0.1;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
-.bg-section {
-    &.loaded {
-        &::before {
-            animation: none;
-            content: none;
-        }
-    }
-}
-
-.bg-section {
-    &.loaded {
-        .image {
-            opacity: 1;
         }
     }
 }

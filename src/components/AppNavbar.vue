@@ -126,7 +126,8 @@ export default {
 
         if (img.complete) {
             loaded();
-        } else {
+        }
+        else {
             img.addEventListener("load", loaded);
         }
     }
@@ -321,6 +322,28 @@ export default {
     margin-right: 40px;
     border-radius: 2px;
 
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        animation: pulse 2.5s infinite;
+        background-color: rgba(255, 255, 255, .3);
+    }
+
+    @keyframes pulse {
+        0% {
+            background-color: rgba(255, 255, 255, 0);
+        }
+
+        50% {
+            background-color: rgba(255, 255, 255, .3);
+        }
+
+        100% {
+            background-color: rgba(255, 255, 255, 0);
+        }
+    }
+
     .logo-image {
         object-fit: cover;
         object-position: center;
@@ -328,46 +351,17 @@ export default {
         transition: opacity 250ms ease-in-out;
         background-color: #000;
     }
-}
 
-.logo-container {
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        animation: pulse 2.5s infinite;
-        height: 32px;
-    }
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 0.1;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
-.logo-container {
-    &.loaded {
-        &::before {
-            animation: none;
-            content: none;
-        }
-    }
-}
-
-.logo-container {
     &.loaded {
         .logo-image {
             opacity: 1;
+        }
+    }
+
+    &.loaded {
+        &::after {
+            animation: none;
+            content: none;
         }
     }
 }

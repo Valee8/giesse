@@ -17,7 +17,6 @@ export default {
     data() {
         return {
             store,
-            isLoaded: false,
             // Index corrente dello slider
             currentSlideIndex: 0,
             // isMouseOver inizialmente a false, con cui controllo se il puntatore e' sopra lo slider
@@ -56,9 +55,6 @@ export default {
         }
     },
     methods: {
-        loaded() {
-            this.isLoaded = true;
-        },
         // Metodo per far scorrere lo slider
         changeSlide() {
 
@@ -108,24 +104,24 @@ export default {
     },
     updated() {
 
-        // const blurredImageDiv = document.querySelector(".header-container");
-        // const img = blurredImageDiv.querySelector(".image");
-        // function loaded() {
-        //     blurredImageDiv.classList.add("loaded");
-        // }
+        const blurredImageDiv = document.querySelector(".header-container");
+        const img = blurredImageDiv.querySelector(".image");
+        function loaded() {
+            blurredImageDiv.classList.add("loaded");
+        }
 
-        // if (img.complete) {
-        //     loaded();
-        // }
-        // else {
-        //     img.addEventListener("load", loaded);
-        // }
+        if (img.complete) {
+            loaded();
+        }
+        else {
+            img.addEventListener("load", loaded);
+        }
+
     },
+    // Richiamo il metodo changeSlide su mounted
     mounted() {
-        // Richiamo il metodo changeSlide su mounted
-
         this.changeSlide();
-    },
+    }
 }
 </script>
 
@@ -135,9 +131,9 @@ export default {
         <!-- Navbar -->
         <AppNavbar />
 
-        <div class="header-container" :class="{ 'home': $route.name === 'home', 'loaded': isLoaded }">
+        <div class="header-container" :class="{ 'home': $route.name === 'home' }">
 
-            <img :src="store.imagePath" loading="lazy" class="image" @load="loaded">
+            <img :src="store.imagePath" loading="lazy" class="image">
 
             <div class="container">
                 <!-- Contenuto header -->
@@ -288,10 +284,6 @@ header {
     }
 }
 
-
-
-
-
 // Sfondo con immagine dell'header nella home
 .header-container {
     background-image: url('/img/jumbotron-mini.png');
@@ -306,20 +298,20 @@ header {
         position: absolute;
         inset: 0;
         animation: pulse 2.5s infinite;
-        background-color: #fff;
+        background-color: rgba(255, 255, 255, .3);
     }
 
     @keyframes pulse {
         0% {
-            opacity: 0;
+            background-color: rgba(255, 255, 255, 0);
         }
 
         50% {
-            opacity: .3;
+            background-color: rgba(255, 255, 255, .3);
         }
 
         100% {
-            opacity: 0;
+            background-color: rgba(255, 255, 255, 0);
         }
     }
 
