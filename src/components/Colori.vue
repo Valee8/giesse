@@ -37,15 +37,10 @@ export default {
     },
     mounted() {
 
-        if (this.store.colors[0].active) {
-            this.colorClass = "";
-            this.loadingClass = "";
-
-            setTimeout(() => {
-                this.colorClass = "visible";
-                this.loadingClass = "hidden";
-            }, 1000);
-        }
+        setTimeout(() => {
+            this.colorClass = "visible";
+            this.loadingClass = "hidden";
+        }, 1000);
 
         // All'avvio della pagina dovra' essere sempre il primo elemento quello corrente, lo faccio tramite questi codici
         for (let i = 0; i < this.store.colors.length; i++) {
