@@ -6,8 +6,10 @@ import { store } from '../store.js';
 // Importo axios
 import axios from 'axios';
 
+const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
+
 // URL per la chiamata API
-const API_URL = 'https://3f4a-79-22-82-44.ngrok-free.app/api/v1/';
+const API_URL = 'http://localhost:8000/api/v1/';
 
 export default {
     name: 'Preventivo',
@@ -86,7 +88,7 @@ export default {
                 {
                     name: "Verticali a molla classica",
                     typo: "Verticali",
-                    image: "/img/alba.png",
+                    image: imagePrefix + "img/alba.png",
                     active: true,
                     models: [
                         "ALBA D.G. (guida telescopica, con cuffie)",
@@ -100,7 +102,7 @@ export default {
                 {
                     name: "Verticali a molla (cricchetto)",
                     typo: "Verticali",
-                    image: "/img/laura.png",
+                    image: imagePrefix + "img/laura.png",
                     active: false,
                     models: [
                         "LAURA (con cuffie)",
@@ -111,7 +113,7 @@ export default {
                 {
                     name: "Verticali a catena classica",
                     typo: "Verticali",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "KATIA D.G. (guida telescopica, con cuffie)",
@@ -122,7 +124,7 @@ export default {
                 {
                     name: "Verticali a catena + molla",
                     typo: "Verticali",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "GIADA (con cuffie)",
@@ -132,7 +134,7 @@ export default {
                 {
                     name: "Laterali a molla classica",
                     typo: "Orizzontali",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "TIPO ALBA (con cuffie)",
@@ -143,7 +145,7 @@ export default {
                 {
                     name: "Laterali a molla (guida bassa da 2cm)",
                     typo: "Orizzontali",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "LARA (con cuffie)",
@@ -154,7 +156,7 @@ export default {
                 {
                     name: "Laterale a molla (guida arrotondata da 14mm)",
                     typo: "Orizzontali",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "LUNA",
@@ -163,7 +165,7 @@ export default {
                 {
                     name: "Laterale a molla (guida bassa da 3mm)",
                     typo: "Orizzontali",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "ZELIG",
@@ -172,7 +174,7 @@ export default {
                 {
                     name: "Laterale Frizionata",
                     typo: "Orizzontali",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "JOLLY",
@@ -181,7 +183,7 @@ export default {
                 {
                     name: "Laterale Antivento",
                     typo: "Orizzontali",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "BORA",
@@ -190,7 +192,7 @@ export default {
                 {
                     name: "Laterale Plissettata",
                     typo: "Orizzontali",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "PLISSE' 22",
@@ -199,7 +201,7 @@ export default {
                 {
                     name: "Porta a battente",
                     typo: "Altre",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "ANTAREX",
@@ -208,7 +210,7 @@ export default {
                 {
                     name: "A pannelli scorrevoli",
                     typo: "Altre",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "SCORRI",
@@ -217,7 +219,7 @@ export default {
                 {
                     name: "Telaio fisso",
                     typo: "Altre",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "FISSA",
@@ -226,7 +228,7 @@ export default {
                 {
                     name: "Incasso con guida da 50x35",
                     typo: "Altre",
-                    image: "/img/katia.png",
+                    image: imagePrefix + "img/katia.png",
                     active: false,
                     models: [
                         "CASPER",

@@ -33,8 +33,8 @@ export default {
                 vat_number: "",
                 // Numero di telefono
                 telephone_number: "",
-                // Comune
-                city_of_residence: "",
+                // Email cliente/azienda
+                email: "",
                 // Files allegati
                 attached_files: [],
                 // Messaggio
@@ -55,12 +55,12 @@ export default {
     computed: {
         // Verifico che i campi del form non siano vuoti, se non lo sono ritorno true altrimenti false
         firstStepValid() {
-            // Se numero di telefono, comune e messaggio non sono vuoti allora assegno true a enableButton
-            if (this.newInfo.telephone_number.trim() !== "" && this.newInfo.city_of_residence.trim() !== "" && this.newInfo.message !== "") {
+            // Se numero di telefono, email e messaggio non sono vuoti allora assegno true a enableButton
+            if (this.newInfo.telephone_number.trim() !== "" && this.newInfo.email.trim() !== "" && this.newInfo.message !== "") {
                 this.enableButton = true;
             }
 
-            // Se la tipologia e' "Privato" i campi che non devono rimanere vuoti sono nome, cognome + quelli sopra (numero di telefono, comune e messaggio)
+            // Se la tipologia e' "Privato" i campi che non devono rimanere vuoti sono nome, cognome + quelli sopra (numero di telefono, email e messaggio)
             if (this.newInfo.typology === "Privato") {
                 if (this.newInfo.name.trim() !== "" && this.newInfo.surname.trim() !== "" && this.enableButton) {
                     return true;
@@ -181,7 +181,6 @@ export default {
         filterNumbers() {
             this.newInfo.name = this.newInfo.name.replace(/[0-9]/g, '');
             this.newInfo.surname = this.newInfo.surname.replace(/[0-9]/g, '');
-            this.newInfo.city_of_residence = this.newInfo.city_of_residence.replace(/[0-9]/g, '');
         },
         // Impedisco che questi campi possano contenere lettere e simboli
         filterCharacters() {
@@ -197,7 +196,7 @@ export default {
                 this.newInfo.vat_number = "";
                 this.newInfo.message = "";
                 this.newInfo.telephone_number = "";
-                this.newInfo.city_of_residence = "";
+                this.newInfo.email = "";
                 //this.files = [];
                 //this.$refs.fileInput.value = "";
             }
@@ -271,8 +270,8 @@ export default {
                             <input type="text" class="first-input" v-model="newInfo.telephone_number"
                                 placeholder="Telefono *" @input="filterCharacters" title="Inserisci il numero di telefono"
                                 maxlength="10" required>
-                            <input type="text" class="second-input" v-model="newInfo.city_of_residence"
-                                placeholder="Comune *" @input="filterNumbers" title="Inserisci il Comune" required>
+                            <input type="email" class="second-input" v-model="newInfo.email" placeholder="E-mail *"
+                                @input="filterNumbers" title="Inserisci l'E-mail" required>
                         </div>
 
                         <!-- Textarea -->
