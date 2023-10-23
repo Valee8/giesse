@@ -7,7 +7,7 @@ import { store } from '../store.js';
 import axios from 'axios';
 
 // URL per la chiamata API
-const API_URL = 'http://localhost:8000/api/v1/';
+const API_URL = 'https://3f4a-79-22-82-44.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Preventivo',
