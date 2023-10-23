@@ -312,8 +312,8 @@ export default {
 
 .logo-container {
     background-image: url('/img/logo-mini.png');
+    background-repeat: no-repeat;
     background-size: cover;
-    background-repeat: repeat;
     background-position: center;
     height: 32px;
     width: 155px;

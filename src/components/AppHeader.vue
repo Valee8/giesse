@@ -122,7 +122,6 @@ export default {
     },
     mounted() {
         this.changeSlide();
-
     }
 }
 </script>
@@ -286,72 +285,67 @@ header {
     }
 }
 
+
+
+
+
 // Sfondo con immagine dell'header nella home
 .header-container {
     background-image: url('/img/jumbotron-mini.png');
+    background-repeat: no-repeat;
     background-size: cover;
-    background-repeat: repeat;
-    background-position: 0 -162px;
     height: 543px;
     width: 100%;
     position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        animation: pulse 2.5s infinite;
+        background-color: rgba(255, 255, 255, .1);
+    }
+
+    @keyframes pulse {
+        0% {
+            background-color: rgba(255, 255, 255, 0);
+        }
+
+        50% {
+            background-color: rgba(255, 255, 255, .1);
+        }
+
+        100% {
+            background-color: rgba(255, 255, 255, 0);
+        }
+    }
 
     &:not(.home) {
         display: none;
     }
 
     .image {
-        height: 543px;
-        object-fit: cover;
+        height: 100%;
         width: 100%;
+        object-fit: cover;
         object-position: 0 -162px;
-        display: block;
         position: absolute;
         top: 0;
         left: 0;
         opacity: 0;
         transition: opacity 250ms ease-in-out;
     }
-}
 
-.header-container {
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        animation: pulse 2.5s infinite;
-        height: 543px;
-    }
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 0;
+    &.loaded {
+        .image {
+            opacity: 1;
+        }
     }
 
-    50% {
-        opacity: 0.1;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
-.header-container {
     &.loaded {
         &::before {
             animation: none;
             content: none;
-        }
-    }
-}
-
-.header-container {
-    &.loaded {
-        .image {
-            opacity: 1;
         }
     }
 }

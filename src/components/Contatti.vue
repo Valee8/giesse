@@ -168,9 +168,8 @@ export default {
 
 .bg-section {
     background-image: url('/img/sfondo-faq-mini.png');
+    background-repeat: no-repeat;
     background-size: cover;
-    background-repeat: repeat;
-    background-position: center;
     height: 410px;
     width: 100%;
     position: relative;
