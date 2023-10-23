@@ -16,6 +16,12 @@ export default {
 
             this.store.isLoading = true;
 
+            if (this.store.isLoading) {
+                setTimeout(() => {
+                    this.store.isLoading = false;
+                }, 1000);
+            }
+
             // Assegno true all'active dell'elemento corrente dell'array colors (presente nel file store.js)
             this.store.colors[index].active = true;
 
@@ -28,6 +34,12 @@ export default {
         },
     },
     mounted() {
+
+        if (this.store.colors[0].active) {
+            setTimeout(() => {
+                this.store.isLoading = false;
+            }, 1000);
+        }
 
         // All'avvio della pagina dovra' essere sempre il primo elemento quello corrente, lo faccio tramite questi codici
         for (let i = 0; i < this.store.colors.length; i++) {
@@ -55,13 +67,6 @@ export default {
                     this.store.colors[i].active = false;
                 }
             }
-        }
-    },
-    mounted() {
-        if (this.store.isLoading) {
-            setTimeout(() => {
-                this.store.isLoading = false;
-            }, 100);
         }
     }
 }
