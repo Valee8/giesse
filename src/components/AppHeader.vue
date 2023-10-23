@@ -315,7 +315,7 @@ header {
         }
 
         50% {
-            opacity: 1;
+            opacity: .3;
         }
 
         100% {
