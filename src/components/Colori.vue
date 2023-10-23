@@ -16,12 +16,6 @@ export default {
 
             this.store.isLoading = true;
 
-            setTimeout(() => {
-                if (this.store.colors[index].active) {
-                    this.store.isLoading = false;
-                }
-            }, 1200);
-
             // Assegno true all'active dell'elemento corrente dell'array colors (presente nel file store.js)
             this.store.colors[index].active = true;
 
@@ -64,11 +58,11 @@ export default {
         }
     },
     mounted() {
-        setTimeout(() => {
-            if (this.store.colors[0].active) {
+        if (this.store.isLoading) {
+            setTimeout(() => {
                 this.store.isLoading = false;
-            }
-        }, 1200);
+            }, 100);
+        }
     }
 }
 </script>
