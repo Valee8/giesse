@@ -292,34 +292,34 @@ header {
 
 // Sfondo con immagine dell'header nella home
 .header-container {
-    background-image: url('/img/jumbotron-mini.png');
-    background-repeat: no-repeat;
+    background-image: url('/img/jumbotron-compress.png');
     background-size: cover;
+    background-position: 0 -162px;
     height: 543px;
     width: 100%;
     position: relative;
 
-    &::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        animation: pulse 2.5s infinite;
-        background-color: rgba(255, 255, 255, .3);
-    }
+    // &::after {
+    //     content: "";
+    //     position: absolute;
+    //     inset: 0;
+    //     animation: pulse 2.5s infinite;
+    //     background-color: rgba(255, 255, 255, .3);
+    // }
 
-    @keyframes pulse {
-        0% {
-            background-color: rgba(255, 255, 255, 0);
-        }
+    // @keyframes pulse {
+    //     0% {
+    //         background-color: rgba(255, 255, 255, 0);
+    //     }
 
-        50% {
-            background-color: rgba(255, 255, 255, .3);
-        }
+    //     50% {
+    //         background-color: rgba(255, 255, 255, .3);
+    //     }
 
-        100% {
-            background-color: rgba(255, 255, 255, 0);
-        }
-    }
+    //     100% {
+    //         background-color: rgba(255, 255, 255, 0);
+    //     }
+    // }
 
     &:not(.home) {
         display: none;
@@ -343,12 +343,12 @@ header {
         }
     }
 
-    &.loaded {
-        &::after {
-            animation: none;
-            content: none;
-        }
-    }
+    // &.loaded {
+    //     &::after {
+    //         animation: none;
+    //         content: none;
+    //     }
+    // }
 }
 
 //
