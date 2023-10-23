@@ -19,12 +19,10 @@ export default {
             this.colorClass = "";
             this.loadingClass = "";
 
-            if (this.store.isLoading) {
-                setTimeout(() => {
-                    this.colorClass = "visible";
-                    this.loadingClass = "hidden";
-                }, 1000);
-            }
+            setTimeout(() => {
+                this.colorClass = "visible";
+                this.loadingClass = "hidden";
+            }, 1000);
 
             // Assegno true all'active dell'elemento corrente dell'array colors (presente nel file store.js)
             this.store.colors[index].active = true;
