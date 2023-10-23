@@ -360,7 +360,7 @@ export default {
         getClient() {
             // Se clientId e' presente eseguo la chiama API
             if (this.clientId) {
-                axios.get(API_URL + 'clients/' + this.clientId)
+                axios.get('http://localhost:8000/api/v1/clients/' + this.clientId)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
@@ -380,7 +380,7 @@ export default {
         getOrder() {
             // Se clientId e' presente eseguo la chiama API
             if (this.clientId) {
-                axios.get(API_URL + 'orders/' + this.clientId)
+                axios.get('http://localhost:8000/api/v1/orders/' + this.clientId)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
@@ -591,7 +591,7 @@ export default {
             //this.newEmail.order_id = this.clientId;
 
             // Chiamata API per inviare email con le informazioni del preventivo
-            axios.post(API_URL + 'email/' + this.clientId, this.newEmail)
+            axios.post('http://localhost:8000/api/v1/email/' + this.clientId, this.newEmail)
                 .then(res => {
                     const data = res.data;
                     const success = data.success;
@@ -620,12 +620,6 @@ export default {
             // Se currentStep e' uguale a 2 e se orders contiene elementi allora posso proseguire
             if (this.currentStep === 2 && this.orders.length !== 0) {
 
-                // Scrollo verso l'alto
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
                 // Richiamo getClient
                 this.getClient();
 
@@ -647,6 +641,12 @@ export default {
                         })
                         .catch(error => console.log(error));
                 }
+
+                // Scrollo verso l'alto
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
 
                 // Incremento currentStep
                 this.currentStep++;
