@@ -249,18 +249,20 @@ export default {
         // Stampo messaggio corrispondente a seconda che le email coincidano oppure no
         emailConfirmMessage() {
             let message;
-            if (!this.showMessageEmailConfirm) {
-                message = "Le due e-mail non coincidono";
+            if (this.newClient.email.includes("@") && this.newClient.confirm_email.includes("@")) {
+                if (!this.showMessageEmailConfirm) {
+                    message = "Le due e-mail non coincidono";
+                }
+                else {
+                    message = "Le due e-mail coincidono";
+                }
+                return message;
             }
-            else {
-                message = "Le due e-mail coincidono";
-            }
-            return message;
         },
         // Verifico che i campi del form non siano vuoti, se non lo sono ritorno true altrimenti false
         firstStepValid() {
             // Se email, email di conferma, numero di telefono e comune non sono vuoti e se email e email di conferma coincidono allora assegno true a enableButton
-            if (this.newClient.email.trim() !== "" && this.newClient.confirm_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.email === this.newClient.confirm_email) {
+            if (this.newClient.email.trim() !== "" && this.newClient.confirm_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.email === this.newClient.confirm_email && this.newClient.email.includes("@") && this.newClient.confirm_email.includes("@")) {
                 this.enableButton = true;
             }
 

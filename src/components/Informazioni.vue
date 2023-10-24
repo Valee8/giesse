@@ -35,7 +35,6 @@ export default {
                 telephone_number: "",
                 // Email cliente/azienda
                 email: "",
-                //city_of_residence: "",
                 // Files allegati
                 attached_files: [],
                 // Messaggio
@@ -57,7 +56,7 @@ export default {
         // Verifico che i campi del form non siano vuoti, se non lo sono ritorno true altrimenti false
         firstStepValid() {
             // Se numero di telefono, email e messaggio non sono vuoti allora assegno true a enableButton
-            if (this.newInfo.telephone_number.trim() !== "" && this.newInfo.email.trim() !== "" && this.newInfo.message !== "") {
+            if (this.newInfo.telephone_number.trim() !== "" && this.newInfo.email.trim() !== "" && this.newInfo.message !== "" && this.newInfo.email.includes("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")) {
                 this.enableButton = true;
             }
 
@@ -141,13 +140,7 @@ export default {
                         }
                     })
                         .then((response) => {
-                            // if (response.status === 200) {
-                            //     console.log('File caricati con successo');
-                            //     // Puoi aggiungere qui la logica per gestire il successo
-                            // } else {
-                            //     console.error('Errore nel caricamento del file:', response.data);
-                            //     // Puoi aggiungere qui la logica per gestire l'errore
-                            // }
+
                         })
                         .catch((error) => {
                             console.error('Errore nella richiesta:', error.response.data);
