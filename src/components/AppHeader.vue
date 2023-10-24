@@ -292,7 +292,7 @@ header {
 
 // Sfondo con immagine dell'header nella home
 .header-container {
-    background-image: url('/img/jumbotron-bad.jpeg');
+    background-image: url('/img/jumbotron-sfoc.jpg');
     background-size: cover;
     background-position: 0 -162px;
     height: 543px;

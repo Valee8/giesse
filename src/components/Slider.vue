@@ -20,7 +20,7 @@ export default {
     },
     mounted() {
 
-        if (!window.location.hash) {
+        if (window.location.href.includes("verticali") || window.location.href.includes("orizzontali")) {
             this.store.slider[0].active = true;
 
             for (let i = 0; i < this.store.slider.length; i++) {
@@ -160,7 +160,8 @@ export default {
                 <div class="slider" v-for="(slide, index) in getSlider" :key="index" :class="{ 'active': slide.active }">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img :src="slide.image" :alt="slide.model" class="slide-image">
+                        <img :src="slide.image" :alt="slide.model"
+                            :class="slide.nameChange ? 'slide-image ' + slide.nameChange : 'slide-image'">
 
                         <!-- Icona freccia indietro -->
                         <a class="arrow left" @click="prev(index)">

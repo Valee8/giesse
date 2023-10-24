@@ -2089,7 +2089,7 @@ section {
     .second-step {
 
         select {
-            margin-top: 20px;
+            margin-top: 80px;
         }
 
         .slider-preventivo {
@@ -2179,13 +2179,24 @@ section {
 
 }
 
+@media only screen and (min-width: 300px) and (max-width: 500px) {
+    .second-step {
+        padding: 20px;
+
+        select {
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+}
+
 
 @media only screen and (min-width: 300px) and (max-width: 1028px) {
     .second-step {
         padding: 20px;
 
         select {
-            width: 100%;
+            //width: 300px;
             margin-left: 0;
         }
 

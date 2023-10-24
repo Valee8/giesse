@@ -168,7 +168,7 @@ export default {
 @use '../src/styles/partials/variables' as *;
 
 .bg-section {
-    background-image: url('/img/sfondo-faq-bad.jpeg');
+    background-image: url('/img/sfondo-faq-sfoc.jpg');
     background-size: cover;
     background-position: center;
     height: 410px;

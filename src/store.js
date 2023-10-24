@@ -100,14 +100,14 @@ export const store = reactive({
             model: "VERTICALE A MOLLA CLASSICA",
             firstName: "ALBA D.G. (con cuffie) - SONIA D.G. (senza cuffie) - GENNY (con cassonetto da 40mm)",
             secondName: "GIUSY (con cuffie) - ELENA (senza cuffie) - EDDI (con cassonetto da 40mm)",
-            image: imagePrefix + "img/alba.png",
+            image: imagePrefix + "img/zanzariere/alba.png",
             description: "Il modello VERTICALE A MOLLA CLASSICA prodotto di serie con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm).",
             active: true
         },
         {
             model: "VERTICALE A MOLLA (con sistema a cricchetto)",
             name: "LAURA (con cuffie) - EVA (senza cuffie) - ASIA (con cassonetto da 40mm)",
-            image: imagePrefix + "img/laura.png",
+            image: imagePrefix + "img/zanzariere/laura.png",
             description: "Il modello a CRICCHETTO, prodotto di serie con il cassonetto da 50mm, viene realizzato con un sistema a pulsante molto semplice da manovrare che permette l'apertura della zanzariera in modo semplice e veloce. Viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 55mm), cassonetto da 40 (ingombro testate 40mm).",
             active: false
         },
@@ -115,14 +115,15 @@ export const store = reactive({
             model: "VERTICALE A CATENA CLASSICA",
             firstName: "KATIA D.G. (con cuffie) - VERA (senza cuffie)",
             secondName: "SARA (senza cuffie)",
-            image: imagePrefix + "img/katia.png",
+            image: imagePrefix + "img/zanzariere/katia.png",
             description: "Il modello VERTICALE A CATENA CLASSICA, prodotto esclusivamente con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm).",
             active: false
         },
         {
             model: "VERTICALE A CATENA + MOLLA (con aggancio magnetico)",
             name: "GIADA (con cuffie) - MERI (senza cuffie)",
-            image: imagePrefix + "img/katia.png",
+            nameChange: "giada",
+            image: imagePrefix + "img/zanzariere/giada.png",
             description: "Il modello VERTICALE A CATENA + MOLLA, prodotto esclusivamente con il cassonetto da 50mm, viene realizzato con una molla di richiamo che permette di tenere la rete ben tesa. Viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm).",
             active: false
         }
@@ -132,49 +133,52 @@ export const store = reactive({
         {
             model: "LATERALE A MOLLA CLASSICA",
             name: "TIPO ALBA (con cuffie) - TIPO SONIA (senza cuffie) - TIPO GENNY (con cassonetto da 40mm)",
-            //image: "/img/alba.png",
+            nameChange: "laterale-alba",
+            image: imagePrefix + "img/zanzariere/alba-laterale.jpg",
             description: "Il modello LATERALE A MOLLA CLASSICA, prodotto di serie con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm).",
             active: true
         },
         {
             model: "LATERALE A MOLLA (con guida bassa da 2cm)",
             name: "LARA (con cuffie) - VALERIA (senza cuffie) - DESI (con cassonetto da 40mm)",
-            image: imagePrefix + "img/lara-rigata.png",
+            image: imagePrefix + "img/zanzariere/lara-rigata.png",
             description: "Il modello LATERALE con guida bassa da 2cm, prodotto di serie con il cassonetto da 50mm, è caratterizzato da una guida inferiore di soli 2cm. Viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm).",
             active: false
         },
         {
             model: "LATERALE A MOLLA (con guida arrotondata da 14mm)",
             name: "LUNA",
-            image: imagePrefix + "img/luna.png",
+            image: imagePrefix + "img/zanzariere/luna.png",
             description: "Il modello LUNA, prodotto esclusivamente con il cassonetto da 50mm, è caratterizzato da una guida inferiore (arrotondata) di soli 14mm. Viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm).",
             active: false
         },
         {
             model: "LATERALE A MOLLA (con guida bassa da 3mm)",
             name: "ZELIG",
-            //image: "/img/alba.png",
+            image: imagePrefix + "img/zanzariere/zelig.png",
             description: "Il modello ZELIG, prodotto esclusivamente con il cassonetto da 50mm, è caratterizzato da una guida inferiore di soli 3mm. Dotato di una catena che si adagia sulla guida durante l'apertura della zanzariera, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm).",
             active: false
         },
         {
             model: "LATERALE FRIZIONATA (con guida bassa da 3mm)",
             name: "JOLLY",
-            //image: "/img/alba.png",
+            nameChange: "jolly",
+            image: imagePrefix + "img/zanzariere/jolly.jpg",
             description: "Il modello JOLLY, è caratterizzato da un ingombro di 4mm. Prodotto con una guida inferiore di 4mm, a differenza del modello ZELIG permette di arrestare l'apertura della zanzariera nella posizione desiderata. Viene dotato di una catena (chiusa) che si adagia sulla guida inferiore durante l'apertura della zanzariera.",
             active: false
         },
         {
             model: "LATERALE ANTIVENTO (con guida bassa da 2mm)",
             name: "BORA",
-            //image: "/img/alba.png",
+            image: imagePrefix + "img/zanzariere/bora.png",
             description: "Il modello BORA, adatto per portefinestre, viene fornito con una guida inferiore di soli 2mm. Semplicissima da montare, è grazie ad uno speciale meccanismo brevettato che la rete non esce dalle guide anche in presenza di un forte vento.",
             active: false
         },
         {
             model: "LATERALE PLISSETTATA",
             name: "PLISSE' 22",
-            //image: "/img/alba.png",
+            nameChange: "plisse",
+            image: imagePrefix + "img/zanzariere/plisse-22.png",
             description: "Il modello PLISSE' 22, è caratterizzato da un ingombro di 22mm. Prodotto con una guida inferiore di 7mm e la rete plissettata in propilene nera o grigia, permette di arrestare l'apertura della zanzariera nella posizione desiderata.",
             active: false
         },
@@ -183,27 +187,27 @@ export const store = reactive({
     typologies: [
         {
             name: "Verticali",
-            image: imagePrefix + "img/alba.png",
+            image: imagePrefix + "img/zanzariere/alba.png",
         },
         {
             name: "Orizzontali",
-            image: imagePrefix + "img/lara.png",
+            image: imagePrefix + "img/zanzariere/lara.png",
         },
         {
             name: "Porta a battente",
-            image: imagePrefix + "img/porta-a-battente.jpg"
+            image: imagePrefix + "img/zanzariere/porta-a-battente.jpg"
         },
         {
             name: "Scorri",
-            image: imagePrefix + "img/scorri.png"
+            image: imagePrefix + "img/zanzariere/scorri.png"
         },
         {
             name: "Fissa",
-            //image: "/img/casper.png"
+            image: imagePrefix + "img/zanzariere/fissa.png"
         },
         {
             name: "Casper",
-            image: imagePrefix + "img/casper.jpg"
+            image: imagePrefix + "img/zanzariere/casper.png"
         },
     ],
     // Colori zanzariere presenti sia nel Preventivo sia nelle sezioni delle zanzariere

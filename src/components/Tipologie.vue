@@ -7,25 +7,7 @@ export default {
     name: 'Tipologie',
     data() {
         return {
-            url: "",
             store
-        }
-    },
-    computed: {
-        getUrl() {
-            // Ottieni l'URL corrente
-            const currentURL = window.location.href;
-
-            // Verifica se l'URL contiene "localhost"
-            if (currentURL.includes('localhost')) {
-                // Fai qualcosa se l'app è in esecuzione in locale
-                this.url = "/giesse/";
-            } else {
-                // Fai qualcosa se l'app è in esecuzione in un altro ambiente (deploy)
-                this.url = "/";
-            }
-
-            return this.url;
         }
     }
 }
@@ -47,14 +29,11 @@ export default {
                         class="link">
 
                         <!-- Immagine zanzariera -->
-                        <img :src="typology.image" :alt="typology.name" v-if="typology.image" class="typology-image">
-
-                        <div class="typology-image" v-else>
-                            Un giorno mi aggiungeranno :)
-                        </div>
+                        <img :src="typology.image" :alt="typology.name" v-if="typology.image"
+                            :class="'typology-image ' + typology.name.toLowerCase()">
 
                         <!-- Nome tipologia -->
-                        <h3>
+                        <h3 :class="typology.name.toLowerCase()">
                             {{ typology.name }}
                         </h3>
                     </router-link>
@@ -105,6 +84,15 @@ section {
             .typology-image {
                 width: 210px;
                 display: block;
+
+                &.fissa {
+                    padding-top: 30px;
+                    transform: scale(1.4);
+                }
+
+                &.casper {
+                    transform: scaleY(0.9);
+                }
             }
 
             &:nth-child(1),
@@ -139,6 +127,10 @@ section {
                 text-align: center;
                 padding-top: 30px;
                 font-size: 1.3rem;
+
+                &.fissa {
+                    padding-top: 80px;
+                }
             }
 
         }

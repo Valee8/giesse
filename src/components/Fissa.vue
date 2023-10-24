@@ -47,7 +47,7 @@ export default {
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img src="" alt="FISSA" class="slide-image">
+                        <img src="/img/zanzariere/fissa.png" alt="FISSA" class="slide-image">
                     </div>
 
                     <!-- Titolo - nome modello -->

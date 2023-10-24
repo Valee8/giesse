@@ -238,13 +238,13 @@ section {
       justify-content: center;
       align-content: center;
       gap: 20px;
-      padding: 46px 0 20px 0;
+      padding: 46px 0 50px 0;
       height: 72px;
 
       .rectangles {
         background-color: rgba(0, 0, 0, .4);
-        width: 30px;
-        height: 6px;
+        width: 35px;
+        height: 8px;
 
         &.active {
           background-color: #000;
@@ -271,6 +271,27 @@ section {
 
         .slide-image {
           height: 320px;
+          //width: 210px;
+
+          &.laterale-alba {
+            transform: scale(0.9, 0.95);
+          }
+
+          &.jolly {
+            transform: scale(1);
+          }
+
+          &.giada {
+            transform: scale(1.3, 1);
+          }
+
+          &.plisse {
+            transform: scaleX(1.2);
+          }
+
+          &.casper {
+            transform: scale(1, 0.9);
+          }
         }
       }
 
