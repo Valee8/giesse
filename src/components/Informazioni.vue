@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 // URL per la chiamata API
-const API_URL = 'https://8214-79-22-82-44.ngrok-free.app/api/v1/';
+const API_URL = 'https://11a5-79-22-82-44.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Informazioni',
@@ -35,6 +35,7 @@ export default {
                 telephone_number: "",
                 // Email cliente/azienda
                 email: "",
+                //city_of_residence: "",
                 // Files allegati
                 attached_files: [],
                 // Messaggio
@@ -103,9 +104,6 @@ export default {
                     this.messageFormats = "Formato del file non valido";
                     break;  // Esco dal ciclo se il formato non e' valido
                 }
-
-                // Assegno ad attached_files il nome dei file allegati sostituendo eventuali spazi nel nome con stringa vuota
-                this.newInfo.attached_files[i] = this.files[i].name.replace(/\s/g, '');
             }
 
         },
@@ -140,14 +138,27 @@ export default {
                     axios.post(API_URL + 'uploadFile', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data',
-                        },
+                        }
                     })
                         .then((response) => {
-                            //console.log('File caricato con successo');
+                            // if (response.status === 200) {
+                            //     console.log('File caricati con successo');
+                            //     // Puoi aggiungere qui la logica per gestire il successo
+                            // } else {
+                            //     console.error('Errore nel caricamento del file:', response.data);
+                            //     // Puoi aggiungere qui la logica per gestire l'errore
+                            // }
                         })
                         .catch((error) => {
-                            console.error('Errore nel caricamento del file:', error);
+                            console.error('Errore nella richiesta:', error.response.data);
+                            // Gestione generale degli errori
                         });
+
+                }
+
+                // Assegno ad attached_files il nome dei file allegati sostituendo eventuali spazi nel nome con stringa vuota
+                for (let i = 0; i < this.files.length; i++) {
+                    this.newInfo.attached_files[i] = this.files[i].name.replace(/\s/g, '');
                 }
 
                 // Assegno l'email del destinatario
@@ -163,7 +174,7 @@ export default {
                         if (success) {
                             this.messageSuccess = "Messaggio inviato con successo!";
 
-                            // La pagina si ricarica da sola dopo 1 secondo
+                            //La pagina si ricarica da sola dopo 1 secondo
                             setTimeout(() => {
                                 location.reload();
                             }, 1000);
@@ -271,7 +282,9 @@ export default {
                                 placeholder="Telefono *" @input="filterCharacters" title="Inserisci il numero di telefono"
                                 maxlength="10" required>
                             <input type="email" class="second-input" v-model="newInfo.email" placeholder="E-mail *"
-                                @input="filterNumbers" title="Inserisci l'E-mail" required>
+                                title="Inserisci l'E-mail" required>
+                            <!-- <input type="text" class="second-input" v-model="newInfo.city_of_residence"
+                                placeholder="Comune *" title="Inserisci il Comune" required> -->
                         </div>
 
                         <!-- Textarea -->
@@ -311,7 +324,7 @@ export default {
                             </p>
 
                             <!-- Input per allegare i file -->
-                            <input type="file" @change="onFileChange" ref="fileInput" id="file"
+                            <input type="file" @change="onFileChange" ref="fileInput" id="file" name="attached_files[]"
                                 accept=".png, .jpg, .jpeg, .docx, .pdf" multiple>
 
                             <!-- Scritta rimuovi allegati -->
