@@ -116,23 +116,6 @@ export default {
             this.files = [];
 
         },
-        // getInformation() {
-        //     // Se clientId e' presente eseguo la chiama API
-        //     axios.get(API_URL + 'informations/', {
-        //         headers: {
-        //             'ngrok-skip-browser-warning': 'skip-browser-warning'
-        //         }
-        //     })
-        //         .then(res => {
-        //             const data = res.data;
-        //             const success = data.success;
-        //             const response = data.response;
-
-        //         })
-        //         .catch(error => {
-        //             console.error(error.response.data);
-        //         });
-        // },
         // Metodo per inviare l'email
         sendEmail() {
 
