@@ -9,12 +9,14 @@ import axios from 'axios';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 // URL per la chiamata API
-const API_URL = 'https://495c-79-22-82-44.ngrok-free.app/api/v1/';
+const API_URL = 'https://6ef7-79-22-82-44.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Preventivo',
     data() {
         return {
+            clientId: "",
+            thank_you: "",
             // Per attivare i bottoni plus e minus e il bottone elimina (icona cestino) degli ordini dopo che il popup e' scomparso
             enablePlusMinus: false,
             // Per mostrare il popup se aggiungo una zanzariera
@@ -42,9 +44,10 @@ export default {
                 // Partita Iva
                 vat_number: "",
                 // Email
-                email: "",
+                client_email: "",
                 // Conferma Email
-                confirm_email: "",
+                confirm_client_email: "",
+                owner_email: "",
                 // Numero di telefono
                 telephone_number: "",
                 // Comune
@@ -72,9 +75,9 @@ export default {
             // Oggetto che contiene le informazioni dell'email
             newEmail: {
                 // Email destinatario
-                ownerEmail: "",
+                owner_email: "",
                 // Email inserita dal cliente quando compila il form
-                clientEmail: "",
+                client_email: "",
                 //order_id: ""
             },
             // Array contenente i dati del cliente
@@ -88,7 +91,7 @@ export default {
                 {
                     name: "Verticali a molla classica",
                     typo: "Verticali",
-                    image: imagePrefix + "img/alba.png",
+                    image: imagePrefix + "img/zanzariere/alba.png",
                     active: true,
                     models: [
                         "ALBA D.G. (guida telescopica, con cuffie)",
@@ -102,7 +105,7 @@ export default {
                 {
                     name: "Verticali a molla (cricchetto)",
                     typo: "Verticali",
-                    image: imagePrefix + "img/laura.png",
+                    image: imagePrefix + "img/zanzariere/laura.png",
                     active: false,
                     models: [
                         "LAURA (con cuffie)",
@@ -113,7 +116,7 @@ export default {
                 {
                     name: "Verticali a catena classica",
                     typo: "Verticali",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/katia.png",
                     active: false,
                     models: [
                         "KATIA D.G. (guida telescopica, con cuffie)",
@@ -124,7 +127,7 @@ export default {
                 {
                     name: "Verticali a catena + molla",
                     typo: "Verticali",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/giada.png",
                     active: false,
                     models: [
                         "GIADA (con cuffie)",
@@ -134,7 +137,7 @@ export default {
                 {
                     name: "Laterali a molla classica",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/alba-laterale.png",
                     active: false,
                     models: [
                         "TIPO ALBA (con cuffie)",
@@ -145,7 +148,7 @@ export default {
                 {
                     name: "Laterali a molla (guida bassa da 2cm)",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/lara-rigata.png",
                     active: false,
                     models: [
                         "LARA (con cuffie)",
@@ -156,7 +159,7 @@ export default {
                 {
                     name: "Laterale a molla (guida arrotondata da 14mm)",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/luna.png",
                     active: false,
                     models: [
                         "LUNA",
@@ -165,7 +168,7 @@ export default {
                 {
                     name: "Laterale a molla (guida bassa da 3mm)",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/zelig.png",
                     active: false,
                     models: [
                         "ZELIG",
@@ -174,7 +177,7 @@ export default {
                 {
                     name: "Laterale Frizionata",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/jolly.jpg",
                     active: false,
                     models: [
                         "JOLLY",
@@ -183,7 +186,7 @@ export default {
                 {
                     name: "Laterale Antivento",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/bora.png",
                     active: false,
                     models: [
                         "BORA",
@@ -192,7 +195,7 @@ export default {
                 {
                     name: "Laterale Plissettata",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/plisse-22.png",
                     active: false,
                     models: [
                         "PLISSE' 22",
@@ -201,7 +204,7 @@ export default {
                 {
                     name: "Porta a battente",
                     typo: "Altre",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/porta-a-battente.png",
                     active: false,
                     models: [
                         "ANTAREX",
@@ -210,7 +213,7 @@ export default {
                 {
                     name: "A pannelli scorrevoli",
                     typo: "Altre",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/scorri.png",
                     active: false,
                     models: [
                         "SCORRI",
@@ -219,7 +222,7 @@ export default {
                 {
                     name: "Telaio fisso",
                     typo: "Altre",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/fissa.png",
                     active: false,
                     models: [
                         "FISSA",
@@ -228,7 +231,7 @@ export default {
                 {
                     name: "Incasso con guida da 50x35",
                     typo: "Altre",
-                    image: imagePrefix + "img/katia.png",
+                    image: imagePrefix + "img/zanzariere/casper.png",
                     active: false,
                     models: [
                         "CASPER",
@@ -249,20 +252,18 @@ export default {
         // Stampo messaggio corrispondente a seconda che le email coincidano oppure no
         emailConfirmMessage() {
             let message;
-            if (this.newClient.email.includes("@") && this.newClient.confirm_email.includes("@")) {
-                if (!this.showMessageEmailConfirm) {
-                    message = "Le due e-mail non coincidono";
-                }
-                else {
-                    message = "Le due e-mail coincidono";
-                }
-                return message;
+            if (!this.showMessageEmailConfirm) {
+                message = "Le due e-mail non coincidono";
             }
+            else {
+                message = "Le due e-mail coincidono";
+            }
+            return message;
         },
         // Verifico che i campi del form non siano vuoti, se non lo sono ritorno true altrimenti false
         firstStepValid() {
             // Se email, email di conferma, numero di telefono e comune non sono vuoti e se email e email di conferma coincidono allora assegno true a enableButton
-            if (this.newClient.email.trim() !== "" && this.newClient.confirm_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.email === this.newClient.confirm_email && this.newClient.email.includes("@") && this.newClient.confirm_email.includes("@")) {
+            if (this.newClient.client_email.trim() !== "" && this.newClient.confirm_client_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.client_email === this.newClient.confirm_client_email && this.newClient.client_email.includes("@") && this.newClient.confirm_client_email.includes("@")) {
                 this.enableButton = true;
             }
 
@@ -378,7 +379,7 @@ export default {
 
                     })
                     .catch(error => {
-                        console.error(error);
+                        console.error(error.response.data);
                     });
             }
         },
@@ -478,6 +479,12 @@ export default {
                 // showMessageEmailConfirm e' uguale a true e mi appare messaggio di conferma
                 this.showMessageEmailConfirm = true;
 
+                this.newClient.owner_email = "oirelav95@gmail.com";
+
+                this.newEmail.owner_email = this.newClient.owner_email;
+
+                this.newEmail.client_email = this.newClient.client_email;
+
                 // Funzione setTimeout per eseguire azioni dopo tot secondi (2 in questo caso)
                 setTimeout(() => {
 
@@ -487,8 +494,6 @@ export default {
                             const data = res.data;
                             const success = data.success;
                             const response = data.response;
-
-                            this.clients = response;
 
                             this.clientId = response.id;
 
@@ -503,7 +508,7 @@ export default {
                             }
 
                         })
-                        .catch(error => console.log(error));
+                        .catch(error => console.log(error.response.data));
 
                     // Incremento il valore di currentStep
                     this.currentStep++;
@@ -520,7 +525,7 @@ export default {
             }
 
             // Se le email inserite dall'utente non coincidono assegno false a showMessageEmailConfirm
-            if (this.newClient.email !== this.newClient.confirm_email && this.newClient.email.trim() !== "" && this.newClient.confirm_email.trim() !== "") {
+            if (this.newClient.client_email !== this.newClient.confirm_client_email && this.newClient.client_email.trim() !== "" && this.newClient.confirm_client_email.trim() !== "") {
                 this.showMessageEmailConfirm = false;
             }
         },
@@ -531,8 +536,8 @@ export default {
                 this.newClient.surname = "";
                 this.newClient.agency_name = "";
                 this.newClient.vat_number = "";
-                this.newClient.email = "";
-                this.newClient.confirm_email = "";
+                this.newClient.client_email = "";
+                this.newClient.confirm_client_email = "";
                 this.newClient.telephone_number = "";
                 this.newClient.city_of_residence = "";
             }
@@ -597,10 +602,10 @@ export default {
             //event.preventDefault();
 
             // Assegno email destinatario
-            this.newEmail.ownerEmail = "oirelav95@gmail.com";
+            //this.newEmail.ownerEmail = "oirelav95@gmail.com";
 
             // Assegno email cliente
-            this.newEmail.clientEmail = this.newClient.email;
+            //this.newEmail.clientEmail = this.newClient.email;
             //this.newEmail.order_id = this.clientId;
 
             // Chiamata API per inviare email con le informazioni del preventivo
@@ -609,10 +614,9 @@ export default {
                     const data = res.data;
                     const success = data.success;
 
-                    console.log(this.newEmail);
-
                     // if (success) {
                     //     console.log("Tuttapposto");
+                    //     //this.getEmail();
                     // }
                 })
                 .catch(error => console.log(error.response.data)); // error.response.data
@@ -699,11 +703,27 @@ export default {
 
                 })
                 .catch(error => console.log(error));
-        }
+        },
     },
     created() {
         // Salvo valore clientId in localStorage
         this.clientId = localStorage.getItem("ClientId");
+    },
+    updated() {
+        const blurredImageDiv = document.querySelector(".thank-you");
+
+        const img = blurredImageDiv.querySelector(".image-sfoc");
+
+        function loaded() {
+            blurredImageDiv.classList.add("loaded");
+        }
+
+        if (img.complete) {
+            loaded();
+        }
+        else {
+            img.addEventListener("load", loaded);
+        }
     },
     mounted() {
 
@@ -727,12 +747,16 @@ export default {
 
         // Ottengo valore tipologia
         this.typology = this.zanzs[0].name;
+
     }
 }
 </script>
 
 <template>
-    <section :class="{ 'thank-you': currentStep === 4 }">
+    <section class="thank-you" :class="{ 'not-step': currentStep !== 4 }">
+
+        <img :src="store.imagePath3" loading="lazy" class="image-sfoc" :class="{ 'not-step': currentStep !== 4 }">
+
         <div class="container">
 
             <div class="section-title">
@@ -788,25 +812,25 @@ export default {
 
                             <div v-if="newClient.typology === 'Privato' || newClient.typology === ''">
                                 <input type="text" v-model="newClient.name" placeholder="Nome *" @input="filterNumbers"
-                                    title="Inserisci il nome" required>
+                                    title="Inserisci il nome" maxlength="64" required>
                                 <br>
                                 <input type="text" v-model="newClient.surname" placeholder="Cognome *"
-                                    title="Inserisci il cognome" @input="filterNumbers" required>
+                                    title="Inserisci il cognome" @input="filterNumbers" maxlength="64" required>
                             </div>
 
                             <div v-else-if="newClient.typology === 'Azienda'">
                                 <input type="text" v-model="newClient.agency_name" placeholder="Nome Azienda *"
-                                    title="Inserisci il nome dell'azienda" required>
+                                    title="Inserisci il nome dell'azienda" maxlength="64" required>
                                 <br>
                                 <input type="text" v-model="newClient.vat_number" placeholder="Partita Iva *" maxlength="11"
                                     title="Inserisci la Partita Iva" @input="filterCharacters" required>
                             </div>
 
-                            <input type="email" v-model="newClient.email" placeholder="E-mail *" title="Inserisci l'email"
-                                required>
+                            <input type="email" v-model="newClient.client_email" placeholder="E-mail *"
+                                title="Inserisci l'email" maxlength="64" required>
                             <br>
-                            <input type="email" v-model="newClient.confirm_email" placeholder="Conferma e-mail *"
-                                title="Conferma l'email" required>
+                            <input type="email" v-model="newClient.confirm_client_email" placeholder="Conferma e-mail *"
+                                maxlength="64" title="Conferma l'email" required>
 
                             <!-- Messaggio che fa capire se le email coincidono oppure no -->
                             <div v-if="showMessageEmailConfirm !== ''"
@@ -814,12 +838,18 @@ export default {
                                 {{ emailConfirmMessage }}
                             </div>
 
+                            <div v-else-if="(!newClient.client_email.includes('@') ||
+                                !newClient.confirm_client_email.includes('@')) && newClient.client_email && newClient.confirm_client_email"
+                                class="message-red">
+                                Le email devono avere il formato corretto
+                            </div>
+
                             <br>
                             <input type="text" v-model="newClient.telephone_number" placeholder="Telefono *" maxlength="10"
                                 @input="filterCharacters" title="Inserisci il numero di telefono" required>
                             <br>
                             <input type="text" v-model="newClient.city_of_residence" placeholder="Comune *"
-                                title="Inserisci il comune" @input="filterNumbers" required>
+                                title="Inserisci il comune" @input="filterNumbers" maxlength="64" required>
 
                             <div class="obligatory">
                                 i campi contrassegnati con &ast; sono obbligatori
@@ -859,7 +889,7 @@ export default {
 
                         <!-- Parte sopra - slider -->
                         <div class="inputs-top">
-                            <div class="slider-preventivo" v-for="(zanz, index) in zanzs" :key="index"
+                            <div class="slider-preventivo" v-for="(zanz, index ) in    zanzs " :key="index"
                                 :class="{ 'active': zanz.active }">
 
                                 <!-- Titolo con modello zanzariera -->
@@ -870,7 +900,7 @@ export default {
                                 <!-- Immagini zanzariere -->
                                 <div class="arrows-image">
                                     <div class="zanz-image">
-                                        <img :src="zanz.image" :alt="zanz.name">
+                                        <img :src="zanz.image" :alt="zanz.name" :class="{ 'plisse': index === 10 }">
                                     </div>
 
                                     <!-- Icona freccia indietro -->
@@ -891,12 +921,13 @@ export default {
                             </div>
 
                             <!-- Seleziona modello -->
-                            <span v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex">
+                            <span v-for="(   zanz, zanzIndex   ) in    zanzs   " :key="zanzIndex">
                                 <select v-if="zanz.active" :required="fixRequiredProblem" v-model="newOrder.model_name">
                                     <option value="" disabled selected hidden>
                                         Seleziona il modello *
                                     </option>
-                                    <option v-for="(nameModel, index) in zanz.models" :value="nameModel" :key="index">
+                                    <option v-for="(   nameModel, index   ) in    zanz.models   " :value="nameModel"
+                                        :key="index">
                                         {{ nameModel }}</option>
                                 </select>
                             </span>
@@ -920,7 +951,7 @@ export default {
 
                         <!-- Input sotto - input radio scelta rete -->
                         <div class="inputs-bottom">
-                            <span v-for="(net, index) in nets" :key="index">
+                            <span v-for="(   net, index   ) in    nets   " :key="index">
                                 <label v-if="showNet || index === 0 || index === 1">
                                     {{ net }}
                                     <input type="radio" name="net" :value="net" v-model="newOrder.net"
@@ -940,7 +971,7 @@ export default {
                         <!-- Tipologia colori -->
                         <div class="color-choice">
                             <div class="list-typologies">
-                                <div v-for="(typo, index) in store.colors" :key="index" class="typologies">
+                                <div v-for="(   typo, index   ) in    store.colors   " :key="index" class="typologies">
                                     <div @click="changeColorTypology(index)" class="typology-name"
                                         :class="{ 'selected': typo.active }">
                                         {{ typo.typology }}
@@ -949,10 +980,11 @@ export default {
                             </div>
 
                             <!-- Nomi e immagini colori - parte sotto -->
-                            <div class="list-colors" v-for="(typo, index) in store.colors" :key="index"
+                            <div class="list-colors" v-for="(   typo, index   ) in    store.colors   " :key="index"
                                 :class="{ 'selected': typo.active }">
                                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
-                                    <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
+                                    <label v-for="(   color, colorIndex   ) in    typo.colorInfo   " :key="colorIndex"
+                                        class="color">
                                         <input type="radio" name="color" @click="getColor(index, colorIndex)"
                                             :required="fixRequiredProblem">
                                         <!-- Immagine colore -->
@@ -984,7 +1016,7 @@ export default {
                         <div class="div-popup">
                             <!-- Elenco zanzariere preventivo -->
                             <ul v-if="orders.length !== 0" class="list-ul">
-                                <li v-for=" order  in  orders " :key="order.id" class="list-order">
+                                <li v-for="order in orders" :key="order.id" class="list-order">
                                     <span>
                                         {{ typology.replace(/\([^)]*\)/g, "") }} | {{
                                             order.model_name.charAt(0).toUpperCase() +
@@ -1057,7 +1089,7 @@ export default {
                         </h2>
 
                         <!-- Riepilogo info cliente -->
-                        <ul v-for=" client  in  clients " :key="client.id" class="summary info">
+                        <ul v-for="client in clients" :key="client.id" class="summary info">
                             <li>
                                 {{ client.typology }}
                                 <hr>
@@ -1090,7 +1122,7 @@ export default {
                         </ul>
 
                         <!-- Riepilogo info ordine -->
-                        <ul v-for=" order  in  orders " :key="order.id" class="summary">
+                        <ul v-for="order in orders" :key="order.id" class="summary">
                             <li>
                                 Modello zanzariera: {{ order.model_name.charAt(0).toUpperCase() +
                                     order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} - {{ order.net }}
@@ -1109,7 +1141,7 @@ export default {
 
                         <!-- Messaggio -->
                         <ul>
-                            <li v-for=" mess  in  clients " :key="mess.id" class="summary">
+                            <li v-for="mess in clients" :key="mess.id" class="summary">
                                 <span v-if="mess.message">
                                     Messaggio: {{ mess.message }}
                                 </span>
@@ -1143,7 +1175,6 @@ export default {
                 </form>
             </div>
         </div>
-
     </section>
 </template>
 
@@ -1157,8 +1188,34 @@ section {
     min-height: calc(100vh - 312px);
 
     &.thank-you {
-        background-image: url('/img/sfondo-ringraziamento.png');
+        background-image: url('/img/ringraziamento-sfoc.jpg');
         background-size: cover;
+        position: relative;
+
+        &.not-step {
+            background-image: none;
+        }
+
+        .image-sfoc {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 250ms ease-in-out;
+
+            &.not-step {
+                display: none;
+            }
+        }
+
+        &.loaded {
+            .image-sfoc {
+                opacity: 1;
+            }
+        }
     }
 }
 
@@ -1171,34 +1228,36 @@ section {
 // QUARTO STEP, parte ringraziamenti
 .thank-you {
 
-    .bottom {
-        //padding-top: 50px;
-        color: #fff;
-        font-size: 2rem;
-        padding: 80px 0;
+    &:not(.not-step) {
+        .bottom {
+            //padding-top: 50px;
+            color: #fff;
+            font-size: 2rem;
+            padding: 80px 0;
 
-        h1 {
-            font-weight: 500;
+            h1 {
+                font-weight: 500;
 
-            .first {
-                font-size: 1.3em;
-                padding: 5px 0;
-                font-weight: 600;
+                .first {
+                    font-size: 1.3em;
+                    padding: 5px 0;
+                    font-weight: 600;
+                }
+
+                .second {
+                    font-size: 0.7em;
+                    padding: 10px 0 25px 0;
+                }
+
+                .third {
+                    font-size: 0.4em;
+                    margin-bottom: 15px;
+                }
             }
 
-            .second {
-                font-size: 0.7em;
-                padding: 10px 0 25px 0;
+            span {
+                color: $yellow-color;
             }
-
-            .third {
-                font-size: 0.4em;
-                margin-bottom: 15px;
-            }
-        }
-
-        span {
-            color: $yellow-color;
         }
     }
 
@@ -1386,6 +1445,10 @@ section {
                 img {
                     width: 110px;
                     height: 130px;
+
+                    &.plisse {
+                        width: 160px;
+                    }
                 }
             }
         }

@@ -5,6 +5,7 @@ const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 export const store = reactive({
     imagePath: imagePrefix + "img/jumbotron.png",
     imagePath2: imagePrefix + "img/sfondo-faq.png",
+    imagePath3: imagePrefix + "img/ringraziamento.png",
     slider: [],
     // menuHamburger per mostrare e nascondere il sottomenu del menu hamburger
     menuHamburger: false,
@@ -134,7 +135,7 @@ export const store = reactive({
             model: "LATERALE A MOLLA CLASSICA",
             name: "TIPO ALBA (con cuffie) - TIPO SONIA (senza cuffie) - TIPO GENNY (con cassonetto da 40mm)",
             nameChange: "laterale-alba",
-            image: imagePrefix + "img/zanzariere/alba-laterale.jpg",
+            image: imagePrefix + "img/zanzariere/alba-laterale.png",
             description: "Il modello LATERALE A MOLLA CLASSICA, prodotto di serie con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm).",
             active: true
         },
@@ -195,7 +196,7 @@ export const store = reactive({
         },
         {
             name: "Porta a battente",
-            image: imagePrefix + "img/zanzariere/porta-a-battente.jpg"
+            image: imagePrefix + "img/zanzariere/porta-a-battente.png"
         },
         {
             name: "Scorri",

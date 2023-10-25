@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 // URL per la chiamata API
-const API_URL = 'https://11a5-79-22-82-44.ngrok-free.app/api/v1/';
+const API_URL = 'https://6ef7-79-22-82-44.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Informazioni',
@@ -34,13 +34,13 @@ export default {
                 // Numero di telefono
                 telephone_number: "",
                 // Email cliente/azienda
-                email: "",
+                client_email: "",
                 // Files allegati
                 attached_files: [],
                 // Messaggio
                 message: "",
                 // Email destinatario
-                infoEmail: ""
+                owner_email: "",
             },
             // Contiene elenco formati accettati per i file allegati
             formats: [
@@ -56,7 +56,7 @@ export default {
         // Verifico che i campi del form non siano vuoti, se non lo sono ritorno true altrimenti false
         firstStepValid() {
             // Se numero di telefono, email e messaggio non sono vuoti allora assegno true a enableButton
-            if (this.newInfo.telephone_number.trim() !== "" && this.newInfo.email.trim() !== "" && this.newInfo.message !== "" && this.newInfo.email.includes("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")) {
+            if (this.newInfo.telephone_number.trim() !== "" && this.newInfo.client_email.trim() !== "" && this.newInfo.message !== "" && this.newInfo.client_email.includes("@")) {
                 this.enableButton = true;
             }
 
@@ -116,6 +116,23 @@ export default {
             this.files = [];
 
         },
+        // getInformation() {
+        //     // Se clientId e' presente eseguo la chiama API
+        //     axios.get(API_URL + 'informations/', {
+        //         headers: {
+        //             'ngrok-skip-browser-warning': 'skip-browser-warning'
+        //         }
+        //     })
+        //         .then(res => {
+        //             const data = res.data;
+        //             const success = data.success;
+        //             const response = data.response;
+
+        //         })
+        //         .catch(error => {
+        //             console.error(error.response.data);
+        //         });
+        // },
         // Metodo per inviare l'email
         sendEmail() {
 
@@ -155,26 +172,40 @@ export default {
                 }
 
                 // Assegno l'email del destinatario
-                this.newInfo.infoEmail = "oirelav95@gmail.com";
+                this.newInfo.owner_email = "oirelav95@gmail.com";
 
-                // Chiamata API per invio email con i dati inseriti dall'utente ed eventuali file allegati
-                axios.post(API_URL + 'message', this.newInfo)
+                axios.post(API_URL + 'information/store', this.newInfo)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
+                        const response = data.response;
 
-                        // Se e' tutto andato a buon fine assegno il messaggio corrispondente
+                        // Se tutto è andato a buon fine, richiama getClient
                         if (success) {
-                            this.messageSuccess = "Messaggio inviato con successo!";
+                            axios.post(API_URL + 'message/' + response.id, {
+                                attached_files: this.newInfo.attached_files,
+                                owner_email: this.newInfo.owner_email
+                            })
+                                .then(res => {
+                                    const data = res.data;
+                                    const success = data.success;
 
-                            //La pagina si ricarica da sola dopo 1 secondo
-                            setTimeout(() => {
-                                location.reload();
-                            }, 1000);
+                                    // Se e' tutto andato a buon fine assegno il messaggio corrispondente
+                                    if (success) {
+                                        this.messageSuccess = "Messaggio inviato con successo!";
+
+                                        //La pagina si ricarica da sola dopo 1 secondo
+                                        setTimeout(() => {
+                                            location.reload();
+                                        }, 1000);
+                                    }
+
+                                })
+                                .catch(error => console.log(error));
                         }
 
                     })
-                    .catch(error => console.log(error.response.data));
+                    .catch(error => console.log(error));
             }
         },
         // PreventDefault per evitare che la pagina ricarichi con l'invio del form
@@ -200,7 +231,7 @@ export default {
                 this.newInfo.vat_number = "";
                 this.newInfo.message = "";
                 this.newInfo.telephone_number = "";
-                this.newInfo.email = "";
+                this.newInfo.client_email = "";
                 //this.files = [];
                 //this.$refs.fileInput.value = "";
             }
@@ -256,13 +287,14 @@ export default {
                         <div class="inputs-top">
                             <div v-if="newInfo.typology === 'Privato' || newInfo.typology === ''">
                                 <input type="text" class="first-input" v-model="newInfo.name" placeholder="Nome *"
-                                    @input="filterNumbers" title="Inserisci il nome" required>
+                                    @input="filterNumbers" title="Inserisci il nome" maxlength="64" required>
                                 <input type="text" class="second-input" v-model="newInfo.surname" placeholder="Cognome *"
-                                    @input="filterNumbers" title="Inserisci il cognome" required>
+                                    @input="filterNumbers" title="Inserisci il cognome" maxlength="64" required>
                             </div>
                             <div v-else-if="newInfo.typology === 'Azienda'">
                                 <input type="text" class="first-input" v-model="newInfo.agency_name"
-                                    placeholder="Nome Azienda *" title="Inserisci il nome dell'azienda" required>
+                                    placeholder="Nome Azienda *" title="Inserisci il nome dell'azienda" maxlength="64"
+                                    required>
                                 <input type="text" class="second-input" v-model="newInfo.vat_number"
                                     placeholder="Partita Iva *" maxlength="11" @input="filterCharacters"
                                     title="Inserisci la Partita Iva" required>
@@ -274,10 +306,8 @@ export default {
                             <input type="text" class="first-input" v-model="newInfo.telephone_number"
                                 placeholder="Telefono *" @input="filterCharacters" title="Inserisci il numero di telefono"
                                 maxlength="10" required>
-                            <input type="email" class="second-input" v-model="newInfo.email" placeholder="E-mail *"
-                                title="Inserisci l'E-mail" required>
-                            <!-- <input type="text" class="second-input" v-model="newInfo.city_of_residence"
-                                placeholder="Comune *" title="Inserisci il Comune" required> -->
+                            <input type="email" class="second-input" v-model="newInfo.client_email" placeholder="E-mail *"
+                                title="Inserisci l'E-mail" maxlength="64" required>
                         </div>
 
                         <!-- Textarea -->
