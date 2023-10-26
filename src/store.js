@@ -3,6 +3,7 @@ import { reactive } from 'vue';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 export const store = reactive({
+    imageZanz: "",
     imagePath: imagePrefix + "img/jumbotron.png",
     imagePath2: imagePrefix + "img/sfondo-faq.png",
     imagePath3: imagePrefix + "img/ringraziamento.png",

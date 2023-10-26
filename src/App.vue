@@ -60,6 +60,12 @@ export default {
       }
     }
   },
+  mounted() {
+    // setTimeout(() => {
+    //   this.store.imageZanz = "visible";
+    // }, 200);
+
+  },
   updated() {
     // Aggiungo evento per lo scroll 
     window.addEventListener('scroll', this.handleScroll);
@@ -272,6 +278,12 @@ section {
         .slide-image {
           height: 320px;
           //width: 210px;
+          opacity: 0;
+          transition: all 1s ease-in-out;
+
+          &.visible {
+            opacity: 1;
+          }
 
           &.laterale-alba {
             transform: scale(0.9, 0.95);
