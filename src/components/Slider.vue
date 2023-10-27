@@ -24,7 +24,7 @@ export default {
         //     this.store.imageZanz = "visible";
         // }, 100);
 
-        if (window.location.href.includes("verticali") || window.location.href.includes("orizzontali")) {
+        if (!window.location.hash) {
             this.store.slider[0].active = true;
 
             for (let i = 0; i < this.store.slider.length; i++) {
