@@ -26,6 +26,15 @@ export default {
         localStorage.clear();
       }
 
+      // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
+      if (window.location.href.includes("verticali")) {
+        this.store.slider = this.store.vertical;
+      }
+      // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal 
+      else if (window.location.href.includes("orizzontali")) {
+        this.store.slider = this.store.horizontal;
+      }
+
       // Se hash e' presente
       if (to.hash && window.location.hash) {
         // Scorro lo slider con ciclo for
@@ -54,15 +63,6 @@ export default {
   updated() {
     // Aggiungo evento per lo scroll 
     window.addEventListener('scroll', this.handleScroll);
-
-    // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
-    if (window.location.href.includes("verticali")) {
-      this.store.slider = this.store.vertical;
-    }
-    // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal 
-    else if (window.location.href.includes("orizzontali")) {
-      this.store.slider = this.store.horizontal;
-    }
   },
   destroyed() {
     // Rimuovo evento per lo scroll
