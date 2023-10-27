@@ -62,7 +62,7 @@ export default {
 
                     <!-- Descrizione zanzariera -->
                     <p class="description">
-                        Il modello FISSA &egrave; viene fornito di serie con rete in fibra di vetro, su richiesta pu&ograve;
+                        Il modello FISSA viene fornito di serie con rete in fibra di vetro, su richiesta pu&ograve;
                         essere realizzato anche con rete in alluminio, acciaio, petscreen.
                     </p>
                 </div>

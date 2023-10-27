@@ -9,7 +9,7 @@ import axios from 'axios';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 // URL per la chiamata API
-const API_URL = 'https://6ef7-79-22-82-44.ngrok-free.app/api/v1/';
+const API_URL = 'https://43ee-79-22-82-44.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Preventivo',
@@ -705,30 +705,6 @@ export default {
         },
     },
     created() {
-        // Salvo valore clientId in localStorage
-        this.clientId = localStorage.getItem("ClientId");
-    },
-    updated() {
-        const blurredImageDiv = document.querySelector(".thank-you");
-
-        const img = blurredImageDiv.querySelector(".image-sfoc");
-
-        function loaded() {
-            blurredImageDiv.classList.add("loaded");
-        }
-
-        if (img.complete) {
-            loaded();
-        }
-        else {
-            img.addEventListener("load", loaded);
-        }
-    },
-    mounted() {
-
-        // Richiamo getClient e getOrder
-        this.getClient();
-        this.getOrder();
 
         // Assegno la tipologia "Privato" come tipologia di default appena si apre la pagina perche' altrimenti sarebbe uguale a stringa vuota
         if (this.newClient.typology === "") {
@@ -741,12 +717,52 @@ export default {
             this.currentStep = parseInt(localStorage.getItem("CurrentStep"), 10);
         }
 
+        this.clientId = localStorage.getItem("ClientId");
+    },
+    mounted() {
+
+        const blurredImageDiv = document.querySelector(".thank-you");
+
+        const img = blurredImageDiv.querySelector(".image");
+
+        function loaded() {
+            blurredImageDiv.classList.add("loaded");
+        }
+
+        if (img.complete) {
+            loaded();
+        }
+        else {
+            img.addEventListener("load", loaded);
+        }
+
+        // Richiamo getClient e getOrder
+        this.getClient();
+        this.getOrder();
+
         // Salvo valore currentStep in localStorage
         localStorage.setItem("CurrentStep", this.currentStep.toString());
 
         // Ottengo valore tipologia
         this.typology = this.zanzs[0].name;
+    },
+    updated() {
+        if (this.currentStep === 4) {
+            const blurredImageDiv = document.querySelector(".thank-you");
 
+            const img = blurredImageDiv.querySelector(".image");
+
+            function loaded() {
+                blurredImageDiv.classList.add("loaded");
+            }
+
+            if (img.complete) {
+                loaded();
+            }
+            else {
+                img.addEventListener("load", loaded);
+            }
+        }
     }
 }
 </script>
@@ -754,7 +770,7 @@ export default {
 <template>
     <section class="thank-you" :class="{ 'not-step': currentStep !== 4 }">
 
-        <img :src="store.imagePath3" loading="lazy" class="image-sfoc" :class="{ 'not-step': currentStep !== 4 }">
+        <img :src="store.imagePath3" loading="lazy" class="image" :class="{ 'not-step': currentStep !== 4 }">
 
         <div class="container">
 
@@ -837,11 +853,11 @@ export default {
                                 {{ emailConfirmMessage }}
                             </div>
 
-                            <div v-else-if="(!newClient.client_email.includes('@') ||
+                            <!-- <div v-else-if="(!newClient.client_email.includes('@') ||
                                 !newClient.confirm_client_email.includes('@')) && newClient.client_email && newClient.confirm_client_email"
                                 class="message-red">
                                 Le email devono avere il formato corretto
-                            </div>
+                            </div> -->
 
                             <br>
                             <input type="text" v-model="newClient.telephone_number" placeholder="Telefono *" maxlength="10"
@@ -1194,12 +1210,13 @@ section {
             background-image: none;
         }
 
-        .image-sfoc {
-            height: 100%;
+        .image {
+            height: 105%;
             width: 100%;
             object-fit: cover;
+            object-position: 0 30px;
             position: absolute;
-            top: 0;
+            top: -30px;
             left: 0;
             opacity: 0;
             transition: opacity 250ms ease-in-out;
@@ -1210,7 +1227,7 @@ section {
         }
 
         &.loaded {
-            .image-sfoc {
+            .image {
                 opacity: 1;
             }
         }

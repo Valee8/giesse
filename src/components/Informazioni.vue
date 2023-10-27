@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 // URL per la chiamata API
-const API_URL = 'https://6ef7-79-22-82-44.ngrok-free.app/api/v1/';
+const API_URL = 'https://43ee-79-22-82-44.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Informazioni',
@@ -220,7 +220,7 @@ export default {
             }
         },
     },
-    mounted() {
+    created() {
         // Assegno la tipologia "Privato" come tipologia di default appena si apre la pagina perche' altrimenti sarebbe uguale a stringa vuota
         if (this.newInfo.typology === "") {
             this.newInfo.typology = "Privato";
