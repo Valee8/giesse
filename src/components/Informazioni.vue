@@ -590,8 +590,38 @@ export default {
     .info {
         form {
 
+            .right {
+                #file {
+                    width: 265px;
+                    font-size: 0.7rem;
+                }
+
+                input::file-selector-button {
+                    margin-right: 30px;
+                }
+            }
+
             .radios {
                 font-size: 0.8rem;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 595px) {
+
+    .info {
+        form {
+            .right {
+
+                #file {
+                    width: 400px;
+                    font-size: 0.8rem;
+                }
+
+                input::file-selector-button {
+                    margin-right: 30px;
+                }
             }
         }
     }
@@ -609,6 +639,45 @@ export default {
             }
         }
     }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1000px) {
+    .info {
+        form {
+            flex-wrap: wrap;
+
+            .right {
+
+                #file {
+                    width: 300px;
+                    font-size: 0.8rem;
+                }
+
+                input::file-selector-button {
+                    margin-right: 30px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1001px) and (max-width: 1324px) {
+    .info {
+
+        form {
+            .right {
+                #file {
+                    width: 340px;
+                    font-size: 0.8rem;
+                }
+
+                input::file-selector-button {
+                    margin-right: 60px;
+                }
+            }
+        }
+    }
+
 }
 
 // Fine versioni mobile, tablet e intermedie

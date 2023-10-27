@@ -16,7 +16,6 @@ export default {
     data() {
         return {
             clientId: "",
-            thank_you: "",
             // Per attivare i bottoni plus e minus e il bottone elimina (icona cestino) degli ordini dopo che il popup e' scomparso
             enablePlusMinus: false,
             // Per mostrare il popup se aggiungo una zanzariera
@@ -889,7 +888,7 @@ export default {
 
                         <!-- Parte sopra - slider -->
                         <div class="inputs-top">
-                            <div class="slider-preventivo" v-for="(zanz, index ) in    zanzs " :key="index"
+                            <div class="slider-preventivo" v-for="(zanz, index) in zanzs" :key="index"
                                 :class="{ 'active': zanz.active }">
 
                                 <!-- Titolo con modello zanzariera -->
@@ -921,13 +920,12 @@ export default {
                             </div>
 
                             <!-- Seleziona modello -->
-                            <span v-for="(   zanz, zanzIndex   ) in    zanzs   " :key="zanzIndex">
+                            <span v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex">
                                 <select v-if="zanz.active" :required="fixRequiredProblem" v-model="newOrder.model_name">
                                     <option value="" disabled selected hidden>
                                         Seleziona il modello *
                                     </option>
-                                    <option v-for="(   nameModel, index   ) in    zanz.models   " :value="nameModel"
-                                        :key="index">
+                                    <option v-for="(nameModel, index) in zanz.models   " :value="nameModel" :key="index">
                                         {{ nameModel }}</option>
                                 </select>
                             </span>
@@ -951,8 +949,9 @@ export default {
 
                         <!-- Input sotto - input radio scelta rete -->
                         <div class="inputs-bottom">
-                            <span v-for="(   net, index   ) in    nets   " :key="index">
-                                <label v-if="showNet || index === 0 || index === 1">
+                            <span v-for="(net, index) in nets" :key="index"
+                                :class="{ 'visible': showNet || index === 0 || index === 1 }">
+                                <label>
                                     {{ net }}
                                     <input type="radio" name="net" :value="net" v-model="newOrder.net"
                                         :required="fixRequiredProblem">
@@ -971,7 +970,7 @@ export default {
                         <!-- Tipologia colori -->
                         <div class="color-choice">
                             <div class="list-typologies">
-                                <div v-for="(   typo, index   ) in    store.colors   " :key="index" class="typologies">
+                                <div v-for="(typo, index) in store.colors" :key="index" class="typologies">
                                     <div @click="changeColorTypology(index)" class="typology-name"
                                         :class="{ 'selected': typo.active }">
                                         {{ typo.typology }}
@@ -980,11 +979,10 @@ export default {
                             </div>
 
                             <!-- Nomi e immagini colori - parte sotto -->
-                            <div class="list-colors" v-for="(   typo, index   ) in    store.colors   " :key="index"
+                            <div class="list-colors" v-for="(typo, index) in store.colors" :key="index"
                                 :class="{ 'selected': typo.active }">
                                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
-                                    <label v-for="(   color, colorIndex   ) in    typo.colorInfo   " :key="colorIndex"
-                                        class="color">
+                                    <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                                         <input type="radio" name="color" @click="getColor(index, colorIndex)"
                                             :required="fixRequiredProblem">
                                         <!-- Immagine colore -->
@@ -1615,6 +1613,13 @@ section {
     }
 
     .inputs-bottom {
+
+        span {
+            &:not(.visible) {
+                display: none;
+            }
+        }
+
         label {
             background-color: #cccccc;
             padding: 8px 10px;
@@ -2027,20 +2032,6 @@ section {
 
 }
 
-@media only screen and (min-width: 300px) and (max-width: 479px) {
-    .first-step {
-        .first-step-right {
-            .form-button {
-                .button {
-                    width: 184px;
-                    font-size: 0.8rem;
-                    padding: 10px 0;
-                }
-            }
-        }
-    }
-}
-
 @media only screen and (min-width: 300px) and (max-width: 550px) {
 
     .container {
@@ -2059,6 +2050,38 @@ section {
                 }
 
             }
+        }
+    }
+
+    .second-step {
+        padding: 20px;
+
+        select {
+            width: 200px;
+            margin-left: 0;
+        }
+    }
+
+    .first-step {
+        .first-step-right {
+            .form-button {
+                .button {
+                    width: 184px;
+                    font-size: 0.8rem;
+                    padding: 10px 0;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 550px) and (max-width: 600px) {
+    .second-step {
+        padding: 20px;
+
+        select {
+            width: 350px;
+            margin-left: 0;
         }
     }
 }
@@ -2244,24 +2267,11 @@ section {
 
 }
 
-@media only screen and (min-width: 300px) and (max-width: 500px) {
-    .second-step {
-        padding: 20px;
-
-        select {
-            width: 100%;
-            margin-left: 0;
-        }
-    }
-}
-
-
 @media only screen and (min-width: 300px) and (max-width: 1028px) {
     .second-step {
         padding: 20px;
 
         select {
-            //width: 300px;
             margin-left: 0;
         }
 

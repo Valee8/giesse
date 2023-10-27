@@ -365,6 +365,36 @@ section {
     }
 }
 
+@media only screen and (min-width: 300px) and (max-width: 488px) {
+
+    section {
+        .faq-section {
+
+            .container {
+
+                .faq-right {
+                    ul {
+
+                        li {
+                            font-size: 1rem;
+
+                            &.faq {
+
+                                .question {
+                                    padding-right: 30px;
+                                    width: 210px;
+                                }
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 @media only screen and (min-width: 300px) and (max-width: 920px) {
 

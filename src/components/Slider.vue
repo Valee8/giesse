@@ -20,9 +20,9 @@ export default {
     },
     mounted() {
 
-        setTimeout(() => {
-            this.store.imageZanz = "visible";
-        }, 100);
+        // setTimeout(() => {
+        //     this.store.imageZanz = "visible";
+        // }, 100);
 
         if (window.location.href.includes("verticali") || window.location.href.includes("orizzontali")) {
             this.store.slider[0].active = true;
@@ -39,11 +39,11 @@ export default {
         // Freccia avanti
         next(index) {
 
-            this.store.imageZanz = "";
+            // this.store.imageZanz = "";
 
-            setTimeout(() => {
-                this.store.imageZanz = "visible";
-            }, 100);
+            // setTimeout(() => {
+            //     this.store.imageZanz = "visible";
+            // }, 100);
 
             if (index < this.store.slider.length - 1) {
                 index++;
@@ -74,11 +74,11 @@ export default {
         // Freccia indietro
         prev(index) {
 
-            this.store.imageZanz = "";
+            // this.store.imageZanz = "";
 
-            setTimeout(() => {
-                this.store.imageZanz = "visible";
-            }, 100);
+            // setTimeout(() => {
+            //     this.store.imageZanz = "visible";
+            // }, 100);
 
             if (index <= this.store.slider.length - 1 && index > 0) {
                 index--;
@@ -177,7 +177,7 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="slide.image" :alt="slide.model"
-                            :class="slide.nameChange ? 'slide-image ' + slide.nameChange + ' ' + store.imageZanz : 'slide-image ' + store.imageZanz">
+                            :class="slide.nameChange ? 'slide-image ' + slide.nameChange + ' ' + store.imageZanz : 'slide-image '">
 
                         <!-- Icona freccia indietro -->
                         <a class="arrow left" @click="prev(index)">
