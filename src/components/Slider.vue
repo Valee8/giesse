@@ -24,16 +24,18 @@ export default {
         //     this.store.imageZanz = "visible";
         // }, 100);
 
-        if (!window.location.hash) {
-            this.store.slider[0].active = true;
+        for (let i = 0; i < this.store.listModels.length; i++) {
+            if (window.location.href.endsWith("orizzontali/1") || window.location.href.endsWith("verticali/0")) {
+                this.store.slider[0].active = true;
 
-            for (let i = 0; i < this.store.slider.length; i++) {
-                if (i !== 0) {
-                    this.store.slider[i].active = false;
+                for (let i = 0; i < this.store.slider.length; i++) {
+                    if (i !== 0) {
+                        this.store.slider[i].active = false;
+                    }
                 }
             }
-        }
 
+        }
     },
     methods: {
         // Freccia avanti
