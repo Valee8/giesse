@@ -37,16 +37,18 @@ export default {
 
       // Se hash e' presente
       if (to.hash && window.location.hash) {
+        let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
+
+        this.store.slider[hashNumber].active = true;
+
         // Scorro lo slider con ciclo for
         for (let i = 0; i < this.store.slider.length; i++) {
           // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
-          let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
           // Se l'i-esimo elemento e' diverso da hashNumber
           if (i !== hashNumber) {
             // Assegno a tutti gli active il valore false
             this.store.slider[i].active = false;
             // Assegno true all'active di hashNumber 
-            this.store.slider[hashNumber].active = true;
           }
         }
       }
