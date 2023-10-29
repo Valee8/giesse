@@ -133,29 +133,29 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-.loading {
-    width: 160px;
-    height: 160px;
-    color: #fff;
-    opacity: 1;
-    position: absolute;
-    top: -15px;
-    left: 0;
+// .loading {
+//     width: 160px;
+//     height: 160px;
+//     color: #fff;
+//     opacity: 1;
+//     position: absolute;
+//     top: -15px;
+//     left: 0;
 
-    &.hidden {
-        opacity: 0;
-    }
+//     &.hidden {
+//         opacity: 0;
+//     }
 
-    .spinner {
-        animation: spin 1s linear infinite;
-    }
+//     .spinner {
+//         animation: spin 1s linear infinite;
+//     }
 
-    @keyframes spin {
-        0% {
-            transform: rotate(360deg);
-        }
-    }
-}
+//     @keyframes spin {
+//         0% {
+//             transform: rotate(360deg);
+//         }
+//     }
+// }
 
 // Parte tipologie colori e nomi colori
 .info-colors {

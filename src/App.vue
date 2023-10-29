@@ -35,20 +35,20 @@ export default {
         this.store.slider = this.store.horizontal;
       }
 
-      // Se hash e' presente
+      // Se hash e' presente (hash = #verticale-a-molla ecc)
       if (to.hash && window.location.hash) {
+        // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
         let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
 
+        // Assegno true all'active di hashNumber 
         this.store.slider[hashNumber].active = true;
 
         // Scorro lo slider con ciclo for
         for (let i = 0; i < this.store.slider.length; i++) {
-          // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
           // Se l'i-esimo elemento e' diverso da hashNumber
           if (i !== hashNumber) {
             // Assegno a tutti gli active il valore false
             this.store.slider[i].active = false;
-            // Assegno true all'active di hashNumber 
           }
         }
       }
@@ -128,24 +128,24 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: #000;
-  height: 100vh;
+// .loading {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 2rem;
+//   color: #000;
+//   height: 100vh;
 
-  .spinner {
-    animation: spin 1s linear infinite;
-  }
+//   .spinner {
+//     animation: spin 1s linear infinite;
+//   }
 
-  @keyframes spin {
-    0% {
-      transform: rotate(360deg);
-    }
-  }
-}
+//   @keyframes spin {
+//     0% {
+//       transform: rotate(360deg);
+//     }
+//   }
+// }
 
 // Freccia per scrollare in alto
 .arrow-up {

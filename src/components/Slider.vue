@@ -24,7 +24,7 @@ export default {
         //     this.store.imageZanz = "visible";
         // }, 100);
 
-        for (let i = 0; i < this.store.listModels.length; i++) {
+        for (let i = 0; i < this.store.slider.length; i++) {
             if (window.location.href.endsWith("orizzontali/1") || window.location.href.endsWith("verticali/0")) {
                 this.store.slider[0].active = true;
 

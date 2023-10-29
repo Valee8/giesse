@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 // URL per la chiamata API
-const API_URL = 'https://43ee-79-22-82-44.ngrok-free.app/api/v1/';
+const API_URL = '/api/v1/';
 
 export default {
     name: 'Informazioni',
@@ -163,7 +163,6 @@ export default {
                         const success = data.success;
                         const response = data.response;
 
-                        // Se tutto è andato a buon fine, richiama getClient
                         if (success) {
                             axios.post(API_URL + 'message/' + response.id, {
                                 attached_files: this.newInfo.attached_files,
