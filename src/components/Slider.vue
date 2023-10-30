@@ -20,6 +20,10 @@ export default {
     },
     mounted() {
 
+        //const description = document.getElementsByClassName("description");
+
+        // description[0].innerHTML = "Il modello VERTICALE A MOLLA CLASSICA, adatto soprattutto per finestre e fornito con struttura in alluminio anodizzato o verniciato e la rete in fibra di vetro grigia, prodotto di serie con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm), viene realizzata in diverse tipologie: <br>"
+
         // setTimeout(() => {
         //     this.store.imageZanz = "visible";
         // }, 100);

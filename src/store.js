@@ -4,9 +4,9 @@ const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 export const store = reactive({
     //imageZanz: "",
-    imagePath: imagePrefix + "img/jumbotron.png",
-    imagePath2: imagePrefix + "img/sfondo-faq.png",
-    imagePath3: imagePrefix + "img/ringraziamento.png",
+    bgHeader: imagePrefix + "img/jumbotron.png",
+    bgFaqs: imagePrefix + "img/sfondo-faq.png",
+    bgThanks: imagePrefix + "img/ringraziamento.png",
     slider: [],
     // menuHamburger per mostrare e nascondere il sottomenu del menu hamburger
     menuHamburger: false,
@@ -103,7 +103,7 @@ export const store = reactive({
             firstName: "ALBA D.G. (con cuffie) - SONIA D.G. (senza cuffie) - GENNY (con cassonetto da 40mm)",
             secondName: "GIUSY (con cuffie) - ELENA (senza cuffie) - EDDI (con cassonetto da 40mm)",
             image: imagePrefix + "img/zanzariere/alba.png",
-            description: "Il modello VERTICALE A MOLLA CLASSICA prodotto di serie con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm).",
+            description: "Il modello VERTICALE A MOLLA CLASSICA, prodotto di serie con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm).",
             active: true
         },
         {

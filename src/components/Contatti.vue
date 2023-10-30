@@ -72,7 +72,7 @@ export default {
         <!-- Parte in alto con immagine come sfondo -->
         <div class="bg-section">
 
-            <img :src="store.imagePath2" loading="lazy" class="image">
+            <img :src="store.bgFaqs" loading="lazy" class="image">
 
             <div class="container">
                 <div class="section-title">

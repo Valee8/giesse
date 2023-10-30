@@ -139,7 +139,7 @@ export default {
 
         <div class="header-container" :class="{ 'home': $route.name === 'home' }">
 
-            <img :src="store.imagePath" loading="lazy" class="image">
+            <img :src="store.bgHeader" loading="lazy" class="image">
 
             <div class="container">
                 <!-- Contenuto header -->

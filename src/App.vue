@@ -17,13 +17,49 @@ export default {
       showArrowUp: false
     }
   },
+  methods: {
+    // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
+    handleScroll() {
+      if (window.scrollY > 700) {
+        this.showArrowUp = true;
+      }
+      else {
+        this.showArrowUp = false;
+      }
+    },
+    // Metodo per
+    closeMenu() {
+      // chiudere il sottomenu di "Zanzariere" quando si clicca in un qualsiasi punto della pagina
+      if (this.store.classSubmenu === "expand") {
+        this.store.submenu = false;
+        this.store.classSubmenu = "reduce";
+      }
+
+      // chiudere il sottomenu del menu hamburger quando si clicca in un qualsiasi punto della pagina
+      if (this.store.classHamburger === "visible") {
+        this.store.menuHamburger = false;
+        this.store.classHamburger = "hidden";
+      }
+
+    },
+    // Scrollo in alto quando clicco la freccia
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    },
+    handleWindowClose() {
+      localStorage.clear(); // Azzeramento del localStorage alla chiusura della finestra o al refresh
+    }
+  },
   watch: {
     $route(to, from) {
 
       // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
-      if (!window.location.href.includes("preventivo") && localStorage.length > 0) {
+      if (!window.location.href.includes("preventivo") && sessionStorage.length > 0) {
         // Svuoto il contenuto di localStorage
-        localStorage.clear();
+        sessionStorage.clear();
       }
 
       // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
@@ -62,6 +98,9 @@ export default {
       }
     }
   },
+  beforeUnmount() {
+    window.addEventListener('beforeunload', this.handleWindowClose);
+  },
   updated() {
     // Aggiungo evento per lo scroll 
     window.addEventListener('scroll', this.handleScroll);
@@ -70,39 +109,6 @@ export default {
     // Rimuovo evento per lo scroll
     window.removeEventListener('scroll', this.handleScroll);
   },
-  methods: {
-    // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
-    handleScroll() {
-      if (window.scrollY > 700) {
-        this.showArrowUp = true;
-      }
-      else {
-        this.showArrowUp = false;
-      }
-    },
-    // Metodo per
-    closeMenu() {
-      // chiudere il sottomenu di "Zanzariere" quando si clicca in un qualsiasi punto della pagina
-      if (this.store.classSubmenu === "expand") {
-        this.store.submenu = false;
-        this.store.classSubmenu = "reduce";
-      }
-
-      // chiudere il sottomenu del menu hamburger quando si clicca in un qualsiasi punto della pagina
-      if (this.store.classHamburger === "visible") {
-        this.store.menuHamburger = false;
-        this.store.classHamburger = "hidden";
-      }
-
-    },
-    // Scrollo in alto quando clicco la freccia
-    scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
-  }
 }
 </script>
 

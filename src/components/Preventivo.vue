@@ -9,13 +9,14 @@ import axios from 'axios';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 // URL per la chiamata API
-const API_URL = '/api/v1/';
+const API_URL = 'http://localhost:8000/api/v1/';
 
 export default {
     name: 'Preventivo',
     data() {
         return {
             clientId: "",
+            showNet: true,
             // Per attivare i bottoni plus e minus e il bottone elimina (icona cestino) degli ordini dopo che il popup e' scomparso
             enablePlusMinus: false,
             // Per mostrare il popup se aggiungo una zanzariera
@@ -243,8 +244,7 @@ export default {
                 "Rete rigata",
                 "Oscurante bianco",
                 "Oscurante nero",
-            ],
-            showNet: true
+            ]
         }
     },
     computed: {
@@ -289,75 +289,6 @@ export default {
         },
     },
     methods: {
-        // Metodo per far scomparire popup e attivare bottoni plus e minus e il bottone elimina (icona cestino) degli ordini
-        hiddenPopup() {
-            this.showPopup = false;
-
-            this.enablePlusMinus = true;
-        },
-        // Freccia avanti nel secondo step del Preventivo
-        sliderNext(index) {
-
-            // Svuoto contenuto del select con il nome del modello se cambio slide
-            this.newOrder.model_name = "";
-
-            if (index < this.zanzs.length - 1) {
-                index++;
-            }
-            else {
-                index = 0;
-            }
-
-            this.typology = this.zanzs[index].name;
-
-            this.zanzs[index].active = true;
-
-            for (let i = 0; i < this.zanzs.length; i++) {
-                if (i !== index) {
-                    this.zanzs[i].active = false;
-                }
-            }
-
-            if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10) {
-                this.showNet = false;
-            }
-            else {
-                this.showNet = true;
-            }
-
-
-        },
-        // Freccia indietro nel secondo step del Preventivo
-        sliderPrev(index) {
-
-            // Svuoto contenuto del select con il nome del modello se cambio slide
-            this.newOrder.model_name = "";
-
-            if (index <= this.zanzs.length - 1 && index > 0) {
-                index--;
-            }
-            else {
-                index = this.zanzs.length - 1;
-            }
-
-            this.typology = this.zanzs[index].name;
-
-            this.zanzs[index].active = true;
-
-            for (let i = 0; i < this.zanzs.length; i++) {
-                if (i !== index) {
-                    this.zanzs[i].active = false;
-                }
-            }
-
-            if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10) {
-                this.showNet = false;
-            }
-            else {
-                this.showNet = true;
-            }
-
-        },
         // getClient per ottenere i dati dei clienti
         getClient() {
             // Se clientId e' presente eseguo la chiama API
@@ -377,12 +308,10 @@ export default {
                         }
 
                     })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
+                    .catch(error => console.error(error));
             }
         },
-        // getClient per ottenere i dati degli ordini
+        // getOrder per ottenere i dati degli ordini
         getOrder() {
             // Se clientId e' presente eseguo la chiama API
             if (this.clientId) {
@@ -401,10 +330,87 @@ export default {
                         }
 
                     })
-                    .catch(error => {
-                        console.error(error);
-                    });
+                    .catch(error => console.error(error));
             }
+        },
+        // PreventDefault per evitare che la pagina ricarichi con l'invio del form
+        handleSubmit(event) {
+            event.preventDefault();
+        },
+        // Metodo per creare nuovo cliente
+        clientSubmit() {
+
+            // Se firstStepValid e' true
+            if (this.firstStepValid) {
+
+                // showMessageEmailConfirm e' uguale a true e mi appare messaggio di conferma
+                this.showMessageEmailConfirm = true;
+
+                this.newClient.owner_email = "oirelav95@gmail.com";
+
+                this.newEmail.owner_email = this.newClient.owner_email;
+
+                this.newEmail.client_email = this.newClient.client_email;
+
+                // Funzione setTimeout per eseguire azioni dopo tot secondi (2 in questo caso)
+                setTimeout(() => {
+
+                    // Eseguo chiamata api
+                    axios.post(API_URL + 'client/store', this.newClient)
+                        .then(res => {
+                            const data = res.data;
+                            const success = data.success;
+                            const response = data.response;
+
+                            this.clientId = response.id;
+
+                            // Salvo clientId in localStorage cosi' non ci sono problemi se dovessi aggiornare la pagina
+                            if (this.clientId) {
+                                sessionStorage.setItem("ClientId", this.clientId.toString());
+                            }
+
+                            // Se tutto e' andato a buon fine richiamo richiamo getClient
+                            if (success) {
+                                this.getClient();
+                            }
+
+                        })
+                        .catch(error => console.error(error));
+
+                    // Incremento il valore di currentStep
+                    this.currentStep++;
+
+                    // Aggiorno valore currentStep in localStorage
+                    sessionStorage.setItem("CurrentStep", this.currentStep.toString());
+
+                    // Scrollo in alto per evitare problemi di visualizzazione pagina
+                    this.scrollToTop();
+                }, 2000);
+            }
+
+            // Se le email inserite dall'utente non coincidono assegno false a showMessageEmailConfirm
+            if (this.newClient.client_email !== this.newClient.confirm_client_email && this.newClient.client_email.trim() !== "" && this.newClient.confirm_client_email.trim() !== "") {
+                this.showMessageEmailConfirm = false;
+            }
+        },
+        // Resetto valori dei campi del primo step se cambio tipologia
+        resetCommonInputs() {
+            if (this.newClient.typology) {
+                this.newClient.name = "";
+                this.newClient.surname = "";
+                this.newClient.agency_name = "";
+                this.newClient.vat_number = "";
+                this.newClient.client_email = "";
+                this.newClient.confirm_client_email = "";
+                this.newClient.telephone_number = "";
+                this.newClient.city_of_residence = "";
+            }
+        },
+        // Metodo per far scomparire popup e attivare bottoni plus e minus e il bottone elimina (icona cestino) degli ordini
+        hiddenPopup() {
+            this.showPopup = false;
+
+            this.enablePlusMinus = true;
         },
         // Metodo per aggiungere una zanzariera
         addZanz() {
@@ -425,7 +431,6 @@ export default {
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
-                        const response = data.response;
 
                         // Se tutto e' andato a buon fine richiamo this.getOrder e faccio apparire il popup 
                         if (success) {
@@ -434,7 +439,7 @@ export default {
                         }
 
                     })
-                    .catch(error => console.log(error));
+                    .catch(error => console.error(error));
 
                 // Svuoto valori cosi' posso inserire nuove zanzariere
                 this.newOrder.quantity = "";
@@ -469,77 +474,195 @@ export default {
 
             }
         },
-        // Metodo per creare nuovo cliente
-        clientSubmit() {
+        // Elimina ordine dalla lista che compare
+        deleteModel(order) {
 
-            // Se firstStepValid e' true
-            if (this.firstStepValid) {
+            // Chiamata API per eliminare ordine
+            axios.get(API_URL + 'delete/' + order.id)
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
 
-                // showMessageEmailConfirm e' uguale a true e mi appare messaggio di conferma
-                this.showMessageEmailConfirm = true;
+                    // Richiamo getOrder
+                    if (success) {
+                        this.getOrder();
+                    }
+                })
+                .catch(error => console.error(error));
 
-                this.newClient.owner_email = "oirelav95@gmail.com";
+        },
+        // Metodo per passare dal secondo al terzo step
+        orderSubmit() {
 
-                this.newEmail.owner_email = this.newClient.owner_email;
+            // Se currentStep e' uguale a 2 e se orders contiene elementi allora posso proseguire
+            if (this.orders.length !== 0) {
 
-                this.newEmail.client_email = this.newClient.client_email;
-
-                // Funzione setTimeout per eseguire azioni dopo tot secondi (2 in questo caso)
-                setTimeout(() => {
-
-                    // Eseguo chiamata api
-                    axios.post(API_URL + 'client/store', this.newClient)
+                //Se il messaggio e' presente
+                if (this.message) {
+                    // Chiamata api per modificare il messaggio (inizialmente vuoto)
+                    axios.post(API_URL + 'message/update/' + this.clientId, {
+                        message: this.message
+                    })
                         .then(res => {
                             const data = res.data;
                             const success = data.success;
-                            const response = data.response;
 
-                            this.clientId = response.id;
-
-                            // Salvo clientId in localStorage cosi' non ci sono problemi se dovessi aggiornare la pagina
-                            if (this.clientId) {
-                                localStorage.setItem("ClientId", this.clientId.toString());
-                            }
-
-                            // Se tutto e' andato a buon fine richiamo richiamo getClient
+                            // Se success = true richiamo getClient, aggiorno dati cliente
                             if (success) {
                                 this.getClient();
                             }
 
                         })
-                        .catch(error => console.log(error.response.data));
+                        .catch(error => console.error(error));
+                }
 
-                    // Incremento il valore di currentStep
-                    this.currentStep++;
+                // Incremento currentStep
+                this.currentStep++;
 
-                    // Aggiorno valore currentStep in localStorage
-                    localStorage.setItem("CurrentStep", this.currentStep.toString());
+                // Aggiorno valore currentStep in localStorage
+                sessionStorage.setItem("CurrentStep", this.currentStep.toString());
 
-                    // Scrollo in alto per evitare problemi di visualizzazione pagina
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    });
-                }, 2000);
-            }
-
-            // Se le email inserite dall'utente non coincidono assegno false a showMessageEmailConfirm
-            if (this.newClient.client_email !== this.newClient.confirm_client_email && this.newClient.client_email.trim() !== "" && this.newClient.confirm_client_email.trim() !== "") {
-                this.showMessageEmailConfirm = false;
+                this.scrollToTop();
             }
         },
-        // Resetto valori dei campi del primo step se cambio tipologia
-        resetCommonInputs() {
-            if (this.newClient.typology) {
-                this.newClient.name = "";
-                this.newClient.surname = "";
-                this.newClient.agency_name = "";
-                this.newClient.vat_number = "";
-                this.newClient.client_email = "";
-                this.newClient.confirm_client_email = "";
-                this.newClient.telephone_number = "";
-                this.newClient.city_of_residence = "";
+        // Metodo per aumentare quantita' ordini
+        plus(order) {
+
+            axios.post(API_URL + 'increment/' + order.id)
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+
+                    if (success) {
+                        this.getOrder();
+                    }
+
+                })
+                .catch(error => console.error(error));
+        },
+        // Metodo per diminuire quantita' ordini
+        minus(order) {
+
+            axios.post(API_URL + 'decrement/' + order.id)
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+
+                    if (success) {
+                        this.getOrder();
+                    }
+
+                })
+                .catch(error => console.error(error));
+        },
+
+        // Metodo per inviare informazioni tramite email (passo dallo step 3 allo step 4)
+        sendEmail() {
+
+            // Assegno email destinatario
+            //this.newEmail.ownerEmail = "oirelav95@gmail.com";
+
+            // Assegno email cliente
+            //this.newEmail.clientEmail = this.newClient.email;
+            //this.newEmail.order_id = this.clientId;
+
+            // Chiamata API per inviare email con le informazioni del preventivo
+            axios.post(API_URL + 'email/' + this.clientId, this.newEmail)
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+
+                    if (success) {
+                        console.log("Email inviata con successo");
+                    }
+                })
+                .catch(error => console.error(error)); // error.response.data
+
+            // Incremento currentStep
+            this.currentStep++;
+
+            // Salvo valore di currentStep in localStorage
+            sessionStorage.setItem("CurrentStep", this.currentStep.toString());
+
+            // Scrollo verso l'alto
+            this.scrollToTop();
+        },
+        // Freccia indietro nel secondo step del Preventivo
+        sliderPrev(index) {
+
+            // Svuoto contenuto del select con il nome del modello se cambio slide
+            this.newOrder.model_name = "";
+
+            if (index <= this.zanzs.length - 1 && index > 0) {
+                index--;
             }
+            else {
+                index = this.zanzs.length - 1;
+            }
+
+            this.typology = this.zanzs[index].name;
+
+            this.zanzs[index].active = true;
+
+            for (let i = 0; i < this.zanzs.length; i++) {
+                if (i !== index) {
+                    this.zanzs[i].active = false;
+                }
+            }
+
+            if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10) {
+                this.showNet = false;
+            }
+            else {
+                this.showNet = true;
+            }
+
+        },
+        // Freccia avanti nel secondo step del Preventivo
+        sliderNext(index) {
+
+            // Svuoto contenuto del select con il nome del modello se cambio slide
+            this.newOrder.model_name = "";
+
+            if (index < this.zanzs.length - 1) {
+                index++;
+            }
+            else {
+                index = 0;
+            }
+
+            this.typology = this.zanzs[index].name;
+
+            this.zanzs[index].active = true;
+
+            for (let i = 0; i < this.zanzs.length; i++) {
+                if (i !== index) {
+                    this.zanzs[i].active = false;
+                }
+            }
+
+            if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10) {
+                this.showNet = false;
+            }
+            else {
+                this.showNet = true;
+            }
+        },
+        // Impedisco che questi campi possano contenere lettere e simboli
+        filterCharacters() {
+            this.newClient.telephone_number = this.newClient.telephone_number.replace(/\D/g, '');
+            this.newClient.vat_number = this.newClient.vat_number.replace(/\D/g, '');
+        },
+        // Impedisco che questi campi possano contenere dei numeri
+        filterNumbers() {
+            this.newClient.name = this.newClient.name.replace(/[0-9]/g, '');
+            this.newClient.surname = this.newClient.surname.replace(/[0-9]/g, '');
+            this.newClient.city_of_residence = this.newClient.city_of_residence.replace(/[0-9]/g, '');
+        },
+        // Impedisco che questi campi possano contenere lettere
+        filterSizes() {
+            this.newOrder.width = this.newOrder.width.replace(/^[a-zA-Z]*$/g, '');
+            this.newOrder.height = this.newOrder.height.replace(/^[a-zA-Z]*$/g, '');
         },
         // getColor mi permette di ottenere il nome e l'immagine del colore selezionati nello step 2
         getColor(index, colorIndex) {
@@ -559,150 +682,9 @@ export default {
                 }
             }
         },
-        // Elimina ordine dalla lista che compare
-        deleteModel(order) {
-
-            // Chiamata API per eliminare ordine
-            axios.get(API_URL + 'delete/' + order.id)
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
-
-                    // Richiamo getOrder
-                    if (success) {
-                        this.getOrder();
-                    }
-                })
-                .catch(error => console.log(error));
-
-        },
-        // Impedisco che questi campi possano contenere lettere e simboli
-        filterCharacters() {
-            this.newClient.telephone_number = this.newClient.telephone_number.replace(/\D/g, '');
-            this.newClient.vat_number = this.newClient.vat_number.replace(/\D/g, '');
-        },
-        // Impedisco che questi campi possano contenere dei numeri
-        filterNumbers() {
-            this.newClient.name = this.newClient.name.replace(/[0-9]/g, '');
-            this.newClient.surname = this.newClient.surname.replace(/[0-9]/g, '');
-            this.newClient.city_of_residence = this.newClient.city_of_residence.replace(/[0-9]/g, '');
-        },
-        // Impedisco che questi campi possano contenere lettere
-        filterSizes() {
-            this.newOrder.width = this.newOrder.width.replace(/^[a-zA-Z]*$/g, '');
-            this.newOrder.height = this.newOrder.height.replace(/^[a-zA-Z]*$/g, '');
-        },
-        // PreventDefault per evitare che la pagina ricarichi con l'invio del form
-        handleSubmit(event) {
-            event.preventDefault();
-        },
-        // Metodo per inviare informazioni tramite email (passo dallo step 3 allo step 4)
-        complete() {
-            //event.preventDefault();
-
-            // Assegno email destinatario
-            //this.newEmail.ownerEmail = "oirelav95@gmail.com";
-
-            // Assegno email cliente
-            //this.newEmail.clientEmail = this.newClient.email;
-            //this.newEmail.order_id = this.clientId;
-
-            // Chiamata API per inviare email con le informazioni del preventivo
-            axios.post(API_URL + 'email/' + this.clientId, this.newEmail)
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
-
-                    // if (success) {
-                    //     console.log("Tuttapposto");
-                    //     //this.getEmail();
-                    // }
-                })
-                .catch(error => console.log(error.response.data)); // error.response.data
-
-            // Scrollo verso l'alto
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-            // Incremento currentStep
-            this.currentStep++;
-
-            // Salvo valore di currentStep in localStorage
-            localStorage.setItem("CurrentStep", this.currentStep.toString());
-        },
-        // Metodo per passare dal secondo al terzo step
-        nextStep() {
-
-            // Se currentStep e' uguale a 2 e se orders contiene elementi allora posso proseguire
-            if (this.currentStep === 2 && this.orders.length !== 0) {
-
-                // Richiamo getClient
-                this.getClient();
-
-                // Se il messaggio e' presente
-                if (this.message) {
-                    // Chiamata api per modificare il messaggio (inizialmente vuoto)
-                    axios.post(API_URL + 'message/update/' + this.clientId, {
-                        message: this.message
-                    })
-                        .then(res => {
-                            const data = res.data;
-                            const success = data.success;
-
-                            // Se success = true richiamo getClient, aggiorno dati cliente
-                            if (success) {
-                                this.getClient();
-                            }
-
-                        })
-                        .catch(error => console.log(error));
-                }
-
-                // Scrollo verso l'alto
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-                // Incremento currentStep
-                this.currentStep++;
-
-                // Aggiorno valore currentStep in localStorage
-                localStorage.setItem("CurrentStep", this.currentStep.toString());
-            }
-        },
-        // Metodo per aumentare quantita' ordini
-        plus(order) {
-
-            axios.post(API_URL + 'increment/' + order.id)
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
-
-                    if (success) {
-                        this.getOrder();
-                    }
-
-                })
-                .catch(error => console.log(error));
-        },
-        // Metodo per diminuire quantita' ordini
-        minus(order) {
-
-            axios.post(API_URL + 'decrement/' + order.id)
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
-
-                    if (success) {
-                        this.getOrder();
-                    }
-
-                })
-                .catch(error => console.log(error));
-        },
+        scrollToTop() {
+            window.scrollTo(0, 0);
+        }
     },
     created() {
 
@@ -712,12 +694,12 @@ export default {
         }
 
         // Controllo che non via currentStep in localStorage
-        if (localStorage.getItem("CurrentStep") !== null) {
+        if (sessionStorage.getItem("CurrentStep") !== null) {
             // Richiamo il suo valore da localStorage
-            this.currentStep = parseInt(localStorage.getItem("CurrentStep"), 10);
+            this.currentStep = parseInt(sessionStorage.getItem("CurrentStep"), 10);
         }
 
-        this.clientId = localStorage.getItem("ClientId");
+        this.clientId = sessionStorage.getItem("ClientId");
     },
     mounted() {
 
@@ -741,12 +723,13 @@ export default {
         this.getOrder();
 
         // Salvo valore currentStep in localStorage
-        localStorage.setItem("CurrentStep", this.currentStep.toString());
+        sessionStorage.setItem("CurrentStep", this.currentStep.toString());
 
         // Ottengo valore tipologia
         this.typology = this.zanzs[0].name;
     },
     updated() {
+
         if (this.currentStep === 4) {
             const blurredImageDiv = document.querySelector(".thank-you");
 
@@ -770,7 +753,7 @@ export default {
 <template>
     <section class="thank-you" :class="{ 'not-step': currentStep !== 4 }">
 
-        <img :src="store.imagePath3" loading="lazy" class="image" :class="{ 'not-step': currentStep !== 4 }">
+        <img :src="store.bgThanks" loading="lazy" class="image" :class="{ 'not-step': currentStep !== 4 }">
 
         <div class="container">
 
@@ -941,7 +924,7 @@ export default {
                                     <option value="" disabled selected hidden>
                                         Seleziona il modello *
                                     </option>
-                                    <option v-for="(nameModel, index) in zanz.models   " :value="nameModel" :key="index">
+                                    <option v-for="(nameModel, index) in zanz.models" :value="nameModel" :key="index">
                                         {{ nameModel }}</option>
                                 </select>
                             </span>
@@ -1074,7 +1057,6 @@ export default {
                                 proseguire con il bottone "Conferma le zanzariere"
                                 </p>
 
-                                <!-- Tasto OK -->
                                 <div @click="hiddenPopup" class="ok-popup">
                                     OK
                                 </div>
@@ -1089,7 +1071,7 @@ export default {
                         <!-- Bottone per passare allo step successivo -->
                         <div class="form-button confirm">
                             <!-- <button @click="prevStep" class="button" id="buttons">Torna indietro</button> -->
-                            <input type="submit" @click="nextStep" class="button" id="buttons" v-if="orders.length !== 0"
+                            <input type="submit" @click="orderSubmit" class="button" id="buttons" v-if="orders.length !== 0"
                                 value="Conferma le zanzariere">
                         </div>
 
@@ -1168,7 +1150,7 @@ export default {
 
                         <!-- Bottone per proseguire con lo step successivo -->
                         <div class="form-button">
-                            <input type="submit" @click="complete" class="button" id="buttons" value="Completa">
+                            <input type="submit" @click="sendEmail" class="button" id="buttons" value="Completa">
                         </div>
                     </div>
 

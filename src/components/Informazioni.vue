@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 // URL per la chiamata API
-const API_URL = '/api/v1/';
+const API_URL = 'http://localhost:8000/api/v1/';
 
 export default {
     name: 'Informazioni',
@@ -139,13 +139,12 @@ export default {
                             'Content-Type': 'multipart/form-data',
                         }
                     })
-                        .then((response) => {
+                        .then((res) => {
+
+                            console.log(res);
 
                         })
-                        .catch((error) => {
-                            console.error('Errore nella richiesta:', error.response.data);
-                            // Gestione generale degli errori
-                        });
+                        .catch(error => console.error(error));
 
                 }
 
@@ -183,11 +182,11 @@ export default {
                                     }
 
                                 })
-                                .catch(error => console.log(error));
+                                .catch(error => console.error(error));
                         }
 
                     })
-                    .catch(error => console.log(error));
+                    .catch(error => console.error(error));
             }
         },
         // PreventDefault per evitare che la pagina ricarichi con l'invio del form
