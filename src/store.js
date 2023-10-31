@@ -103,14 +103,14 @@ export const store = reactive({
             firstName: "ALBA D.G. (con cuffie) - SONIA D.G. (senza cuffie) - GENNY (con cassonetto da 40mm)",
             secondName: "GIUSY (con cuffie) - ELENA (senza cuffie) - EDDI (con cassonetto da 40mm)",
             image: imagePrefix + "img/zanzariere/alba.png",
-            description: "Il modello VERTICALE A MOLLA CLASSICA, prodotto di serie con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm).",
+            description: "Il modello VERTICALE A MOLLA CLASSICA, adatto soprattutto per finestre e fornito con struttura in alluminio anodizzato o verniciato e la rete in fibra di vetro grigia, prodotto di serie con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm). Questo modello può essere realizzato con guida telescopica o guida singola.",
             active: true
         },
         {
             model: "VERTICALE A MOLLA (con sistema a cricchetto)",
             name: "LAURA (con cuffie) - EVA (senza cuffie) - ASIA (con cassonetto da 40mm)",
             image: imagePrefix + "img/zanzariere/laura.png",
-            description: "Il modello a CRICCHETTO, prodotto di serie con il cassonetto da 50mm, viene realizzato con un sistema a pulsante molto semplice da manovrare che permette l'apertura della zanzariera in modo semplice e veloce. Viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 55mm), cassonetto da 40 (ingombro testate 40mm).",
+            description: "Il modello VERTICALE A MOLLA può essere realizzato anche con sistema a CRICCHETTO (un sistema a pulsante che permette l'apertura della zanzariera in modo semplice e veloce). Questo sistema può essere fornito solo con cassonetto da 50mm, cuffie e guide telescopiche e con cassonetto da 40mm.",
             active: false
         },
         {
