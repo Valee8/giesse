@@ -9,7 +9,6 @@ export default {
         return {
             store,
             colorClass: "",
-            loadingClass: "",
         }
     },
     methods: {
@@ -17,11 +16,9 @@ export default {
         changeColorTypology(index) {
 
             this.colorClass = "";
-            this.loadingClass = "";
 
             setTimeout(() => {
                 this.colorClass = "visible";
-                this.loadingClass = "hidden";
             }, 200);
 
             // Assegno true all'active dell'elemento corrente dell'array colors (presente nel file store.js)
@@ -39,7 +36,6 @@ export default {
 
         setTimeout(() => {
             this.colorClass = "visible";
-            this.loadingClass = "hidden";
         }, 200);
 
         // All'avvio della pagina dovra' essere sempre il primo elemento quello corrente, lo faccio tramite questi codici
