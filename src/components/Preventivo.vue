@@ -15,6 +15,7 @@ export default {
     name: 'Preventivo',
     data() {
         return {
+            showError: false,
             clientId: "",
             showNet: true,
             // Per attivare i bottoni plus e minus e il bottone elimina (icona cestino) degli ordini dopo che il popup e' scomparso
@@ -371,20 +372,24 @@ export default {
 
                             // Se tutto e' andato a buon fine richiamo richiamo getClient
                             if (success) {
+
+                                // Incremento il valore di currentStep
+                                this.currentStep++;
+
+                                // Aggiorno valore currentStep in localStorage
+                                sessionStorage.setItem("CurrentStep", this.currentStep.toString());
+
+                                // Scrollo in alto per evitare problemi di visualizzazione pagina
+                                this.scrollToTop();
+
                                 this.getClient();
                             }
 
                         })
-                        .catch(error => console.error(error));
-
-                    // Incremento il valore di currentStep
-                    this.currentStep++;
-
-                    // Aggiorno valore currentStep in localStorage
-                    sessionStorage.setItem("CurrentStep", this.currentStep.toString());
-
-                    // Scrollo in alto per evitare problemi di visualizzazione pagina
-                    this.scrollToTop();
+                        .catch(error => {
+                            console.error(error);
+                            this.showError = true;
+                        });
                 }, 2000);
             }
 
@@ -439,7 +444,10 @@ export default {
                         }
 
                     })
-                    .catch(error => console.error(error));
+                    .catch(error => {
+                        console.error(error);
+                        this.showError = true;
+                    });
 
                 // Svuoto valori cosi' posso inserire nuove zanzariere
                 this.newOrder.quantity = "";
@@ -876,6 +884,10 @@ export default {
                             </div>
 
                         </div>
+
+                        <div v-if="showError" class="error-axios">
+                            Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
+                        </div>
                     </div>
 
                     <!-- Inizio step 2 -->
@@ -1068,6 +1080,10 @@ export default {
                             <textarea v-model="message" rows="8" placeholder="Messaggio"></textarea>
                         </div>
 
+                        <div v-if="showError" class="error-axios">
+                            Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
+                        </div>
+
                         <!-- Bottone per passare allo step successivo -->
                         <div class="form-button confirm">
                             <!-- <button @click="prevStep" class="button" id="buttons">Torna indietro</button> -->
@@ -1178,6 +1194,14 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+.error-axios {
+    color: red;
+    text-align: center;
+    width: 100%;
+    font-size: 0.8rem;
+    padding-top: 10px;
+}
 
 section {
     background-color: #686868;

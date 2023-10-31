@@ -9,6 +9,7 @@ export default {
     name: 'Informazioni',
     data() {
         return {
+            showError: false,
             // Messaggio che avvisa che i formati dei file non sono validi
             messageFormats: "",
             // Messaggio che avvisa che le dimensioni dei file sono eccessive
@@ -186,7 +187,12 @@ export default {
                         }
 
                     })
-                    .catch(error => console.error(error));
+                    .catch(error => {
+                        console.error(error);
+
+                        this.showError = true;
+
+                    });
             }
         },
         // PreventDefault per evitare che la pagina ricarichi con l'invio del form
@@ -356,6 +362,10 @@ export default {
                 </form>
                 <!-- Fine Form -->
 
+                <div v-if="showError" class="error-axios">
+                    Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
+                </div>
+
             </div>
             <!-- Container -->
 
@@ -369,6 +379,11 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+.error-axios {
+    color: red;
+    font-size: 0.8rem;
+}
 
 .info {
     background-color: #1c1c1c;
