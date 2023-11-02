@@ -114,7 +114,7 @@ export default {
                         </div> -->
 
                         <!-- Nome colore -->
-                        <div class="color-name">
+                        <div class="color-name" :class="colorClass">
                             {{ color.name }}
                         </div>
                     </div>
@@ -177,6 +177,7 @@ export default {
         align-items: flex-start;
         gap: 0 80px;
         height: 100%;
+        //padding: 85px 0 115px 0;
         padding: 100px 0;
 
         // Elenco tipologie colori - parte sinistra
@@ -246,14 +247,12 @@ export default {
                         width: 160px;
                         padding: 5px 6px;
                         font-weight: 600;
-                    }
+                        //opacity: 0;
+                        //transition: all 1s ease-in-out;
 
-                    .black {
-                        width: 160px;
-                        height: 160px;
-                        border-radius: 50%;
-                        margin-top: -15px;
-                        background-color: #0F0D0E;
+                        // &.visible {
+                        //     opacity: 1;
+                        // }
                     }
 
                     // Immagine colore
