@@ -260,9 +260,9 @@ export default {
             }
             return message;
         },
-        // Verifico che i campi del form non siano vuoti, se non lo sono ritorno true altrimenti false
+        // Verifico che i campi del form non hanno spazi vuoti all'inizio e alla fine (trim), se non lo sono ritorno true altrimenti false
         firstStepValid() {
-            // Se email, email di conferma, numero di telefono e comune non sono vuoti e se email e email di conferma coincidono allora assegno true a enableButton
+            // Se email, email di conferma, numero di telefono e comune non hanno spazi vuoti all'inizio alla fine e se email e email di conferma coincidono allora assegno true a enableButton
             if (this.newClient.client_email.trim() !== "" && this.newClient.confirm_client_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.client_email === this.newClient.confirm_client_email && this.newClient.client_email.includes("@") && this.newClient.confirm_client_email.includes("@")) {
                 this.enableButton = true;
             }
@@ -399,7 +399,7 @@ export default {
             }
         },
         // Resetto valori dei campi del primo step se cambio tipologia
-        resetCommonInputs() {
+        resetInputs() {
             if (this.newClient.typology) {
                 this.newClient.name = "";
                 this.newClient.surname = "";
@@ -502,7 +502,7 @@ export default {
         // Metodo per passare dal secondo al terzo step
         orderSubmit() {
 
-            // Se currentStep e' uguale a 2 e se orders contiene elementi allora posso proseguire
+            // Se orders contiene elementi allora posso proseguire
             if (this.orders.length !== 0) {
 
                 //Se il messaggio e' presente
@@ -819,7 +819,6 @@ export default {
                             <div v-if="newClient.typology === 'Privato' || newClient.typology === ''">
                                 <input type="text" v-model="newClient.name" placeholder="Nome *" @input="filterNumbers"
                                     title="Inserisci il nome" maxlength="64" required>
-                                <br>
                                 <input type="text" v-model="newClient.surname" placeholder="Cognome *"
                                     title="Inserisci il cognome" @input="filterNumbers" maxlength="64" required>
                             </div>
@@ -827,14 +826,12 @@ export default {
                             <div v-else-if="newClient.typology === 'Azienda'">
                                 <input type="text" v-model="newClient.agency_name" placeholder="Nome Azienda *"
                                     title="Inserisci il nome dell'azienda" maxlength="64" required>
-                                <br>
                                 <input type="text" v-model="newClient.vat_number" placeholder="Partita Iva *" maxlength="11"
                                     title="Inserisci la Partita Iva" @input="filterCharacters" required>
                             </div>
 
                             <input type="email" v-model="newClient.client_email" placeholder="E-mail *"
                                 title="Inserisci l'email" maxlength="64" required>
-                            <br>
                             <input type="email" v-model="newClient.confirm_client_email" placeholder="Conferma e-mail *"
                                 maxlength="64" title="Conferma l'email" required>
 
@@ -850,10 +847,8 @@ export default {
                                 Le email devono avere il formato corretto
                             </div> -->
 
-                            <br>
                             <input type="text" v-model="newClient.telephone_number" placeholder="Telefono *" maxlength="10"
                                 @input="filterCharacters" title="Inserisci il numero di telefono" required>
-                            <br>
                             <input type="text" v-model="newClient.city_of_residence" placeholder="Comune *"
                                 title="Inserisci il comune" @input="filterNumbers" maxlength="64" required>
 
@@ -867,14 +862,14 @@ export default {
                             <div class="radios">
                                 <label for="privato">
                                     <input type="radio" id="privato" value="Privato" v-model="newClient.typology"
-                                        @change="resetCommonInputs"
+                                        @change="resetInputs"
                                         :checked="newClient.typology === '' || newClient.typology === 'Privato'">
                                     Privato
                                 </label>
 
                                 <label for="azienda">
                                     <input type="radio" id="azienda" value="Azienda" v-model="newClient.typology"
-                                        @change="resetCommonInputs">
+                                        @change="resetInputs">
                                     Azienda
                                 </label>
                             </div>
@@ -1754,7 +1749,7 @@ section {
         min-height: 336px;
 
         input[type] {
-            margin: 6px 0;
+            margin: 12px 0;
             background: #fff;
             width: 280px;
             padding: 6px 12px 20px 12px;
@@ -1763,6 +1758,15 @@ section {
             font-family: 'Montserrat', sans-serif;
             outline: none;
             color: #000;
+            display: block;
+
+            &:first-child {
+                margin: 6px 0 12px 0;
+            }
+
+            &:nth-child(2n+5) {
+                margin: 12px 0 6px 0;
+            }
         }
 
         .message-green {
