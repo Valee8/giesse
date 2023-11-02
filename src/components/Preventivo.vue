@@ -1740,6 +1740,10 @@ section {
     margin: 0 auto;
     padding: 40px;
 
+    input {
+        font-family: 'Montserrat', sans-serif;
+    }
+
     hr {
         border-bottom: 1px solid #000;
         margin: 60px 0;
@@ -1755,7 +1759,6 @@ section {
             padding: 6px 12px 20px 12px;
             border: 0;
             font-size: 0.9rem;
-            font-family: 'Montserrat', sans-serif;
             outline: none;
             color: #000;
             display: block;
@@ -1788,10 +1791,17 @@ section {
         display: flex;
         flex-direction: column;
         width: 40%;
+        max-height: 328px;
+
+        // input[type='submit'] {
+        //     position: relative;
+        //     top: -21px;
+        // }
 
         input[type='submit'] {
-            position: relative;
-            top: -21px;
+            font-weight: 600;
+            font-size: 1.4rem;
+            letter-spacing: normal;
         }
 
         input[type='radio'] {
