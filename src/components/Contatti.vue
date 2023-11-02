@@ -145,6 +145,7 @@ export default {
                             </div>
 
                             <!-- Testo Risposta -->
+                            <!--  :class="{ 'show': faqs[index].show }" -->
                             <div class="answer" v-if="faqs[index].show">
                                 <span class="dot">
                                     <i class="fa-solid fa-circle"></i>
@@ -167,11 +168,33 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+// .answer {
+//     opacity: 0;
+//     animation-name: expand;
+//     transition-duration: 0.2s;
+//     height: 0;
+
+//     &.show {
+//         opacity: 1;
+//         height: 25px;
+//     }
+// }
+
+// @keyframes expand {
+//     from {
+//         height: 0;
+//     }
+
+//     to {
+//         height: 25px;
+//     }
+// }
+
 .bg-section {
     background-image: url('/img/sfondo-faq-sfoc.jpg');
     background-size: cover;
     background-position: center;
-    height: 410px;
+    height: 414px;
     width: 100%;
     position: relative;
 
