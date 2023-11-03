@@ -182,11 +182,11 @@ export default {
                 </div>
 
                 <!-- Parte contenuto slider -->
-                <div class="slider" v-for="(slide, index) in  getSlider " :key="index" :class="{ 'active': slide.active }">
+                <div class="slider" v-for="(slide, index) in getSlider " :key="index" :class="{ 'active': slide.active }">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="slide.image" :alt="slide.model"
-                            :class="slide.nameChange ? 'slide-image ' + slide.nameChange + ' ' + store.imageZanz : 'slide-image '">
+                            :class="slide.nameClass ? 'slide-image ' + slide.nameClass : 'slide-image '">
 
                         <!-- <hr>
 

@@ -104,14 +104,14 @@ export const store = reactive({
             firstName: "ALBA D.G. (con cuffie) - SONIA D.G. (senza cuffie) - GENNY (con cassonetto da 40mm)",
             secondName: "GIUSY (con cuffie) - ELENA (senza cuffie) - EDDI (con cassonetto da 40mm)",
             image: imagePrefix + "img/zanzariere/alba.png",
-            description: "Il modello VERTICALE A MOLLA CLASSICA, adatto soprattutto per finestre, prodotto di serie con il cassonetto da 50mm e con struttura in alluminio anodizzato o verniciato e la rete in fibra di vetro grigia o a righe, può essere realizzato in diverse tipologie e modelli.",
+            description: "Il modello VERTICALE A MOLLA CLASSICA, adatto soprattutto per finestre, può essere realizzato in diverse tipologie e modelli.",
             active: true
         },
         {
             model: "VERTICALE A MOLLA (con sistema a cricchetto)",
             name: "LAURA (con cuffie) - EVA (senza cuffie) - ASIA (con cassonetto da 40mm)",
             image: imagePrefix + "img/zanzariere/laura.png",
-            description: "Il modello VERTICALE A MOLLA può essere realizzato anche con sistema a CRICCHETTO (un sistema a pulsante che permette l'apertura della zanzariera in modo semplice e veloce). Prodotto con struttura in alluminio anodizzato o verniciato e la rete in fibra di vetro grigia o a righe, questo sistema può essere fornito con cassonetto da 50mm, cuffie e guide telescopiche e con cassonetto da 40mm.",
+            description: "Il modello VERTICALE A MOLLA può essere realizzato anche con sistema a CRICCHETTO (un sistema a pulsante che permette l'apertura della zanzariera in modo semplice e veloce). Questo sistema può essere fornito con cassonetto da 50mm, cuffie e guide telescopiche e con cassonetto da 40mm.",
             active: false
         },
         {
@@ -119,13 +119,13 @@ export const store = reactive({
             firstName: "KATIA D.G. (con cuffie) - VERA (senza cuffie)",
             secondName: "SARA (senza cuffie)",
             image: imagePrefix + "img/zanzariere/katia.png",
-            description: "Il modello VERTICALE A CATENA CLASSICA è adatto sia per finestre sia per portafinestre in quanto dotato di una catenella che può essere inserita dalla parte interna e/o esterna in modo da non doversi inchinare per l'apertura della zanzariera. Prodotto con struttura in alluminio anodizzato o verniciato e la rete in fibra di vetro grigia o a righe, viene realizzato in diverse tipologie e modelli.",
+            description: "Il modello VERTICALE A CATENA CLASSICA è adatto sia per finestre sia per portefinestre in quanto dotato di una catenella che può essere inserita dalla parte interna (e anche esterna), in modo da non doversi inchinare per l'apertura della zanzariera e può realizzato in diverse tipologie e modelli.",
             active: false
         },
         {
             model: "VERTICALE A CATENA + MOLLA (con aggancio magnetico)",
             name: "GIADA (con cuffie) - MERI (senza cuffie)",
-            nameChange: "giada",
+            nameClass: "giada",
             image: imagePrefix + "img/zanzariere/giada.png",
             description: "Il modello VERTICALE A CATENA + MOLLA, prodotto esclusivamente con il cassonetto da 50mm, si differenzia dal modello VERTICALE A CATENA CLASSICA in quanto viene dotato di una molla di richiamo che permette di tenere la rete ben tesa.",
             active: false
@@ -136,38 +136,38 @@ export const store = reactive({
         {
             model: "LATERALE A MOLLA CLASSICA",
             name: "TIPO ALBA (con cuffie) - TIPO SONIA (senza cuffie) - TIPO GENNY (con cassonetto da 40mm)",
-            nameChange: "laterale-alba",
+            nameClass: "laterale-alba",
             image: imagePrefix + "img/zanzariere/alba-laterale.png",
-            description: "Il modello LATERALE A MOLLA CLASSICA è adatto sia per finestre sia per portafinestre in quanto permette di non doversi inchinare per l'apertura della zanzariera. Prodotto con struttura in alluminio anodizzato o verniciato e la rete in fibra di vetro grigia o a righe, viene realizzato in diverse tipologie e modelli.",
+            description: "Il modello LATERALE A MOLLA CLASSICA è adatto sia per finestre sia per portefinestre in quanto permette di non doversi inchinare per l'apertura della zanzariera e viene realizzato in diverse tipologie e modelli.",
             active: true
         },
         {
             model: "LATERALE A MOLLA (con guida bassa da 2cm)",
             name: "LARA (con cuffie) - VALERIA (senza cuffie) - DESI (con cassonetto da 40mm)",
             image: imagePrefix + "img/zanzariere/lara-rigata.png",
-            description: "Il modello LATERALE con guida bassa da 2cm, prodotto con struttura in alluminio anodizzato o verniciato e la rete in fibra di vetro grigia o a righe, si differenzia dal modello LATERALE A MOLLA CLASSICA in quanto viene fornito con una guida inferiore di 2cm.",
+            description: "Il modello LATERALE con guida bassa da 2cm, si differenzia dal modello LATERALE A MOLLA CLASSICA in quanto viene fornito con una guida inferiore di 2cm. Può essere realizzato in diverse tipologie e modelli.",
             active: false
         },
         {
             model: "LATERALE A MOLLA (con guida arrotondata da 14mm)",
             name: "LUNA",
             image: imagePrefix + "img/zanzariere/luna.png",
-            description: "Il modello LUNA, prodotto esclusivamente con il cassonetto da 50mm, si differenzia dal modello LATERALE A MOLLA CLASSICA in quanto viene fornito con una guida arrotondata di soli 14mm.",
+            description: "Il modello LUNA, prodotto esclusivamente con il cassonetto da 50mm, si differenzia dal modello LATERALE A MOLLA CLASSICA in quanto viene fornito con una guida arrotondata (calpestabile) di soli 14mm.",
             active: false
         },
         {
             model: "LATERALE A MOLLA (con guida bassa da 3mm)",
             name: "ZELIG",
             image: imagePrefix + "img/zanzariere/zelig.png",
-            description: "Il modello ZELIG, prodotto esclusivamente con il cassonetto da 50mm e dotato di una catena che si adagia sulla guida durante l'apertura della zanzariera, si differenzia dal modello LATERALE A MOLLA CLASSICA in quanto è caratterizzato da una guida inferiore di soli 3mm.",
+            description: "Il modello ZELIG, prodotto esclusivamente con il cassonetto da 50mm e dotato di una catena che si adagia sulla guida durante l'apertura della zanzariera, è caratterizzato da una guida inferiore di soli 3mm.",
             active: false
         },
         {
             model: "LATERALE FRIZIONATA (con guida bassa da 3mm)",
             name: "JOLLY",
-            nameChange: "jolly",
+            nameClass: "jolly",
             image: imagePrefix + "img/zanzariere/jolly.jpg",
-            description: "Il modello JOLLY, è caratterizzato da un ingombro di 4mm. Prodotto con una guida inferiore di 4mm, a differenza del modello ZELIG permette di arrestare l'apertura della zanzariera nella posizione desiderata. Viene dotato di una catena (chiusa) che si adagia sulla guida inferiore durante l'apertura della zanzariera.",
+            description: "Il modello JOLLY è caratterizzato da un ingombro di 40mm. Prodotto con una guida inferiore di 3mm, a differenza del modello ZELIG, permette di arrestare l'apertura della zanzariera nella posizione desiderata. Viene dotato di una catena (chiusa) che si adagia sulla guida inferiore durante l'apertura della zanzariera.",
             active: false
         },
         {
@@ -180,7 +180,7 @@ export const store = reactive({
         {
             model: "LATERALE PLISSETTATA",
             name: "PLISSE' 22",
-            nameChange: "plisse",
+            nameClass: "plisse",
             image: imagePrefix + "img/zanzariere/plisse-22.png",
             description: "Il modello PLISSE' 22, è caratterizzato da un ingombro di 22mm. Prodotto con una guida inferiore di 7mm e la rete plissettata in propilene nera o grigia, permette di arrestare l'apertura della zanzariera nella posizione desiderata.",
             active: false
