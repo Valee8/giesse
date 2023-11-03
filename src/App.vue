@@ -277,6 +277,25 @@ section {
       .div-image {
         position: relative;
 
+        hr {
+          border: 2px solid #000;
+          width: 200px;
+          position: absolute;
+          top: 35%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transform: rotate(30deg);
+        }
+
+        // .image-cricchetto {
+        //   width: 150px;
+        //   position: absolute;
+        //   right: 170px;
+        //   bottom: 40px;
+        //   border: 1px solid #000;
+        //   border-radius: 50%;
+        // }
+
         .slide-image {
           height: 320px;
           //width: 210px;
@@ -313,7 +332,8 @@ section {
         padding: 25px 0;
         font-size: 2rem;
 
-        &.giada {
+        &.giada,
+        &.luna {
           font-size: 1.8rem;
         }
       }

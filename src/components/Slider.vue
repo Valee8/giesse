@@ -161,7 +161,10 @@ export default {
             <!-- Titolo in alto a sinistra -->
             <div class="section-title">
                 <!-- Scritta Home -->
-                <router-link :to="{ name: 'home' }">Home</router-link>
+                <router-link :to="{ name: store.textHome.toLowerCase() }">
+                    {{ store.textHome }}
+                </router-link>
+
                 <!-- Icone freccia -->
                 <i class="fa-solid fa-chevron-right"></i>
                 <!-- Nome sezione -->
@@ -179,11 +182,16 @@ export default {
                 </div>
 
                 <!-- Parte contenuto slider -->
-                <div class="slider" v-for="(slide, index) in getSlider" :key="index" :class="{ 'active': slide.active }">
+                <div class="slider" v-for="(slide, index) in  getSlider " :key="index" :class="{ 'active': slide.active }">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="slide.image" :alt="slide.model"
                             :class="slide.nameChange ? 'slide-image ' + slide.nameChange + ' ' + store.imageZanz : 'slide-image '">
+
+                        <!-- <hr>
+
+                        <img src="/img/zanzariere/cricchetto.png" alt="Cricchetto" v-if="slide.image.includes('laura')"
+                            class="image-cricchetto"> -->
 
                         <!-- Icona freccia indietro -->
                         <a class="arrow left" @click="prev(index)">
@@ -197,13 +205,16 @@ export default {
                     </div>
 
                     <!-- Titolo - nome modello -->
-                    <h2 :class="{ 'giada': index === 3 }">
+                    <h2
+                        :class="{ 'giada': index === 3 && store.slider === store.vertical, 'luna': index === 2 && store.slider === store.horizontal }">
                         {{ slide.model }}
                     </h2>
 
                     <!-- Nome zanzariera  -->
                     <div class="name" v-if="slide.name">
-                        {{ slide.name }}
+                        <div v-if="store.slider === store.vertical">
+                            Con guida telescopica:
+                        </div> {{ slide.name }}
                     </div>
 
                     <div class="name" v-else>

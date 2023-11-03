@@ -32,7 +32,10 @@ export default {
             <!-- Titolo in alto a sinistra -->
             <div class="section-title">
                 <!-- Scritta Home -->
-                <router-link :to="{ name: 'home' }">Home</router-link>
+                <router-link :to="{ name: store.textHome.toLowerCase() }">
+                    {{ store.textHome }}
+                </router-link>
+
                 <!-- Icone freccia -->
                 <i class="fa-solid fa-chevron-right"></i>
                 <!-- Nome sezione -->
