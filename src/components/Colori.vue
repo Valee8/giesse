@@ -247,12 +247,12 @@ export default {
                         width: 160px;
                         padding: 5px 6px;
                         font-weight: 600;
-                        //opacity: 0;
-                        //transition: all 1s ease-in-out;
+                        opacity: 0;
+                        transition: all 1s ease-in-out;
 
-                        // &.visible {
-                        //     opacity: 1;
-                        // }
+                        &.visible {
+                            opacity: 1;
+                        }
                     }
 
                     // Immagine colore

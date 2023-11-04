@@ -461,6 +461,14 @@ export default {
                 // Assegno true all'active del primo elemento dei colori
                 this.store.colors[0].active = true;
 
+                const radio = document.getElementsByClassName("radio");
+
+                if (this.store.colors[0].active) {
+                    for (let i = 0; i < radio.length; i++) {
+                        radio[i].checked = false;
+                    }
+                }
+
                 // Assegno false a tutti gli altri
                 for (let i = 0; i < this.store.colors.length; i++) {
                     if (i !== 0)
@@ -993,7 +1001,7 @@ export default {
                                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                                     <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                                         <input type="radio" name="color" @click="getColor(index, colorIndex)"
-                                            :required="fixRequiredProblem">
+                                            :required="fixRequiredProblem" class="radio">
                                         <!-- Immagine colore -->
                                         <img :src="color.image" :alt="color.name" class="color-image">
 
