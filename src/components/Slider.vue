@@ -212,7 +212,7 @@ export default {
 
                     <!-- Nome zanzariera  -->
                     <div class="name" v-if="slide.name">
-                        <div v-if="store.slider === store.vertical">
+                        <div v-if="store.slider === store.vertical || store.slider === store.horizontal && index === 0">
                             Con guida telescopica:
                         </div> {{ slide.name }}
                     </div>

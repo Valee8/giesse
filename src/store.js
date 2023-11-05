@@ -135,7 +135,8 @@ export const store = reactive({
     horizontal: [
         {
             model: "LATERALE A MOLLA CLASSICA",
-            name: "TIPO ALBA (con cuffie) - TIPO SONIA (senza cuffie) - TIPO GENNY (con cassonetto da 40mm)",
+            firstName: "TIPO ALBA (con cuffie) - TIPO SONIA (senza cuffie) - TIPO GENNY (con cassonetto da 40mm)",
+            secondName: "TIPO GIUSY (con cuffie) - TIPO ELENA (senza cuffie) - TIPO EDDI (con cassonetto da 40mm)",
             nameClass: "laterale-alba",
             image: imagePrefix + "img/zanzariere/alba-laterale.png",
             description: "Il modello LATERALE A MOLLA CLASSICA è adatto sia per finestre sia per portefinestre in quanto permette di non doversi inchinare per l'apertura della zanzariera e viene realizzato in diverse tipologie e modelli.",
