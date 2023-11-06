@@ -370,7 +370,7 @@ export default {
                     Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
                 </div>
 
-                <div v-if="loading">
+                <div v-if="loading && !showError">
                     Invio in corso, attendere...
                 </div>
 
