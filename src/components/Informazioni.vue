@@ -3,12 +3,13 @@
 import axios from 'axios';
 
 // URL per la chiamata API
-const API_URL = 'http://localhost:8000/api/v1/';
+const API_URL = 'https://20a6-79-22-82-44.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Informazioni',
     data() {
         return {
+            loading: false,
             showError: false,
             // Messaggio che avvisa che i formati dei file non sono validi
             messageFormats: "",
@@ -157,6 +158,8 @@ export default {
                 // Assegno l'email del destinatario
                 this.newInfo.owner_email = "oirelav95@gmail.com";
 
+                this.loading = true;
+
                 axios.post(API_URL + 'information/store', this.newInfo)
                     .then(res => {
                         const data = res.data;
@@ -164,6 +167,7 @@ export default {
                         const response = data.response;
 
                         if (success) {
+
                             axios.post(API_URL + 'message/' + response.id, {
                                 attached_files: this.newInfo.attached_files,
                                 owner_email: this.newInfo.owner_email
@@ -176,10 +180,10 @@ export default {
                                     if (success) {
                                         this.messageSuccess = "Messaggio inviato con successo!";
 
-                                        //La pagina si ricarica da sola dopo 1 secondo
+                                        // La pagina si ricarica da sola dopo 1 secondo
                                         setTimeout(() => {
                                             location.reload();
-                                        }, 1000);
+                                        }, 3000);
                                     }
 
                                 })
@@ -364,6 +368,10 @@ export default {
 
                 <div v-if="showError" class="error-axios">
                     Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
+                </div>
+
+                <div v-if="loading">
+                    Invio in corso, attendere...
                 </div>
 
             </div>
