@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 // URL per la chiamata API
-const API_URL = 'https://20a6-79-22-82-44.ngrok-free.app/api/v1/';
+const API_URL = 'https://6355-79-22-82-44.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Informazioni',
@@ -183,7 +183,7 @@ export default {
                                         // La pagina si ricarica da sola dopo 1 secondo
                                         setTimeout(() => {
                                             location.reload();
-                                        }, 3000);
+                                        }, 2000);
                                     }
 
                                 })
