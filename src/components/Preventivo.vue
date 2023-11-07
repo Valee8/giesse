@@ -1129,7 +1129,7 @@ export default {
                                 </li>
                             </div>
                             <li>
-                                Email: {{ client.email }}
+                                Email: {{ client.client_email }}
                             </li>
                             <li>
                                 Telefono: {{ client.telephone_number }}
