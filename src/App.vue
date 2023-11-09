@@ -315,7 +315,7 @@ section {
           }
 
           &.giada {
-            transform: scale(1.3, 1);
+            transform: scale(1.4, 1.05);
           }
 
           &.plisse {
@@ -384,7 +384,6 @@ section {
     }
   }
 }
-
 
 @media only screen and (min-width: 300px) and (max-width: 479px) {
   .arrow-up {

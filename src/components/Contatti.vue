@@ -18,16 +18,16 @@ export default {
             faqs: [
                 {
                     question: "Dove ci troviamo?",
-                    answer: "Risposta 1",
+                    answer: "Trovi tutte le informazioni ",
                     show: false
                 },
                 {
                     question: "Come si richiede un preventivo?",
-                    answer: "Risposta 2",
+                    answer: "Per richiedere un preventivo",
                     show: false
                 },
                 {
-                    question: "Come trovo la zanzariera adatta alla mia finestra?",
+                    question: "Cosa si intende per cuffie, guida telescopica o guida singola?",
                     answer: "Risposta 3",
                     show: false
                 },
@@ -152,8 +152,11 @@ export default {
                             <div class="answer" v-if="faqs[index].show">
                                 <span class="dot">
                                     <i class="fa-solid fa-circle"></i>
+                                </span> {{ faq.answer }}<span v-if="index === 0">
+                                    <router-link :to="{ name: 'sede' }">
+                                        qui
+                                    </router-link>
                                 </span>
-                                {{ faq.answer }}
                             </div>
                         </li>
                     </ul>
@@ -292,6 +295,14 @@ section {
                         cursor: pointer;
                         font-size: 1.2rem;
 
+                        a {
+                            color: $yellow-color;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+
                         &.faq {
                             border-top: 2px solid #fff;
 
@@ -314,6 +325,10 @@ section {
                             padding-top: 5px;
                             width: 100%;
                             font-size: 1.2rem;
+
+                            .dot {
+                                padding-right: 2px;
+                            }
                         }
                     }
                 }

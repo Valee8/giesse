@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 // URL per la chiamata API
-const API_URL = 'https://49eb-79-22-82-44.ngrok-free.app/api/v1/';
+const API_URL = 'http://localhost:8000/api/v1/';
 
 export default {
     name: 'Informazioni',
@@ -187,7 +187,7 @@ export default {
                                     }
 
                                 })
-                                .catch(error => console.error(error));
+                                .catch(error => console.error(error)); // error.response.data
                         }
 
                     })
@@ -363,16 +363,19 @@ export default {
                     </div>
                     <!-- Parte destra -->
 
+
+                    <div class="messages">
+                        <div v-if="showError" class="error-axios">
+                            Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
+                        </div>
+
+                        <div v-if="loading && !showError">
+                            Invio in corso, attendere...
+                        </div>
+                    </div>
+
                 </form>
                 <!-- Fine Form -->
-
-                <div v-if="showError" class="error-axios">
-                    Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
-                </div>
-
-                <div v-if="loading && !showError">
-                    Invio in corso, attendere...
-                </div>
 
             </div>
             <!-- Container -->
@@ -387,11 +390,6 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
-
-.error-axios {
-    color: red;
-    font-size: 0.8rem;
-}
 
 .info {
     background-color: #1c1c1c;
@@ -418,6 +416,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
+        flex-wrap: wrap;
 
         .left {
             text-align: left;
@@ -603,6 +602,16 @@ export default {
         .right {
             width: 45%;
         }
+
+        .messages {
+            padding-top: 30px;
+            width: 100%;
+
+            .error-axios {
+                color: red;
+                font-size: 0.9rem;
+            }
+        }
     }
 }
 
@@ -625,6 +634,12 @@ export default {
             .radios {
                 font-size: 0.8rem;
             }
+
+            .messages {
+                padding-top: 0;
+                order: -1;
+                padding-bottom: 30px;
+            }
         }
     }
 }
@@ -644,6 +659,12 @@ export default {
                     margin-right: 30px;
                 }
             }
+
+            .messages {
+                padding-top: 0;
+                order: -1;
+                padding-bottom: 30px;
+            }
         }
     }
 }
@@ -652,7 +673,6 @@ export default {
 @media only screen and (min-width: 300px) and (max-width: 900px) {
     .info {
         form {
-            flex-wrap: wrap;
 
             .left,
             .right {
@@ -665,8 +685,6 @@ export default {
 @media only screen and (min-width: 900px) and (max-width: 1000px) {
     .info {
         form {
-            flex-wrap: wrap;
-
             .right {
 
                 #file {
