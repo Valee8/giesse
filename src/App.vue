@@ -287,15 +287,6 @@ section {
           transform: rotate(30deg);
         }
 
-        // .image-cricchetto {
-        //   width: 150px;
-        //   position: absolute;
-        //   right: 170px;
-        //   bottom: 40px;
-        //   border: 1px solid #000;
-        //   border-radius: 50%;
-        // }
-
         .slide-image {
           height: 320px;
           //width: 210px;
@@ -306,20 +297,16 @@ section {
           //   opacity: 1;
           // }
 
-          &.laterale-alba {
-            transform: scale(0.9, 0.95);
-          }
-
-          &.jolly {
-            transform: scale(1);
-          }
-
           &.giada {
-            transform: scale(1.4, 1.05);
+            transform: scale(1.3, 1);
           }
 
           &.plisse {
             transform: scaleX(1.2);
+          }
+
+          &.laterale-alba {
+            transform: scale(0.9, 0.95);
           }
 
           &.casper {
@@ -395,11 +382,23 @@ section {
     // Inizio contenuto slider presente in Verticali e Orizzontali
     .slider-container {
 
+      .list-rectangles {
+        gap: 10px;
+
+        .rectangles {
+          width: 25px;
+        }
+      }
+
       // Contenuto slider
       .slider {
 
         h2 {
-          font-size: 1.8rem;
+          font-size: 1.5rem;
+        }
+
+        .name {
+          font-size: 1rem;
         }
 
         .div-image {
