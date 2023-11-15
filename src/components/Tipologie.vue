@@ -91,7 +91,7 @@ section {
                 }
 
                 &.casper {
-                    transform: scaleY(0.9);
+                    transform: scale(1.2, 1.1);
                 }
             }
 
