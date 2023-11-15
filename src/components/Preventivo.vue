@@ -178,7 +178,7 @@ export default {
                 {
                     name: "Laterale Frizionata",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/jolly.jpg",
+                    image: imagePrefix + "img/zanzariere/jolly.png",
                     active: false,
                     models: [
                         "JOLLY",
@@ -916,7 +916,8 @@ export default {
                                 <!-- Immagini zanzariere -->
                                 <div class="arrows-image">
                                     <div class="zanz-image">
-                                        <img :src="zanz.image" :alt="zanz.name" :class="{ 'plisse': index === 10 }">
+                                        <img :src="zanz.image" :alt="zanz.name"
+                                            :class="{ 'giada': index === 3, 'plisse': index === 10, 'casper': index === 14 }">
                                     </div>
 
                                     <!-- Icona freccia indietro -->
@@ -1476,6 +1477,25 @@ section {
                     &.plisse {
                         width: 160px;
                     }
+
+                    &.casper {
+                        width: 150px;
+                    }
+
+                    &.giada {
+                        width: 140px;
+                    }
+
+                    // &.laura,
+                    // &.luna,
+                    // &.zelig,
+                    // &.jolly {
+                    //     transform: scale(1.5, 1.7);
+                    // }
+
+                    // &.giada {
+                    //     transform: scale(1.3, 1.2);
+                    // }
                 }
             }
         }
