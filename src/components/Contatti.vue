@@ -23,17 +23,17 @@ export default {
                 },
                 {
                     question: "Come si richiede un preventivo?",
-                    answer: "Per richiedere un preventivo",
+                    answer: 'Per richiedere un preventivo è sufficiente andare nella sezione "Richiedi Preventivo" e completare le informazioni richieste in ogni step.',
                     show: false
                 },
                 {
-                    question: "Cosa si intende per cuffie, guida telescopica o guida singola?",
-                    answer: "Risposta 3",
+                    question: "Cosa sono cuffie, guide telescopiche e guide singole?",
+                    answer: "Le cuffie e le guide telescopiche sono un valido sistema, in fase di montaggio, che risolve i problemi di fuorisquadra senza dover spessorare o siliconare, diversamente dalle guide singole.",
                     show: false
                 },
                 {
                     question: "Quali sono i tempi di consegna?",
-                    answer: "Risposta 4",
+                    answer: "I tempi di consegna sono di 5/6 giorni lavorativi.",
                     show: false
                 }
             ]
@@ -150,13 +150,17 @@ export default {
                             <!-- Testo Risposta -->
                             <!--  :class="{ 'show': faqs[index].show }" -->
                             <div class="answer" v-if="faqs[index].show">
-                                <span class="dot">
+
+                                <div class="dot">
                                     <i class="fa-solid fa-circle"></i>
-                                </span> {{ faq.answer }}<span v-if="index === 0">
-                                    <router-link :to="{ name: 'sede' }">
-                                        qui
-                                    </router-link>
-                                </span>
+                                </div>
+
+                                <div class="text">{{ faq.answer }}
+                                    <span v-if="index === 0">
+                                        <router-link :to="{ name: 'sede' }">qui</router-link>.
+                                    </span>
+                                </div>
+
                             </div>
                         </li>
                     </ul>
@@ -289,7 +293,7 @@ section {
                     li {
                         display: flex;
                         justify-content: flex-start;
-                        align-items: center;
+                        align-items: flex-start;
                         flex-wrap: wrap;
                         padding: 5px 0 10px 0;
                         cursor: pointer;
@@ -315,6 +319,8 @@ section {
                             }
 
                             .dot {
+                                //height: 25px;
+                                padding-top: 7px;
                                 font-size: 0.5rem;
                                 vertical-align: middle;
                                 padding-right: 7px;
@@ -322,12 +328,14 @@ section {
                         }
 
                         .answer {
+                            display: flex;
+                            align-items: flex-start;
                             padding-top: 5px;
                             width: 100%;
                             font-size: 1.2rem;
 
-                            .dot {
-                                padding-right: 2px;
+                            .text {
+                                padding-right: 10px;
                             }
                         }
                     }
@@ -463,6 +471,12 @@ section {
                             .answer {
                                 font-size: 1rem;
                             }
+
+                            &.faq {
+                                .dot {
+                                    padding-top: 5px;
+                                }
+                            }
                         }
 
                         .arrow {
@@ -481,22 +495,6 @@ section {
     }
 }
 
-@media only screen and (min-width: 650px) and (max-width: 900px) {
-
-    section {
-        .faq-section {
-
-            .container {
-
-                .faq-right {
-                    width: 75%;
-                }
-            }
-        }
-    }
-
-}
-
 @media only screen and (min-width: 900px) and (max-width: 1000px) {
 
     section {
@@ -512,7 +510,7 @@ section {
                 }
 
                 .faq-right {
-                    width: 60%;
+                    width: 75%;
 
                     ul {
                         li {
