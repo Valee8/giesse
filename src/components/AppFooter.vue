@@ -34,8 +34,8 @@ export default {
 
                 <!-- Paragrafo -->
                 <p>
-                    Benvenuti nel mondo delle zanzariere di alta qualità! La Giesse Zanzariere si dedica con passione alla
-                    produzione di zanzariere che uniscono design elegante e funzionalità avanzata.
+                    Benvenuti nel mondo delle zanzariere di alta qualità! La <span>Giesse Zanzariere</span> si dedica con
+                    passione alla produzione di zanzariere che uniscono design elegante e funzionalità avanzata.
                     <!-- Proteggiamo i tuoi spazi
                     con soluzioni su misura, realizzate con materiali di prima qualità per garantire comfort e sicurezza.
                     Scegli la Giesse Zanzariere per proteggere la tua casa, senza compromessi sullo stile. Il tuo benessere
@@ -213,6 +213,10 @@ footer {
 
         p {
             padding-top: 30px;
+
+            span {
+                font-weight: bold;
+            }
         }
 
         ul {
