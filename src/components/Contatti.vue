@@ -18,7 +18,7 @@ export default {
             faqs: [
                 {
                     question: "Dove ci troviamo?",
-                    answer: "Trovi tutte le informazioni ",
+                    answer: "Ci troviamo ad Iglesias in Via Damiano Chiesa 69, maggiori informazioni puoi trovarle ",
                     show: false
                 },
                 {
@@ -151,15 +151,10 @@ export default {
                             <!--  :class="{ 'show': faqs[index].show }" -->
                             <div class="answer" v-if="faqs[index].show">
 
-                                <div class="dot">
-                                    <i class="fa-solid fa-circle"></i>
-                                </div>
-
-                                <div class="text">{{ faq.answer }}
-                                    <span v-if="index === 0">
-                                        <router-link :to="{ name: 'sede' }">qui</router-link>.
-                                    </span>
-                                </div>
+                                {{ faq.answer }}
+                                <span v-if="index === 0">
+                                    <router-link :to="{ name: 'sede' }">qui</router-link>.
+                                </span>
 
                             </div>
                         </li>
@@ -271,7 +266,7 @@ section {
             //align-items: center;
 
             .faq-left {
-                width: 45%;
+                width: 39%;
 
                 h2 {
                     font-size: 2rem;
@@ -285,7 +280,7 @@ section {
             }
 
             .faq-right {
-                width: 55%;
+                width: 61%;
 
                 ul {
                     user-select: none;
@@ -297,7 +292,7 @@ section {
                         flex-wrap: wrap;
                         padding: 5px 0 10px 0;
                         cursor: pointer;
-                        font-size: 1.2rem;
+                        font-size: 1.4rem;
 
                         a {
                             color: $yellow-color;
@@ -316,11 +311,11 @@ section {
 
                             .question {
                                 flex-grow: 1;
+                                font-weight: 600;
                             }
 
                             .dot {
-                                //height: 25px;
-                                padding-top: 7px;
+                                align-self: center;
                                 font-size: 0.5rem;
                                 vertical-align: middle;
                                 padding-right: 7px;
@@ -328,15 +323,11 @@ section {
                         }
 
                         .answer {
-                            display: flex;
-                            align-items: flex-start;
-                            padding-top: 5px;
+                            padding-left: 15px;
+                            padding-top: 10px;
+                            padding-right: 30px;
                             width: 100%;
-                            font-size: 1.2rem;
-
-                            .text {
-                                padding-right: 10px;
-                            }
+                            font-size: 1.1rem;
                         }
                     }
                 }
@@ -364,7 +355,7 @@ section {
     }
 }
 
-@media only screen and (min-width: 1000px) and (max-width: 1050px) {
+@media only screen and (min-width: 1016px) and (max-width: 1050px) {
     section {
         .faq-section {
 
@@ -396,25 +387,7 @@ section {
     }
 }
 
-@media only screen and (min-width: 1001px) and (max-width: 1044px) {
-    section {
-        .faq-section {
-
-            .container {
-
-                .faq-left {
-                    width: 35%;
-                }
-
-                .faq-right {
-                    width: 65%;
-                }
-            }
-        }
-    }
-}
-
-@media only screen and (min-width: 300px) and (max-width: 488px) {
+@media only screen and (min-width: 300px) and (max-width: 533px) {
 
     section {
         .faq-section {
@@ -425,7 +398,6 @@ section {
                     ul {
 
                         li {
-                            font-size: 1rem;
 
                             &.faq {
 
@@ -471,12 +443,6 @@ section {
                             .answer {
                                 font-size: 1rem;
                             }
-
-                            &.faq {
-                                .dot {
-                                    padding-top: 5px;
-                                }
-                            }
                         }
 
                         .arrow {
@@ -495,7 +461,7 @@ section {
     }
 }
 
-@media only screen and (min-width: 900px) and (max-width: 1000px) {
+@media only screen and (min-width: 921px) and (max-width: 1015px) {
 
     section {
         .faq-section {
@@ -504,17 +470,57 @@ section {
                 align-items: center;
 
                 .faq-left {
+                    width: 30%;
+
                     p {
                         font-size: 1rem;
                     }
                 }
 
                 .faq-right {
-                    width: 75%;
+                    width: 70%;
 
                     ul {
                         li {
-                            font-size: 1.1rem;
+                            font-size: 1.2rem;
+
+                            .answer {
+                                font-size: 1.1rem;
+                            }
+                        }
+
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+@media only screen and (min-width: 1016px) and (max-width: 1216px) {
+    section {
+        .faq-section {
+
+            .container {
+
+                .faq-left {
+                    width: 30%;
+                }
+
+                .faq-right {
+                    width: 68%;
+
+                    ul {
+                        li {
+                            font-size: 1.2rem;
+
+                            .answer {
+                                font-size: 1.1rem;
+                            }
+
+
                         }
                     }
                 }
