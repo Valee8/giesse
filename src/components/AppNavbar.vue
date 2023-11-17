@@ -607,9 +607,9 @@ export default {
                 height: 102px;
                 background-image: url('/img/bg-nav-center.png');
                 background-position: -100px 0;
-                cursor: pointer;
 
                 &.active {
+
                     .text {
                         display: none;
                     }
@@ -637,6 +637,7 @@ export default {
                                 gap: 5px;
                                 position: absolute;
                                 right: 0;
+
                             }
                         }
 
