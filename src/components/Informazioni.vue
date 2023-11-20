@@ -9,6 +9,7 @@ export default {
     name: 'Informazioni',
     data() {
         return {
+            textFiles: "Nessun file selezionato",
             loading: false,
             showError: false,
             // Messaggio che avvisa che i formati dei file non sono validi
@@ -85,6 +86,14 @@ export default {
             // Ogni volta che scelgo i file allegati devo svuotare il contenuto dei messaggi altrimenti rimarrebbero
             this.messageSizes = "";
             this.messageFormats = "";
+
+            if (this.files.length === 1) {
+                this.textFiles = this.files[0].name;
+            }
+            else if (this.files.length > 1) {
+                this.textFiles = this.files.length + " file";
+            }
+
 
             // Scorro l'array files
             for (let i = 0; i < this.files.length; i++) {
@@ -233,6 +242,11 @@ export default {
         if (this.newInfo.typology === "") {
             this.newInfo.typology = "Privato";
         }
+    },
+    updated() {
+        if (this.files.length === 0) {
+            this.textFiles = "Nessun file selezionato";
+        }
     }
 }
 </script>
@@ -338,8 +352,13 @@ export default {
                             </p>
 
                             <!-- Input per allegare i file -->
-                            <input type="file" @change="onFileChange" ref="fileInput" id="file" name="attached_files[]"
-                                accept=".png, .jpg, .jpeg, .docx, .pdf" multiple>
+                            <div class="file">
+                                <input type="file" @change="onFileChange" ref="fileInput" id="file" name="attached_files[]"
+                                    accept=".png, .jpg, .jpeg, .docx, .pdf" multiple>
+                                <div class="text-file">
+                                    {{ textFiles }}
+                                </div>
+                            </div>
 
                             <!-- Scritta rimuovi allegati -->
                             <div @click="deleteAttached" v-if="files.length > 0" class="delete-attached">Rimuovi file
@@ -556,15 +575,21 @@ export default {
                 padding: 20px 0;
             }
 
+            .file {
+                position: relative;
+                font-size: 0.85rem;
+                cursor: default;
+            }
+
 
             #file {
                 font-family: 'Montserrat', sans-serif;
                 background: #000;
                 color: #fff;
                 border-bottom: 2px solid $yellow-color;
-                display: block;
                 width: 100%;
-                padding: 10px 0;
+                padding: 10px 8px;
+                font-size: 0;
             }
 
 
@@ -579,6 +604,18 @@ export default {
                 //margin-left: 8px;
             }
 
+            .text-file {
+                position: absolute;
+                right: 8px;
+                line-height: 45px;
+                height: 45px;
+                top: 0;
+                max-width: 180px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
             .error {
                 color: red;
                 font-size: 0.8rem;
@@ -590,7 +627,7 @@ export default {
                 margin-top: 10px;
                 cursor: pointer;
                 color: $yellow-color;
-                width: 39%;
+                width: 90%;
 
                 &:hover {
                     text-decoration: underline;
@@ -621,14 +658,18 @@ export default {
         form {
 
             .right {
-                #file {
+                .file {
                     width: 265px;
                     font-size: 0.7rem;
                 }
 
-                input::file-selector-button {
-                    margin-right: 30px;
+                .text-file {
+                    max-width: 100px;
                 }
+
+                // input::file-selector-button {
+                //     margin-right: 30px;
+                // }
             }
 
             .radios {
@@ -648,22 +689,32 @@ export default {
 
     .info {
         form {
-            .right {
+            // .right {
 
-                #file {
-                    //width: 400px;
-                    font-size: 0.8rem;
-                }
-
-                // input::file-selector-button {
-                //     margin-right: 30px;
-                // }
-            }
+            //     // input::file-selector-button {
+            //     //     margin-right: 30px;
+            //     // }
+            // }
 
             .messages {
                 padding-top: 0;
                 order: -1;
                 padding-bottom: 30px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 900px) {
+
+    .info {
+        form {
+            .right {
+
+                .file {
+                    width: 400px;
+                    font-size: 0.8rem;
+                }
             }
         }
     }
@@ -687,8 +738,8 @@ export default {
         form {
             .right {
 
-                #file {
-                    //width: 300px;
+                .file {
+                    width: 300px;
                     font-size: 0.8rem;
                 }
 
@@ -705,8 +756,8 @@ export default {
 
         form {
             .right {
-                #file {
-                    //width: 340px;
+                .file {
+                    width: 340px;
                     font-size: 0.8rem;
                 }
 
