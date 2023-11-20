@@ -664,7 +664,7 @@ export default {
                 }
 
                 .text-file {
-                    max-width: 100px;
+                    max-width: 130px;
                 }
 
                 // input::file-selector-button {
