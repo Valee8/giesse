@@ -626,9 +626,9 @@ export default {
                     font-size: 0.7rem;
                 }
 
-                input::file-selector-button {
-                    margin-right: 30px;
-                }
+                //input::file-selector-button {
+                //   margin-right: 30px;
+                //}
             }
 
             .radios {

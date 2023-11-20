@@ -24,29 +24,29 @@ export default {
             // Contenuto slider
             sliderContent: [
                 {
-                    name_zanz: "Jolly, la Laterale Frizionata",
-                    name: "orizzontali",
+                    nameZanz: "Jolly, la Laterale Frizionata",
+                    typo: "orizzontali",
                     id: 1,
-                    hash: "#jolly-" + 4,
+                    hash: "#orizzontali-" + 4,
                     active: true,
                 },
                 {
-                    name_zanz: "Laura, con sistema a cricchetto",
-                    name: "verticali",
+                    nameZanz: "Laura, con sistema a cricchetto",
+                    typo: "verticali",
                     id: 0,
                     hash: "#laura-" + 1,
                     active: false,
                 },
                 {
-                    name_zanz: "Luna, con guida arrotondata da 14mm",
-                    name: "orizzontali",
+                    nameZanz: "Luna, con guida arrotondata da 14mm",
+                    typo: "orizzontali",
                     id: 1,
                     hash: "#luna-" + 2,
                     active: false
                 },
                 {
-                    name_zanz: "Zelig, con guida bassa da 3mm",
-                    name: "orizzontali",
+                    nameZanz: "Zelig, con guida bassa da 3mm",
+                    typo: "orizzontali",
                     id: 1,
                     hash: "#zelig-" + 3,
                     active: false
@@ -158,17 +158,17 @@ export default {
                     <!-- Inizio contenuto slider -->
                     <div class="container-slide">
                         <div class="slider-header" v-for="(slide, index) in sliderContent" :key="index"
-                            :class="{ 'active': index === currentSlideIndex }" @mouseout="changeSlide(index)"
+                            :class="{ 'active': index === currentSlideIndex }" @mouseout="changeSlide"
                             @mouseover="blockSlide">
                             <!-- Testo -->
                             <div class="name-zanz">
-                                {{ slide.name_zanz }}
+                                {{ slide.nameZanz }}
                             </div>
 
                             <!-- Bottone scopri di piu' -->
-                            <router-link :to="{ name: slide.name, params: { id: slide.id }, hash: slide.hash }"
+                            <router-link :to="{ name: slide.typo, params: { id: slide.id }, hash: slide.hash }"
                                 class="button header">
-                                Scopri di pi&ugrave; sulla {{ slide.name_zanz.replace(/,(.*?)[\s\w]*/g, "") }}
+                                Scopri di pi&ugrave; sulla {{ slide.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }}
                             </router-link>
                         </div>
                     </div>

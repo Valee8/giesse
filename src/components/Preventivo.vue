@@ -182,6 +182,7 @@ export default {
                     active: false,
                     models: [
                         "JOLLY",
+                        "LEVANTE"
                     ]
                 },
                 {

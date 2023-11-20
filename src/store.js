@@ -53,7 +53,7 @@ export const store = reactive({
         },
         {
             name: "Laterale Frizionata",
-            hash: "#jolly"
+            hash: "#laterale-frizionata"
         },
         {
             name: "Laterale Antivento",
@@ -165,7 +165,7 @@ export const store = reactive({
         },
         {
             model: "LATERALE FRIZIONATA (con guida bassa da 3mm)",
-            name: "JOLLY",
+            name: "JOLLY - LEVANTE",
             image: imagePrefix + "img/zanzariere/jolly.png",
             description: "Il modello JOLLY è caratterizzato da un ingombro di 40mm. Prodotto con una guida inferiore di 3mm, a differenza del modello ZELIG, permette di arrestare l'apertura della zanzariera nella posizione desiderata. Viene dotato di una catena (chiusa) che si adagia sulla guida inferiore durante l'apertura della zanzariera.",
             active: false
