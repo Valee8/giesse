@@ -573,10 +573,10 @@ export default {
                 background-color: $yellow-color;
                 padding: 3px 11px;
                 font-size: 0.9rem;
-                margin-right: 122px;
+                //margin-right: 122px;
                 border: 0;
                 cursor: pointer;
-                margin-left: 8px;
+                //margin-left: 8px;
             }
 
             .error {
@@ -615,7 +615,7 @@ export default {
     }
 }
 
-@media only screen and (min-width: 300px) and (max-width: 479px) {
+@media only screen and (min-width: 300px) and (max-width: 480px) {
 
     .info {
         form {
@@ -626,9 +626,9 @@ export default {
                     font-size: 0.7rem;
                 }
 
-                //input::file-selector-button {
-                //   margin-right: 30px;
-                //}
+                input::file-selector-button {
+                    margin-right: 30px;
+                }
             }
 
             .radios {
@@ -644,20 +644,20 @@ export default {
     }
 }
 
-@media only screen and (min-width: 480px) and (max-width: 595px) {
+@media only screen and (min-width: 480px) and (max-width: 600px) {
 
     .info {
         form {
             .right {
 
                 #file {
-                    width: 400px;
+                    //width: 400px;
                     font-size: 0.8rem;
                 }
 
-                input::file-selector-button {
-                    margin-right: 30px;
-                }
+                // input::file-selector-button {
+                //     margin-right: 30px;
+                // }
             }
 
             .messages {
@@ -688,13 +688,13 @@ export default {
             .right {
 
                 #file {
-                    width: 300px;
+                    //width: 300px;
                     font-size: 0.8rem;
                 }
 
-                input::file-selector-button {
-                    margin-right: 30px;
-                }
+                // input::file-selector-button {
+                //     margin-right: 30px;
+                // }
             }
         }
     }
@@ -706,13 +706,13 @@ export default {
         form {
             .right {
                 #file {
-                    width: 340px;
+                    //width: 340px;
                     font-size: 0.8rem;
                 }
 
-                input::file-selector-button {
-                    margin-right: 60px;
-                }
+                // input::file-selector-button {
+                //     margin-right: 60px;
+                // }
             }
         }
     }
