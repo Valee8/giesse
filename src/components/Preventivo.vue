@@ -9,7 +9,7 @@ import axios from 'axios';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 // URL per la chiamata API
-const API_URL = 'https://a5c8-79-35-88-17.ngrok-free.app/api/v1/';
+const API_URL = 'https://6d42-79-35-88-17.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Preventivo',
