@@ -9,7 +9,7 @@ import axios from 'axios';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 // URL per la chiamata API
-const API_URL = 'https://6d42-79-35-88-17.ngrok-free.app/api/v1/';
+const API_URL = 'https://f152-79-35-88-17.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Preventivo',
@@ -495,7 +495,7 @@ export default {
         deleteModel(order) {
 
             // Chiamata API per eliminare ordine
-            axios.get(API_URL + 'delete/' + order.id)
+            axios.delete(API_URL + 'delete/' + order.id)
                 .then(res => {
                     const data = res.data;
                     const success = data.success;
