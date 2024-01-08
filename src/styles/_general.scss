@@ -6,12 +6,35 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
 }
 
 // Body
 body {
     font-family: 'Montserrat', sans-serif;
     color: #000;
+
+    &.active-edit {
+        pointer-events: none;
+    }
+
+    &.active-popup {
+        position: relative;
+        overflow-y: hidden;
+        //pointer-events: none;
+
+        &::after {
+            content: "";
+            background: rgba(0, 0, 0, .5);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 100;
+        }
+    }
+
 }
 
 // Testo link
