@@ -13,7 +13,18 @@ export default {
     },
     data() {
         return {
-            store
+            store,
+            casperList: [
+                "VERTICALE A MOLLA CLASSICA (CASPER A MOLLA)",
+                "VERTICALE A MOLLA CON SISTEMA A CRICCHETTO (CASPER A CRICCHETTO)",
+                "VERTICALE A CATENA CLASSICA (CASPER A CATENA)",
+                "VERTICALE A CATENA + MOLLA (CASPER TIPO MERI)",
+                "LATERALE A MOLLA CLASSICA (CASPER LATERALE)",
+                "LATERALE CON GUIDA BASSA DA 2cm (CASPER TIPO VALERIA)",
+                "LATERALE CON GUIDA ARROTONDATA DA 14mm (CASPER TIPO LUNA)",
+                "LATERALE CON GUIDA BASSA DA 3mm (CASPER TIPO ZELIG)",
+                "LATERALE A MOLLA FRIZIONATA (CASPER TIPO JOLLY)",
+            ]
         }
     },
     computed: {
@@ -66,22 +77,15 @@ export default {
                     <!-- Descrizione zanzariera -->
                     <p class="description casper">
                         Il modello CASPER &egrave; una zanzariera da incasso per falegnami. Viene prodotto con il cassonetto
-                        da
-                        45 o 55mm e con una guida da 50x35. Questo modello pu&ograve; essere realizzato in tutte le
+                        da 45 o 55mm e con una guida da 50x35. Questo modello pu&ograve; essere realizzato in tutte le
                         versioni:
                     </p>
 
                     <!-- Lista vari tipi di casper -->
                     <ul class="casper-list">
-                        <li>VERTICALE A MOLLA CLASSICA (CASPER A MOLLA)</li>
-                        <li>VERTICALE A MOLLA CON SISTEMA A CRICCHETTO (CASPER A CRICCHETTO)</li>
-                        <li>VERTICALE A CATENA CLASSICA (CASPER A CATENA)</li>
-                        <li>VERTICALE A CATENA + MOLLA (CASPER TIPO MERI)</li>
-                        <li>LATERALE A MOLLA CLASSICA (CASPER LATERALE)</li>
-                        <li>LATERALE CON GUIDA BASSA DA 2cm (CASPER TIPO VALERIA)</li>
-                        <li>LATERALE CON GUIDA ARROTONDATA DA 14mm (CASPER TIPO LUNA)</li>
-                        <li>LATERALE CON GUIDA BASSA DA 3mm (CASPER TIPO ZELIG)</li>
-                        <li>LATERALE A MOLLA FRIZIONATA (CASPER TIPO JOLLY)</li>
+                        <li v-for="(casper, index) in casperList" :key="index">
+                            - {{ casper }}
+                        </li>
                     </ul>
                 </div>
 
