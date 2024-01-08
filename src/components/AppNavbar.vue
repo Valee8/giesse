@@ -344,6 +344,8 @@ export default {
     color: #fff;
     width: 100%;
     height: 67px;
+    position: relative;
+    z-index: 1;
 
     a {
         color: #fff;
