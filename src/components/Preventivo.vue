@@ -15,6 +15,7 @@ export default {
     name: 'Preventivo',
     data() {
         return {
+            activePopup: false,
             store,
             checkIdOrders: null,
             oldOrder: {
@@ -27,7 +28,6 @@ export default {
                 color_name: ""
             },
             showSelectModelText: false,
-            enableButtons: false,
             showEditInputs: null,
             showDeleteItemPopup: false,
             showUpdateItemPopup: false,
@@ -41,7 +41,7 @@ export default {
             showNet: true,
             showNetEditItem: true,
             // Per attivare i bottoni plus e minus e il bottone elimina (icona cestino) degli ordini dopo che il popup e' scomparso
-            enablePlusMinus: false,
+            //enablePlusMinus: false,
             // Per mostrare il popup se aggiungo una zanzariera
             showAddedItemPopup: false,
             // Per far apparire il messaggio se le e-mail coincidono o no
@@ -94,14 +94,6 @@ export default {
                 color_image: "",
                 // Id del cliente
                 client_id: ""
-            },
-            // Oggetto che contiene le informazioni dell'email
-            newEmail: {
-                // Email destinatario
-                owner_email: "",
-                // Email inserita dal cliente quando compila il form
-                client_email: "",
-                //order_id: ""
             },
             // Array contenente i dati del cliente
             clients: [],
@@ -321,6 +313,7 @@ export default {
                     return true;
                 }
             }
+
             return false;
         },
         // Stampo nome sezione
@@ -335,6 +328,8 @@ export default {
         deleteItemPopup(order) {
             this.showDeleteItemPopup = true;
 
+            this.activePopup = true;
+
             this.checkIdOrders = order.id;
 
         },
@@ -342,25 +337,38 @@ export default {
 
             if (order.model_name.trim() !== "" && order.net.trim() !== "" && order.width.trim() !== "" && order.height.trim() !== "") {
                 this.showUpdateItemPopup = true;
+
+                this.activePopup = true;
             }
 
             this.checkIdOrders = order.id;
 
         },
+        nonLoSo() {
+            this.showCancelUpdateItemPopup = false;
+            this.activePopup = false;
+
+            document.body.classList.add("active-edit");
+        },
         cancelUpdateItemPopup(order) {
             this.showCancelUpdateItemPopup = true;
 
+            this.activePopup = true;
+
             this.checkIdOrders = order.id;
+
+            document.body.classList.remove("active-edit");
+
         },
         showEdit(order) {
+
+            document.body.classList.add("active-edit");
 
             for (const key in order) {
                 if (order.hasOwnProperty(key)) {
                     this.oldOrder[key] = order[key];
                 }
             }
-
-            this.enableButtons = true;
 
             this.showSelectModelText = false;
 
@@ -373,8 +381,6 @@ export default {
                 }
             }
 
-            //this.showEditInputs === index;
-
             if (this.showEditInputs === order.id) {
 
                 this.showEditInputs = null;
@@ -385,9 +391,10 @@ export default {
             }
         },
         hideEdit(order) {
+
             this.showEditInputs = null;
 
-            this.enableButtons = false;
+            this.activePopup = false;
 
             this.showCancelUpdateItemPopup = false;
 
@@ -548,7 +555,10 @@ export default {
         hiddenAddedItemPopup() {
             this.showAddedItemPopup = false;
 
-            this.enablePlusMinus = true;
+            this.activePopup = false;
+
+            //this.enablePlusMinus = true;
+
         },
         // Metodo per aggiungere una zanzariera
         addZanz() {
@@ -574,6 +584,7 @@ export default {
                         if (success) {
                             this.getOrder();
                             this.showAddedItemPopup = true;
+                            this.activePopup = true;
                         }
 
                     })
@@ -637,6 +648,7 @@ export default {
                     if (success) {
                         this.getOrder();
                         this.showDeleteItemPopup = false;
+                        this.activePopup = false;
                     }
                 })
                 .catch(error => console.error(error));
@@ -697,6 +709,8 @@ export default {
 
                         // Se success = true richiamo getClient, aggiorno dati cliente
                         if (success) {
+
+
                             this.getOrder();
                         }
 
@@ -704,8 +718,9 @@ export default {
                     .catch(error => console.error(error.response.data));
 
                 this.showEditInputs = null;
-                this.enableButtons = false;
                 this.showUpdateItemPopup = false;
+                this.activePopup = false;
+                document.body.classList.remove("active-edit");
                 // this.showSelectModelText = false;
             }
         },
@@ -887,6 +902,7 @@ export default {
                     this.store.colors[i].active = false;
                 }
             }
+
         },
         scrollToTop() {
             window.scrollTo(0, 0);
@@ -933,8 +949,17 @@ export default {
 
         // Ottengo valore tipologia
         this.newOrder.typology = this.zanzs[0].name;
+
     },
     updated() {
+
+        // Aggiungi la classe quando mostri il popup
+        if (this.activePopup) {
+            document.body.classList.add('active-popup');
+        }
+        else {
+            document.body.classList.remove('active-popup');
+        }
 
         if (this.currentStep === 4) {
             const blurredImageDiv = document.querySelector(".thank-you");
@@ -1219,218 +1244,198 @@ export default {
                         </h2>
 
                         <!-- Blocco popup -->
-                        <div class="div-popup">
-                            <!-- Elenco zanzariere preventivo -->
-                            <ul v-if="orders.length !== 0" class="list-ul">
-                                <li v-for="order in orders" :key="order.id" class="list-order"
-                                    :class="{ 'edit': showEditInputs === order.id }">
+                        <!-- Elenco zanzariere preventivo -->
+                        <ul v-if="orders.length !== 0" class="list-ul">
+                            <li v-for="order in orders" :key="order.id" class="list-order"
+                                :class="{ 'edit': showEditInputs === order.id }">
 
-                                    <div class="list-order-div" v-if="showEditInputs !== order.id">
-                                        <span>
-                                            {{ order.typology.replace(/(\([^)]*\)|\d+)/g, "") }} | {{
-                                                order.model_name.charAt(0).toUpperCase() +
-                                                order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }}
-                                            | {{ order.net }} |
-                                            {{ order.color_name }}
-                                        </span>
+                                <div class="list-order-div" v-if="showEditInputs !== order.id">
+                                    <span>
+                                        {{ order.typology.replace(/(\([^)]*\)|\d+)/g, "") }} | {{
+                                            order.model_name.charAt(0).toUpperCase() +
+                                            order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }}
+                                        | {{ order.net }} |
+                                        {{ order.color_name }}
+                                    </span>
 
-                                        <span>
-                                            L: {{ order.width }} cm x H: {{ order.height }} cm
-                                        </span>
+                                    <span>
+                                        L: {{ order.width }} cm x H: {{ order.height }} cm
+                                    </span>
 
-                                        <span class="quantity">
-                                            <div class="text">
-                                                Quantit&agrave;:
-                                                <div class="number">
-                                                    {{ order.quantity }}
-                                                </div>
+                                    <span class="quantity">
+                                        <div class="text">
+                                            Quantit&agrave;:
+                                            <div class="number">
+                                                {{ order.quantity }}
                                             </div>
-                                        </span>
-                                    </div>
-
-                                    <!-- Parte dove puoi modificare l'ordine -->
-                                    <div v-if="showEditInputs === order.id" class="list-order-div"
-                                        :class="{ 'edited': showEditInputs == order.id }">
-
-                                        <!-- Tipologia -->
-                                        <select @change="selectTypo($event, order)" class="select-typology"
-                                            v-model="order.typology" title="Modifica la tipologia" required>
-                                            <option :value="order.typology" disabled selected hidden>
-                                                {{ order.typology.replace(/[0-9]{1,2}$/, '') }}
-                                            </option>
-                                            <option :value="zanz.name + index" v-for="(zanz, index) in zanzs" :key="index">
-                                                {{ zanz.name }}
-                                            </option>
-                                        </select>
-
-                                        <!-- Modello -->
-                                        <select v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex"
-                                            :class="{ 'select-none': !zanz.activeSelect }" class="select-model"
-                                            @change="showSelectModelText = false" v-model="order.model_name"
-                                            title="Modifica il modello" required>
-                                            <option :value="order.model_name" disabled hidden v-if="!showSelectModelText">
-                                                {{ order.model_name.charAt(0).toUpperCase() +
-                                                    order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }}
-                                            </option>
-                                            <option value="" disabled hidden v-else>
-                                                Seleziona il modello
-                                            </option>
-                                            <option v-for="(nameModel, index) in zanz.models" :key="index">
-                                                {{ nameModel.charAt(0).toUpperCase() +
-                                                    nameModel.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }}
-                                            </option>
-                                        </select>
-
-                                        <!-- Rete -->
-                                        <select class="select-net" v-model="order.net" title="Modifica il tipo di rete"
-                                            required>
-                                            <option :value="order.net" disabled hidden>
-                                                {{ order.net }}
-                                            </option>
-                                            <option v-for="(net, netIndex) in nets" :key="netIndex"
-                                                :class="{ 'visible': showNetEditItem || netIndex === 0 || netIndex === 1 }">
-                                                {{ net }}
-                                            </option>
-                                        </select>
-
-                                        <!-- Colore -->
-                                        <select class="select-color" v-model="order.color_name" title="Modifica il colore"
-                                            required>
-                                            <option value="" disabled selected>
-                                                {{ order.color_name }}
-                                            </option>
-                                            <optgroup v-for="color in store.colors" :label="color.typology">
-                                                <option v-for="colorName in color.colorInfo">{{ colorName.name }}
-                                                </option>
-                                            </optgroup>
-                                        </select>
-
-                                        <!-- Larghezza -->
-                                        <div class="width-edit">
-                                            <label>Larghezza:</label> <input type="text" v-model="order.width"
-                                                title="Modifica la larghezza" required>
                                         </div>
-
-                                        <!-- Altezza -->
-                                        <div class="height-edit">
-                                            <label>Altezza:</label> <input type="text" v-model="order.height"
-                                                title="Modifica l'altezza" required>
-                                        </div>
-
-                                        <!-- Quantita' -->
-                                        <span class="quantity" title="Modifica la quantità">
-                                            <div class="text">
-                                                Quantit&agrave;:
-                                                <span class="number">
-                                                    {{ order.quantity }}
-                                                </span>
-                                            </div>
-                                            <div class="minus-plus" v-if="showEditInputs !== null">
-                                                <button @click="order.quantity++"
-                                                    :disabled="showUpdateItemPopup || showCancelUpdateItemPopup">
-                                                    <i class="fa-solid fa-angle-up"></i>
-                                                </button>
-                                                <button @click="minus(order)"
-                                                    :disabled="showUpdateItemPopup || showCancelUpdateItemPopup">
-                                                    <i class="fa-solid fa-angle-down"></i>
-                                                </button>
-                                            </div>
-                                        </span>
-                                    </div>
-
-                                    <div v-if="showEditInputs !== order.id">
-                                        <!-- Bottone modifica -->
-                                        <button @click="showEdit(order)" class="little-button"
-                                            :disabled="showAddedItemPopup && !enablePlusMinus || enableButtons || showDeleteItemPopup"
-                                            title="Modifica la zanzariera"
-                                            :class="{ 'disabled': showAddedItemPopup && !enablePlusMinus || enableButtons || showDeleteItemPopup }">
-                                            <i class="fa-solid fa-pencil"></i>
-                                        </button>
-
-                                        <!-- Bottone elimina -->
-                                        <button @click="deleteItemPopup(order)" class="little-button"
-                                            :disabled="showAddedItemPopup && !enablePlusMinus && orders.length === 1 || enableButtons || showDeleteItemPopup"
-                                            title="Elimina la zanzariera"
-                                            :class="{ 'disabled': showAddedItemPopup && !enablePlusMinus || enableButtons || showDeleteItemPopup }">
-                                            <i class="fa-regular fa-trash-can"></i>
-                                        </button>
-                                    </div>
-
-                                    <div v-else>
-                                        <!-- Bottone annulla modifiche -->
-                                        <button @click="cancelUpdateItemPopup(order)" class="little-button cancel"
-                                            title="Annulla le modifiche"
-                                            :disabled="showDeleteItemPopup || showUpdateItemPopup || showUpdateItemPopup || showCancelUpdateItemPopup"
-                                            :class="{ 'disabled': showDeleteItemPopup || showUpdateItemPopup || showUpdateItemPopup || showCancelUpdateItemPopup }">
-                                            <i class="fa-solid fa-circle-xmark"></i>
-                                        </button>
-
-                                        <!-- Bottone aggiorna modifiche -->
-                                        <button @click="updateItemPopup(order)" class="little-button confirm"
-                                            title="Conferma le modifiche"
-                                            :disabled="showDeleteItemPopup || showUpdateItemPopup || showUpdateItemPopup || showCancelUpdateItemPopup"
-                                            :class="{ 'disabled': showDeleteItemPopup || showUpdateItemPopup || showUpdateItemPopup || showCancelUpdateItemPopup }">
-                                            <i class="fa-solid fa-circle-check"></i>
-                                        </button>
-                                    </div>
-
-                                    <!-- Popup per confermare l'eliminazione di un elemento dalla lista -->
-                                    <div class="popup" v-if="showDeleteItemPopup"
-                                        :class="{ 'id': checkIdOrders === order.id }">
-                                        Confermi di voler eliminare l'ordine dalla lista&quest;
-
-                                        <button @click="showDeleteItemPopup = false">
-                                            Annulla
-                                        </button>
-
-                                        <button @click="deleteModel(order)">Conferma</button>
-                                    </div>
-
-                                    <!-- Popup per confermare le modifiche effettuate di un elemento -->
-                                    <div class="popup" v-if="showUpdateItemPopup"
-                                        :class="{ 'id': checkIdOrders === order.id }">
-                                        <div>
-                                            Confermi le modifiche effettuate&quest;
-
-                                            <button @click="showUpdateItemPopup = false">
-                                                Annulla
-                                            </button>
-
-                                            <button @click="editOrder(order)">Conferma</button>
-                                        </div>
-
-                                        <div>
-                                            Modifiche effettuate!
-                                        </div>
-                                    </div>
-
-                                    <!-- Popup per confermare l'annullamento delle modifiche di un elemento -->
-                                    <div class="popup" v-if="showCancelUpdateItemPopup"
-                                        :class="{ 'id': checkIdOrders === order.id }">
-                                        Confermi di voler annullare le modifiche&quest;
-
-                                        <button @click="showCancelUpdateItemPopup = false">
-                                            Annulla
-                                        </button>
-
-                                        <button @click="hideEdit(order)">Conferma</button>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <!-- Popup messaggio -->
-                            <div class="popup" v-if="showAddedItemPopup && !enablePlusMinus">
-                                <p>
-                                <div>Zanzariera aggiunta con successo&excl;</div>
-                                Puoi aggiungere altre zanzariere ricompilando i campi o
-                                proseguire con il bottone "Conferma le zanzariere".
-                                </p>
-
-                                <div @click="hiddenAddedItemPopup" class="ok-popup">
-                                    OK
+                                    </span>
                                 </div>
-                            </div>
-                        </div>
+
+                                <!-- Parte dove puoi modificare l'ordine -->
+                                <div v-if="showEditInputs === order.id" class="list-order-div"
+                                    :class="{ 'edited': showEditInputs == order.id }">
+
+                                    <!-- Tipologia -->
+                                    <select @change="selectTypo($event, order)" class="select-typology"
+                                        v-model="order.typology" title="Modifica la tipologia" required>
+                                        <option :value="order.typology" disabled selected hidden>
+                                            {{ order.typology.replace(/[0-9]{1,2}$/, '') }}
+                                        </option>
+                                        <option :value="zanz.name + index" v-for="(zanz, index) in zanzs" :key="index">
+                                            {{ zanz.name }}
+                                        </option>
+                                    </select>
+
+                                    <!-- Modello -->
+                                    <select v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex"
+                                        :class="{ 'select-none': !zanz.activeSelect }" class="select-model"
+                                        @change="showSelectModelText = false" v-model="order.model_name"
+                                        title="Modifica il modello" required>
+                                        <option :value="order.model_name" disabled hidden v-if="!showSelectModelText">
+                                            {{ order.model_name.charAt(0).toUpperCase() +
+                                                order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }}
+                                        </option>
+                                        <option value="" disabled hidden v-else>
+                                            Seleziona il modello
+                                        </option>
+                                        <option v-for="(nameModel, index) in zanz.models" :key="index">
+                                            {{ nameModel.charAt(0).toUpperCase() +
+                                                nameModel.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }}
+                                        </option>
+                                    </select>
+
+                                    <!-- Rete -->
+                                    <select class="select-net" v-model="order.net" title="Modifica il tipo di rete"
+                                        required>
+                                        <option :value="order.net" disabled hidden>
+                                            {{ order.net }}
+                                        </option>
+                                        <option v-for="(net, netIndex) in nets" :key="netIndex"
+                                            :class="{ 'visible': showNetEditItem || netIndex === 0 || netIndex === 1 }">
+                                            {{ net }}
+                                        </option>
+                                    </select>
+
+                                    <!-- Colore -->
+                                    <select class="select-color" v-model="order.color_name" title="Modifica il colore"
+                                        required>
+                                        <option value="" disabled selected>
+                                            {{ order.color_name }}
+                                        </option>
+                                        <optgroup v-for="color in store.colors" :label="color.typology">
+                                            <option v-for="colorName in color.colorInfo">{{ colorName.name }}
+                                            </option>
+                                        </optgroup>
+                                    </select>
+
+                                    <!-- Larghezza -->
+                                    <div class="width-edit">
+                                        <label>Larghezza:</label> <input type="text" v-model="order.width"
+                                            title="Modifica la larghezza" required>
+                                    </div>
+
+                                    <!-- Altezza -->
+                                    <div class="height-edit">
+                                        <label>Altezza:</label> <input type="text" v-model="order.height"
+                                            title="Modifica l'altezza" required>
+                                    </div>
+
+                                    <!-- Quantita' -->
+                                    <span class="quantity" title="Modifica la quantità">
+                                        <div class="text">
+                                            Quantit&agrave;:
+                                            <span class="number">
+                                                {{ order.quantity }}
+                                            </span>
+                                        </div>
+                                        <div class="minus-plus" v-if="showEditInputs !== null">
+                                            <a @click="order.quantity++">
+                                                <i class="fa-solid fa-angle-up"></i>
+                                            </a>
+                                            <a @click="minus(order)">
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                        </div>
+                                    </span>
+                                </div>
+
+                                <div v-if="showEditInputs !== order.id">
+                                    <!-- Bottone modifica -->
+                                    <a @click="showEdit(order)" class="little-button" title="Modifica la zanzariera">
+                                        <i class="fa-solid fa-pencil"></i>
+                                    </a>
+
+                                    <!-- Bottone elimina -->
+                                    <a @click="deleteItemPopup(order)" class="little-button" title="Elimina la zanzariera">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </a>
+                                </div>
+
+                                <div v-else :class="{ 'edited': showEditInputs === order.id }">
+                                    <!-- Bottone annulla modifiche -->
+                                    <a @click="cancelUpdateItemPopup(order)" class="little-button cancel"
+                                        title="Annulla le modifiche">
+                                        <i class="fa-solid fa-circle-xmark"></i>
+                                    </a>
+
+                                    <!-- Bottone aggiorna modifiche -->
+                                    <a @click="updateItemPopup(order)" class="little-button confirm"
+                                        title="Conferma le modifiche">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                    </a>
+                                </div>
+
+
+                                <!-- Popup messaggio -->
+                                <div class="popup" v-if="showAddedItemPopup">
+                                    <h6>Zanzariera aggiunta con successo&excl;</h6>
+
+                                    <span>
+                                        Puoi aggiungere altre zanzariere ricompilando i campi o
+                                        proseguire con il bottone "Conferma le zanzariere".
+                                    </span>
+
+                                    <a @click="hiddenAddedItemPopup">
+                                        OK
+                                    </a>
+                                </div>
+
+                                <!-- Popup per confermare l'eliminazione di un elemento dalla lista -->
+                                <div class="popup" v-if="showDeleteItemPopup" :class="{ 'id': checkIdOrders === order.id }">
+                                    Confermi di voler eliminare l'ordine dalla lista&quest;
+
+                                    <a @click="showDeleteItemPopup = false, activePopup = false">
+                                        Annulla
+                                    </a>
+
+                                    <a @click="deleteModel(order)">Conferma</a>
+                                </div>
+
+                                <!-- Popup per confermare le modifiche effettuate di un elemento -->
+                                <div class="popup" v-if="showUpdateItemPopup" :class="{ 'id': checkIdOrders === order.id }">
+                                    Confermi le modifiche effettuate&quest;
+
+                                    <a @click="showUpdateItemPopup = false, activePopup = false">
+                                        Annulla
+                                    </a>
+
+                                    <a @click="editOrder(order)">Conferma</a>
+                                </div>
+
+                                <!-- Popup per confermare l'annullamento delle modifiche di un elemento -->
+                                <div class="popup" v-if="showCancelUpdateItemPopup"
+                                    :class="{ 'id': checkIdOrders === order.id }">
+                                    Confermi di voler annullare le modifiche&quest;
+
+                                    <a @click="nonLoSo()">
+                                        Annulla
+                                    </a>
+
+                                    <a @click="hideEdit(order)">Conferma</a>
+                                </div>
+                            </li>
+                        </ul>
 
                         <!-- Textarea -->
                         <div class="textarea" :class="{ 'padding': orders.length === 0 }">
@@ -1446,8 +1451,7 @@ export default {
                         <div class="form-button confirm">
                             <!-- <button @click="prevStep" class="button" id="buttons">Torna indietro</button> -->
                             <input type="submit" @click="orderSubmit" class="button" id="buttons"
-                                v-if="orders.length !== 0 && !enableButtons && !showDeleteItemPopup"
-                                value="Conferma le zanzariere">
+                                :disabled="orders.length === 0" value="Conferma le zanzariere">
                         </div>
 
                     </div>
@@ -1607,10 +1611,61 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-.prova {
-    background-color: red;
+
+// .edited {
+//     position: relative;
+//     z-index: 200;
+// }
+
+.popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #fff;
+    width: 400px;
+    padding: 10px 40px;
+    height: 200px;
+    position: fixed;
+    left: 50%;
+    z-index: 200;
+    color: #000;
+    border-radius: 5px;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, .1);
+    animation: opacity 1s ease;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    //pointer-events: auto;
+
+    &.id {
+        z-index: 300;
+    }
+
+    h6 {
+        font-size: 1.1rem;
+    }
+
+    a {
+        background-color: #686868;
+        color: #fff;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 5px;
+        margin: 0 3px;
+    }
 }
 
+@keyframes opacity {
+    0% {
+        opacity: 0;
+        //transform: translate(-50%, 20px);
+    }
+
+    100% {
+        opacity: 1;
+        //transform: translate(-50%, 0);
+    }
+}
 
 .option-none,
 .select-none {
@@ -1836,67 +1891,6 @@ section {
     margin: 0 auto;
     text-align: center;
     padding: 60px 40px 40px 40px;
-    position: relative;
-
-    .div-popup {
-        position: relative;
-    }
-
-    .popup {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        background-color: #fff;
-        width: 400px;
-        padding: 0 40px;
-        height: 200px;
-        position: absolute;
-        left: 50%;
-        z-index: 50;
-        color: #000;
-        border-radius: 5px;
-        box-shadow: 0 3px 2px rgba(0, 0, 0, .5);
-        animation: fade-in-down 2s ease;
-        transform: translate(-50%, 0);
-        top: 10%;
-
-        &.id {
-            z-index: 80;
-        }
-
-        p {
-            div {
-                font-weight: bold;
-            }
-        }
-
-        .ok-popup,
-        button {
-            background-color: #686868;
-            color: #fff;
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 5px;
-        }
-
-        button {
-            border: 0;
-            margin: 0 3px;
-        }
-    }
-
-    @keyframes fade-in-down {
-        0% {
-            opacity: 0;
-            transform: translate(-50%, -20px);
-        }
-
-        100% {
-            opacity: 1;
-            transform: translate(-50%, 0);
-        }
-    }
 
     hr {
         margin: 60px auto;
@@ -1981,6 +1975,10 @@ section {
             padding: 2px 8px;
             border-radius: 50px;
 
+            svg {
+                padding-top: 3px;
+            }
+
             &.left {
                 left: 0;
             }
@@ -2001,6 +1999,11 @@ section {
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
+
+            &.edit {
+                pointer-events: auto;
+            }
+
             //padding: 20px 5px;
             //align-items: flex-end;
 
@@ -2023,6 +2026,9 @@ section {
                 &.edited {
                     width: 900px;
                     flex-wrap: wrap;
+                    //pointer-events: default;
+                    //z-index: 200;
+                    //position: relative;
 
                     .quantity {
                         height: 40px;
@@ -2085,12 +2091,11 @@ section {
 
                 .minus-plus {
 
-                    button {
+                    a {
                         display: block;
                         background-color: #d6d6d6;
                         padding: 1px 2px;
                         border-radius: 50px;
-                        border: 0;
                         font-size: 0.6rem;
                         margin: 6px 0;
                         cursor: pointer;
@@ -2125,14 +2130,15 @@ section {
 
             .little-button {
                 cursor: pointer;
+                display: inline-block;
                 border-radius: 50px;
-                border: 0;
                 color: #912020;
                 background-color: #fff;
                 font-size: 1rem;
                 font-weight: 500;
                 width: 34px;
                 height: 34px;
+                line-height: 34px;
                 margin: 0 8px;
 
                 &.confirm {
@@ -2141,10 +2147,6 @@ section {
 
                 &.cancel {
                     color: red;
-                }
-
-                &.disabled {
-                    color: gray;
                 }
 
                 svg {
