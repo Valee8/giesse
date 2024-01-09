@@ -15,9 +15,15 @@ export default {
     name: 'Preventivo',
     data() {
         return {
-            activePopup: false,
+            // store (dall'import di store.js)
             store,
+            // activePopup - Per verificare che un popup sia presente, in questo modo posso bloccare il contenuto attorno al popup e non far interagire l'utente con nient'altro nella pagina fino a quando il popup non scompare
+            activePopup: false,
+
+            // (da controllare domani) - per sovrapporre con z-index il popup dell'ordine selezionato agli altri popup tramite css (ne appare uno per ogni ordine, hanno position: absolute quindi sono uno sopra l'altro)
             checkIdOrders: null,
+
+            // Oggetto di appoggio per salvarmi i dati di order se nella modifica dei dati l'utente sceglie di non confermare le modifiche effettuate, in questo modo i dati nel dom non vengono aggiornati, come invece accadrebbe senza questo oggetto
             oldOrder: {
                 typology: "",
                 model_name: "",
@@ -27,32 +33,57 @@ export default {
                 quantity: "",
                 color_name: ""
             },
+            // Oggetto di appoggio per salvarmi i dati di client se nella modifica dei dati l'utente sceglie di non confermare le modifiche effettuate, in questo modo i dati nel dom non vengono aggiornati, come invece accadrebbe senza questo oggetto
+            oldClient: {
+                typology: "",
+                name: "",
+                surname: "",
+                agency_name: "",
+                vat_number: "",
+                client_email: "",
+                confirm_client_email: "",
+                telephone_number: "",
+                city_of_residence: ""
+            },
+
+            // showSelectModelText per mostrare e nascondere la scritta "Seleziona il modello" durante la modifica dei dati, appare una volta che l'utente ha scelto una tipologia
             showSelectModelText: false,
+
+            // Per salvarmi l'id di order in modo che se premo il tasto 'modifica' per la modifica di un ordine mi appaia l'ordine selezionato
             showEditInputs: null,
+
+            // Inizio dati per mostrare o nascondere i popup
             showDeleteItemPopup: false,
             showUpdateItemPopup: false,
             showCancelUpdateItemPopup: false,
 
-
-            enableButtonThirdStep: false,
-            editClientInfo: false,
-            showError: false,
-            clientId: "",
-            showNet: true,
-            showNetEditItem: true,
-            // Per attivare i bottoni plus e minus e il bottone elimina (icona cestino) degli ordini dopo che il popup e' scomparso
-            //enablePlusMinus: false,
             // Per mostrare il popup se aggiungo una zanzariera
             showAddedItemPopup: false,
+
+            // Fine dati per mostrare o nascondere i popup
+
+            enableButtonThirdStep: false,
+
+            editClientInfo: false,
+
+            // Messaggio di errore se l'invio dei dati (sia step 1 per il cliente, sia step2 per gli ordini) non e' andato a buon fine
+            showError: false,
+            // Mi salvo l'id di client
+            clientId: "",
+            // Per mostrare il tipo di rete a seconda del modello selezionato tramite lo slider (alcune non hanno oscuranti e li nascondo showNet = false)
+            showNet: true,
+            // Per mostrare il tipo di rete a seconda del modello selezionato quando sono nella modifica dei dati (alcune non hanno oscuranti e li nascondo showNetEditItem = false)
+            showNetEditItem: true,
             // Per far apparire il messaggio se le e-mail coincidono o no
             showMessageEmailConfirm: "",
+            // fixRequiredProblem: Per risolvere il problema del messaggio predefinito del browser che mi chiede di selezionare un modello dallo slider (mi dice che il dato da inserire e' obbligatorio quando non dovrebbe)
             fixRequiredProblem: false,
             // Per verificare che ci siano le condizioni per passare dallo step 2 allo step 3
             secondStepValid: false,
             // Step corrente del preventivo
             currentStep: 1,
             // Abilito pulsante invia a seconda che enableButton sia true o false
-            enableButton: false,
+            enableButtonFirstStep: false,
             // Oggetto che contiene le informazioni di un cliente
             newClient: {
                 // Tipologia (Privato o Azienda)
@@ -69,6 +100,7 @@ export default {
                 client_email: "",
                 // Conferma Email
                 confirm_client_email: "",
+                // Destinatario email
                 owner_email: "",
                 // Numero di telefono
                 telephone_number: "",
@@ -276,6 +308,7 @@ export default {
                 "Oscurante bianco",
                 "Oscurante nero",
             ],
+            // Elenco tipologie cliente
             clientTypologies: [
                 "Privato",
                 "Azienda"
@@ -298,18 +331,18 @@ export default {
         firstStepValid() {
             // Se email, email di conferma, numero di telefono e comune non hanno spazi vuoti all'inizio alla fine e se email e email di conferma coincidono allora assegno true a enableButton
             if (this.newClient.client_email.trim() !== "" && this.newClient.confirm_client_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.client_email === this.newClient.confirm_client_email && this.newClient.client_email.includes("@") && this.newClient.confirm_client_email.includes("@")) {
-                this.enableButton = true;
+                this.enableButtonFirstStep = true;
             }
 
             // Se la tipologia e' "Privato" i campi che non devono rimanere vuoti sono nome, cognome + quelli sopra 
             if (this.newClient.typology === "Privato") {
-                if (this.newClient.name.trim() !== "" && this.newClient.surname.trim() !== "" && this.enableButton) {
+                if (this.newClient.name.trim() !== "" && this.newClient.surname.trim() !== "" && this.enableButtonFirstStep) {
                     return true;
                 }
             }
             // Se la tipologia e' "Azienda" i campi che non devono rimanere vuoti sono nome azienda, partita iva + quelli sopra
             else if (this.newClient.typology === "Azienda") {
-                if (this.newClient.agency_name.trim() !== "" && this.newClient.vat_number.trim() !== "" && this.enableButton) {
+                if (this.newClient.agency_name.trim() !== "" && this.newClient.vat_number.trim() !== "" && this.enableButtonFirstStep) {
                     return true;
                 }
             }
@@ -344,7 +377,7 @@ export default {
             this.checkIdOrders = order.id;
 
         },
-        nonLoSo() {
+        CancelUpdateItem() {
             this.showCancelUpdateItemPopup = false;
             this.activePopup = false;
 
@@ -365,9 +398,7 @@ export default {
             document.body.classList.add("active-edit");
 
             for (const key in order) {
-                if (order.hasOwnProperty(key)) {
-                    this.oldOrder[key] = order[key];
-                }
+                this.oldOrder[key] = order[key];
             }
 
             this.showSelectModelText = false;
@@ -583,8 +614,6 @@ export default {
                         // Se tutto e' andato a buon fine richiamo this.getOrder e faccio apparire il popup 
                         if (success) {
                             this.getOrder();
-                            this.showAddedItemPopup = true;
-                            this.activePopup = true;
                         }
 
                     })
@@ -592,6 +621,10 @@ export default {
                         console.error(error);
                         this.showError = true;
                     });
+
+
+                this.showAddedItemPopup = true;
+                this.activePopup = true;
 
                 // Svuoto valori cosi' posso inserire nuove zanzariere
                 this.newOrder.quantity = "";
@@ -709,8 +742,6 @@ export default {
 
                         // Se success = true richiamo getClient, aggiorno dati cliente
                         if (success) {
-
-
                             this.getOrder();
                         }
 
@@ -724,33 +755,59 @@ export default {
                 // this.showSelectModelText = false;
             }
         },
+        showInfoClient(client) {
+
+            document.body.classList.add("active-edit");
+
+            for (const key in client) {
+                this.oldClient[key] = client[key];
+            }
+
+            this.editClientInfo = true;
+        },
+        hideInfoClient(client) {
+
+            document.body.classList.remove("active-edit");
+
+            for (const key in client) {
+                client[key] = this.oldClient[key];
+            }
+
+            this.editClientInfo = false;
+
+        },
         editInfoClient(client) {
 
-            if (client.name.trim() !== "" && client.surname.trim() !== "" && client.client_email.trim() !== "" && client.client_email.includes("@") && client.telephone_number.trim() !== "" && client.city_of_residence.trim() !== "") {
+            let bool = false;
+
+            // Se email, email di conferma, numero di telefono e comune non hanno spazi vuoti all'inizio alla fine e se email e email di conferma coincidono allora assegno true a enableButton
+            if (client.client_email.trim() !== "" && client.telephone_number.trim() !== "" && client.city_of_residence.trim() !== "" && client.client_email.includes("@")) {
                 this.enableButtonThirdStep = true;
             }
 
             // Se la tipologia e' "Privato" i campi che non devono rimanere vuoti sono nome, cognome + quelli sopra 
-            // if (this.newClient.typology === "Privato") {
-            //     if (this.newClient.name.trim() !== "" && this.newClient.surname.trim() !== "" && this.enableButtonThirdStep) {
-            //         return true;
-            //     }
-            // }
-            // // Se la tipologia e' "Azienda" i campi che non devono rimanere vuoti sono nome azienda, partita iva + quelli sopra
-            // else if (this.newClient.typology === "Azienda") {
-            //     if (this.newClient.agency_name.trim() !== "" && this.newClient.vat_number.trim() !== "" && this.enableButton) {
-            //         return true;
-            //     }
-            // }
+            if (client.typology === "Privato") {
+                if (client.name.trim() !== "" && client.surname.trim() !== "" && this.enableButtonThirdStep) {
+                    bool = true;
+                }
+            }
+            // Se la tipologia e' "Azienda" i campi che non devono rimanere vuoti sono nome azienda, partita iva + quelli sopra
+            else if (client.typology === "Azienda") {
+                if (client.agency_name.trim() !== "" && client.vat_number.trim() !== "" && this.enableButtonThirdStep) {
+                    bool = true;
+                }
+            }
 
-            if (this.enableButtonThirdStep) {
+            if (bool) {
 
-                axios.post(API_URL + 'infos/update/' + this.clientId, {
+                axios.post(API_URL + 'infoClients/update/' + this.clientId, {
+                    typology: client.typology,
                     name: client.name,
                     surname: client.surname,
                     agency_name: client.agency_name,
                     vat_number: client.vat_number,
                     client_email: client.client_email,
+                    confirm_client_email: client.client_email,
                     telephone_number: client.telephone_number,
                     city_of_residence: client.city_of_residence
                 })
@@ -767,6 +824,8 @@ export default {
                     .catch(error => console.error(error.response.data));
 
                 this.editClientInfo = false;
+                document.body.classList.remove("active-edit");
+
             }
         },
         // Metodo per diminuire quantita' ordini
@@ -870,20 +929,43 @@ export default {
             }
         },
         // Impedisco che questi campi possano contenere lettere e simboli
-        filterCharacters() {
-            this.newClient.telephone_number = this.newClient.telephone_number.replace(/\D/g, '');
-            this.newClient.vat_number = this.newClient.vat_number.replace(/\D/g, '');
+        filterCharacters(client) {
+            if (this.currentStep === 3) {
+                client.telephone_number = client.telephone_number.replace(/\D/g, '');
+                client.vat_number = client.vat_number.replace(/\D/g, '');
+            }
+            else {
+                this.newClient.telephone_number = this.newClient.telephone_number.replace(/\D/g, '');
+                this.newClient.vat_number = this.newClient.vat_number.replace(/\D/g, '');
+            }
         },
         // Impedisco che questi campi possano contenere dei numeri
-        filterNumbers() {
-            this.newClient.name = this.newClient.name.replace(/[0-9]/g, '');
-            this.newClient.surname = this.newClient.surname.replace(/[0-9]/g, '');
-            this.newClient.city_of_residence = this.newClient.city_of_residence.replace(/[0-9]/g, '');
+        filterNumbers(client) {
+
+            if (this.currentStep === 3) {
+
+                client.name = client.name.replace(/[0-9]/g, '');
+                client.surname = client.surname.replace(/[0-9]/g, '');
+                client.city_of_residence = client.city_of_residence.replace(/[0-9]/g, '');
+            }
+            else {
+                this.newClient.name = this.newClient.name.replace(/[0-9]/g, '');
+                this.newClient.surname = this.newClient.surname.replace(/[0-9]/g, '');
+                this.newClient.city_of_residence = this.newClient.city_of_residence.replace(/[0-9]/g, '');
+            }
+
         },
         // Impedisco che questi campi possano contenere lettere
-        filterSizes() {
-            this.newOrder.width = this.newOrder.width.replace(/^[a-zA-Z]*$/g, '');
-            this.newOrder.height = this.newOrder.height.replace(/^[a-zA-Z]*$/g, '');
+        filterSizes(order) {
+
+            if (this.showEditInputs === order.id) {
+                order.width = order.width.replace(/^[a-zA-Z]*$/g, '');
+                order.height = order.height.replace(/^[a-zA-Z]*$/g, '');
+            }
+            else {
+                this.newOrder.width = this.newOrder.width.replace(/^[a-zA-Z]*$/g, '');
+                this.newOrder.height = this.newOrder.height.replace(/^[a-zA-Z]*$/g, '');
+            }
         },
         // getColor mi permette di ottenere il nome e l'immagine del colore selezionati nello step 2
         getColor(index, colorIndex) {
@@ -958,6 +1040,10 @@ export default {
             document.body.classList.add('active-popup');
         }
         else {
+            document.body.classList.remove('active-popup');
+        }
+
+        if (this.showError) {
             document.body.classList.remove('active-popup');
         }
 
@@ -1170,10 +1256,10 @@ export default {
                             <label for="inputs">Inserisci: </label>
                             <span id="inputs">
                                 <input type="text" name="width" placeholder="Larghezza (in cm) *" v-model="newOrder.width"
-                                    @input="filterSizes" :required="fixRequiredProblem">
+                                    @input="filterSizes" :required="fixRequiredProblem" maxlength="6">
 
                                 <input type="text" name="height" placeholder="Altezza (in cm) *" v-model="newOrder.height"
-                                    @input="filterSizes" :required="fixRequiredProblem">
+                                    @input="filterSizes" :required="fixRequiredProblem" maxlength="6">
 
                                 <input type="number" name="quantity" placeholder="Quantità *" min="1"
                                     v-model="newOrder.quantity" :required="fixRequiredProblem">
@@ -1332,13 +1418,14 @@ export default {
                                     <!-- Larghezza -->
                                     <div class="width-edit">
                                         <label>Larghezza:</label> <input type="text" v-model="order.width"
-                                            title="Modifica la larghezza" required>
+                                            title="Modifica la larghezza" @input="filterSizes(order)" maxlength="6"
+                                            required>
                                     </div>
 
                                     <!-- Altezza -->
                                     <div class="height-edit">
                                         <label>Altezza:</label> <input type="text" v-model="order.height"
-                                            title="Modifica l'altezza" required>
+                                            title="Modifica l'altezza" @input="filterSizes(order)" maxlength="6" required>
                                     </div>
 
                                     <!-- Quantita' -->
@@ -1380,10 +1467,10 @@ export default {
                                     </a>
 
                                     <!-- Bottone aggiorna modifiche -->
-                                    <a @click="updateItemPopup(order)" class="little-button confirm"
+                                    <button @click="updateItemPopup(order)" class="little-button confirm"
                                         title="Conferma le modifiche">
                                         <i class="fa-solid fa-circle-check"></i>
-                                    </a>
+                                    </button>
                                 </div>
 
 
@@ -1428,7 +1515,7 @@ export default {
                                     :class="{ 'id': checkIdOrders === order.id }">
                                     Confermi di voler annullare le modifiche&quest;
 
-                                    <a @click="nonLoSo()">
+                                    <a @click="CancelUpdateItem()">
                                         Annulla
                                     </a>
 
@@ -1450,8 +1537,8 @@ export default {
                         <!-- Bottone per passare allo step successivo -->
                         <div class="form-button confirm">
                             <!-- <button @click="prevStep" class="button" id="buttons">Torna indietro</button> -->
-                            <input type="submit" @click="orderSubmit" class="button" id="buttons"
-                                :disabled="orders.length === 0" value="Conferma le zanzariere">
+                            <input type="submit" @click="orderSubmit" class="button" id="buttons" v-if="orders.length !== 0"
+                                value="Conferma le zanzariere">
                         </div>
 
                     </div>
@@ -1495,7 +1582,8 @@ export default {
                                 Comune: {{ client.city_of_residence }}
                             </li>
                             <li class="li-button">
-                                <button @click="editClientInfo = true" v-if="!editClientInfo">Modifica dati cliente</button>
+                                <button @click="showInfoClient(client)" v-if="!editClientInfo">Modifica dati
+                                    cliente</button>
                             </li>
                         </ul>
 
@@ -1512,21 +1600,21 @@ export default {
                             <div v-if="client.typology === 'Privato'">
                                 <li>
                                     <label>Nome:</label> <input type="text" v-model="client.name" :id="client.id"
-                                        maxlength="64" @input="filterNumbers" required>
+                                        maxlength="64" @input="filterNumbers(client)" required>
                                 </li>
                                 <li>
                                     <label>Cognome:</label> <input type="text" v-model="client.surname" :id="client.id"
-                                        maxlength="64" @input="filterNumbers" required>
+                                        maxlength="64" @input="filterNumbers(client)" required>
                                 </li>
                             </div>
                             <div v-else>
                                 <li>
                                     <label>Nome Azienda:</label> <input type="text" v-model="client.agency_name"
-                                        :id="client.id" maxlength="64" @input="filterNumbers" required>
+                                        :id="client.id" maxlength="64" required>
                                 </li>
                                 <li>
                                     <label>Partita Iva:</label> <input type="text" v-model="client.vat_number"
-                                        :id="client.id" maxlength="11" @input="filterCharacters" required>
+                                        :id="client.id" maxlength="11" @input="filterCharacters(client)" required>
                                 </li>
                             </div>
                             <li>
@@ -1535,15 +1623,15 @@ export default {
                             </li>
                             <li>
                                 <label>Telefono:</label> <input type="text" v-model="client.telephone_number"
-                                    :id="client.id" @input="filterCharacters" maxlength="10" required>
+                                    :id="client.id" @input="filterCharacters(client)" maxlength="10" required>
                             </li>
                             <li>
                                 <label>Comune:</label> <input type="text" v-model="client.city_of_residence" :id="client.id"
-                                    @input="filterNumbers" required>
+                                    @input="filterNumbers(client)" required>
                             </li>
 
                             <li class="li-button">
-                                <button class="cancel" @click="editClientInfo = false">Annulla</button>
+                                <button class="cancel" @click="hideInfoClient(client)">Annulla</button>
                                 <input class="update" type="submit" @click="editInfoClient(client)" value="Aggiorna dati">
                             </li>
                         </ul>
@@ -1797,6 +1885,10 @@ section {
         padding: 20px;
         max-width: 700px;
         margin: 0 auto;
+
+        &.info {
+            pointer-events: auto;
+        }
 
         .li-button {
             margin-top: 10px;
@@ -2128,6 +2220,12 @@ section {
                 margin: 0 8px;
             }
 
+            a {
+                &.little-button {
+                    line-height: 34px;
+                }
+            }
+
             .little-button {
                 cursor: pointer;
                 display: inline-block;
@@ -2138,8 +2236,8 @@ section {
                 font-weight: 500;
                 width: 34px;
                 height: 34px;
-                line-height: 34px;
                 margin: 0 8px;
+                border: 0;
 
                 &.confirm {
                     color: green;
