@@ -16,6 +16,7 @@ body {
 
     &.active-edit {
         pointer-events: none;
+        user-select: none;
     }
 
     &.active-popup {
