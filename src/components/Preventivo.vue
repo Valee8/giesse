@@ -15,6 +15,7 @@ export default {
     name: 'Preventivo',
     data() {
         return {
+
             // store (dall'import di store.js)
             store,
             // activePopup - Per verificare che un popup sia presente, in questo modo posso bloccare il contenuto attorno al popup e non far interagire l'utente con nient'altro nella pagina fino a quando il popup non scompare
@@ -358,6 +359,21 @@ export default {
         }
     },
     methods: {
+        changeTypology(typology) {
+            return typology.replace(/(\([^)]*\)|\d+)/g, "");
+
+        },
+        changeNameModel(model) {
+            model = model.charAt(0).toUpperCase() + model.slice(1).toLowerCase().replace(/(\([^)]*\)|\d+)/g, "").trimRight();
+
+            if (model.endsWith(".")) {
+                let albaAndSonia = model.charAt(0).toUpperCase() + model.toLowerCase().slice(1, -4) + model.slice(-4).toUpperCase();
+
+                return albaAndSonia;
+            }
+
+            return model;
+        },
         deleteItemPopup(order) {
             this.showDeleteItemPopup = true;
 
@@ -407,7 +423,7 @@ export default {
 
                 this.zanzs[i].activeSelect = false;
 
-                if (this.zanzs[i].name === order.typology.replace(/[0-9]{1,2}$/, "")) {
+                if (order.typology.includes(this.zanzs[i].name)) {
                     this.zanzs[i].activeSelect = true;
                 }
             }
@@ -435,7 +451,7 @@ export default {
         },
         selectTypo(event, order) {
 
-            let index = event.target.value;
+            let typologyName = event.target.value;
 
             this.showSelectModelText = true;
 
@@ -449,12 +465,12 @@ export default {
 
                 this.zanzs[i].activeSelect = false;
 
-                if (this.zanzs[i].name === index.replace(/[0-9]{1,2}$/, "")) {
+                if (typologyName.includes(this.zanzs[i].name)) {
                     this.zanzs[i].activeSelect = true;
                 }
             }
 
-            if (index.includes(6) || index.includes(7) || index.includes(8) || index.includes(9) || index.includes(10)) {
+            if (typologyName.includes(6) || typologyName.includes(7) || typologyName.includes(8) || typologyName.includes(9) || typologyName.includes(10)) {
                 this.showNetEditItem = false;
             }
             else {
@@ -1128,24 +1144,26 @@ export default {
                         <!-- Parte sinistra step 1 con gl input -->
                         <div class="first-step-left">
 
-                            <div v-if="newClient.typology === 'Privato' || newClient.typology === ''">
-                                <input type="text" v-model="newClient.name" placeholder="Nome *" @input="filterNumbers"
-                                    title="Inserisci il nome" maxlength="64" required>
-                                <input type="text" v-model="newClient.surname" placeholder="Cognome *"
+                            <div v-if="newClient.typology === 'Privato'">
+                                <input type="text" name="name" v-model="newClient.name" placeholder="Nome *"
+                                    @input="filterNumbers" title="Inserisci il nome" maxlength="64" required>
+                                <input type="text" name="surname" v-model="newClient.surname" placeholder="Cognome *"
                                     title="Inserisci il cognome" @input="filterNumbers" maxlength="64" required>
                             </div>
 
-                            <div v-else-if="newClient.typology === 'Azienda'">
-                                <input type="text" v-model="newClient.agency_name" placeholder="Nome Azienda *"
-                                    title="Inserisci il nome dell'azienda" maxlength="64" required>
-                                <input type="text" v-model="newClient.vat_number" placeholder="Partita Iva *" maxlength="11"
-                                    title="Inserisci la Partita Iva" @input="filterCharacters" required>
+                            <div v-else>
+                                <input type="text" name="agency_name" v-model="newClient.agency_name"
+                                    placeholder="Nome Azienda *" title="Inserisci il nome dell'azienda" maxlength="64"
+                                    required>
+                                <input type="text" name="vat_number" v-model="newClient.vat_number"
+                                    placeholder="Partita Iva *" maxlength="11" title="Inserisci la Partita Iva"
+                                    @input="filterCharacters" required>
                             </div>
 
-                            <input type="email" v-model="newClient.client_email" placeholder="E-mail *"
+                            <input type="email" name="client_email" v-model="newClient.client_email" placeholder="E-mail *"
                                 title="Inserisci l'email" maxlength="64" required>
-                            <input type="email" v-model="newClient.confirm_client_email" placeholder="Conferma e-mail *"
-                                maxlength="64" title="Conferma l'email" required>
+                            <input type="email" name="confirm_client_email" v-model="newClient.confirm_client_email"
+                                placeholder="Conferma e-mail *" maxlength="64" title="Conferma l'email" required>
 
                             <!-- Messaggio che fa capire se le email coincidono oppure no -->
                             <div v-if="showMessageEmailConfirm !== ''"
@@ -1159,10 +1177,12 @@ export default {
                                 Le email devono avere il formato corretto
                             </div> -->
 
-                            <input type="text" v-model="newClient.telephone_number" placeholder="Telefono *" maxlength="10"
-                                @input="filterCharacters" title="Inserisci il numero di telefono" required>
-                            <input type="text" v-model="newClient.city_of_residence" placeholder="Comune *"
-                                title="Inserisci il comune" @input="filterNumbers" maxlength="64" required>
+                            <input type="text" name="telephone_number" v-model="newClient.telephone_number"
+                                placeholder="Telefono *" maxlength="10" @input="filterCharacters"
+                                title="Inserisci il numero di telefono" required>
+                            <input type="text" name="city_of_residence" v-model="newClient.city_of_residence"
+                                placeholder="Comune *" title="Inserisci il comune" @input="filterNumbers" maxlength="64"
+                                required>
 
                             <div class="obligatory">
                                 i campi contrassegnati con &ast; sono obbligatori
@@ -1172,15 +1192,14 @@ export default {
                         <!-- Parte destra step 1 con gli input radio e il bottone completa i dati -->
                         <div class="first-step-right">
                             <div class="radios">
-                                <label for="privato">
-                                    <input type="radio" id="privato" value="Privato" v-model="newClient.typology"
-                                        @change="resetInputs"
-                                        :checked="newClient.typology === '' || newClient.typology === 'Privato'">
+                                <label>
+                                    <input type="radio" name="typology" value="Privato" v-model="newClient.typology"
+                                        @change="resetInputs" checked>
                                     Privato
                                 </label>
 
-                                <label for="azienda">
-                                    <input type="radio" id="azienda" value="Azienda" v-model="newClient.typology"
+                                <label>
+                                    <input type="radio" name="typology" value="Azienda" v-model="newClient.typology"
                                         @change="resetInputs">
                                     Azienda
                                 </label>
@@ -1206,7 +1225,7 @@ export default {
 
                         <!-- Parte sopra - slider -->
                         <div class="inputs-top">
-                            <div class="slider-preventivo" v-for="(zanz, index) in zanzs" :key="index"
+                            <div class="slider-preventivo" v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex"
                                 :class="{ 'active': zanz.active }">
 
                                 <!-- Titolo con modello zanzariera -->
@@ -1218,16 +1237,16 @@ export default {
                                 <div class="arrows-image">
                                     <div class="zanz-image">
                                         <img :src="zanz.image" :alt="zanz.name"
-                                            :class="{ 'giada': index === 3, 'plisse': index === 10, 'casper': index === 14 }">
+                                            :class="{ 'giada': zanzIndex === 3, 'plisse': zanzIndex === 10, 'casper': zanzIndex === 14 }">
                                     </div>
 
                                     <!-- Icona freccia indietro -->
-                                    <a class="arrow left" @click="sliderPrev(index)">
+                                    <a class="arrow left" @click="sliderPrev(zanzIndex)">
                                         <i class="fa-solid fa-chevron-left"></i>
                                     </a>
 
                                     <!-- Icona freccia avanti -->
-                                    <a class="arrow right" @click="sliderNext(index)">
+                                    <a class="arrow right" @click="sliderNext(zanzIndex)">
                                         <i class="fa-solid fa-chevron-right"></i>
                                     </a>
                                 </div>
@@ -1244,8 +1263,10 @@ export default {
                                     <option value="" disabled selected hidden>
                                         Seleziona il modello *
                                     </option>
-                                    <option v-for="(nameModel, index) in zanz.models" :value="nameModel" :key="index">
-                                        {{ nameModel }}</option>
+                                    <option v-for="(nameModel, modelIndex) in zanz.models" :value="nameModel"
+                                        :key="modelIndex">
+                                        {{ nameModel }}
+                                    </option>
                                 </select>
                             </span>
                         </div>
@@ -1253,23 +1274,23 @@ export default {
 
                         <!-- Input centrale - Larghezza, altezza e quantita -->
                         <div class="inputs-center">
-                            <label for="inputs">Inserisci: </label>
-                            <span id="inputs">
-                                <input type="text" name="width" placeholder="Larghezza (in cm) *" v-model="newOrder.width"
-                                    @input="filterSizes" :required="fixRequiredProblem" maxlength="6">
-
-                                <input type="text" name="height" placeholder="Altezza (in cm) *" v-model="newOrder.height"
-                                    @input="filterSizes" :required="fixRequiredProblem" maxlength="6">
-
-                                <input type="number" name="quantity" placeholder="Quantità *" min="1"
-                                    v-model="newOrder.quantity" :required="fixRequiredProblem">
+                            <span>
+                                Inserisci:
                             </span>
+                            <input type="text" name="width" placeholder="Larghezza (in cm) *" v-model="newOrder.width"
+                                @input="filterSizes" :required="fixRequiredProblem" maxlength="6">
+
+                            <input type="text" name="height" placeholder="Altezza (in cm) *" v-model="newOrder.height"
+                                @input="filterSizes" :required="fixRequiredProblem" maxlength="6">
+
+                            <input type="number" name="quantity" placeholder="Quantità *" min="1"
+                                v-model="newOrder.quantity" :required="fixRequiredProblem">
                         </div>
 
                         <!-- Input sotto - input radio scelta rete -->
                         <div class="inputs-bottom">
-                            <span v-for="(net, index) in nets" :key="index"
-                                :class="{ 'visible': showNet || index === 0 || index === 1 }">
+                            <span v-for="(net, netIndex) in nets" :key="netIndex"
+                                :class="{ 'visible': showNet || netIndex === 0 || netIndex === 1 }">
                                 <label>
                                     {{ net }}
                                     <input type="radio" name="net" :value="net" v-model="newOrder.net"
@@ -1289,8 +1310,8 @@ export default {
                         <!-- Tipologia colori -->
                         <div class="color-choice">
                             <div class="list-typologies">
-                                <div v-for="(typo, index) in store.colors" :key="index" class="typologies">
-                                    <div @click="changeColorTypology(index)" class="typology-name"
+                                <div v-for="(typo, typoIndex) in store.colors" :key="typoIndex" class="typologies">
+                                    <div @click="changeColorTypology(typoIndex)" class="typology-name"
                                         :class="{ 'selected': typo.active }">
                                         {{ typo.typology }}
                                     </div>
@@ -1298,11 +1319,11 @@ export default {
                             </div>
 
                             <!-- Nomi e immagini colori - parte sotto -->
-                            <div class="list-colors" v-for="(typo, index) in store.colors" :key="index"
+                            <div class="list-colors" v-for="(typo, typoIndex) in store.colors" :key="typoIndex"
                                 :class="{ 'selected': typo.active }">
                                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                                     <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
-                                        <input type="radio" name="color" @click="getColor(index, colorIndex)"
+                                        <input type="radio" name="color_name" @change="getColor(typoIndex, colorIndex)"
                                             :required="fixRequiredProblem" class="radio">
                                         <!-- Immagine colore -->
                                         <img :src="color.image" :alt="color.name" class="color-image">
@@ -1337,10 +1358,9 @@ export default {
 
                                 <div class="list-order-div" v-if="showEditInputs !== order.id">
                                     <span>
-                                        {{ order.typology.replace(/(\([^)]*\)|\d+)/g, "") }} | {{
-                                            order.model_name.charAt(0).toUpperCase() +
-                                            order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }}
-                                        | {{ order.net }} |
+                                        {{ changeTypology(order.typology) }} |
+                                        {{ changeNameModel(order.model_name) }} |
+                                        {{ order.net }} |
                                         {{ order.color_name }}
                                     </span>
 
@@ -1363,37 +1383,36 @@ export default {
                                     :class="{ 'edited': showEditInputs == order.id }">
 
                                     <!-- Tipologia -->
-                                    <select @change="selectTypo($event, order)" class="select-typology"
+                                    <select name="typology" @change="selectTypo($event, order)" class="select-typology"
                                         v-model="order.typology" title="Modifica la tipologia" required>
                                         <option :value="order.typology" disabled selected hidden>
-                                            {{ order.typology.replace(/[0-9]{1,2}$/, '') }}
+                                            {{ order.typology.replace(/[0-9]{1,2}$/, "") }}
                                         </option>
-                                        <option :value="zanz.name + index" v-for="(zanz, index) in zanzs" :key="index">
+                                        <option :value="zanz.name + zanzIndex" v-for="(zanz, zanzIndex) in zanzs"
+                                            :key="zanzIndex">
                                             {{ zanz.name }}
                                         </option>
                                     </select>
 
                                     <!-- Modello -->
-                                    <select v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex"
+                                    <select name="model_name" v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex"
                                         :class="{ 'select-none': !zanz.activeSelect }" class="select-model"
                                         @change="showSelectModelText = false" v-model="order.model_name"
                                         title="Modifica il modello" required>
                                         <option :value="order.model_name" disabled hidden v-if="!showSelectModelText">
-                                            {{ order.model_name.charAt(0).toUpperCase() +
-                                                order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }}
+                                            {{ changeNameModel(order.model_name) }}
                                         </option>
                                         <option value="" disabled hidden v-else>
                                             Seleziona il modello
                                         </option>
-                                        <option v-for="(nameModel, index) in zanz.models" :key="index">
-                                            {{ nameModel.charAt(0).toUpperCase() +
-                                                nameModel.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }}
+                                        <option v-for="(nameModel, nameModelIndex) in zanz.models" :key="nameModelIndex">
+                                            {{ changeNameModel(nameModel) }}
                                         </option>
                                     </select>
 
                                     <!-- Rete -->
-                                    <select class="select-net" v-model="order.net" title="Modifica il tipo di rete"
-                                        required>
+                                    <select name="net" class="select-net" v-model="order.net"
+                                        title="Modifica il tipo di rete" required>
                                         <option :value="order.net" disabled hidden>
                                             {{ order.net }}
                                         </option>
@@ -1404,8 +1423,8 @@ export default {
                                     </select>
 
                                     <!-- Colore -->
-                                    <select class="select-color" v-model="order.color_name" title="Modifica il colore"
-                                        required>
+                                    <select name="color_name" class="select-color" v-model="order.color_name"
+                                        title="Modifica il colore" required>
                                         <option value="" disabled selected>
                                             {{ order.color_name }}
                                         </option>
@@ -1417,15 +1436,21 @@ export default {
 
                                     <!-- Larghezza -->
                                     <div class="width-edit">
-                                        <label>Larghezza:</label> <input type="text" v-model="order.width"
-                                            title="Modifica la larghezza" @input="filterSizes(order)" maxlength="6"
-                                            required>
+                                        <label>
+                                            Larghezza:
+                                            <input type="text" name="width" v-model="order.width"
+                                                title="Modifica la larghezza" @input="filterSizes(order)" maxlength="6"
+                                                required>
+                                        </label>
                                     </div>
 
                                     <!-- Altezza -->
                                     <div class="height-edit">
-                                        <label>Altezza:</label> <input type="text" v-model="order.height"
-                                            title="Modifica l'altezza" @input="filterSizes(order)" maxlength="6" required>
+                                        <label>Altezza:
+                                            <input type="text" name="height" v-model="order.height"
+                                                title="Modifica l'altezza" @input="filterSizes(order)" maxlength="6"
+                                                required>
+                                        </label>
                                     </div>
 
                                     <!-- Quantita' -->
@@ -1526,7 +1551,7 @@ export default {
 
                         <!-- Textarea -->
                         <div class="textarea" :class="{ 'padding': orders.length === 0 }">
-                            <textarea v-model="message" rows="8" placeholder="Messaggio"
+                            <textarea name="message" v-model="message" rows="8" placeholder="Messaggio"
                                 title="Aggiungi un messaggio"></textarea>
                         </div>
 
@@ -1537,7 +1562,7 @@ export default {
                         <!-- Bottone per passare allo step successivo -->
                         <div class="form-button confirm">
                             <!-- <button @click="prevStep" class="button" id="buttons">Torna indietro</button> -->
-                            <input type="submit" @click="orderSubmit" class="button" id="buttons" v-if="orders.length !== 0"
+                            <input type="submit" @click="orderSubmit" class="button" v-if="orders.length !== 0"
                                 value="Conferma le zanzariere">
                         </div>
 
@@ -1556,22 +1581,18 @@ export default {
                                 {{ client.typology }}
                                 <hr>
                             </li>
-                            <div v-if="client.typology === 'Privato'">
-                                <li>
-                                    Nome: {{ client.name }}
-                                </li>
-                                <li>
-                                    Cognome: {{ client.surname }}
-                                </li>
-                            </div>
-                            <div v-else>
-                                <li>
-                                    Nome Azienda: {{ client.agency_name }}
-                                </li>
-                                <li>
-                                    Partita Iva: {{ client.vat_number }}
-                                </li>
-                            </div>
+                            <li v-if="client.typology === 'Privato'">
+                                Nome: {{ client.name }}
+                            </li>
+                            <li v-if="client.typology === 'Privato'">
+                                Cognome: {{ client.surname }}
+                            </li>
+                            <li v-if="client.typology === 'Azienda'">
+                                Nome Azienda: {{ client.agency_name }}
+                            </li>
+                            <li v-if="client.typology === 'Azienda'">
+                                Partita Iva: {{ client.vat_number }}
+                            </li>
                             <li>
                                 Email: {{ client.client_email }}
                             </li>
@@ -1599,35 +1620,56 @@ export default {
                             </li>
                             <div v-if="client.typology === 'Privato'">
                                 <li>
-                                    <label>Nome:</label> <input type="text" v-model="client.name" :id="client.id"
-                                        maxlength="64" @input="filterNumbers(client)" required>
+                                    <label>
+                                        Nome:
+                                        <input name="name" type="text" v-model="client.name" :id="client.id" maxlength="64"
+                                            @input="filterNumbers(client)" required>
+                                    </label>
                                 </li>
                                 <li>
-                                    <label>Cognome:</label> <input type="text" v-model="client.surname" :id="client.id"
-                                        maxlength="64" @input="filterNumbers(client)" required>
+                                    <label>
+                                        Cognome:
+                                        <input type="text" name="surname" v-model="client.surname" :id="client.id"
+                                            maxlength="64" @input="filterNumbers(client)" required>
+                                    </label>
                                 </li>
                             </div>
                             <div v-else>
                                 <li>
-                                    <label>Nome Azienda:</label> <input type="text" v-model="client.agency_name"
-                                        :id="client.id" maxlength="64" required>
+                                    <label>
+                                        Nome Azienda:
+                                        <input type="text" name="agency_name" v-model="client.agency_name" :id="client.id"
+                                            maxlength="64" required>
+                                    </label>
                                 </li>
                                 <li>
-                                    <label>Partita Iva:</label> <input type="text" v-model="client.vat_number"
-                                        :id="client.id" maxlength="11" @input="filterCharacters(client)" required>
+                                    <label>
+                                        Partita Iva:
+                                        <input type="text" name="vat_number" v-model="client.vat_number" :id="client.id"
+                                            maxlength="11" @input="filterCharacters(client)" required>
+                                    </label>
                                 </li>
                             </div>
                             <li>
-                                <label>Email:</label> <input type="email" v-model="client.client_email" :id="client.id"
-                                    maxlength="64" required>
+                                <label>
+                                    Email:
+                                    <input type="email" name="client_email" v-model="client.client_email" :id="client.id"
+                                        maxlength="64" required>
+                                </label>
                             </li>
                             <li>
-                                <label>Telefono:</label> <input type="text" v-model="client.telephone_number"
-                                    :id="client.id" @input="filterCharacters(client)" maxlength="10" required>
+                                <label>
+                                    Telefono:
+                                    <input type="text" name="telephone_number" v-model="client.telephone_number"
+                                        :id="client.id" @input="filterCharacters(client)" maxlength="10" required>
+                                </label>
                             </li>
                             <li>
-                                <label>Comune:</label> <input type="text" v-model="client.city_of_residence" :id="client.id"
-                                    @input="filterNumbers(client)" required>
+                                <label>
+                                    Comune:
+                                    <input type="text" name="city_of_residence" v-model="client.city_of_residence"
+                                        :id="client.id" @input="filterNumbers(client)" required>
+                                </label>
                             </li>
 
                             <li class="li-button">
@@ -1640,8 +1682,7 @@ export default {
                         <!-- Riepilogo info ordine -->
                         <ul v-for="order in orders" :key="order.id" class="summary">
                             <li>
-                                Modello zanzariera: {{ order.model_name.charAt(0).toUpperCase() +
-                                    order.model_name.slice(1).toLowerCase().replace(/\([^)]*\)/g, "") }} - {{ order.net }}
+                                Modello zanzariera: {{ changeNameModel(order.model_name) }} - {{ order.net }}
                             </li>
                             <li>
                                 Colore: {{ order.color_name }}
@@ -1670,23 +1711,21 @@ export default {
 
                         <!-- Bottone per proseguire con lo step successivo -->
                         <div class="form-button">
-                            <input type="submit" @click="sendEmail" class="button" id="buttons" value="Completa">
+                            <input type="submit" @click="sendEmail" class="button" value="Completa">
                         </div>
                     </div>
 
                     <!-- Quarto e ultimo step -->
                     <div v-else class="fourth-step">
-                        <h1>
-                            <div class="first">
-                                <div>Grazie</div> per aver scelto la qualit&agrave; <div>con un preventivo</div>
-                            </div>
-                            <div class="second">
-                                <div>La <span>Giesse Zanzariere</span> ti contatter&agrave;</div>
-                                <div>il prima possibile</div>
-                            </div>
-                            <div class="third">Tutte le informazioni sono state inviate per email</div>
-                            <router-link to="/" class="button">Torna alla Homepage</router-link>
-                        </h1>
+                        <div class="first">
+                            <div>Grazie</div> per aver scelto la qualit&agrave; <div>con un preventivo</div>
+                        </div>
+                        <div class="second">
+                            <div>La <span>Giesse Zanzariere</span> ti contatter&agrave;</div>
+                            <div>il prima possibile</div>
+                        </div>
+                        <div class="third">Tutte le informazioni sono state inviate per email</div>
+                        <router-link to="/" class="button">Torna alla Homepage</router-link>
                     </div>
                 </form>
             </div>
@@ -1829,24 +1868,22 @@ section {
             font-size: 2rem;
             padding: 80px 0;
 
-            h1 {
+            .first {
+                font-size: 3.9rem;
+                padding: 5px 0;
+                font-weight: 600;
+            }
+
+            .second {
+                font-size: 2.1rem;
+                padding: 10px 0 25px 0;
                 font-weight: 500;
+            }
 
-                .first {
-                    font-size: 1.3em;
-                    padding: 5px 0;
-                    font-weight: 600;
-                }
-
-                .second {
-                    font-size: 0.7em;
-                    padding: 10px 0 25px 0;
-                }
-
-                .third {
-                    font-size: 0.4em;
-                    margin-bottom: 15px;
-                }
+            .third {
+                font-size: 1.2rem;
+                margin-bottom: 30px;
+                font-weight: 500;
             }
 
             span {
@@ -1911,7 +1948,7 @@ section {
         select {
             font-family: 'Montserrat', sans-serif;
             background-color: #fff;
-            padding: 5px;
+            padding: 7px;
             border: 1px solid #686868;
             border-radius: 5px;
             font-size: 1rem;
@@ -1921,12 +1958,6 @@ section {
 
         label {
             font-family: 'Montserrat', sans-serif;
-        }
-
-        &:not(.info) {
-            div {
-                padding: 5px 0;
-            }
         }
 
         li {
@@ -2364,7 +2395,7 @@ section {
             width: 190px;
         }
 
-        input:nth-child(3) {
+        input+input+input {
             width: 130px;
         }
     }
@@ -2387,7 +2418,7 @@ section {
             outline: none;
         }
 
-        label {
+        span {
             font-weight: 500;
         }
     }
