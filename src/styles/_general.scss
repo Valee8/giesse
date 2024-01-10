@@ -14,14 +14,14 @@ body {
     font-family: 'Montserrat', sans-serif;
     color: #000;
 
-    &.active-edit {
-        pointer-events: none;
-        user-select: none;
-    }
+    // &.active-edit {
+    //     pointer-events: none;
+    // }
 
     &.active-popup {
         position: relative;
         overflow-y: hidden;
+        user-select: none;
 
         &::after {
             content: "";

@@ -16,6 +16,10 @@ export default {
     data() {
         return {
 
+            textSuccessMessage: "",
+
+            enableEditDeleteButtons: false,
+
             // store (dall'import di store.js)
             store,
             // activePopup - Per verificare che un popup sia presente, in questo modo posso bloccare il contenuto attorno al popup e non far interagire l'utente con nient'altro nella pagina fino a quando il popup non scompare
@@ -359,6 +363,13 @@ export default {
         }
     },
     methods: {
+        prevStep() {
+            // Incremento il valore di currentStep
+            this.currentStep--;
+
+            // Aggiorno valore currentStep in localStorage
+            sessionStorage.setItem("CurrentStep", this.currentStep.toString());
+        },
         changeTypology(typology) {
             return typology.replace(/(\([^)]*\)|\d+)/g, "");
 
@@ -397,7 +408,7 @@ export default {
             this.showCancelUpdateItemPopup = false;
             this.activePopup = false;
 
-            document.body.classList.add("active-edit");
+            //document.body.classList.add("active-edit");
         },
         cancelUpdateItemPopup(order) {
             this.showCancelUpdateItemPopup = true;
@@ -406,12 +417,14 @@ export default {
 
             this.checkIdOrders = order.id;
 
-            document.body.classList.remove("active-edit");
+            //document.body.classList.remove("active-edit");
 
         },
         showEdit(order) {
 
-            document.body.classList.add("active-edit");
+            this.enableEditDeleteButtons = true;
+
+            //document.body.classList.add("active-edit");
 
             for (const key in order) {
                 this.oldOrder[key] = order[key];
@@ -438,6 +451,8 @@ export default {
             }
         },
         hideEdit(order) {
+
+            this.enableEditDeleteButtons = false;
 
             this.showEditInputs = null;
 
@@ -638,9 +653,10 @@ export default {
                         this.showError = true;
                     });
 
-
-                this.showAddedItemPopup = true;
-                this.activePopup = true;
+                setTimeout(() => {
+                    this.showAddedItemPopup = true;
+                    this.activePopup = true;
+                }, 2000);
 
                 // Svuoto valori cosi' posso inserire nuove zanzariere
                 this.newOrder.quantity = "";
@@ -696,11 +712,17 @@ export default {
                     // Richiamo getOrder
                     if (success) {
                         this.getOrder();
-                        this.showDeleteItemPopup = false;
-                        this.activePopup = false;
+
+                        this.textSuccessMessage = "Ordine eliminato con successo!";
                     }
                 })
                 .catch(error => console.error(error));
+
+            setTimeout(() => {
+                this.showDeleteItemPopup = false;
+                this.activePopup = false;
+                this.textSuccessMessage = "";
+            }, 2000);
 
 
         },
@@ -709,6 +731,8 @@ export default {
 
             // Se orders contiene elementi allora posso proseguire
             if (this.orders.length !== 0) {
+
+                this.fixRequiredProblem = false;
 
                 //Se il messaggio e' presente
                 if (this.message) {
@@ -737,6 +761,9 @@ export default {
 
                 this.scrollToTop();
             }
+            else {
+                this.fixRequiredProblem = true;
+            }
         },
         editOrder(order) {
 
@@ -759,21 +786,28 @@ export default {
                         // Se success = true richiamo getClient, aggiorno dati cliente
                         if (success) {
                             this.getOrder();
+
+                            this.textSuccessMessage = "Modifiche effettuate con successo!";
                         }
 
                     })
-                    .catch(error => console.error(error.response.data));
+                    .catch(error => {
+                        console.error(error.response.data);
+                    });
 
-                this.showEditInputs = null;
-                this.showUpdateItemPopup = false;
-                this.activePopup = false;
-                document.body.classList.remove("active-edit");
-                // this.showSelectModelText = false;
+                setTimeout(() => {
+                    this.activePopup = false;
+                    this.showEditInputs = null;
+                    this.showUpdateItemPopup = false;
+                    this.enableEditDeleteButtons = false;
+                    this.textSuccessMessage = "";
+                }, 2000);
+
             }
         },
         showInfoClient(client) {
 
-            document.body.classList.add("active-edit");
+            //document.body.classList.add("active-edit");
 
             for (const key in client) {
                 this.oldClient[key] = client[key];
@@ -783,7 +817,7 @@ export default {
         },
         hideInfoClient(client) {
 
-            document.body.classList.remove("active-edit");
+            //document.body.classList.remove("active-edit");
 
             for (const key in client) {
                 client[key] = this.oldClient[key];
@@ -840,7 +874,7 @@ export default {
                     .catch(error => console.error(error.response.data));
 
                 this.editClientInfo = false;
-                document.body.classList.remove("active-edit");
+                //document.body.classList.remove("active-edit");
 
             }
         },
@@ -1054,6 +1088,7 @@ export default {
         // Aggiungi la classe quando mostri il popup
         if (this.activePopup) {
             document.body.classList.add('active-popup');
+            //document.body.classList.remove("active-edit");
         }
         else {
             document.body.classList.remove('active-popup');
@@ -1061,6 +1096,7 @@ export default {
 
         if (this.showError) {
             document.body.classList.remove('active-popup');
+            this.activePopup = false;
         }
 
         if (this.currentStep === 4) {
@@ -1259,7 +1295,8 @@ export default {
 
                             <!-- Seleziona modello -->
                             <span v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex">
-                                <select v-if="zanz.active" :required="fixRequiredProblem" v-model="newOrder.model_name">
+                                <select v-if="zanz.active" :required="fixRequiredProblem" v-model="newOrder.model_name"
+                                    :disabled="activePopup">
                                     <option value="" disabled selected hidden>
                                         Seleziona il modello *
                                     </option>
@@ -1278,13 +1315,13 @@ export default {
                                 Inserisci:
                             </span>
                             <input type="text" name="width" placeholder="Larghezza (in cm) *" v-model="newOrder.width"
-                                @input="filterSizes" :required="fixRequiredProblem" maxlength="6">
+                                @input="filterSizes" :required="fixRequiredProblem" maxlength="6" :disabled="activePopup">
 
                             <input type="text" name="height" placeholder="Altezza (in cm) *" v-model="newOrder.height"
-                                @input="filterSizes" :required="fixRequiredProblem" maxlength="6">
+                                @input="filterSizes" :required="fixRequiredProblem" maxlength="6" :disabled="activePopup">
 
                             <input type="number" name="quantity" placeholder="Quantità *" min="1"
-                                v-model="newOrder.quantity" :required="fixRequiredProblem">
+                                v-model="newOrder.quantity" :required="fixRequiredProblem" :disabled="activePopup">
                         </div>
 
                         <!-- Input sotto - input radio scelta rete -->
@@ -1294,7 +1331,7 @@ export default {
                                 <label>
                                     {{ net }}
                                     <input type="radio" name="net" :value="net" v-model="newOrder.net"
-                                        :required="fixRequiredProblem">
+                                        :required="fixRequiredProblem" :disabled="activePopup">
                                 </label>
                             </span>
                         </div>
@@ -1324,7 +1361,7 @@ export default {
                                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                                     <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                                         <input type="radio" name="color_name" @change="getColor(typoIndex, colorIndex)"
-                                            :required="fixRequiredProblem" class="radio">
+                                            :required="fixRequiredProblem" class="radio" :disabled="activePopup">
                                         <!-- Immagine colore -->
                                         <img :src="color.image" :alt="color.name" class="color-image">
 
@@ -1340,7 +1377,7 @@ export default {
                         <!-- Bottone aggiungi zanzariera -->
                         <div class="form-button" :class="{ 'padding': orders.length !== 0 }">
 
-                            <button @click="addZanz()" class="button">
+                            <button type="submit" @click="addZanz()" class="button">
                                 Aggiungi Zanzariera
                             </button>
                         </div>
@@ -1354,8 +1391,7 @@ export default {
                         <!-- Elenco zanzariere preventivo -->
                         <ul v-if="orders.length !== 0" class="list-ul">
                             <li v-for="order in orders" :key="order.id" class="list-order"
-                                :class="{ 'edit': showEditInputs === order.id }">
-
+                                :class="{ 'edited': showEditInputs === order.id, 'disabled': enableEditDeleteButtons && showEditInputs !== order.id }">
                                 <div class="list-order-div" v-if="showEditInputs !== order.id">
                                     <span>
                                         {{ changeTypology(order.typology) }} |
@@ -1474,14 +1510,18 @@ export default {
 
                                 <div v-if="showEditInputs !== order.id">
                                     <!-- Bottone modifica -->
-                                    <a @click="showEdit(order)" class="little-button" title="Modifica la zanzariera">
+                                    <button @click="showEdit(order)" class="little-button"
+                                        :class="{ 'disabled': enableEditDeleteButtons }" title="Modifica la zanzariera"
+                                        :disabled="enableEditDeleteButtons">
                                         <i class="fa-solid fa-pencil"></i>
-                                    </a>
+                                    </button>
 
                                     <!-- Bottone elimina -->
-                                    <a @click="deleteItemPopup(order)" class="little-button" title="Elimina la zanzariera">
+                                    <button @click="deleteItemPopup(order)" class="little-button"
+                                        :class="{ 'disabled': enableEditDeleteButtons }" title="Elimina la zanzariera"
+                                        :disabled="enableEditDeleteButtons">
                                         <i class="fa-regular fa-trash-can"></i>
-                                    </a>
+                                    </button>
                                 </div>
 
                                 <div v-else :class="{ 'edited': showEditInputs === order.id }">
@@ -1492,10 +1532,10 @@ export default {
                                     </a>
 
                                     <!-- Bottone aggiorna modifiche -->
-                                    <button @click="updateItemPopup(order)" class="little-button confirm"
+                                    <a @click="updateItemPopup(order)" class="little-button confirm"
                                         title="Conferma le modifiche">
                                         <i class="fa-solid fa-circle-check"></i>
-                                    </button>
+                                    </a>
                                 </div>
 
 
@@ -1515,30 +1555,51 @@ export default {
 
                                 <!-- Popup per confermare l'eliminazione di un elemento dalla lista -->
                                 <div class="popup" v-if="showDeleteItemPopup" :class="{ 'id': checkIdOrders === order.id }">
-                                    Confermi di voler eliminare l'ordine dalla lista&quest;
 
-                                    <a @click="showDeleteItemPopup = false, activePopup = false">
-                                        Annulla
-                                    </a>
+                                    <div v-if="textSuccessMessage === ''">
+                                        <h6>
+                                            Confermi di voler eliminare l'ordine dalla lista&quest;
+                                        </h6>
 
-                                    <a @click="deleteModel(order)">Conferma</a>
+                                        <a @click="showDeleteItemPopup = false, activePopup = false">
+                                            Annulla
+                                        </a>
+
+                                        <button @click="deleteModel(order)">Conferma</button>
+                                    </div>
+
+                                    <div v-else>
+                                        {{ textSuccessMessage }}
+                                    </div>
                                 </div>
 
                                 <!-- Popup per confermare le modifiche effettuate di un elemento -->
                                 <div class="popup" v-if="showUpdateItemPopup" :class="{ 'id': checkIdOrders === order.id }">
-                                    Confermi le modifiche effettuate&quest;
 
-                                    <a @click="showUpdateItemPopup = false, activePopup = false">
-                                        Annulla
-                                    </a>
+                                    <div v-if="textSuccessMessage === ''">
+                                        <h6>
+                                            Confermi le modifiche effettuate&quest;
+                                        </h6>
 
-                                    <a @click="editOrder(order)">Conferma</a>
+                                        <a @click="showUpdateItemPopup = false, activePopup = false">
+                                            Annulla
+                                        </a>
+
+                                        <button @click="editOrder(order)">Conferma</button>
+                                    </div>
+
+                                    <div v-else>
+                                        {{ textSuccessMessage }}
+                                    </div>
                                 </div>
 
                                 <!-- Popup per confermare l'annullamento delle modifiche di un elemento -->
                                 <div class="popup" v-if="showCancelUpdateItemPopup"
                                     :class="{ 'id': checkIdOrders === order.id }">
-                                    Confermi di voler annullare le modifiche&quest;
+
+                                    <h6>
+                                        Confermi di voler annullare le modifiche&quest;
+                                    </h6>
 
                                     <a @click="CancelUpdateItem()">
                                         Annulla
@@ -1562,8 +1623,7 @@ export default {
                         <!-- Bottone per passare allo step successivo -->
                         <div class="form-button confirm">
                             <!-- <button @click="prevStep" class="button" id="buttons">Torna indietro</button> -->
-                            <input type="submit" @click="orderSubmit" class="button" v-if="orders.length !== 0"
-                                value="Conferma le zanzariere">
+                            <input type="submit" @click="orderSubmit" class="button" value="Conferma le zanzariere">
                         </div>
 
                     </div>
@@ -1611,45 +1671,41 @@ export default {
                         <ul v-for="client in clients" :key="client.id" class="summary info edit" v-if="editClientInfo">
                             <li>
                                 <select v-model="client.typology">
-                                    <option v-for="(typology, index) in clientTypologies"
+                                    <option v-for="(typology, typoIndex) in clientTypologies" :key="typoIndex"
                                         :selected="client.typology === typology">
                                         {{ typology }}
                                     </option>
                                 </select>
                                 <hr>
                             </li>
-                            <div v-if="client.typology === 'Privato'">
-                                <li>
-                                    <label>
-                                        Nome:
-                                        <input name="name" type="text" v-model="client.name" :id="client.id" maxlength="64"
-                                            @input="filterNumbers(client)" required>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        Cognome:
-                                        <input type="text" name="surname" v-model="client.surname" :id="client.id"
-                                            maxlength="64" @input="filterNumbers(client)" required>
-                                    </label>
-                                </li>
-                            </div>
-                            <div v-else>
-                                <li>
-                                    <label>
-                                        Nome Azienda:
-                                        <input type="text" name="agency_name" v-model="client.agency_name" :id="client.id"
-                                            maxlength="64" required>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        Partita Iva:
-                                        <input type="text" name="vat_number" v-model="client.vat_number" :id="client.id"
-                                            maxlength="11" @input="filterCharacters(client)" required>
-                                    </label>
-                                </li>
-                            </div>
+                            <li v-if="client.typology === 'Privato'">
+                                <label>
+                                    Nome:
+                                    <input name="name" type="text" v-model="client.name" :id="client.id" maxlength="64"
+                                        @input="filterNumbers(client)" required>
+                                </label>
+                            </li>
+                            <li v-if="client.typology === 'Privato'">
+                                <label>
+                                    Cognome:
+                                    <input type="text" name="surname" v-model="client.surname" :id="client.id"
+                                        maxlength="64" @input="filterNumbers(client)" required>
+                                </label>
+                            </li>
+                            <li v-if="client.typology === 'Azienda'">
+                                <label>
+                                    Nome Azienda:
+                                    <input type="text" name="agency_name" v-model="client.agency_name" :id="client.id"
+                                        maxlength="64" required>
+                                </label>
+                            </li>
+                            <li v-if="client.typology === 'Azienda'">
+                                <label>
+                                    Partita Iva:
+                                    <input type="text" name="vat_number" v-model="client.vat_number" :id="client.id"
+                                        maxlength="11" @input="filterCharacters(client)" required>
+                                </label>
+                            </li>
                             <li>
                                 <label>
                                     Email:
@@ -1711,6 +1767,11 @@ export default {
 
                         <!-- Bottone per proseguire con lo step successivo -->
                         <div class="form-button">
+                            <button @click="prevStep" class="button">
+                                <span>
+                                    Torna indietro
+                                </span>
+                            </button>
                             <input type="submit" @click="sendEmail" class="button" value="Completa">
                         </div>
                     </div>
@@ -1764,6 +1825,18 @@ export default {
     top: 50%;
     //pointer-events: auto;
 
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        height: 100%;
+
+        &:last-child {
+            font-weight: bold;
+        }
+    }
+
     &.id {
         z-index: 300;
     }
@@ -1772,14 +1845,23 @@ export default {
         font-size: 1.1rem;
     }
 
-    a {
+    a,
+    button {
         background-color: #686868;
         color: #fff;
         cursor: pointer;
         padding: 5px;
         border-radius: 5px;
         margin: 0 3px;
+        font-size: 1rem;
+        border: 0;
+        font-weight: 600;
     }
+
+    a {
+        font-weight: normal;
+    }
+
 }
 
 @keyframes opacity {
@@ -1797,14 +1879,6 @@ export default {
 .option-none,
 .select-none {
     display: none;
-}
-
-.select-net {
-    option {
-        &:not(.visible) {
-            display: none;
-        }
-    }
 }
 
 .error-axios {
@@ -1912,6 +1986,14 @@ section {
     margin: 50px 0;
     position: relative;
 
+    button {
+        margin-right: 20px;
+
+        span {
+            font-weight: 500;
+        }
+    }
+
     h2 {
         padding-bottom: 30px;
         text-align: center;
@@ -1946,7 +2028,6 @@ section {
         button,
         input,
         select {
-            font-family: 'Montserrat', sans-serif;
             background-color: #fff;
             padding: 7px;
             border: 1px solid #686868;
@@ -1954,10 +2035,6 @@ section {
             font-size: 1rem;
             font-weight: 500;
             outline: none;
-        }
-
-        label {
-            font-family: 'Montserrat', sans-serif;
         }
 
         li {
@@ -1988,8 +2065,9 @@ section {
     input,
     label,
     textarea,
-    input,
-    button {
+    button,
+    select {
+        font-family: 'Montserrat', sans-serif;
         letter-spacing: 1px;
     }
 
@@ -2115,6 +2193,7 @@ section {
     .list-ul {
         border: 1px solid #000;
         margin: 20px 0 40px 0;
+        user-select: none;
 
         .list-order {
             padding: 20px;
@@ -2123,9 +2202,9 @@ section {
             justify-content: space-between;
             align-items: center;
 
-            &.edit {
-                pointer-events: auto;
-            }
+            // &:not(.edited) {
+            //     pointer-events: none;
+            // }
 
             //padding: 20px 5px;
             //align-items: flex-end;
@@ -2134,20 +2213,20 @@ section {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                gap: 15px 0;
+                gap: 15px 20px;
 
                 &:not(.edited) {
                     span {
                         padding: 10px;
 
                         &:first-of-type {
-                            width: 580px;
+                            width: 568px;
                         }
                     }
                 }
 
                 &.edited {
-                    width: 900px;
+                    width: 940px;
                     flex-wrap: wrap;
                     //pointer-events: default;
                     //z-index: 200;
@@ -2156,6 +2235,7 @@ section {
                     .quantity {
                         height: 40px;
                         padding: 0 10px;
+                        margin: 0;
                     }
 
 
@@ -2182,18 +2262,19 @@ section {
                         }
 
                         &.select-net {
-                            width: 184px;
+                            width: 205px;
+
+                            option {
+                                &:not(.visible) {
+                                    display: none;
+                                }
+                            }
                         }
                     }
 
                     input {
-                        font-family: 'Montserrat', sans-serif;
                         width: 80px;
                         outline: none;
-                    }
-
-                    label {
-                        font-family: 'Montserrat', sans-serif;
                     }
 
                 }
@@ -2238,7 +2319,6 @@ section {
                 border-radius: 15px;
                 font-size: 1rem;
                 font-weight: 500;
-                margin: 0 5px;
             }
 
             select,
@@ -2248,7 +2328,7 @@ section {
                 border-radius: 15px;
                 font-size: 1rem;
                 font-weight: 500;
-                margin: 0 8px;
+                //margin: 0 8px;
             }
 
             a {
@@ -2267,8 +2347,16 @@ section {
                 font-weight: 500;
                 width: 34px;
                 height: 34px;
-                margin: 0 8px;
                 border: 0;
+
+                &:first-child {
+                    margin-right: 16px;
+                }
+
+                &.disabled {
+                    color: #000;
+                    cursor: not-allowed;
+                }
 
                 &.confirm {
                     color: green;
@@ -2307,6 +2395,7 @@ section {
 
         button {
             padding: 10px 15px;
+            font-size: 1.4rem;
         }
     }
 
@@ -2316,7 +2405,6 @@ section {
         }
 
         textarea {
-            font-family: 'Montserrat', sans-serif;
             width: 100%;
             padding: 15px;
             font-size: 0.9rem;
@@ -2359,7 +2447,6 @@ section {
     }
 
     select {
-        font-family: 'Montserrat', sans-serif;
         outline: none;
 
     }
@@ -2408,7 +2495,6 @@ section {
     .inputs-center {
         input {
             margin: 0 20px;
-            font-family: 'Montserrat', sans-serif;
             background-color: #cccccc;
             border: 0;
             border-radius: 50px;
@@ -2473,10 +2559,6 @@ section {
     max-width: 890px;
     margin: 0 auto;
     padding: 40px;
-
-    input {
-        font-family: 'Montserrat', sans-serif;
-    }
 
     hr {
         border-bottom: 1px solid #000;
