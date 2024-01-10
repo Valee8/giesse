@@ -9,12 +9,14 @@ import axios from 'axios';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 // URL per la chiamata API
-const API_URL = 'http://localhost:8000/api/v1/';
+const API_URL = 'https://d482-79-35-88-17.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Preventivo',
     data() {
         return {
+
+            lengthOrderArray: true,
 
             textSuccessMessage: "",
 
@@ -656,7 +658,7 @@ export default {
                 setTimeout(() => {
                     this.showAddedItemPopup = true;
                     this.activePopup = true;
-                }, 2000);
+                }, 1000);
 
                 // Svuoto valori cosi' posso inserire nuove zanzariere
                 this.newOrder.quantity = "";
@@ -703,20 +705,23 @@ export default {
         // Elimina ordine dalla lista che compare
         deleteModel(order) {
 
-            // Chiamata API per eliminare ordine
-            axios.delete(API_URL + 'delete/' + order.id)
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
+            setTimeout(() => {
+                // Chiamata API per eliminare ordine
+                axios.delete(API_URL + 'delete/' + order.id)
+                    .then(res => {
+                        const data = res.data;
+                        const success = data.success;
 
-                    // Richiamo getOrder
-                    if (success) {
-                        this.getOrder();
+                        // Richiamo getOrder
+                        if (success) {
 
-                        this.textSuccessMessage = "Ordine eliminato con successo!";
-                    }
-                })
-                .catch(error => console.error(error));
+                            this.getOrder();
+                            this.textSuccessMessage = "Ordine eliminato con successo!";
+
+                        }
+                    })
+                    .catch(error => console.error(error));
+            }, 1000);
 
             setTimeout(() => {
                 this.showDeleteItemPopup = false;
@@ -1389,7 +1394,7 @@ export default {
 
                         <!-- Blocco popup -->
                         <!-- Elenco zanzariere preventivo -->
-                        <ul v-if="orders.length !== 0" class="list-ul">
+                        <ul class="list-ul" v-if="orders.length !== 0">
                             <li v-for="order in orders" :key="order.id" class="list-order"
                                 :class="{ 'edited': showEditInputs === order.id, 'disabled': enableEditDeleteButtons && showEditInputs !== order.id }">
                                 <div class="list-order-div" v-if="showEditInputs !== order.id">
@@ -2093,6 +2098,12 @@ section {
     text-align: center;
     padding: 60px 40px 40px 40px;
 
+    h2 {
+        &.hidden {
+            display: none;
+        }
+    }
+
     hr {
         margin: 60px auto;
         border-bottom: 1px solid #000;
@@ -2194,6 +2205,7 @@ section {
         border: 1px solid #000;
         margin: 20px 0 40px 0;
         user-select: none;
+        min-height: 30px;
 
         .list-order {
             padding: 20px;
