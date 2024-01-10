@@ -274,15 +274,14 @@ export default {
 
                         <!-- Input radio con tipologie (Privato e Azienda) -->
                         <div class="radios">
-                            <label for="privato">
-                                <input type="radio" id="privato" value="Privato" v-model="newInfo.typology"
-                                    @change="resetCommonInputs"
-                                    :checked="newInfo.typology === '' || newInfo.typology === 'Privato'">
+                            <label>
+                                <input type="radio" name="typology" value="Privato" v-model="newInfo.typology"
+                                    @change="resetCommonInputs" checked>
                                 Privato
                             </label>
 
-                            <label for="azienda">
-                                <input type="radio" id="azienda" value="Azienda" v-model="newInfo.typology"
+                            <label>
+                                <input type="radio" name="typology" value="Azienda" v-model="newInfo.typology"
                                     @change="resetCommonInputs">
                                 Azienda
                             </label>
@@ -290,17 +289,19 @@ export default {
 
                         <!-- Input in alto -->
                         <div class="inputs-top">
-                            <div v-if="newInfo.typology === 'Privato' || newInfo.typology === ''">
-                                <input type="text" class="first-input" v-model="newInfo.name" placeholder="Nome *"
-                                    @input="filterNumbers" title="Inserisci il nome" maxlength="64" required>
-                                <input type="text" class="second-input" v-model="newInfo.surname" placeholder="Cognome *"
-                                    @input="filterNumbers" title="Inserisci il cognome" maxlength="64" required>
+                            <div v-if="newInfo.typology === 'Privato'">
+                                <input type="text" name="name" class="first-input" v-model="newInfo.name"
+                                    placeholder="Nome *" @input="filterNumbers" title="Inserisci il nome" maxlength="64"
+                                    required>
+                                <input type="text" name="surname" class="second-input" v-model="newInfo.surname"
+                                    placeholder="Cognome *" @input="filterNumbers" title="Inserisci il cognome"
+                                    maxlength="64" required>
                             </div>
-                            <div v-else-if="newInfo.typology === 'Azienda'">
-                                <input type="text" class="first-input" v-model="newInfo.agency_name"
+                            <div v-else>
+                                <input type="text" name="agency_name" class="first-input" v-model="newInfo.agency_name"
                                     placeholder="Nome Azienda *" title="Inserisci il nome dell'azienda" maxlength="64"
                                     required>
-                                <input type="text" class="second-input" v-model="newInfo.vat_number"
+                                <input type="text" name="vat_number" class="second-input" v-model="newInfo.vat_number"
                                     placeholder="Partita Iva *" maxlength="11" @input="filterCharacters"
                                     title="Inserisci la Partita Iva" required>
                             </div>
@@ -308,11 +309,11 @@ export default {
 
                         <!-- Input in basso -->
                         <div class="inputs-bottom">
-                            <input type="text" class="first-input" v-model="newInfo.telephone_number"
-                                placeholder="Telefono *" @input="filterCharacters" title="Inserisci il numero di telefono"
-                                maxlength="10" required>
-                            <input type="email" class="second-input" v-model="newInfo.client_email" placeholder="E-mail *"
-                                title="Inserisci l'E-mail" maxlength="64" required>
+                            <input type="text" name="telephone_number" class="first-input"
+                                v-model="newInfo.telephone_number" placeholder="Telefono *" @input="filterCharacters"
+                                title="Inserisci il numero di telefono" maxlength="10" required>
+                            <input type="email" name="client_email" class="second-input" v-model="newInfo.client_email"
+                                placeholder="E-mail *" title="Inserisci l'E-mail" maxlength="64" required>
                         </div>
 
                         <!-- Textarea -->

@@ -28,7 +28,7 @@ export default {
                 },
                 {
                     question: "Cosa sono cuffie, guide telescopiche e guide singole?",
-                    answer: "Le cuffie e le guide telescopiche sono un valido sistema, in fase di montaggio, che risolve i problemi di fuorisquadra senza dover spessorare o siliconare, diversamente dalle guide singole.",
+                    answer: "Le cuffie e le guide telescopiche, diversamente dalle guide singole, sono un valido sistema, in fase di montaggio, che risolve i problemi di fuorisquadra senza dover spessorare o siliconare.",
                     show: false
                 },
                 {
