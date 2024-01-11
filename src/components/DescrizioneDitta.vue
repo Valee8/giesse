@@ -19,9 +19,10 @@ export default {
                 La <span>Giesse Zanzariere</span>, da pi&ugrave; di 30 anni impegnata nella realizzazione di zanzariere,
                 &egrave;
                 attrezzata per la produzione di <span>ZANZARIERE SU MISURA</span> con rete saldata e bottoncini antivento.
-                Le nostre zanzariere vengono prodotte <span>di serie</span> con il cassonetto da 50mm e possono essere
+                Le nostre zanzariere vengono prodotte <span>di serie</span> con il <span>cassonetto da 50mm</span> e possono
+                essere
                 fornite con:
-                <span class="prova">
+                <span class="list-short">
                     <span>
                         CUFFIE LATERALI
                     </span>
@@ -76,14 +77,14 @@ section {
 
         // Testo
         p {
+            padding: 30px 10px;
             text-align: justify;
             margin: 0 auto;
             max-width: 725px;
             font-size: 1.1rem;
             font-weight: 600;
-            padding: 30px 0;
 
-            .prova {
+            .list-short {
                 display: block;
                 margin: 7px 0;
                 text-align: center;

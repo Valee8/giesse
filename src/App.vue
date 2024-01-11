@@ -395,6 +395,11 @@ section {
 
         h2 {
           font-size: 1.5rem;
+
+          &.luna,
+          &.giada {
+            font-size: 1.5rem;
+          }
         }
 
         .name {

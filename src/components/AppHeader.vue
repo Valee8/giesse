@@ -370,6 +370,7 @@ header {
             opacity: 0;
 
             &.active {
+                transition: all 1s ease-in-out;
                 opacity: 1;
             }
 
@@ -388,7 +389,7 @@ header {
 
 @media only screen and (min-width: 300px) and (max-width: 479px) {
     .list-rectangles {
-        transform: scale(0.7);
+        transform: scale(0.8);
     }
 
     header {
