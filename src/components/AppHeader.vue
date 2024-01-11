@@ -6,6 +6,8 @@ import AppNavbar from './AppNavbar.vue';
 // Importo store
 import { store } from '../store.js';
 
+const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
+
 // Variabile per la funzione setInterval, dichiarata qui perche' se lo facessi all'interno del metodo changeSlide non potrei fare clearInterval(interval) su blockSlide (riga 90)
 let interval;
 
@@ -51,6 +53,24 @@ export default {
                     hash: "#zelig-" + 3,
                     active: false
                 }
+            ],
+            sliderImages: [
+                {
+                    image: imagePrefix + "img/jumbotron.png",
+                    active: true,
+                },
+                {
+                    image: imagePrefix + "img/Prova.jpg",
+                    active: false,
+                },
+                {
+                    image: imagePrefix + "img/Prova2.jpg",
+                    active: false,
+                },
+                {
+                    image: imagePrefix + "img/Prova3.jpg",
+                    active: false,
+                }
             ]
         }
     },
@@ -71,7 +91,7 @@ export default {
                 // Se isMouseOver e' false lo slider parte
                 if (!this.isMouseOver && img.complete) {
                     // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
-                    if (this.currentSlideIndex < this.sliderContent.length - 1) {
+                    if (this.currentSlideIndex < this.sliderContent.length - 1 && this.currentSlideIndex < this.sliderImages.length - 1) {
                         this.currentSlideIndex++;
                     }
 
@@ -82,11 +102,18 @@ export default {
 
                     // Assegno true all'active dello slider corrente
                     this.sliderContent[this.currentSlideIndex].active = true;
+                    this.sliderImages[this.currentSlideIndex].active = true;
 
                     // Scorro l'array sliderContent con for e assegno false a tutti gli altri active che non sono correnti
                     for (let i = 0; i < this.sliderContent.length; i++) {
                         if (i !== this.currentSlideIndex) {
                             this.sliderContent[i].active = false;
+                        }
+                    }
+
+                    for (let i = 0; i < this.sliderImages.length; i++) {
+                        if (i !== this.currentSlideIndex) {
+                            this.sliderImages[i].active = false;
                         }
                     }
 
@@ -139,7 +166,8 @@ export default {
 
         <div class="header-container" :class="{ 'home': $route.name === 'home' }">
 
-            <img :src="store.bgHeader" loading="lazy" class="image">
+            <img v-for="(img, index) in sliderImages" :key="index" :src="img.image" loading="lazy" class="image"
+                :class="{ 'active': index === currentSlideIndex }" @change="changeSlide">
 
             <div class="container">
                 <!-- Contenuto header -->
@@ -331,15 +359,20 @@ header {
         object-fit: cover;
         object-position: 0 -162px;
         position: absolute;
+        opacity: 0;
         top: 0;
         left: 0;
-        opacity: 0;
         transition: opacity 250ms ease-in-out;
     }
 
     &.loaded {
         .image {
-            opacity: 1;
+            opacity: 0;
+
+            &.active {
+                opacity: 1;
+            }
+
         }
     }
 
