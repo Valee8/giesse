@@ -111,7 +111,7 @@ export const store = reactive({
             model: "VERTICALE A MOLLA (con sistema a cricchetto)",
             name: "LAURA (con cuffie) - EVA (senza cuffie) - ASIA (con cassonetto da 40mm)",
             image: imagePrefix + "img/zanzariere/laura.png",
-            description: "Il modello VERTICALE A MOLLA può essere realizzato anche con sistema a CRICCHETTO (un sistema a pulsante che permette l'apertura della zanzariera in modo semplice e veloce). Questo sistema può essere fornito con cassonetto da 50mm, cuffie e guide telescopiche e con cassonetto da 40mm.",
+            description: "Il modello VERTICALE A MOLLA può essere realizzato con sistema a CRICCHETTO (un sistema a pulsante che permette l'apertura della zanzariera in modo semplice e veloce). Questo sistema viene realizzato solamente con guida telescopica.",
             active: false
         },
         {
@@ -119,7 +119,7 @@ export const store = reactive({
             firstName: "KATIA D.G. (con cuffie) - VERA (senza cuffie)",
             secondName: "SARA (senza cuffie)",
             image: imagePrefix + "img/zanzariere/katia.png",
-            description: "Il modello VERTICALE A CATENA CLASSICA è adatto sia per finestre sia per portefinestre in quanto dotato di una catenella che può essere inserita dalla parte interna (e anche esterna), in modo da non doversi inchinare per l'apertura della zanzariera e può realizzato in diverse tipologie e modelli.",
+            description: "Il modello VERTICALE A CATENA CLASSICA è adatto sia per finestre sia per portefinestre in quanto dotato di una catenella che può essere inserita dalla parte interna (e anche esterna), in modo da non doversi inchinare per l'apertura della zanzariera e può essere realizzato in diverse tipologie e modelli ma esclusivamente con cassonetto da 50mm.",
             active: false
         },
         {
