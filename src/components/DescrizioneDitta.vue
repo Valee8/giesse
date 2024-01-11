@@ -77,7 +77,7 @@ section {
 
         // Testo
         p {
-            padding: 30px 10px;
+            padding: 30px 0;
             text-align: justify;
             margin: 0 auto;
             max-width: 725px;
@@ -88,6 +88,17 @@ section {
                 display: block;
                 margin: 7px 0;
                 text-align: center;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 480px) {
+
+    section {
+        .container {
+            p {
+                padding: 30px 10px;
             }
         }
     }
