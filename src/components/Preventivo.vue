@@ -9,12 +9,14 @@ import axios from 'axios';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 // URL per la chiamata API
-const API_URL = 'https://b9b5-79-35-88-17.ngrok-free.app/api/v1/';
+const API_URL = 'http://localhost:8000/api/v1/';
 
 export default {
     name: 'Preventivo',
     data() {
         return {
+
+            hideNet: false,
 
             lengthOrderArray: true,
 
@@ -373,8 +375,15 @@ export default {
             sessionStorage.setItem("CurrentStep", this.currentStep.toString());
         },
         changeTypology(typology) {
-            return typology.replace(/(\([^)]*\)|\d+)/g, "");
+            let varTypology;
+            if (typology.includes("(")) {
+                varTypology = typology.replace(/(\([^)]*\)|\d+)/g, "");
+            }
+            else {
+                varTypology = typology.replace(/[0-9]{1,2}$/, "");
+            }
 
+            return varTypology;
         },
         changeNameModel(model) {
             model = model.charAt(0).toUpperCase() + model.slice(1).toLowerCase().replace(/(\([^)]*\)|\d+)/g, "").trimRight();
@@ -443,6 +452,16 @@ export default {
                 }
             }
 
+            if (order.typology.includes(6) || order.typology.includes(7) || order.typology.includes(8) || order.typology.includes(9) || order.typology.includes(10)) {
+                this.showNetEditItem = false;
+                if (this.oldOrder.net.includes("Oscurante")) {
+                    this.oldOrder.net = "Rete normale";
+                }
+            }
+            else {
+                this.showNetEditItem = true;
+            }
+
             if (this.showEditInputs === order.id) {
 
                 this.showEditInputs = null;
@@ -489,6 +508,9 @@ export default {
 
             if (typologyName.includes(6) || typologyName.includes(7) || typologyName.includes(8) || typologyName.includes(9) || typologyName.includes(10)) {
                 this.showNetEditItem = false;
+                if (order.net.includes("Oscurante")) {
+                    order.net = "Rete normale";
+                }
             }
             else {
                 this.showNetEditItem = true;
@@ -1332,7 +1354,7 @@ export default {
                         <!-- Input sotto - input radio scelta rete -->
                         <div class="inputs-bottom">
                             <span v-for="(net, netIndex) in nets" :key="netIndex"
-                                :class="{ 'visible': showNet || netIndex === 0 || netIndex === 1 }">
+                                :class="{ 'visible': showNet && netIndex === 0 || netIndex === 1 }">
                                 <label>
                                     {{ net }}
                                     <input type="radio" name="net" :value="net" v-model="newOrder.net"
@@ -1395,7 +1417,7 @@ export default {
                         <!-- Blocco popup -->
                         <!-- Elenco zanzariere preventivo -->
                         <ul class="list-ul" v-if="orders.length !== 0">
-                            <li v-for="order in orders" :key="order.id" class="list-order"
+                            <li v-for="order in  orders " :key="order.id" class="list-order"
                                 :class="{ 'edited': showEditInputs === order.id, 'disabled': enableEditDeleteButtons && showEditInputs !== order.id }">
                                 <div class="list-order-div" v-if="showEditInputs !== order.id">
                                     <span>
@@ -1454,10 +1476,11 @@ export default {
                                     <!-- Rete -->
                                     <select name="net" class="select-net" v-model="order.net"
                                         title="Modifica il tipo di rete" required>
-                                        <option :value="order.net" disabled hidden>
+                                        <option :value="order.net" disabled hidden
+                                            :class="{ 'visible': showNetEditItem || order.net.includes('Rete') }">
                                             {{ order.net }}
                                         </option>
-                                        <option v-for="(net, netIndex) in nets" :key="netIndex"
+                                        <option v-for="(net, netIndex) in  nets" :key="netIndex"
                                             :class="{ 'visible': showNetEditItem || netIndex === 0 || netIndex === 1 }">
                                             {{ net }}
                                         </option>
@@ -1469,8 +1492,9 @@ export default {
                                         <option value="" disabled selected>
                                             {{ order.color_name }}
                                         </option>
-                                        <optgroup v-for="color in store.colors" :label="color.typology">
-                                            <option v-for="colorName in color.colorInfo">{{ colorName.name }}
+                                        <optgroup v-for="color  in  store.colors" :label="color.typology">
+                                            <option v-for="colorName  in  color.colorInfo">
+                                                {{ colorName.name }}
                                             </option>
                                         </optgroup>
                                     </select>
@@ -1537,10 +1561,10 @@ export default {
                                     </a>
 
                                     <!-- Bottone aggiorna modifiche -->
-                                    <a @click="updateItemPopup(order)" class="little-button confirm"
+                                    <button @click="updateItemPopup(order)" class="little-button confirm"
                                         title="Conferma le modifiche">
                                         <i class="fa-solid fa-circle-check"></i>
-                                    </a>
+                                    </button>
                                 </div>
 
 
@@ -1641,7 +1665,7 @@ export default {
                         </h2>
 
                         <!-- Riepilogo info cliente -->
-                        <ul v-for="client in clients" :key="client.id" class="summary info" v-if="!editClientInfo">
+                        <ul v-for=" client  in  clients " :key="client.id" class="summary info" v-if="!editClientInfo">
                             <li>
                                 {{ client.typology }}
                                 <hr>
@@ -1673,10 +1697,10 @@ export default {
                             </li>
                         </ul>
 
-                        <ul v-for="client in clients" :key="client.id" class="summary info edit" v-if="editClientInfo">
+                        <ul v-for=" client  in  clients " :key="client.id" class="summary info edit" v-if="editClientInfo">
                             <li>
                                 <select v-model="client.typology">
-                                    <option v-for="(typology, typoIndex) in clientTypologies" :key="typoIndex"
+                                    <option v-for="( typology, typoIndex ) in  clientTypologies " :key="typoIndex"
                                         :selected="client.typology === typology">
                                         {{ typology }}
                                     </option>
@@ -1741,7 +1765,7 @@ export default {
 
 
                         <!-- Riepilogo info ordine -->
-                        <ul v-for="order in orders" :key="order.id" class="summary">
+                        <ul v-for=" order  in  orders " :key="order.id" class="summary">
                             <li>
                                 Modello zanzariera: {{ changeNameModel(order.model_name) }} - {{ order.net }}
                             </li>
@@ -1759,7 +1783,7 @@ export default {
 
                         <!-- Messaggio -->
                         <ul>
-                            <li v-for="mess in clients" :key="mess.id" class="summary">
+                            <li v-for=" mess  in  clients " :key="mess.id" class="summary">
                                 <span v-if="mess.message">
                                     Messaggio: {{ mess.message }}
                                 </span>
@@ -2262,15 +2286,15 @@ section {
                         border-right: 2px solid #fff;
 
                         &.select-typology {
-                            width: 415px;
+                            width: 458px;
                         }
 
                         &.select-model {
-                            width: 210px;
+                            width: 226px;
                         }
 
                         &.select-color {
-                            width: 247px;
+                            width: 280px;
                         }
 
                         &.select-net {
