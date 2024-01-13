@@ -8,6 +8,7 @@ export default {
     data() {
         return {
             store,
+            // Nome della classe da aggiungere ai colori per mostrarli
             colorClass: "",
         }
     },
@@ -15,8 +16,10 @@ export default {
         // Metodo per cambiare colore cliccando il nome della tipologia
         changeColorTypology(index) {
 
+            // Come cambio tipologia colori annullo valore della classe
             this.colorClass = "";
 
+            // Faccio apparire i colori aggiungendo la classe visible dopo 200 ms
             setTimeout(() => {
                 this.colorClass = "visible";
             }, 200);
@@ -34,6 +37,7 @@ export default {
     },
     created() {
 
+        // Faccio apparire i colori aggiungendo la classe visible dopo 200 ms (per l'elemento 0 quindi i colori Standard)
         setTimeout(() => {
             this.colorClass = "visible";
         }, 200);

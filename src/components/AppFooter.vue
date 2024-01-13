@@ -18,6 +18,10 @@ export default {
         // Estraggo le Orizzontali dalla posizione 4 (incluso) alla posizione 10 (escluso) dell'array listModels presente nel file store.js
         filteredHorizontal() {
             return this.store.listModels.slice(4, 10);
+        },
+        // Estraggo le Altre
+        filteredOthers() {
+            return this.store.listModels.slice(10, 14);
         }
     },
 }
@@ -105,17 +109,8 @@ export default {
 
                     <!-- Elenco altre zanzariere -->
                     <ul>
-                        <li>
-                            Porta a battente
-                        </li>
-                        <li>
-                            Scorri
-                        </li>
-                        <li>
-                            Fissa
-                        </li>
-                        <li>
-                            Casper
+                        <li v-for="(model, index) in filteredOthers" :key="index">
+                            {{ model.name }}
                         </li>
                     </ul>
                 </div>

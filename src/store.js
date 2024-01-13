@@ -3,11 +3,14 @@ import { reactive } from 'vue';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 export const store = reactive({
+    // Scritta "Home" nella varie sezioni
     textHome: "Home",
     //imageZanz: "",
+    // Immagini dei componenti AppHeader, Contatti e del quarto step del Preventivo che appaiono solo dopo che la pagina e' caricata completamente
     bgHeader: imagePrefix + "img/jumbotron.png",
     bgFaqs: imagePrefix + "img/sfondo-faq.png",
     bgThanks: imagePrefix + "img/ringraziamento.png",
+    // Contiene gli slider Verticali o Orizzontali a seconda della sezione
     slider: [],
     // menuHamburger per mostrare e nascondere il sottomenu del menu hamburger
     menuHamburger: false,

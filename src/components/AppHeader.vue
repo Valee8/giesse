@@ -8,9 +8,6 @@ import { store } from '../store.js';
 
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
-// Variabile per la funzione setInterval, dichiarata qui perche' se lo facessi all'interno del metodo changeSlide non potrei fare clearInterval(interval) su blockSlide (riga 90)
-let interval;
-
 export default {
     name: 'AppHeader',
     components: {
@@ -19,6 +16,7 @@ export default {
     data() {
         return {
             store,
+            lastTimestamp: null,
             // Index corrente dello slider
             currentSlideIndex: 0,
             // isMouseOver inizialmente a false, con cui controllo se il puntatore e' sopra lo slider
@@ -30,6 +28,7 @@ export default {
                     typo: "orizzontali",
                     id: 1,
                     hash: "#orizzontali-" + 4,
+                    image: imagePrefix + "img/jumbotron.png",
                     active: true,
                 },
                 {
@@ -37,6 +36,7 @@ export default {
                     typo: "verticali",
                     id: 0,
                     hash: "#laura-" + 1,
+                    image: imagePrefix + "img/Prova.jpg",
                     active: false,
                 },
                 {
@@ -44,6 +44,7 @@ export default {
                     typo: "orizzontali",
                     id: 1,
                     hash: "#luna-" + 2,
+                    image: imagePrefix + "img/Prova2.jpg",
                     active: false
                 },
                 {
@@ -51,87 +52,70 @@ export default {
                     typo: "orizzontali",
                     id: 1,
                     hash: "#zelig-" + 3,
-                    active: false
-                }
-            ],
-            sliderImages: [
-                {
-                    image: imagePrefix + "img/jumbotron.png",
-                    active: true,
-                },
-                {
-                    image: imagePrefix + "img/Prova.jpg",
-                    active: false,
-                },
-                {
-                    image: imagePrefix + "img/Prova2.jpg",
-                    active: false,
-                },
-                {
                     image: imagePrefix + "img/Prova3.jpg",
-                    active: false,
+                    active: false
                 }
             ]
         }
     },
     methods: {
-        // Metodo per far scorrere lo slider
-        changeSlide() {
+        sliderFunction(timestamp) {
 
             const blurredImageDiv = document.querySelector(".header-container");
 
             const img = blurredImageDiv.querySelector(".image");
 
-            // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
-            this.isMouseOver = false;
-
-            // Inizio funzione setInterval
-            interval = setInterval(() => {
-
-                // Se isMouseOver e' false lo slider parte
-                if (!this.isMouseOver && img.complete) {
-                    // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
-                    if (this.currentSlideIndex < this.sliderContent.length - 1 && this.currentSlideIndex < this.sliderImages.length - 1) {
-                        this.currentSlideIndex++;
-                    }
-
-                    // Altrimenti sono arrivato all'ultimo elemento dello slider e ricomincio da capo con index = 0
-                    else {
-                        this.currentSlideIndex = 0;
-                    }
-
-                    // Assegno true all'active dello slider corrente
-                    this.sliderContent[this.currentSlideIndex].active = true;
-                    this.sliderImages[this.currentSlideIndex].active = true;
-
-                    // Scorro l'array sliderContent con for e assegno false a tutti gli altri active che non sono correnti
-                    for (let i = 0; i < this.sliderContent.length; i++) {
-                        if (i !== this.currentSlideIndex) {
-                            this.sliderContent[i].active = false;
-                        }
-                    }
-
-                    for (let i = 0; i < this.sliderImages.length; i++) {
-                        if (i !== this.currentSlideIndex) {
-                            this.sliderImages[i].active = false;
-                        }
-                    }
+            if (!this.isMouseOver && img.complete) {
+                // Se lastTimestamp e' null oppure se son trascorsi almeno 5000ms faccio partire lo slider
+                if (!this.lastTimestamp || timestamp - this.lastTimestamp >= 5000) {
+                    // Richiamo la funzione che mi permette di far scorrere lo slider
+                    this.moveSlider();
+                    // Aggiorno il valore di lastTimestamp ogni volta
+                    this.lastTimestamp = timestamp;
 
                 }
 
-            }, 4000); // Lo slider scorre ogni 4 secondi
+                // Se thisisMouse over e' false e l'immagine come sfondo dell'header non ha caricato del tutto richiamo requestAnimationFrame
+                requestAnimationFrame(this.sliderFunction);
+            }
         },
         // Metodo per bloccare lo slider se ci vado sopra con il puntatore
-        blockSlide() {
+        stopSlider() {
 
             // Assegno true a isMouseOver per bloccare lo slider
             this.isMouseOver = true;
-
-            // Se isMouseOver e' true allora interrompo l'esecuzione del timer con clearInterval
-            if (this.isMouseOver) {
-                clearInterval(interval);
-            }
         },
+        // Metodo per far ripartire lo slider
+        restartSlider() {
+            // Assegno false a isMouseOver per far ripartire lo slider
+            this.isMouseOver = false;
+            // Ottengo un timestamp ad alta precisione in millisecondi
+            this.lastTimestamp = performance.now();
+            // Richiamo requestAnimationFrame
+            requestAnimationFrame(this.sliderFunction);
+        },
+        // Metodo per scorrere lo slider
+        moveSlider() {
+            // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
+            if (this.currentSlideIndex < this.sliderContent.length - 1) {
+                this.currentSlideIndex++;
+            }
+
+            // Altrimenti sono arrivato all'ultimo elemento dello slider e ricomincio da capo con index = 0
+            else {
+                this.currentSlideIndex = 0;
+            }
+
+            // Assegno true all'active dello slider corrente
+            this.sliderContent[this.currentSlideIndex].active = true;
+
+            // Scorro l'array sliderContent con for e assegno false a tutti gli altri active che non sono correnti
+            for (let i = 0; i < this.sliderContent.length; i++) {
+                if (i !== this.currentSlideIndex) {
+                    this.sliderContent[i].active = false;
+                }
+            }
+        }
     },
     updated() {
 
@@ -139,13 +123,16 @@ export default {
 
         const img = blurredImageDiv.querySelector(".image");
 
+        // Funzione loaded per aggiungere la classe loaded a .header-container 
         function loaded() {
             blurredImageDiv.classList.add("loaded");
         }
 
+        // Se l'immagine ha caricato completamente allora richiamo la funzione loaded() (complete e' una proprieta' di js)
         if (img.complete) {
             loaded();
         }
+        // Altrimenti aggiungo un listener dell'evento "load" all'elemento immagine
         else {
             img.addEventListener("load", loaded);
         }
@@ -153,7 +140,11 @@ export default {
     },
     // Richiamo il metodo changeSlide su mounted
     mounted() {
-        this.changeSlide();
+        // Ottengo un timestamp ad alta precisione in millisecondi
+        this.lastTimestamp = performance.now();
+        // Richiamo requestAnimationFrame
+        requestAnimationFrame(this.sliderFunction);
+
     }
 }
 </script>
@@ -166,8 +157,9 @@ export default {
 
         <div class="header-container" :class="{ 'home': $route.name === 'home' }">
 
-            <img v-for="(img, index) in sliderImages" :key="index" :src="img.image" loading="lazy" class="image"
-                :class="{ 'active': index === currentSlideIndex }" @change="changeSlide">
+            <!-- Slider di immagini (la prima appare dopo che il caricamento della pagina e' terminato) -->
+            <img v-for="(img, index) in sliderContent" :key="index" :src="img.image" loading="lazy" class="image"
+                :class="{ 'active': index === currentSlideIndex }">
 
             <div class="container">
                 <!-- Contenuto header -->
@@ -185,18 +177,18 @@ export default {
 
                     <!-- Inizio contenuto slider -->
                     <div class="container-slide">
-                        <div class="slider-header" v-for="(slide, index) in sliderContent" :key="index"
-                            :class="{ 'active': index === currentSlideIndex }" @mouseout="changeSlide"
-                            @mouseover="blockSlide">
+                        <div class="slider-header" v-for="(slider, index) in sliderContent" :key="index"
+                            :class="{ 'active': index === currentSlideIndex }" @mouseout="restartSlider"
+                            @mouseover="stopSlider">
                             <!-- Testo -->
                             <div class="name-zanz">
-                                {{ slide.nameZanz }}
+                                {{ slider.nameZanz }}
                             </div>
 
                             <!-- Bottone scopri di piu' -->
-                            <router-link :to="{ name: slide.typo, params: { id: slide.id }, hash: slide.hash }"
+                            <router-link :to="{ name: slider.typo, params: { id: slider.id }, hash: slider.hash }"
                                 class="button header">
-                                Scopri di pi&ugrave; sulla {{ slide.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }}
+                                Scopri di pi&ugrave; sulla {{ slider.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }}
                             </router-link>
                         </div>
                     </div>
@@ -319,6 +311,7 @@ header {
 }
 
 // Sfondo con immagine dell'header nella home
+// Contiene l'immagine sfocata e a bassa risoluzione dell'header come sfondo, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
 .header-container {
     background-image: url('/img/jumbotron-sfoc.jpg');
     background-size: cover;

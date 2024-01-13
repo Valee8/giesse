@@ -41,7 +41,6 @@ export default {
                 per vani regolari, infine la versione con <span>CASSONETTO DA 40mm</span> &egrave; adatta per spazi ridotti.
             </p>
 
-
             <!-- !!!!!! Forse da rimuovere !!!!!! -->
             <!-- <div style="display: none">
                 Con misura da <span>scontare</span> la zanzariera verr&agrave; fornita con 2mm in meno in LARGHEZZA e

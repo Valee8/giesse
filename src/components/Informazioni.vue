@@ -9,8 +9,11 @@ export default {
     name: 'Informazioni',
     data() {
         return {
+            // Scritta che appare se nessuna immagine e' stata allegata
             textFiles: "Nessun file selezionato",
+            // loading inizialmente a false per non far apparire la scritta "Invio in corso, attendere..."
             loading: false,
+            // ShowError inizialmente a false per non far apparire il messaggio d'errore
             showError: false,
             // Messaggio che avvisa che i formati dei file non sono validi
             messageFormats: "",
@@ -167,16 +170,20 @@ export default {
                 // Assegno l'email del destinatario
                 this.newInfo.owner_email = "oirelav95@gmail.com";
 
+                // loading a true e faccio apparire la scritta "Invio in corso, attendere..."
                 this.loading = true;
 
+                // Chiamata api per inviare le informazioni inserire dall'utente
                 axios.post(API_URL + 'information/store', this.newInfo)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
                         const response = data.response;
 
+
                         if (success) {
 
+                            // Chiamata api per salvarmi i file allegati e l'email del destinatario (response.id contiene l'id del messaggio)
                             axios.post(API_URL + 'message/' + response.id, {
                                 attached_files: this.newInfo.attached_files,
                                 owner_email: this.newInfo.owner_email
@@ -202,7 +209,7 @@ export default {
                     })
                     .catch(error => {
                         console.error(error);
-
+                        // Se ci sono stati errori allora showError a true in modo da far apparire il messaggio d'errore
                         this.showError = true;
 
                     });
@@ -244,6 +251,7 @@ export default {
         }
     },
     updated() {
+        // Se files non contiene elementi (quindi quando vengono rimossi i file allegati) aggiorno la scritta textFiles
         if (this.files.length === 0) {
             this.textFiles = "Nessun file selezionato";
         }
@@ -326,7 +334,8 @@ export default {
                         <!-- Bottone INVIA -->
                         <div class="submit">
                             <button type="submit" @click="sendEmail"
-                                :disabled="messageSizes !== '' || messageFormats !== ''">Invia
+                                :disabled="messageSizes !== '' || messageFormats !== ''">
+                                Invia
                                 <i class="fa-regular fa-envelope"></i></button>
                         </div>
                     </div>
@@ -348,7 +357,7 @@ export default {
 
                             <!-- Paragrafo -->
                             <p>
-                                E' possibile allegare un file con i seguenti formati .png, .jpg, .jpeg, .docx, .pdf
+                                &Egrave; possibile allegare un file con i seguenti formati .png, .jpg, .jpeg, .docx, .pdf
                                 dimensione massima 15MB
                             </p>
 
@@ -362,18 +371,21 @@ export default {
                             </div>
 
                             <!-- Scritta rimuovi allegati -->
-                            <div @click="deleteAttached" v-if="files.length > 0" class="delete-attached">Rimuovi file
-                                allegato</div>
+                            <div @click="deleteAttached" v-if="files.length > 0" class="delete-attached">
+                                Rimuovi file allegato
+                            </div>
 
-                            <!-- Messaggi di errore -->
+                            <!-- Messaggio di errore se l'allegato non rispetta le dimensioni -->
                             <div class="error">
                                 {{ messageSizes }}
                             </div>
 
+                            <!-- Messaggio di errore se l'allegato non rispetta i formati -->
                             <div class="error">
                                 {{ messageFormats }}
                             </div>
 
+                            <!-- Messaggio che appare se l'allegato non rispetta i formati e/o le dimensioni -->
                             <div v-if="messageSizes || messageFormats" class="error">
                                 Per inviare il messaggio devi modificare il file allegato
                             </div>
@@ -383,12 +395,13 @@ export default {
                     </div>
                     <!-- Parte destra -->
 
-
+                    <!-- Messaggio di errore se il messaggio non e' stato inviato e ci son stati problemi -->
                     <div class="messages">
                         <div v-if="showError" class="error-axios">
                             Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
                         </div>
 
+                        <!-- Messaggio di invio in corso del messaggio -->
                         <div v-if="loading && !showError">
                             Invio in corso, attendere...
                         </div>

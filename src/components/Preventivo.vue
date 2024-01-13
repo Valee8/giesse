@@ -15,16 +15,20 @@ export default {
     name: 'Preventivo',
     data() {
         return {
-            textSuccessMessage: "",
-
-            enableEditDeleteButtons: false,
 
             // store (dall'import di store.js)
             store,
+
+            // Messaggio di avvenuto successo di aggiunta, aggiorna e eliminazione ordine
+            textSuccessMessage: "",
+
+            // Per attivare o disattivare i bottoni "Modifica" ed "Elimina" se c'e' una modifica di un ordine in corso
+            enableEditDeleteButtons: false,
+
             // activePopup - Per verificare che un popup sia presente, in questo modo posso bloccare il contenuto attorno al popup e non far interagire l'utente con nient'altro nella pagina fino a quando il popup non scompare
             activePopup: false,
 
-            // (da controllare domani) - per sovrapporre con z-index il popup dell'ordine selezionato agli altri popup tramite css (ne appare uno per ogni ordine, hanno position: absolute quindi sono uno sopra l'altro)
+            // Per sovrapporre con z-index il popup dell'ordine selezionato agli altri popup tramite css (ne appare uno per ogni ordine, hanno position: absolute quindi sono uno sopra l'altro), al momento e' null poi nei vari metodi gli assegno il valore dell'id dell'ordine
             checkIdOrders: null,
 
             // Oggetto di appoggio per salvarmi i dati di order se nella modifica dei dati l'utente sceglie di non confermare le modifiche effettuate, in questo modo i dati nel dom non vengono aggiornati, come invece accadrebbe senza questo oggetto
@@ -56,38 +60,42 @@ export default {
             // Per salvarmi l'id di order in modo che se premo il tasto 'modifica' per la modifica di un ordine mi appaia l'ordine selezionato
             showEditInputs: null,
 
-            // Inizio dati per mostrare o nascondere i popup
+            // Per mostrare popup se scelgo di eliminare ordine
             showDeleteItemPopup: false,
+
+            // Per mostrare popup se scelgo di aggiornare modifiche ordine
             showUpdateItemPopup: false,
+
+            // Per mostrare popup se scelgo di annullare modifiche ordine
             showCancelUpdateItemPopup: false,
 
-            // Per mostrare il popup se aggiungo una zanzariera
+            // Per mostrare popup di aggiunta ordine
             showAddedItemPopup: false,
 
-            // Fine dati per mostrare o nascondere i popup
-
-            enableButtonThirdStep: false,
-
+            // Per mostrare o nascondere schermata di modifica ordine nel terzo step, nella modifica dei dati del cliente
             editClientInfo: false,
 
             // Messaggio di errore se l'invio dei dati (sia step 1 per il cliente, sia step2 per gli ordini) non e' andato a buon fine
             showError: false,
+
             // Mi salvo l'id di client
             clientId: "",
+
             // Per mostrare il tipo di rete a seconda del modello selezionato tramite lo slider (alcune non hanno oscuranti e li nascondo showNet = false)
             showNet: true,
+
             // Per mostrare il tipo di rete a seconda del modello selezionato quando sono nella modifica dei dati (alcune non hanno oscuranti e li nascondo showNetEditItem = false)
             showNetEditItem: true,
+
             // Per far apparire il messaggio se le e-mail coincidono o no
             showMessageEmailConfirm: "",
+
             // fixRequiredProblem: Per risolvere il problema del messaggio predefinito del browser che mi chiede di selezionare un modello dallo slider (mi dice che il dato da inserire e' obbligatorio quando non dovrebbe)
             fixRequiredProblem: false,
-            // Per verificare che ci siano le condizioni per passare dallo step 2 allo step 3
-            secondStepValid: false,
+
             // Step corrente del preventivo
             currentStep: 1,
-            // Abilito pulsante invia a seconda che enableButton sia true o false
-            enableButtonFirstStep: false,
+
             // Oggetto che contiene le informazioni di un cliente
             newClient: {
                 // Tipologia (Privato o Azienda)
@@ -333,20 +341,23 @@ export default {
         },
         // Verifico che i campi del form non hanno spazi vuoti all'inizio e alla fine (trim), se non lo sono ritorno true altrimenti false
         firstStepValid() {
+
+            let enableButtonFirstStep = false;
+
             // Se email, email di conferma, numero di telefono e comune non hanno spazi vuoti all'inizio alla fine e se email e email di conferma coincidono allora assegno true a enableButton
             if (this.newClient.client_email.trim() !== "" && this.newClient.confirm_client_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.client_email === this.newClient.confirm_client_email && this.newClient.client_email.includes("@") && this.newClient.confirm_client_email.includes("@")) {
-                this.enableButtonFirstStep = true;
+                enableButtonFirstStep = true;
             }
 
             // Se la tipologia e' "Privato" i campi che non devono rimanere vuoti sono nome, cognome + quelli sopra 
             if (this.newClient.typology === "Privato") {
-                if (this.newClient.name.trim() !== "" && this.newClient.surname.trim() !== "" && this.enableButtonFirstStep) {
+                if (this.newClient.name.trim() !== "" && this.newClient.surname.trim() !== "" && enableButtonFirstStep) {
                     return true;
                 }
             }
             // Se la tipologia e' "Azienda" i campi che non devono rimanere vuoti sono nome azienda, partita iva + quelli sopra
             else if (this.newClient.typology === "Azienda") {
-                if (this.newClient.agency_name.trim() !== "" && this.newClient.vat_number.trim() !== "" && this.enableButtonFirstStep) {
+                if (this.newClient.agency_name.trim() !== "" && this.newClient.vat_number.trim() !== "" && enableButtonFirstStep) {
                     return true;
                 }
             }
@@ -362,28 +373,36 @@ export default {
         }
     },
     methods: {
+        // Per torna indietro dallo step 3 allo step 2
         prevStep() {
-            // Incremento il valore di currentStep
+            // Decremento il valore di currentStep
             this.currentStep--;
 
             // Aggiorno valore currentStep in localStorage
             sessionStorage.setItem("CurrentStep", this.currentStep.toString());
         },
+        // Modifico il nome della tipologia
         changeTypology(typology) {
             let varTypology;
+            // Se la tipologia contiene una parentesi nel suo testo allora elimino le parentesi e il loro contenuto
             if (typology.includes("(")) {
                 varTypology = typology.replace(/(\([^)]*\)|\d+)/g, "");
             }
+            // Altrimenti elimino solo l'ultimo numero o gli ultimi 2 numeri presenti nella stringa
             else {
                 varTypology = typology.replace(/[0-9]{1,2}$/, "");
             }
 
             return varTypology;
         },
+        // Modifico il nome del modello 
         changeNameModel(model) {
+            // Prima lettera maiuscola + elimino le parentesi tonde, il loro contenuto e l'ultimo spazio che rimane con trimRight
             model = model.charAt(0).toUpperCase() + model.slice(1).toLowerCase().replace(/(\([^)]*\)|\d+)/g, "").trimRight();
 
+            // Se model termina con un punto
             if (model.endsWith(".")) {
+                // Faccio in modo di eliminare le lettere in modo che rimangano "Sonia D.G." a "Alba D.G."
                 let albaAndSonia = model.charAt(0).toUpperCase() + model.toLowerCase().slice(1, -4) + model.slice(-4).toUpperCase();
 
                 return albaAndSonia;
@@ -391,53 +410,75 @@ export default {
 
             return model;
         },
+        // Popup per eliminare un ordine
         deleteItemPopup(order) {
+            // Faccio apparire il popup mettendo showDeleteItemPopup a true
             this.showDeleteItemPopup = true;
 
+            // C'e' un popup attivo quindi metto activePopup a true
             this.activePopup = true;
 
+            // Assegno a checkIdOrders l'id dell'ordine
             this.checkIdOrders = order.id;
 
         },
+        // Popup per modificare un ordine
         updateItemPopup(order) {
 
+            // Se il nome del modello, la rete, la larghezza a l'altezza non contengono spazi
             if (order.model_name.trim() !== "" && order.net.trim() !== "" && order.width.trim() !== "" && order.height.trim() !== "") {
+                // Faccio comparire il popup
                 this.showUpdateItemPopup = true;
 
+                // C'e' un popup attivo quindi metto activePopup a true
                 this.activePopup = true;
             }
 
+            // Assegno a checkIdOrders l'id dell'ordine
             this.checkIdOrders = order.id;
 
         },
+        // Metodo per annullare la modifica di un ordine (premo tasto annulla del popup)
         CancelUpdateItem() {
+            // Nascondo il popup
             this.showCancelUpdateItemPopup = false;
+
+            // Non c'e' un popup attivo quindi metto activePopup a false
             this.activePopup = false;
 
             //document.body.classList.add("active-edit");
         },
+        // Popup per annulla le modifiche apportate ad un ordine
         cancelUpdateItemPopup(order) {
+            // Faccio apparire il popup
             this.showCancelUpdateItemPopup = true;
 
+            // C'e' un popup attivo quindi metto activePopup a true
             this.activePopup = true;
 
+            // Assegno a checkIdOrders l'id dell'ordine
             this.checkIdOrders = order.id;
 
             //document.body.classList.remove("active-edit");
 
         },
+        // Metodo quando viene cliccata la matita e sono sulla modifica dell'ordine
         showEdit(order) {
 
+            // Disattivo i bottoni "Modifica" ed "Elimina" di tutti gli altri ordini che non sono quello corrente che sto modificando, in modo che possa modificare un solo ordine alla volta
             this.enableEditDeleteButtons = true;
 
             //document.body.classList.add("active-edit");
 
+            // Salvo i dati dell'ordine su oldOrder
             for (const key in order) {
                 this.oldOrder[key] = order[key];
             }
 
+            // Non faccio comparire la scritta "Seleziona il modello", che appare solo quando seleziono un'altra tipologia
             this.showSelectModelText = false;
 
+            // Scelgo la tipologia attiva da mostrare
             for (let i = 0; i < this.zanzs.length; i++) {
 
                 this.zanzs[i].activeSelect = false;
@@ -447,12 +488,17 @@ export default {
                 }
             }
 
+            // Se typology contiene uno di questi numeri
             if (order.typology.includes(6) || order.typology.includes(7) || order.typology.includes(8) || order.typology.includes(9) || order.typology.includes(10)) {
+                // Per questi modelli gli oscuranti non sono disponibili, li nascondo assegnando false a showNetEditItem
                 this.showNetEditItem = false;
+
+                // Se la tipologia di rete attuale comprende Oscurante allora gli assegno il valore Rete normale per non dar possibilita' di creare ordini che non possono avere l'oscurante
                 if (this.oldOrder.net.includes("Oscurante")) {
                     this.oldOrder.net = "Rete normale";
                 }
             }
+            // Altrimenti showNetEditItem a true
             else {
                 this.showNetEditItem = true;
             }
@@ -466,32 +512,42 @@ export default {
                 this.showEditInputs = order.id;
             }
         },
+        // Metodo che nasconde il contenuto di modifica dell'ordine
         hideEdit(order) {
 
+            // Riattivo i bottoni "Modifica" ed "Elimina" di tutti gli ordini
             this.enableEditDeleteButtons = false;
 
             this.showEditInputs = null;
 
+            // Non c'e' un popup attivo quindi metto activePopup a false 
             this.activePopup = false;
 
+            // Nascondo il popup
             this.showCancelUpdateItemPopup = false;
 
+            // Salvo i dati di order in oldOlder
             for (const key in this.oldOrder) {
                 order[key] = this.oldOrder[key];
             }
         },
+        // Metodo per quando seleziono una tipologia dalla modifica dell'ordine
         selectTypo(event, order) {
 
+            // Assegno a typologyName il valore di typology
             let typologyName = event.target.value;
 
+            // Faccio comparire la scritta "Seleziona il modello"
             this.showSelectModelText = true;
 
+            // Se la scritta "Seleziona il modello" e' presente allora svuoto il contenuto di model_name, cosi' se premo il bottone per proseguire con le modifiche senza aver scelto un modello mi appare il messaggio di avviso, altrimenti mi rimarrebbe il valore precedente
             if (this.showSelectModelText) {
                 order.model_name = "";
             }
 
             //console.log(event.target.options[event.target.selectedIndex].innerText);
 
+            // Scelgo la tipologia attiva da mostrare
             for (let i = 0; i < this.zanzs.length; i++) {
 
                 this.zanzs[i].activeSelect = false;
@@ -501,12 +557,18 @@ export default {
                 }
             }
 
+            // Se la tipologia include uno di questi numeri
             if (typologyName.includes(6) || typologyName.includes(7) || typologyName.includes(8) || typologyName.includes(9) || typologyName.includes(10)) {
+
+                // Per questi modelli gli oscuranti non sono disponibili, li nascondo assegnando false a showNetEditItem
                 this.showNetEditItem = false;
+
+                // Se la tipologia di rete attuale comprende Oscurante allora gli assegno il valore Rete normale per non dar possibilita' di creare ordini che non possono avere l'oscurante
                 if (order.net.includes("Oscurante")) {
                     order.net = "Rete normale";
                 }
             }
+            // Altrimenti assegno true a showNetEditItem
             else {
                 this.showNetEditItem = true;
             }
@@ -568,6 +630,7 @@ export default {
                 // showMessageEmailConfirm e' uguale a true e mi appare messaggio di conferma
                 this.showMessageEmailConfirm = true;
 
+                // Assegno l'email del destinatario
                 this.newClient.owner_email = "oirelav95@gmail.com";
 
                 // this.newEmail.owner_email = this.newClient.owner_email;
@@ -609,6 +672,7 @@ export default {
                         })
                         .catch(error => {
                             console.error(error);
+                            // Faccio apparire messaggio di errore
                             this.showError = true;
                         });
                 }, 2000);
@@ -632,25 +696,14 @@ export default {
                 this.newClient.city_of_residence = "";
             }
         },
-        // Metodo per far scomparire popup e attivare bottoni plus e minus e il bottone elimina (icona cestino) degli ordini
-        hiddenAddedItemPopup() {
-            this.showAddedItemPopup = false;
-
-            this.activePopup = false;
-
-            //this.enablePlusMinus = true;
-
-        },
         // Metodo per aggiungere una zanzariera
         addZanz() {
 
             // Se i campi dei valori di newOrder non sono vuoti
             if (this.newOrder.model_name !== "" && this.newOrder.width !== "" && this.newOrder.height !== "" && this.newOrder.quantity !== 0 && this.newOrder.net !== "" && this.newOrder.color_name !== "") {
 
+                // Risolvo problemi di required, il messaggio di avviso del browser mi appare ogni volta che cambio slide, con questo evito che accada
                 this.fixRequiredProblem = false;
-
-                // Assegno true a secondStepValid
-                this.secondStepValid = true;
 
                 // Assegno l'id di client a clientId
                 this.newOrder.client_id = this.clientId;
@@ -673,7 +726,10 @@ export default {
                     });
 
                 setTimeout(() => {
+                    // Faccio comparire il popup
                     this.showAddedItemPopup = true;
+
+                    // C'e' un popup attivo quindi metto activePopup a true
                     this.activePopup = true;
                 }, 1000);
 
@@ -690,6 +746,7 @@ export default {
                 this.store.colors[0].active = true;
 
 
+                // Quando aggiungo una zanzariera rimane su checked il colore che ho appena selezionato, con questo codice, una volta che ho aggiunto una zanzariera, rimuovo tutti i checked dai colori
                 const radio = document.getElementsByClassName("radio");
 
                 if (this.store.colors[0].active) {
@@ -719,7 +776,7 @@ export default {
 
             }
         },
-        // Elimina ordine dalla lista che compare
+        // Metodo per eliminare un ordine
         deleteModel(order) {
 
             setTimeout(() => {
@@ -733,6 +790,7 @@ export default {
                         if (success) {
 
                             this.getOrder();
+                            // Faccio apparire messaggio
                             this.textSuccessMessage = "Ordine eliminato con successo!";
 
                         }
@@ -741,14 +799,17 @@ export default {
             }, 1000);
 
             setTimeout(() => {
+                // Nascondo popup 
                 this.showDeleteItemPopup = false;
+                // Non c'e' un popup attivo quindi metto activePopup a false
                 this.activePopup = false;
+                // Nascondo messaggio
                 this.textSuccessMessage = "";
             }, 2000);
 
 
         },
-        // Metodo per passare dal secondo al terzo step
+        // Metodo per passare dal secondo al terzo step (bottone "Completa le Zanzariere")
         orderSubmit() {
 
             // Se orders contiene elementi allora posso proseguire
@@ -768,6 +829,7 @@ export default {
 
                             // Se success = true richiamo getClient, aggiorno dati cliente
                             if (success) {
+                                // Aggiorno dati
                                 this.getClient();
                             }
 
@@ -781,16 +843,20 @@ export default {
                 // Aggiorno valore currentStep in localStorage
                 sessionStorage.setItem("CurrentStep", this.currentStep.toString());
 
+                // Scrollo in alto
                 this.scrollToTop();
             }
             else {
                 this.fixRequiredProblem = true;
             }
         },
+        // Metodo per modificare effettivamente l'ordine
         editOrder(order) {
 
+            // Se ogni valore non contiene spazi vuoti
             if (order.model_name.trim() !== "" && order.net.trim() !== "" && order.width.trim() !== "" && order.height.trim() !== "") {
 
+                // Chiamata per moodificare i dati
                 axios.post(API_URL + 'orders/update/' + order.id, {
                     typology: order.typology,
                     model_name: order.model_name,
@@ -807,8 +873,10 @@ export default {
 
                         // Se success = true richiamo getClient, aggiorno dati cliente
                         if (success) {
+                            // Aggiorno dati
                             this.getOrder();
 
+                            // Faccio apparire messaggio
                             this.textSuccessMessage = "Modifiche effettuate con successo!";
                         }
 
@@ -818,60 +886,90 @@ export default {
                     });
 
                 setTimeout(() => {
+                    // C'e' un popup attivo quindi metto activePopup a true
                     this.activePopup = false;
+
                     this.showEditInputs = null;
+
+                    // Faccio scomparire il popup
                     this.showUpdateItemPopup = false;
+
+                    // Abilito nuovamente i bottoni "Modifica" ed "Elimina" per ogni ordine
                     this.enableEditDeleteButtons = false;
+
+                    // Nascondo il messaggio
                     this.textSuccessMessage = "";
                 }, 2000);
 
             }
         },
+        // Metodo per far scomparire il popup dopo che ho premuto "OK"
+        hideAddedItemPopup() {
+            // Nascondo il popup
+            this.showAddedItemPopup = false;
+
+            // C'e' un popup attivo quindi metto activePopup a false
+            this.activePopup = false;
+
+        },
+        // Metodo per farmi apparire schermata di modifica dei dati del cliente nel terzo step
         showInfoClient(client) {
 
             //document.body.classList.add("active-edit");
 
+            // Salvo i dati di oldClient su client
             for (const key in client) {
                 this.oldClient[key] = client[key];
             }
 
+            // Mostro la schermata di modifica dei dati
             this.editClientInfo = true;
         },
+        // Nascondo schermata di modifica dei dati nel terzo step
         hideInfoClient(client) {
 
             //document.body.classList.remove("active-edit");
 
+            // Salvo dati di client su oldClient
             for (const key in client) {
                 client[key] = this.oldClient[key];
             }
 
+            // nascondo la schermata di modifica dei dati
             this.editClientInfo = false;
 
         },
+        // Metodo per modificare i dati del cliente nel terzo step, dopo aver premuto bottone "Aggiorna dati"
         editInfoClient(client) {
 
-            let bool = false;
+            // thirdStepValid inizialmente a false
+            let thirdStepValid = false;
 
-            // Se email, email di conferma, numero di telefono e comune non hanno spazi vuoti all'inizio alla fine e se email e email di conferma coincidono allora assegno true a enableButton
+            // enableButtonThirdStep inizialmente a false
+            let enableButtonThirdStep = false;
+
+            // Se email, numero di telefono e comune non hanno spazi vuoti all'inizio alla fine e se email contiene una @ allora assegno true a enableButtonThirdStep
             if (client.client_email.trim() !== "" && client.telephone_number.trim() !== "" && client.city_of_residence.trim() !== "" && client.client_email.includes("@")) {
-                this.enableButtonThirdStep = true;
+                enableButtonThirdStep = true;
             }
 
             // Se la tipologia e' "Privato" i campi che non devono rimanere vuoti sono nome, cognome + quelli sopra 
             if (client.typology === "Privato") {
-                if (client.name.trim() !== "" && client.surname.trim() !== "" && this.enableButtonThirdStep) {
-                    bool = true;
+                if (client.name.trim() !== "" && client.surname.trim() !== "" && enableButtonThirdStep) {
+                    thirdStepValid = true;
                 }
             }
             // Se la tipologia e' "Azienda" i campi che non devono rimanere vuoti sono nome azienda, partita iva + quelli sopra
             else if (client.typology === "Azienda") {
-                if (client.agency_name.trim() !== "" && client.vat_number.trim() !== "" && this.enableButtonThirdStep) {
-                    bool = true;
+                if (client.agency_name.trim() !== "" && client.vat_number.trim() !== "" && enableButtonThirdStep) {
+                    thirdStepValid = true;
                 }
             }
 
-            if (bool) {
+            // Se thirdStepValid e' true allora si puo' procedere con la modifica
+            if (thirdStepValid) {
 
+                // Chiamata api per modificare i dati del cliente
                 axios.post(API_URL + 'infoClients/update/' + this.clientId, {
                     typology: client.typology,
                     name: client.name,
@@ -889,12 +987,14 @@ export default {
 
                         // Se success = true richiamo getClient, aggiorno dati cliente
                         if (success) {
+                            // Aggiorno i dati
                             this.getClient();
                         }
 
                     })
                     .catch(error => console.error(error.response.data));
 
+                // Nascondo la schermata di modifica dei dati dopo averli modificati
                 this.editClientInfo = false;
                 //document.body.classList.remove("active-edit");
 
@@ -908,7 +1008,7 @@ export default {
             }
 
         },
-        // Metodo per inviare informazioni tramite email (passo dallo step 3 allo step 4)
+        // Metodo per inviare il preventivo tramite email (passo dallo step 3 allo step 4)
         sendEmail() {
 
             // Assegno email destinatario
@@ -952,10 +1052,13 @@ export default {
                 index = this.zanzs.length - 1;
             }
 
+            // Assegno a typology il nome della tipologia corrente
             this.newOrder.typology = this.zanzs[index].name;
 
+            // Assegno true ad active della tipologia corrente
             this.zanzs[index].active = true;
 
+            // Assegno false a tutti gli altri active che non sono uguali all'index
             for (let i = 0; i < this.zanzs.length; i++) {
                 if (i !== index) {
                     this.zanzs[i].active = false;
@@ -983,19 +1086,26 @@ export default {
                 index = 0;
             }
 
+            // Assegno a typology il nome della tipologia corrente
             this.newOrder.typology = this.zanzs[index].name;
 
+            // Assegno true ad active della tipologia corrente
             this.zanzs[index].active = true;
 
+            // Assegno false a tutti gli altri active che non sono uguali all'index
             for (let i = 0; i < this.zanzs.length; i++) {
                 if (i !== index) {
                     this.zanzs[i].active = false;
                 }
             }
 
+            // Se index e' uguale ad uno di questi numeri
             if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10) {
+
+                // Per questi modelli gli oscuranti non sono disponibili e li nascondo
                 this.showNet = false;
             }
+            // Altrimenti quei modelli possono avere gli oscuranti e non li nascondo
             else {
                 this.showNet = true;
             }
@@ -1015,7 +1125,6 @@ export default {
         filterNumbers(client) {
 
             if (this.currentStep === 3) {
-
                 client.name = client.name.replace(/[0-9]/g, '');
                 client.surname = client.surname.replace(/[0-9]/g, '');
                 client.city_of_residence = client.city_of_residence.replace(/[0-9]/g, '');
@@ -1079,17 +1188,22 @@ export default {
     },
     mounted() {
 
+
         const blurredImageDiv = document.querySelector(".thank-you");
 
         const img = blurredImageDiv.querySelector(".image");
 
+
+        // Funzione loaded per aggiungere la classe loaded a .header-container 
         function loaded() {
             blurredImageDiv.classList.add("loaded");
         }
 
+        // Se l'immagine ha caricato completamente allora richiamo la funzione loaded() (complete e' una proprieta' di js)
         if (img.complete) {
             loaded();
         }
+        // Altrimenti aggiungo un listener dell'evento "load" all'elemento immagine
         else {
             img.addEventListener("load", loaded);
         }
@@ -1107,17 +1221,21 @@ export default {
     },
     updated() {
 
-        // Aggiungi la classe quando mostri il popup
+        // Se c'e' un popup attivo e quindi activePopup e' true allora aggiungo al body la classe active-popup che mi permette di bloccare all'utente ogni interazione con il body se non con il popup
         if (this.activePopup) {
             document.body.classList.add('active-popup');
             //document.body.classList.remove("active-edit");
         }
+        // Altrimenti rimuovo la classe
         else {
             document.body.classList.remove('active-popup');
         }
 
+        // Se il messaggio d'errore e' presente rimuovo la classe dal body
         if (this.showError) {
             document.body.classList.remove('active-popup');
+
+            // Non c'e' un popup attivo quindi metto activePopup a false
             this.activePopup = false;
         }
 
@@ -1144,6 +1262,7 @@ export default {
 <template>
     <section class="thank-you" :class="{ 'not-step': currentStep !== 4 }">
 
+        <!-- Immagine quarto step che appare una volta che la pagina ha caricato -->
         <img :src="store.bgThanks" loading="lazy" class="image" :class="{ 'not-step': currentStep !== 4 }">
 
         <div class="container">
@@ -1164,7 +1283,6 @@ export default {
                 <h1>
                     Fai il <div>Preventivo</div>
                 </h1>
-
 
                 <!-- Cerchi degli step -->
                 <div class="steps-circles">
@@ -1263,12 +1381,14 @@ export default {
                                 </label>
                             </div>
 
+                            <!-- Bottone completa i dati -->
                             <div class="form-button">
                                 <input type="submit" @click="clientSubmit" class="button" value="Completa i dati">
                             </div>
 
                         </div>
 
+                        <!-- Messaggio d'errore -->
                         <div v-if="showError" class="error-axios">
                             Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
                         </div>
@@ -1331,7 +1451,7 @@ export default {
                         </div>
 
 
-                        <!-- Input centrale - Larghezza, altezza e quantita -->
+                        <!-- Input centrale - Larghezza, altezza e quantita' -->
                         <div class="inputs-center">
                             <span>
                                 Inserisci:
@@ -1398,7 +1518,6 @@ export default {
 
                         <!-- Bottone aggiungi zanzariera -->
                         <div class="form-button" :class="{ 'padding': orders.length !== 0 }">
-
                             <button type="submit" @click="addZanz()" class="button">
                                 Aggiungi Zanzariera
                             </button>
@@ -1409,11 +1528,12 @@ export default {
                             Il tuo elenco
                         </h2>
 
-                        <!-- Blocco popup -->
-                        <!-- Elenco zanzariere preventivo -->
+                        <!-- Elenco zanzariere preventivo - parte dove non puoi modificare l'ordine -->
                         <ul class="list-ul" v-if="orders.length !== 0">
                             <li v-for="order in  orders " :key="order.id" class="list-order"
                                 :class="{ 'edited': showEditInputs === order.id, 'disabled': enableEditDeleteButtons && showEditInputs !== order.id }">
+
+                                <!-- Tipologia, nome modello, rete e nome colore -->
                                 <div class="list-order-div" v-if="showEditInputs !== order.id">
                                     <span class="typology-model">
                                         {{ changeTypology(order.typology) }} |
@@ -1422,10 +1542,12 @@ export default {
                                         {{ order.color_name }}
                                     </span>
 
+                                    <!-- Larghezza e altezza -->
                                     <span class="width-height">
                                         L: {{ order.width }} cm x H: {{ order.height }} cm
                                     </span>
 
+                                    <!-- Quantita' -->
                                     <span class="quantity">
                                         <div class="text">
                                             Quantit&agrave;:
@@ -1436,11 +1558,11 @@ export default {
                                     </span>
                                 </div>
 
-                                <!-- Parte dove puoi modificare l'ordine -->
+                                <!-- Parte dove puoi modificare l'ordine - input e select -->
                                 <div v-if="showEditInputs === order.id" class="list-order-div"
                                     :class="{ 'edited': showEditInputs == order.id }">
 
-                                    <!-- Tipologia -->
+                                    <!-- Select Tipologia -->
                                     <select name="typology" @change="selectTypo($event, order)" class="select-typology"
                                         v-model="order.typology" title="Modifica la tipologia" required>
                                         <option :value="order.typology" disabled selected hidden>
@@ -1452,7 +1574,7 @@ export default {
                                         </option>
                                     </select>
 
-                                    <!-- Modello -->
+                                    <!-- Select Modello -->
                                     <select name="model_name" v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex"
                                         :class="{ 'select-none': !zanz.activeSelect }" class="select-model"
                                         @change="showSelectModelText = false" v-model="order.model_name"
@@ -1468,7 +1590,7 @@ export default {
                                         </option>
                                     </select>
 
-                                    <!-- Rete -->
+                                    <!-- Select Rete -->
                                     <select name="net" class="select-net" v-model="order.net"
                                         title="Modifica il tipo di rete" required>
                                         <option :value="order.net" disabled hidden
@@ -1481,7 +1603,7 @@ export default {
                                         </option>
                                     </select>
 
-                                    <!-- Colore -->
+                                    <!-- Select Colore -->
                                     <select name="color_name" class="select-color" v-model="order.color_name"
                                         title="Modifica il colore" required>
                                         <option value="" disabled selected>
@@ -1494,7 +1616,7 @@ export default {
                                         </optgroup>
                                     </select>
 
-                                    <!-- Larghezza -->
+                                    <!-- Input Larghezza -->
                                     <div class="width-edit">
                                         <label>
                                             Larghezza:
@@ -1504,7 +1626,7 @@ export default {
                                         </label>
                                     </div>
 
-                                    <!-- Altezza -->
+                                    <!-- Input Altezza -->
                                     <div class="height-edit">
                                         <label>Altezza:
                                             <input type="text" name="height" v-model="order.height"
@@ -1513,7 +1635,7 @@ export default {
                                         </label>
                                     </div>
 
-                                    <!-- Quantita' -->
+                                    <!-- Input Quantita' -->
                                     <span class="quantity" title="Modifica la quantità">
                                         <div class="text">
                                             Quantit&agrave;:
@@ -1532,6 +1654,7 @@ export default {
                                     </span>
                                 </div>
 
+                                <!-- Bottoni "Modifica" ed "Elimina" -->
                                 <div v-if="showEditInputs !== order.id">
                                     <!-- Bottone modifica -->
                                     <button @click="showEdit(order)" class="little-button"
@@ -1547,7 +1670,9 @@ export default {
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
+                                <!-- Bottoni "Modifica" ed "Elimina" -->
 
+                                <!-- Bottoni "Annulla Modifica" e "Aggiorna Modifica"  -->
                                 <div v-else :class="{ 'edited': showEditInputs === order.id }">
                                     <!-- Bottone annulla modifiche -->
                                     <a @click="cancelUpdateItemPopup(order)" class="little-button cancel"
@@ -1561,9 +1686,10 @@ export default {
                                         <i class="fa-solid fa-circle-check"></i>
                                     </button>
                                 </div>
+                                <!-- Bottoni "Annulla Modifica" e "Aggiorna Modifica"  -->
 
 
-                                <!-- Popup messaggio -->
+                                <!-- Popup che appare dopo che hai aggiunto una nuova zanzariera -->
                                 <div class="popup" v-if="showAddedItemPopup">
                                     <h6>Zanzariera aggiunta con successo&excl;</h6>
 
@@ -1572,7 +1698,7 @@ export default {
                                         proseguire con il bottone "Conferma le zanzariere".
                                     </span>
 
-                                    <button @click="hiddenAddedItemPopup">
+                                    <button @click="hideAddedItemPopup">
                                         OK
                                     </button>
                                 </div>
@@ -1640,6 +1766,7 @@ export default {
                                 title="Aggiungi un messaggio"></textarea>
                         </div>
 
+                        <!-- Messaggio d'errore -->
                         <div v-if="showError" class="error-axios">
                             Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
                         </div>
@@ -1660,7 +1787,7 @@ export default {
                         </h2>
 
                         <!-- Riepilogo info cliente -->
-                        <ul v-for=" client  in  clients " :key="client.id" class="summary info" v-if="!editClientInfo">
+                        <ul v-for="client in clients" :key="client.id" class="summary info" v-if="!editClientInfo">
                             <li>
                                 {{ client.typology }}
                                 <hr>
@@ -1692,10 +1819,10 @@ export default {
                             </li>
                         </ul>
 
-                        <ul v-for=" client  in  clients " :key="client.id" class="summary info edit" v-if="editClientInfo">
+                        <ul v-for="client in clients" :key="client.id" class="summary info edit" v-if="editClientInfo">
                             <li>
                                 <select v-model="client.typology">
-                                    <option v-for="( typology, typoIndex ) in  clientTypologies " :key="typoIndex"
+                                    <option v-for="(typology, typoIndex) in clientTypologies" :key="typoIndex"
                                         :selected="client.typology === typology">
                                         {{ typology }}
                                     </option>
@@ -1760,7 +1887,7 @@ export default {
 
 
                         <!-- Riepilogo info ordine -->
-                        <ul v-for=" order  in  orders " :key="order.id" class="summary">
+                        <ul v-for=" order in orders" :key="order.id" class="summary">
                             <li>
                                 Modello zanzariera: {{ changeNameModel(order.model_name) }} - {{ order.net }}
                             </li>
@@ -1778,7 +1905,7 @@ export default {
 
                         <!-- Messaggio -->
                         <ul>
-                            <li v-for=" mess  in  clients " :key="mess.id" class="summary">
+                            <li v-for="mess in clients" :key="mess.id" class="summary">
                                 <span v-if="mess.message">
                                     Messaggio: {{ mess.message }}
                                 </span>
@@ -1823,12 +1950,7 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-
-// .edited {
-//     position: relative;
-//     z-index: 200;
-// }
-
+// POPUP
 .popup {
     display: flex;
     justify-content: center;
@@ -1900,11 +2022,13 @@ export default {
     }
 }
 
+// Nascondo i select e gli option se gli oscuranti sono disponibili per quei modelli
 .option-none,
 .select-none {
     display: none;
 }
 
+// Stili messaggio d'errore
 .error-axios {
     color: red;
     text-align: center;
@@ -1913,10 +2037,12 @@ export default {
     padding-top: 10px;
 }
 
+// Inizio sezione
 section {
     background-color: #686868;
     min-height: calc(100vh - 312px);
 
+    // Immagine di sfondo temporanea e sfocata che appare fino a quando l'immagine vera non ha caricato completamente
     &.thank-you {
         background-image: url('/img/ringraziamento-sfoc.jpg');
         background-size: cover;

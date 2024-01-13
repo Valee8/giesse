@@ -51,15 +51,19 @@ export default {
     mounted() {
 
         const blurredImageDiv = document.querySelector(".bg-section");
+
         const img = blurredImageDiv.querySelector(".image");
 
+        // Funzione loaded per aggiungere la classe loaded a .header-container 
         function loaded() {
             blurredImageDiv.classList.add("loaded");
         }
 
+        // Se l'immagine ha caricato completamente allora richiamo la funzione loaded() (complete e' una proprieta' di js)
         if (img.complete) {
             loaded();
         }
+        // Altrimenti aggiungo un listener dell'evento "load" all'elemento immagine
         else {
             img.addEventListener("load", loaded);
         }
@@ -72,6 +76,7 @@ export default {
         <!-- Parte in alto con immagine come sfondo -->
         <div class="bg-section">
 
+            <!-- Immagine che appare una volta che il caricamento della pagina e' terminato -->
             <img :src="store.bgFaqs" loading="lazy" class="image">
 
             <div class="container">
@@ -195,6 +200,7 @@ export default {
 //     }
 // }
 
+// Contiene l'immagine sfocata e a bassa risoluzione delle faq come sfondo, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
 .bg-section {
     background-image: url('/img/sfondo-faq-sfoc.jpg');
     background-size: cover;

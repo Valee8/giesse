@@ -64,15 +64,19 @@ export default {
     },
     mounted() {
         const blurredImageDiv = document.querySelector(".logo-container");
+
         const img = blurredImageDiv.querySelector(".logo-image");
 
+        // Funzione loaded per aggiungere la classe loaded a .header-container 
         function loaded() {
             blurredImageDiv.classList.add("loaded");
         }
 
+        // Se l'immagine ha caricato completamente allora richiamo la funzione loaded() (complete e' una proprieta' di js)
         if (img.complete) {
             loaded();
         }
+        // Altrimenti aggiungo un listener dell'evento "load" all'elemento immagine
         else {
             img.addEventListener("load", loaded);
         }
@@ -311,6 +315,7 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+// Contiene l'immagine del logo come sfondo ad una bassa risoluzione, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
 .logo-container {
     background-image: url('/img/logo-bad.jpeg');
     background-size: cover;
