@@ -2991,17 +2991,59 @@ section {
 @media only screen and (min-width: 300px) and (max-width: 840px) {
 
     .third-step {
+        margin: 0;
 
         .summary {
             margin: 0 30px;
+            font-size: 0.9rem;
+
+            li {
+
+                .update {
+                    width: 130px;
+                }
+
+                input {
+                    font-size: 0.9rem;
+                    width: 170px;
+                }
+
+                button {
+                    font-size: 0.9rem;
+                    margin: 5px auto;
+                }
+
+                hr {
+                    width: 60%;
+                }
+            }
+        }
+
+        .form-button {
+            width: 100%;
+            top: 25px;
+
+            button,
+            input {
+                font-size: 1.1rem;
+                margin: 0 auto;
+                padding: 10px 20px;
+                margin: 4px;
+            }
+
+            input {
+                padding: 10px 40px;
+            }
         }
     }
 
     .thank-you {
-        .bottom {
-            h1 {
+        &:not(.not-step) {
+            .bottom {
+                padding: 40px 0;
+
                 .first {
-                    font-size: 2.7rem;
+                    font-size: 2rem;
                 }
             }
         }
