@@ -8,6 +8,8 @@ import { store } from '../store.js';
 
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
+let interval;
+
 export default {
     name: 'AppHeader',
     components: {
@@ -16,7 +18,6 @@ export default {
     data() {
         return {
             store,
-            lastTimestamp: null,
             // Index corrente dello slider
             currentSlideIndex: 0,
             // isMouseOver inizialmente a false, con cui controllo se il puntatore e' sopra lo slider
@@ -59,63 +60,56 @@ export default {
         }
     },
     methods: {
-        sliderFunction(timestamp) {
+        // Metodo per far scorrere lo slider
+        changeSlider() {
 
             const blurredImageDiv = document.querySelector(".header-container");
 
             const img = blurredImageDiv.querySelector(".image");
 
-            if (!this.isMouseOver && img.complete) {
-                // Se lastTimestamp e' null oppure se son trascorsi almeno 5000ms faccio partire lo slider
-                if (!this.lastTimestamp || timestamp - this.lastTimestamp >= 5000) {
-                    // Richiamo la funzione che mi permette di far scorrere lo slider
-                    this.moveSlider();
-                    // Aggiorno il valore di lastTimestamp ogni volta
-                    this.lastTimestamp = timestamp;
+            // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
+            this.isMouseOver = false;
+
+            // Inizio funzione setInterval
+            interval = setInterval(() => {
+
+                // Se isMouseOver e' false lo slider parte
+                if (!this.isMouseOver && img.complete) {
+                    // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
+                    if (this.currentSlideIndex < this.sliderContent.length - 1) {
+                        this.currentSlideIndex++;
+                    }
+
+                    // Altrimenti sono arrivato all'ultimo elemento dello slider e ricomincio da capo con index = 0
+                    else {
+                        this.currentSlideIndex = 0;
+                    }
+
+                    // Assegno true all'active dello slider corrente
+                    this.sliderContent[this.currentSlideIndex].active = true;
+
+                    // Scorro l'array sliderContent con for e assegno false a tutti gli altri active che non sono correnti
+                    for (let i = 0; i < this.sliderContent.length; i++) {
+                        if (i !== this.currentSlideIndex) {
+                            this.sliderContent[i].active = false;
+                        }
+                    }
 
                 }
 
-                // Se thisisMouse over e' false e l'immagine come sfondo dell'header non ha caricato del tutto richiamo requestAnimationFrame
-                requestAnimationFrame(this.sliderFunction);
-            }
+            }, 4000); // Lo slider scorre ogni 4 secondi
         },
         // Metodo per bloccare lo slider se ci vado sopra con il puntatore
         stopSlider() {
 
             // Assegno true a isMouseOver per bloccare lo slider
             this.isMouseOver = true;
+
+            // Se isMouseOver e' true allora interrompo l'esecuzione del timer con clearInterval
+            if (this.isMouseOver) {
+                clearInterval(interval);
+            }
         },
-        // Metodo per far ripartire lo slider
-        restartSlider() {
-            // Assegno false a isMouseOver per far ripartire lo slider
-            this.isMouseOver = false;
-            // Ottengo un timestamp ad alta precisione in millisecondi
-            this.lastTimestamp = performance.now();
-            // Richiamo requestAnimationFrame
-            requestAnimationFrame(this.sliderFunction);
-        },
-        // Metodo per scorrere lo slider
-        moveSlider() {
-            // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
-            if (this.currentSlideIndex < this.sliderContent.length - 1) {
-                this.currentSlideIndex++;
-            }
-
-            // Altrimenti sono arrivato all'ultimo elemento dello slider e ricomincio da capo con index = 0
-            else {
-                this.currentSlideIndex = 0;
-            }
-
-            // Assegno true all'active dello slider corrente
-            this.sliderContent[this.currentSlideIndex].active = true;
-
-            // Scorro l'array sliderContent con for e assegno false a tutti gli altri active che non sono correnti
-            for (let i = 0; i < this.sliderContent.length; i++) {
-                if (i !== this.currentSlideIndex) {
-                    this.sliderContent[i].active = false;
-                }
-            }
-        }
     },
     updated() {
 
@@ -123,16 +117,13 @@ export default {
 
         const img = blurredImageDiv.querySelector(".image");
 
-        // Funzione loaded per aggiungere la classe loaded a .header-container 
         function loaded() {
             blurredImageDiv.classList.add("loaded");
         }
 
-        // Se l'immagine ha caricato completamente allora richiamo la funzione loaded() (complete e' una proprieta' di js)
         if (img.complete) {
             loaded();
         }
-        // Altrimenti aggiungo un listener dell'evento "load" all'elemento immagine
         else {
             img.addEventListener("load", loaded);
         }
@@ -140,11 +131,7 @@ export default {
     },
     // Richiamo il metodo changeSlide su mounted
     mounted() {
-        // Ottengo un timestamp ad alta precisione in millisecondi
-        this.lastTimestamp = performance.now();
-        // Richiamo requestAnimationFrame
-        requestAnimationFrame(this.sliderFunction);
-
+        this.changeSlider();
     }
 }
 </script>
@@ -178,7 +165,7 @@ export default {
                     <!-- Inizio contenuto slider -->
                     <div class="container-slide">
                         <div class="slider-header" v-for="(slider, index) in sliderContent" :key="index"
-                            :class="{ 'active': index === currentSlideIndex }" @mouseout="restartSlider"
+                            :class="{ 'active': index === currentSlideIndex }" @mouseout="changeSlider"
                             @mouseover="stopSlider">
                             <!-- Testo -->
                             <div class="name-zanz">
@@ -360,10 +347,12 @@ header {
 
     &.loaded {
         .image {
-            opacity: 0;
+
+            &:not(.active) {
+                opacity: 0;
+            }
 
             &.active {
-                //transition: all 1s ease-in-out;
                 opacity: 1;
             }
 
