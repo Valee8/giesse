@@ -370,7 +370,7 @@ header {
             opacity: 0;
 
             &.active {
-                transition: all 1s ease-in-out;
+                //transition: all 1s ease-in-out;
                 opacity: 1;
             }
 
