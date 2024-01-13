@@ -17,98 +17,98 @@ export default {
       showArrowUp: false
     }
   },
-  methods: {
-    // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
-    handleScroll() {
-      if (window.scrollY > 700) {
-        this.showArrowUp = true;
-      }
-      else {
-        this.showArrowUp = false;
-      }
-    },
-    // Metodo per
-    closeMenu() {
-      // chiudere il sottomenu di "Zanzariere" quando si clicca in un qualsiasi punto della pagina
-      if (this.store.classSubmenu === "expand") {
-        this.store.submenu = false;
-        this.store.classSubmenu = "reduce";
-      }
+  // methods: {
+  //   // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
+  //   handleScroll() {
+  //     if (window.scrollY > 700) {
+  //       this.showArrowUp = true;
+  //     }
+  //     else {
+  //       this.showArrowUp = false;
+  //     }
+  //   },
+  //   // Metodo per
+  //   closeMenu() {
+  //     // chiudere il sottomenu di "Zanzariere" quando si clicca in un qualsiasi punto della pagina
+  //     if (this.store.classSubmenu === "expand") {
+  //       this.store.submenu = false;
+  //       this.store.classSubmenu = "reduce";
+  //     }
 
-      // chiudere il sottomenu del menu hamburger quando si clicca in un qualsiasi punto della pagina
-      if (this.store.classHamburger === "visible") {
-        this.store.menuHamburger = false;
-        this.store.classHamburger = "hidden";
-      }
+  //     // chiudere il sottomenu del menu hamburger quando si clicca in un qualsiasi punto della pagina
+  //     if (this.store.classHamburger === "visible") {
+  //       this.store.menuHamburger = false;
+  //       this.store.classHamburger = "hidden";
+  //     }
 
-    },
-    // Scrollo in alto quando clicco la freccia
-    scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    },
-    handleWindowClose() {
-      localStorage.clear(); // Azzeramento del localStorage alla chiusura della finestra o al refresh
-    }
-  },
-  watch: {
-    $route(to, from) {
+  //   },
+  //   // Scrollo in alto quando clicco la freccia
+  //   scrollToTop() {
+  //     window.scrollTo({
+  //       top: 0,
+  //       behavior: "smooth"
+  //     });
+  //   },
+  //   handleWindowClose() {
+  //     localStorage.clear(); // Azzeramento del localStorage alla chiusura della finestra o al refresh
+  //   }
+  // },
+  // watch: {
+  //   $route(to, from) {
 
-      // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
-      if (!window.location.href.includes("preventivo") && sessionStorage.length > 0) {
-        // Svuoto il contenuto di localStorage
-        sessionStorage.clear();
-      }
+  //     // Se la rotta cambia e nell'url non e' presente "preventivo" (quindi quando cambio pagina)
+  //     if (!window.location.href.includes("preventivo") && sessionStorage.length > 0) {
+  //       // Svuoto il contenuto di localStorage
+  //       sessionStorage.clear();
+  //     }
 
-      // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
-      if (window.location.href.includes("verticali")) {
-        this.store.slider = this.store.vertical;
-      }
-      // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal 
-      else if (window.location.href.includes("orizzontali")) {
-        this.store.slider = this.store.horizontal;
-      }
+  //     // Se l'url include "verticali" slider conterra' l'array vertical (presente nel file store.js)
+  //     if (window.location.href.includes("verticali")) {
+  //       this.store.slider = this.store.vertical;
+  //     }
+  //     // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal 
+  //     else if (window.location.href.includes("orizzontali")) {
+  //       this.store.slider = this.store.horizontal;
+  //     }
 
-      // Se hash e' presente (hash = #verticale-a-molla ecc)
-      if (to.hash && window.location.hash) {
-        // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
-        let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
+  //     // Se hash e' presente (hash = #verticale-a-molla ecc)
+  //     if (to.hash && window.location.hash) {
+  //       // parseInt(to.hash.replace(/[^0-9]+/g, ''), 10) ===> Conversione ad intero del contenuto di hash eliminando ogni simbolo in modo che rimanga solo il numero
+  //       let hashNumber = parseInt(to.hash.replace(/[^0-9]+/g, ''), 10);
 
-        // Assegno true all'active di hashNumber 
-        this.store.slider[hashNumber].active = true;
+  //       // Assegno true all'active di hashNumber 
+  //       this.store.slider[hashNumber].active = true;
 
-        // Scorro lo slider con ciclo for
-        for (let i = 0; i < this.store.slider.length; i++) {
-          // Se l'i-esimo elemento e' diverso da hashNumber
-          if (i !== hashNumber) {
-            // Assegno a tutti gli active il valore false
-            this.store.slider[i].active = false;
-          }
-        }
-      }
+  //       // Scorro lo slider con ciclo for
+  //       for (let i = 0; i < this.store.slider.length; i++) {
+  //         // Se l'i-esimo elemento e' diverso da hashNumber
+  //         if (i !== hashNumber) {
+  //           // Assegno a tutti gli active il valore false
+  //           this.store.slider[i].active = false;
+  //         }
+  //       }
+  //     }
 
-      // Se classSubmenu (presente nel file store.js) e' uguale a "expand"
-      if (this.store.classSubmenu === "expand") {
-        // Assegno false a submenu (presente nel file store.js) 
-        this.store.submenu = false;
-        // Assegno a classSubmenu "reduce"
-        this.store.classSubmenu = "reduce";
-      }
-    }
-  },
-  beforeUnmount() {
-    window.addEventListener('beforeunload', this.handleWindowClose);
-  },
-  updated() {
-    // Aggiungo evento per lo scroll 
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  destroyed() {
-    // Rimuovo evento per lo scroll
-    window.removeEventListener('scroll', this.handleScroll);
-  },
+  //     // Se classSubmenu (presente nel file store.js) e' uguale a "expand"
+  //     if (this.store.classSubmenu === "expand") {
+  //       // Assegno false a submenu (presente nel file store.js) 
+  //       this.store.submenu = false;
+  //       // Assegno a classSubmenu "reduce"
+  //       this.store.classSubmenu = "reduce";
+  //     }
+  //   }
+  // },
+  // beforeUnmount() {
+  //   window.addEventListener('beforeunload', this.handleWindowClose);
+  // },
+  // updated() {
+  //   // Aggiungo evento per lo scroll 
+  //   window.addEventListener('scroll', this.handleScroll);
+  // },
+  // destroyed() {
+  //   // Rimuovo evento per lo scroll
+  //   window.removeEventListener('scroll', this.handleScroll);
+  // },
 }
 </script>
 
