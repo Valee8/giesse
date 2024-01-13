@@ -15,11 +15,6 @@ export default {
     name: 'Preventivo',
     data() {
         return {
-
-            hideNet: false,
-
-            lengthOrderArray: true,
-
             textSuccessMessage: "",
 
             enableEditDeleteButtons: false,
@@ -1184,14 +1179,14 @@ export default {
             <!-- Scritte sotto ai cerchi -->
             <div class="steps-text" :class="{ 'none': currentStep > 3 }">
                 <div class="step">
-                    <div>
-                        Compila i dati personali
+                    <div class="step-one">
+                        Compila i dati <span>personali</span>
                     </div>
-                    <div>
+                    <div class="step-two">
                         Compila il form per inviare il preventivo
                     </div>
-                    <div>
-                        Clicca conferma
+                    <div class="step-three">
+                        Clicca <span>conferma</span>
                     </div>
                 </div>
             </div>
@@ -1354,7 +1349,7 @@ export default {
                         <!-- Input sotto - input radio scelta rete -->
                         <div class="inputs-bottom">
                             <span v-for="(net, netIndex) in nets" :key="netIndex"
-                                :class="{ 'visible': showNet && netIndex === 0 || netIndex === 1 }">
+                                :class="{ 'visible': showNet || netIndex === 0 || netIndex === 1 }">
                                 <label>
                                     {{ net }}
                                     <input type="radio" name="net" :value="net" v-model="newOrder.net"
@@ -1420,14 +1415,14 @@ export default {
                             <li v-for="order in  orders " :key="order.id" class="list-order"
                                 :class="{ 'edited': showEditInputs === order.id, 'disabled': enableEditDeleteButtons && showEditInputs !== order.id }">
                                 <div class="list-order-div" v-if="showEditInputs !== order.id">
-                                    <span>
+                                    <span class="typology-model">
                                         {{ changeTypology(order.typology) }} |
                                         {{ changeNameModel(order.model_name) }} |
                                         {{ order.net }} |
                                         {{ order.color_name }}
                                     </span>
 
-                                    <span>
+                                    <span class="width-height">
                                         L: {{ order.width }} cm x H: {{ order.height }} cm
                                     </span>
 
@@ -1577,9 +1572,9 @@ export default {
                                         proseguire con il bottone "Conferma le zanzariere".
                                     </span>
 
-                                    <a @click="hiddenAddedItemPopup">
+                                    <button @click="hiddenAddedItemPopup">
                                         OK
-                                    </a>
+                                    </button>
                                 </div>
 
                                 <!-- Popup per confermare l'eliminazione di un elemento dalla lista -->
@@ -1590,9 +1585,9 @@ export default {
                                             Confermi di voler eliminare l'ordine dalla lista&quest;
                                         </h6>
 
-                                        <a @click="showDeleteItemPopup = false, activePopup = false">
+                                        <button @click="showDeleteItemPopup = false, activePopup = false">
                                             Annulla
-                                        </a>
+                                        </button>
 
                                         <button @click="deleteModel(order)">Conferma</button>
                                     </div>
@@ -1610,9 +1605,9 @@ export default {
                                             Confermi le modifiche effettuate&quest;
                                         </h6>
 
-                                        <a @click="showUpdateItemPopup = false, activePopup = false">
+                                        <button @click="showUpdateItemPopup = false, activePopup = false">
                                             Annulla
-                                        </a>
+                                        </button>
 
                                         <button @click="editOrder(order)">Conferma</button>
                                     </div>
@@ -1630,11 +1625,11 @@ export default {
                                         Confermi di voler annullare le modifiche&quest;
                                     </h6>
 
-                                    <a @click="CancelUpdateItem()">
+                                    <button @click="CancelUpdateItem()">
                                         Annulla
-                                    </a>
+                                    </button>
 
-                                    <a @click="hideEdit(order)">Conferma</a>
+                                    <button @click="hideEdit(order)">Conferma</button>
                                 </div>
                             </li>
                         </ul>
@@ -1841,8 +1836,8 @@ export default {
     flex-wrap: wrap;
     background-color: #fff;
     width: 400px;
-    padding: 10px 40px;
-    height: 200px;
+    padding: 20px 40px;
+    height: 250px;
     position: fixed;
     left: 50%;
     z-index: 200;
@@ -2141,13 +2136,18 @@ section {
         user-select: none;
         transition: all 500ms ease;
 
-        h3:first-of-type {
-            font-size: 1.4rem;
+        h3 {
+
+            &:first-of-type {
+                font-size: 1.4rem;
+            }
         }
 
-        h3:last-of-type {
-            font-size: 1.1rem;
-            font-weight: 500;
+        h3 {
+            &:last-of-type {
+                font-size: 1.1rem;
+                font-weight: 500;
+            }
         }
 
         .arrows-image {
@@ -2238,13 +2238,6 @@ section {
             justify-content: space-between;
             align-items: center;
 
-            // &:not(.edited) {
-            //     pointer-events: none;
-            // }
-
-            //padding: 20px 5px;
-            //align-items: flex-end;
-
             .list-order-div {
                 display: flex;
                 justify-content: space-between;
@@ -2255,7 +2248,7 @@ section {
                     span {
                         padding: 10px;
 
-                        &:first-of-type {
+                        &.typology-model {
                             width: 568px;
                         }
                     }
@@ -2273,7 +2266,6 @@ section {
                         padding: 0 10px;
                         margin: 0;
                     }
-
 
                     select,
                     input {
@@ -2350,7 +2342,9 @@ section {
 
             }
 
-            span {
+            .typology-model,
+            .width-height,
+            .quantity {
                 background-color: #fff;
                 border-radius: 15px;
                 font-size: 1rem;
@@ -2736,8 +2730,8 @@ section {
             .circle {
                 border: 3px solid #fff;
                 border-radius: 50%;
-                width: 70px;
-                height: 70px;
+                min-width: 70px;
+                min-height: 70px;
                 line-height: 70px;
                 font-weight: 500;
 
@@ -2762,22 +2756,24 @@ section {
         .step {
             display: flex;
             margin-left: auto;
-            width: 345px;
+            width: 350px;
 
-            div {
-                width: calc(100% / 3);
+            .step-one {
+                left: -25px;
+            }
+
+            .step-three {
+                left: 25px;
+            }
+
+
+            .step-one,
+            .step-two,
+            .step-three {
+                min-width: calc(100% / 3);
                 position: relative;
                 font-weight: 500;
                 font-size: 0.8rem;
-
-                &:first-child {
-                    left: -25px;
-                }
-
-
-                &:last-child {
-                    left: 25px;
-                }
             }
         }
     }
@@ -2894,6 +2890,104 @@ section {
 }
 
 
+@media only screen and (min-width: 520px) and (max-width: 700px) {
+
+    .container {
+        .steps-text {
+
+            .step {
+                margin-left: 0;
+                width: 100%;
+
+                .step-one,
+                .step-two,
+                .step-three {
+                    width: calc(100% / 3);
+                }
+
+                .step-one {
+                    left: -10%;
+
+                    span {
+                        display: block;
+                    }
+
+                }
+
+                .step-three {
+                    left: 10%;
+
+                    span {
+                        display: block;
+                    }
+
+                }
+
+            }
+        }
+    }
+}
+
+// DEVO MODIFICARE QUI
+
+@media only screen and (min-width: 400px) and (max-width: 520px) {
+
+    .container {
+        .steps-text {
+
+            .step {
+                margin-left: 0;
+                width: 100%;
+
+                .step-one,
+                .step-two,
+                .step-three {
+                    width: calc(100% / 3);
+                }
+
+                .step-one {
+                    left: -8%;
+
+                    span {
+                        display: block;
+                    }
+
+                }
+
+                .step-three {
+                    left: 8%;
+
+                    span {
+                        display: block;
+                    }
+
+                }
+
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 700px) {
+    .container {
+
+        .second-step {
+
+            .form-button {
+                top: 40px;
+
+                input {
+                    width: 300px;
+                    padding: 10px;
+                    font-size: 1.2rem;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+
 @media only screen and (min-width: 300px) and (max-width: 840px) {
 
     .third-step {
@@ -2921,33 +3015,155 @@ section {
 
 }
 
-@media only screen and (min-width: 300px) and (max-width: 550px) {
-
+@media only screen and (min-width: 580px) and (max-width: 1302px) {
     .container {
+        .second-step {
 
-        .top {
-            .steps-circles {
-                width: 100%;
+            .list-ul {
+                .list-order {
+                    justify-content: center;
 
-                .circle {
-                    height: 60px;
-                    line-height: 60px;
+                    .list-order-div {
+                        justify-content: center;
+
+                        &:not(.edited) {
+                            span {
+
+                                &.typology-model {
+                                    width: 100%;
+                                }
+                            }
+                        }
+
+                        &.edited {
+
+                            select {
+
+                                &.select-typology,
+                                &.select-model,
+                                &.select-color,
+                                &.select-net {
+                                    width: auto;
+                                    font-size: 0.9rem;
+                                    padding: 4px;
+                                }
+                            }
+
+                            .width-edit,
+                            .height-edit {
+                                //margin: 0 auto;
+                                font-size: 0.9rem;
+                            }
+
+                            label {
+                                font-size: 0.9rem;
+                            }
+
+                            input {
+                                text-align: center;
+                                padding: 0;
+                                font-size: 0.9rem;
+                            }
+
+                            .quantity {
+                                //margin: 0 auto 5px auto;
+                                font-size: 0.9rem;
+                            }
+
+                        }
+
+                    }
                 }
-
-                hr {
-                    width: calc(100% / 3);
-                }
-
             }
         }
     }
 
-    .second-step {
-        padding: 20px;
+}
 
-        select {
-            width: 200px;
-            margin-left: 0;
+@media only screen and (min-width: 300px) and (max-width: 580px) {
+
+    .popup {
+        width: 90%;
+        height: 250px;
+
+        h6 {
+            font-size: 1rem;
+            padding: 10px 0;
+            width: 100%;
+        }
+
+        span {
+            font-size: 0.9rem;
+        }
+
+        a {
+            margin-top: 10px;
+        }
+    }
+
+    .second-step {
+
+        .list-ul {
+            .list-order {
+
+                .list-order-div {
+
+                    &:not(.edited) {
+                        flex-wrap: wrap;
+
+                        span {
+
+                            &.typology-model,
+                            &.width-height,
+                            &.quantity {
+                                width: 100%;
+                            }
+
+                            &.quantity {
+                                justify-content: center;
+                            }
+                        }
+                    }
+
+                    &.edited {
+                        width: 100%;
+
+                        select {
+                            margin: 0;
+
+                            // &.select-typology {
+                            //     padding-right: 5px;
+                            // }
+
+                            &.select-typology,
+                            &.select-model,
+                            &.select-color,
+                            &.select-net {
+                                width: 100%;
+                                font-size: 0.9rem;
+                            }
+                        }
+
+                        .width-edit,
+                        .height-edit {
+                            margin: 0 auto;
+                            font-size: 0.9rem;
+                        }
+
+                        input {
+                            text-align: center;
+                            margin: 0;
+                            font-size: 0.9rem;
+                        }
+
+                        .quantity {
+                            margin: 0 auto 5px auto;
+                            font-size: 0.9rem;
+                        }
+
+                    }
+                }
+            }
         }
     }
 
@@ -2964,13 +3180,43 @@ section {
     }
 }
 
-@media only screen and (min-width: 550px) and (max-width: 600px) {
-    .second-step {
-        padding: 20px;
 
-        select {
-            width: 350px;
-            margin-left: 0;
+
+@media only screen and (min-width: 300px) and (max-width: 400px) {
+    .container {
+
+        .second-step {
+            .form-button {
+                top: 40px;
+
+                input {
+                    font-size: 1rem;
+                    text-align: center;
+                    padding: 10px 5px;
+                }
+
+                button {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+
+        .steps-text {
+
+            .step {
+                margin-left: 0;
+                width: 100%;
+
+                .step-one {
+                    left: -8px;
+
+                }
+
+                .step-three {
+                    left: 8px;
+                }
+
+            }
         }
     }
 }
@@ -2979,7 +3225,7 @@ section {
     .container {
         .top {
             flex-wrap: wrap;
-            max-width: 90%;
+            //max-width: 90%;
 
             h1 {
                 text-align: center;
@@ -2995,25 +3241,6 @@ section {
 
                 hr {
                     width: calc(100% / 3);
-                }
-
-            }
-        }
-
-        .steps-text {
-            max-width: 100%;
-
-
-            .step {
-                margin-left: 0;
-                width: 100%;
-
-                div {
-                    width: calc(100% / 3);
-
-                    &:first-child {
-                        left: -20px;
-                    }
                 }
 
             }
@@ -3065,8 +3292,12 @@ section {
 
     .second-step {
 
-        select {
-            margin-top: 80px;
+        .inputs-top {
+            select {
+                margin-top: 30px;
+                width: 220px;
+                margin-left: 0;
+            }
         }
 
         .slider-preventivo {
@@ -3091,6 +3322,8 @@ section {
 
         .list-colors {
             .colors {
+                gap: 100px 30px;
+
                 .color {
                     width: 130px;
                     height: 130px;
@@ -3100,14 +3333,6 @@ section {
                         font-size: 0.8rem;
                     }
                 }
-            }
-        }
-
-
-        .form-button {
-            input {
-                padding-right: 15px;
-                padding-left: 15px;
             }
         }
     }
@@ -3156,18 +3381,34 @@ section {
 
 }
 
-@media only screen and (min-width: 300px) and (max-width: 1028px) {
+
+@media only screen and (min-width: 300px) and (max-width: 1300px) {
     .second-step {
         padding: 20px;
 
-        select {
-            margin-left: 0;
+        .form-button {
+            top: 40px;
+        }
+
+        .list-ul {
+            .list-order {
+                justify-content: center;
+
+                div {
+                    &:not(.minus-plus) {
+                        &:nth-child(2) {
+                            margin-top: 30px;
+                        }
+                    }
+
+                }
+            }
         }
 
         .inputs-center {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            // display: flex;
+            // justify-content: space-between;
+            // flex-wrap: wrap;
 
             label {
                 margin: 0 auto;
@@ -3207,23 +3448,6 @@ section {
             .typology-name {
                 padding: 10px;
                 font-size: 1.2rem;
-            }
-        }
-
-        .list-ul {
-            .list-order {
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 10px 0;
-
-                span:first-child {
-                    line-height: 30px;
-                }
-
-                li {
-                    width: 100%;
-                    text-align: center;
-                }
             }
         }
     }
