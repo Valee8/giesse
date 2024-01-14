@@ -221,13 +221,13 @@ export default {
         },
         // Impedisco che questi campi possano contenere dei numeri
         filterNumbers() {
-            this.newInfo.name = this.newInfo.name.replace(/[0-9]/g, '');
-            this.newInfo.surname = this.newInfo.surname.replace(/[0-9]/g, '');
+            this.newInfo.name = this.newInfo.name.replace(/[0-9\s]/g, "");
+            this.newInfo.surname = this.newInfo.surname.replace(/[0-9\s]/g, "");
         },
         // Impedisco che questi campi possano contenere lettere e simboli
         filterCharacters() {
-            this.newInfo.telephone_number = this.newInfo.telephone_number.replace(/\D/g, '');
-            this.newInfo.vat_number = this.newInfo.vat_number.replace(/\D/g, '');
+            this.newInfo.telephone_number = this.newInfo.telephone_number.replace(/\D/g, "");
+            this.newInfo.vat_number = this.newInfo.vat_number.replace(/\D/g, "");
         },
         // Svuoto contenuto campi se si cambia tipologia 
         resetCommonInputs() {

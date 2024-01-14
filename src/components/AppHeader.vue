@@ -67,11 +67,11 @@ export default {
 
             const img = blurredImageDiv.querySelector(".image");
 
-            // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
-            this.isMouseOver = false;
-
             // Inizio funzione setInterval
             interval = setInterval(() => {
+
+                // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
+                this.isMouseOver = false;
 
                 // Se isMouseOver e' false lo slider parte
                 if (!this.isMouseOver && img.complete) {
@@ -131,8 +131,9 @@ export default {
     },
     // Richiamo il metodo changeSlide su mounted
     mounted() {
+
         this.changeSlider();
-    }
+    },
 }
 </script>
 
