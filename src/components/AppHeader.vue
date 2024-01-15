@@ -36,7 +36,7 @@ export default {
                     typo: "verticali",
                     id: 0,
                     hash: "#laura-" + 1,
-                    image: imagePrefix + "img/Prova.jpg",
+                    image: imagePrefix + "img/jumbotron2.png",
                     active: false,
                 },
                 {
@@ -44,7 +44,7 @@ export default {
                     typo: "orizzontali",
                     id: 1,
                     hash: "#luna-" + 2,
-                    image: imagePrefix + "img/Prova2.jpg",
+                    image: imagePrefix + "img/jumbotron3.png",
                     active: false
                 },
                 {
@@ -52,7 +52,7 @@ export default {
                     typo: "orizzontali",
                     id: 1,
                     hash: "#zelig-" + 3,
-                    image: imagePrefix + "img/Prova3.jpg",
+                    image: imagePrefix + "img/jumbotron4.png",
                     active: false
                 }
             ]
@@ -199,7 +199,8 @@ export default {
                             <!-- Bottone scopri di piu' -->
                             <router-link :to="{ name: slider.typo, params: { id: slider.id }, hash: slider.hash }"
                                 class="button header">
-                                Scopri di pi&ugrave; sulla {{ slider.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }}
+                                Scopri di pi&ugrave;
+                                <!-- sulla {{ slider.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }} -->
                             </router-link>
                         </div>
                     </div>
@@ -331,7 +332,7 @@ header {
     background-image: url('/img/jumbotron-sfoc.jpg');
     background-size: cover;
     background-position: 0 -162px;
-    height: 543px;
+    height: 542px;
     width: 100%;
     position: relative;
 
@@ -365,12 +366,16 @@ header {
         height: 100%;
         width: 100%;
         object-fit: cover;
-        object-position: 0 -162px;
         position: absolute;
+        object-position: center;
         opacity: 0;
         top: 0;
         left: 0;
         transition: opacity 250ms ease-in-out;
+
+        &:first-child {
+            object-position: 0 -162px;
+        }
     }
 
     &.loaded {
