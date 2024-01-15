@@ -1,5 +1,5 @@
 
-const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
+const imagePrefix = process.env.NODE_ENV === 'development' ? '/giesse/' : '/';
 
 // Passo 1: Evento di installazione - si verifica quando il service worker viene installato per la prima volta
 self.addEventListener('install', (event) => {
@@ -33,12 +33,6 @@ self.addEventListener('install', (event) => {
                 imagePrefix + "img/zanzariere/porta-a-battente.png",
                 imagePrefix + "img/zanzariere/scorri.png",
                 imagePrefix + "img/zanzariere/zelig.png",
-                "/",
-                "/verticali/0",
-                "/orizzontali/1",
-                "/preventivo",
-                "/contatti",
-                "/sede",
             ]);
         })
     );

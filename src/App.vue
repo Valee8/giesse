@@ -108,7 +108,7 @@ export default {
   destroyed() {
     // Rimuovo evento per lo scroll
     window.removeEventListener('scroll', this.handleScroll);
-  },
+  }
 }
 </script>
 

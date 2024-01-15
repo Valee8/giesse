@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 
-const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
+const imagePrefix = process.env.NODE_ENV === 'development' ? '/giesse/' : '/';
 
 export const store = reactive({
     // Scritta "Home" nella varie sezioni
