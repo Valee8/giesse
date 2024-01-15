@@ -8,8 +8,6 @@ import { store } from '../store.js';
 
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
-let interval;
-
 export default {
     name: 'AppHeader',
     components: {
@@ -17,6 +15,7 @@ export default {
     },
     data() {
         return {
+            interval: null,
             store,
             // Index corrente dello slider
             currentSlideIndex: 0,
@@ -68,10 +67,7 @@ export default {
             const img = blurredImageDiv.querySelector(".image");
 
             // Inizio funzione setInterval
-            interval = setInterval(() => {
-
-                // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
-                this.isMouseOver = false;
+            this.interval = setInterval(() => {
 
                 // Se isMouseOver e' false lo slider parte
                 if (!this.isMouseOver && img.complete) {
@@ -99,6 +95,12 @@ export default {
 
             }, 4000); // Lo slider scorre ogni 4 secondi
         },
+        startSlider() {
+            // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
+            this.isMouseOver = false;
+
+            this.changeSlider();
+        },
         // Metodo per bloccare lo slider se ci vado sopra con il puntatore
         stopSlider() {
 
@@ -106,8 +108,14 @@ export default {
             this.isMouseOver = true;
 
             // Se isMouseOver e' true allora interrompo l'esecuzione del timer con clearInterval
-            if (this.isMouseOver) {
-                clearInterval(interval);
+            clearInterval(this.interval);
+        },
+        handleVisibilityChange() {
+            if (document.visibilityState === "hidden") {
+                this.stopSlider();
+            }
+            else {
+                this.startSlider();
             }
         },
     },
@@ -131,9 +139,22 @@ export default {
     },
     // Richiamo il metodo changeSlide su mounted
     mounted() {
-
         this.changeSlider();
+
+        document.addEventListener("visibilitychange", this.handleVisibilityChange);
     },
+    beforeDestroy() {
+        clearInterval(this.interval);
+    },
+    watch: {
+        $route(to, from) {
+
+            if (to.path !== "/") {
+                this.stopSlider();
+            }
+        },
+    },
+
 }
 </script>
 
@@ -166,7 +187,7 @@ export default {
                     <!-- Inizio contenuto slider -->
                     <div class="container-slide">
                         <div class="slider-header" v-for="(slider, index) in sliderContent" :key="index"
-                            :class="{ 'active': index === currentSlideIndex }" @mouseout="changeSlider"
+                            :class="{ 'active': index === currentSlideIndex }" @mouseout="startSlider"
                             @mouseover="stopSlider">
                             <!-- Testo -->
                             <div class="name-zanz">
@@ -208,6 +229,10 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+.red {
+    background-color: red;
+}
 
 // .loading {
 //     height: 543px;
