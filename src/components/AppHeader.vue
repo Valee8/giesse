@@ -6,7 +6,7 @@ import AppNavbar from './AppNavbar.vue';
 // Importo store
 import { store } from '../store.js';
 
-const imagePrefix = process.env.NODE_ENV === 'development' ? '/giesse/' : '/';
+const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 export default {
     name: 'AppHeader',

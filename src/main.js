@@ -7,7 +7,8 @@ import { router } from './router';
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@fortawesome/fontawesome-free/js/all.js';
 
-const serviceWorkerPath = process.env.NODE_ENV === 'development' ? '/giesse/service-worker.js' : '/service-worker.js';
+
+const serviceWorkerPath = process.env.NODE_ENV === 'production' ? '/giesse/service-worker.js' : '/service-worker.js';
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register(serviceWorkerPath)

@@ -6,7 +6,7 @@ import { store } from '../store.js';
 // Importo axios
 import axios from 'axios';
 
-const imagePrefix = process.env.NODE_ENV === 'development' ? '/giesse/' : '/';
+const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 // URL per la chiamata API
 const API_URL = 'http://localhost:8000/api/v1/';
