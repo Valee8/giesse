@@ -1574,9 +1574,11 @@ export default {
                                 Il tuo elenco
                             </h2>
 
-                            <a @click="showDeleteAllItemsPopup = true, activePopup = true" class="little-button delete-all">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </a>
+                            <div class="delete-all-button">
+                                <a @click="showDeleteAllItemsPopup = true, activePopup = true" class="little-button">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </a>
+                            </div>
 
                             <!-- Elenco zanzariere preventivo - parte dove non puoi modificare l'ordine -->
                             <ul class="list-ul">
@@ -1756,7 +1758,7 @@ export default {
                                         </button>
                                     </div>
 
-                                    <!-- Popup per confermare l'eliminazione di un elemento dalla lista -->
+                                    <!-- Popup per confermare l'eliminazione di un elemento -->
                                     <div class="popup" v-if="showDeleteItemPopup"
                                         :class="{ 'id': checkIdOrders === order.id }">
 
@@ -1779,12 +1781,12 @@ export default {
                                         </div>
                                     </div>
 
-                                    <!-- Popup per confermare l'eliminazione di un elemento dalla lista -->
+                                    <!-- Popup per confermare l'eliminazione di TUTTI gli elementi -->
                                     <div class="popup" v-if="showDeleteAllItemsPopup">
 
                                         <div v-if="textSuccessMessage === ''">
                                             <h6>
-                                                Confermi di voler eliminare tutti gli ordini&quest;
+                                                Confermi di voler svuotare la lista&quest;
                                             </h6>
 
                                             <button @click="showDeleteAllItemsPopup = false, activePopup = false">
@@ -2062,11 +2064,16 @@ export default {
 
 .orders-all {
     position: relative;
-}
 
-a {
-    &.little-button {
+    .delete-all-button {
+        position: absolute;
+        right: 21px;
+        top: 0;
         line-height: 34px;
+
+        .little-button {
+            margin-right: 0;
+        }
     }
 }
 
@@ -2081,12 +2088,6 @@ a {
     width: 34px;
     height: 34px;
     border: 0;
-
-    &.delete-all {
-        position: absolute;
-        right: 21px;
-        top: 0;
-    }
 
 
     &:first-child {
@@ -3478,6 +3479,19 @@ section {
 
 
 @media only screen and (min-width: 300px) and (max-width: 400px) {
+
+    .orders-all {
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        .delete-all-button {
+            position: relative;
+            right: 0;
+        }
+    }
+
     .container {
 
         .second-step {
