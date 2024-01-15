@@ -66,34 +66,36 @@ export default {
 
             const img = blurredImageDiv.querySelector(".image");
 
-            // Inizio funzione setInterval
-            this.interval = setInterval(() => {
+            if (!this.isMouseOver) {
+                // Inizio funzione setInterval
+                this.interval = setInterval(() => {
 
-                // Se isMouseOver e' false lo slider parte
-                if (!this.isMouseOver && img.complete) {
-                    // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
-                    if (this.currentSlideIndex < this.sliderContent.length - 1) {
-                        this.currentSlideIndex++;
-                    }
-
-                    // Altrimenti sono arrivato all'ultimo elemento dello slider e ricomincio da capo con index = 0
-                    else {
-                        this.currentSlideIndex = 0;
-                    }
-
-                    // Assegno true all'active dello slider corrente
-                    this.sliderContent[this.currentSlideIndex].active = true;
-
-                    // Scorro l'array sliderContent con for e assegno false a tutti gli altri active che non sono correnti
-                    for (let i = 0; i < this.sliderContent.length; i++) {
-                        if (i !== this.currentSlideIndex) {
-                            this.sliderContent[i].active = false;
+                    // Se isMouseOver e' false lo slider parte
+                    if (img.complete) {
+                        // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
+                        if (this.currentSlideIndex < this.sliderContent.length - 1) {
+                            this.currentSlideIndex++;
                         }
+
+                        // Altrimenti sono arrivato all'ultimo elemento dello slider e ricomincio da capo con index = 0
+                        else {
+                            this.currentSlideIndex = 0;
+                        }
+
+                        // Assegno true all'active dello slider corrente
+                        this.sliderContent[this.currentSlideIndex].active = true;
+
+                        // Scorro l'array sliderContent con for e assegno false a tutti gli altri active che non sono correnti
+                        for (let i = 0; i < this.sliderContent.length; i++) {
+                            if (i !== this.currentSlideIndex) {
+                                this.sliderContent[i].active = false;
+                            }
+                        }
+
                     }
 
-                }
-
-            }, 4000); // Lo slider scorre ogni 4 secondi
+                }, 4000);
+            } // Lo slider scorre ogni 4 secondi
         },
         startSlider() {
             // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
