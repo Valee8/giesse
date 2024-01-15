@@ -348,7 +348,7 @@ export default {
 #blackMenu {
     color: #fff;
     width: 100%;
-    height: 67px;
+    height: 65px;
     position: relative;
     z-index: 1;
 
