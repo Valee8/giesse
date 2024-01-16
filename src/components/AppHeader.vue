@@ -15,8 +15,8 @@ export default {
     },
     data() {
         return {
-            interval: null,
             lastTimestamp: null,
+            animationFrameId: null,
             store,
             // Index corrente dello slider
             currentSlideIndex: 0,
@@ -63,26 +63,22 @@ export default {
         // Metodo per far scorrere lo slider
         animateSlider(timestamp) {
 
-            const blurredImageDiv = document.querySelector(".header-container");
+            //const blurredImageDiv = document.querySelector(".header-container");
 
-            const img = blurredImageDiv.querySelector(".image");
+            //const img = blurredImageDiv.querySelector(".image");
 
-            if (!this.lastTimestamp) {
-                this.lastTimestamp = timestamp;
-            }
+            if (!this.isMouseOver) {
+                if (!this.lastTimestamp) {
+                    this.lastTimestamp = timestamp;
+                }
 
-            const deltaTime = timestamp - this.lastTimestamp;
+                const deltaTime = timestamp - this.lastTimestamp;
 
-            if (deltaTime >= 4000) {
+                if (deltaTime >= 4000) {
 
-                if (img.complete && !this.isMouseOver) {
-                    // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
                     if (this.currentSlideIndex < this.sliderContent.length - 1) {
                         this.currentSlideIndex++;
-                    }
-
-                    // Altrimenti sono arrivato all'ultimo elemento dello slider e ricomincio da capo con index = 0
-                    else {
+                    } else {
                         this.currentSlideIndex = 0;
                     }
 
@@ -96,25 +92,27 @@ export default {
                         }
                     }
 
+                    this.lastTimestamp = timestamp;
+
                 }
 
-
-                this.lastTimestamp = timestamp;
+                this.animationFrameId = requestAnimationFrame(this.animateSlider);
             }
 
-            requestAnimationFrame(this.animateSlider);
         },
         startSlider() {
             // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
             this.isMouseOver = false;
 
-            this.animateSlider();
+            this.animationFrameId = requestAnimationFrame(this.animateSlider);
         },
         // Metodo per bloccare lo slider se ci vado sopra con il puntatore
         stopSlider() {
 
             // Assegno true a isMouseOver per bloccare lo slider
             this.isMouseOver = true;
+
+            cancelAnimationFrame(this.animationFrameId);
         },
         handleVisibilityChange() {
             if (document.visibilityState === "hidden") {
@@ -146,7 +144,7 @@ export default {
     // Richiamo il metodo changeSlide su mounted
     mounted() {
 
-        // this.animateSlider();
+        this.animateSlider();
     },
     // beforeDestroy() {
     //     clearInterval(this.interval);
