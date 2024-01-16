@@ -16,6 +16,7 @@ export default {
     data() {
         return {
             interval: null,
+            lastTimestamp: null,
             store,
             // Index corrente dello slider
             currentSlideIndex: 0,
@@ -60,57 +61,60 @@ export default {
     },
     methods: {
         // Metodo per far scorrere lo slider
-        changeSlider() {
+        animateSlider(timestamp) {
 
             const blurredImageDiv = document.querySelector(".header-container");
 
             const img = blurredImageDiv.querySelector(".image");
 
-            if (!this.isMouseOver) {
-                // Inizio funzione setInterval
-                this.interval = setInterval(() => {
+            if (!this.lastTimestamp) {
+                this.lastTimestamp = timestamp;
+            }
 
-                    // Se isMouseOver e' false lo slider parte
-                    if (img.complete) {
-                        // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
-                        if (this.currentSlideIndex < this.sliderContent.length - 1) {
-                            this.currentSlideIndex++;
-                        }
+            const deltaTime = timestamp - this.lastTimestamp;
 
-                        // Altrimenti sono arrivato all'ultimo elemento dello slider e ricomincio da capo con index = 0
-                        else {
-                            this.currentSlideIndex = 0;
-                        }
+            if (deltaTime >= 4000) {
 
-                        // Assegno true all'active dello slider corrente
-                        this.sliderContent[this.currentSlideIndex].active = true;
-
-                        // Scorro l'array sliderContent con for e assegno false a tutti gli altri active che non sono correnti
-                        for (let i = 0; i < this.sliderContent.length; i++) {
-                            if (i !== this.currentSlideIndex) {
-                                this.sliderContent[i].active = false;
-                            }
-                        }
-
+                if (img.complete && !this.isMouseOver) {
+                    // Se l'index corrente e' minore della lunghezza di slider - 1 allora incremento l'index corrente
+                    if (this.currentSlideIndex < this.sliderContent.length - 1) {
+                        this.currentSlideIndex++;
                     }
 
-                }, 4000);
-            } // Lo slider scorre ogni 4 secondi
+                    // Altrimenti sono arrivato all'ultimo elemento dello slider e ricomincio da capo con index = 0
+                    else {
+                        this.currentSlideIndex = 0;
+                    }
+
+                    // Assegno true all'active dello slider corrente
+                    this.sliderContent[this.currentSlideIndex].active = true;
+
+                    // Scorro l'array sliderContent con for e assegno false a tutti gli altri active che non sono correnti
+                    for (let i = 0; i < this.sliderContent.length; i++) {
+                        if (i !== this.currentSlideIndex) {
+                            this.sliderContent[i].active = false;
+                        }
+                    }
+
+                }
+
+
+                this.lastTimestamp = timestamp;
+            }
+
+            requestAnimationFrame(this.animateSlider);
         },
         startSlider() {
             // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
             this.isMouseOver = false;
 
-            this.changeSlider();
+            this.animateSlider();
         },
         // Metodo per bloccare lo slider se ci vado sopra con il puntatore
         stopSlider() {
 
             // Assegno true a isMouseOver per bloccare lo slider
             this.isMouseOver = true;
-
-            // Se isMouseOver e' true allora interrompo l'esecuzione del timer con clearInterval
-            clearInterval(this.interval);
         },
         handleVisibilityChange() {
             if (document.visibilityState === "hidden") {
@@ -141,13 +145,12 @@ export default {
     },
     // Richiamo il metodo changeSlide su mounted
     mounted() {
-        this.changeSlider();
 
-        document.addEventListener("visibilitychange", this.handleVisibilityChange);
+        // this.animateSlider();
     },
-    beforeDestroy() {
-        clearInterval(this.interval);
-    },
+    // beforeDestroy() {
+    //     clearInterval(this.interval);
+    // },
     watch: {
         $route(to, from) {
 
@@ -428,7 +431,9 @@ header {
             background-position: 0 -350px;
 
             .image {
-                object-position: 0 -350px;
+                &:first-child {
+                    object-position: 0;
+                }
             }
         }
 
@@ -467,7 +472,9 @@ header {
             background-position: 0 -450px;
 
             .image {
-                object-position: 0 -450px;
+                &:first-child {
+                    object-position: 0;
+                }
             }
 
 
