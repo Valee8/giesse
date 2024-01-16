@@ -63,9 +63,9 @@ export default {
         // Metodo per far scorrere lo slider
         animateSlider(timestamp) {
 
-            //const blurredImageDiv = document.querySelector(".header-container");
+            const blurredImageDiv = document.querySelector(".header-container");
 
-            //const img = blurredImageDiv.querySelector(".image");
+            const img = blurredImageDiv.querySelector(".image");
 
             if (!this.isMouseOver) {
                 if (!this.lastTimestamp) {
@@ -74,7 +74,7 @@ export default {
 
                 const deltaTime = timestamp - this.lastTimestamp;
 
-                if (deltaTime >= 4000) {
+                if (deltaTime >= 4000 && img.complete) {
 
                     if (this.currentSlideIndex < this.sliderContent.length - 1) {
                         this.currentSlideIndex++;
@@ -114,14 +114,14 @@ export default {
 
             cancelAnimationFrame(this.animationFrameId);
         },
-        handleVisibilityChange() {
-            if (document.visibilityState === "hidden") {
-                this.stopSlider();
-            }
-            else {
-                this.startSlider();
-            }
-        },
+        // handleVisibilityChange() {
+        //     if (document.visibilityState === "hidden") {
+        //         this.stopSlider();
+        //     }
+        //     else {
+        //         this.startSlider();
+        //     }
+        // },
     },
     updated() {
 
@@ -145,18 +145,17 @@ export default {
     mounted() {
 
         this.animateSlider();
-    },
-    // beforeDestroy() {
-    //     clearInterval(this.interval);
-    // },
-    watch: {
-        $route(to, from) {
 
-            if (to.path !== "/") {
-                this.stopSlider();
-            }
-        },
+        //document.addEventListener("visibilitychange", this.handleVisibilityChange);
     },
+    // watch: {
+    //     $route(to, from) {
+
+    //         if (to.path !== "/") {
+    //             this.stopSlider();
+    //         }
+    //     },
+    // },
 
 }
 </script>
