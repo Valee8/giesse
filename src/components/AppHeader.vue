@@ -74,7 +74,7 @@ export default {
 
                 const deltaTime = timestamp - this.lastTimestamp;
 
-                if (deltaTime >= 4000) {
+                if (deltaTime >= 6000) {
 
                     if (this.currentSlideIndex < this.sliderContent.length - 1) {
                         this.currentSlideIndex++;

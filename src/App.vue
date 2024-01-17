@@ -49,9 +49,6 @@ export default {
         behavior: "smooth"
       });
     },
-    handleWindowClose() {
-      localStorage.clear(); // Azzeramento del localStorage alla chiusura della finestra o al refresh
-    }
   },
   watch: {
     $route(to, from) {
@@ -97,9 +94,6 @@ export default {
         this.store.classSubmenu = "reduce";
       }
     }
-  },
-  beforeUnmount() {
-    window.addEventListener('beforeunload', this.handleWindowClose);
   },
   updated() {
     // Aggiungo evento per lo scroll 
