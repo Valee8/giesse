@@ -367,7 +367,7 @@ header {
         width: 100%;
         object-fit: cover;
         position: absolute;
-        object-position: center;
+        //object-position: center;
         opacity: 0;
         top: 0;
         left: 0;
@@ -425,9 +425,13 @@ header {
 
         .header-container {
             height: 350px;
-            background-position: 0 -350px;
+            //background-position: 0 -350px;
 
             .image {
+                &:not(:first-child) {
+                    object-position: 0 -1px;
+                }
+
                 &:first-child {
                     object-position: 0;
                 }
