@@ -329,11 +329,8 @@ export default {
     .logo-image {
         width: 100%;
         height: 100%;
-        //object-fit: cover;
-        //object-position: center;
         opacity: 0;
         transition: opacity 250ms ease-in-out;
-        // border-radius: 5px;
         border: 1px solid transparent;
     }
 
@@ -557,7 +554,6 @@ export default {
         justify-content: center;
 
         #circle-menu {
-            //height: 244px;
             position: relative;
             left: 31px;
             display: none;

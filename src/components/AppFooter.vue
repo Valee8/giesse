@@ -137,7 +137,6 @@ footer {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        //max-width: 1000px;
 
         .left-footer {
             width: 26%;
@@ -161,13 +160,6 @@ footer {
             }
         }
 
-        // Larghezza div (blocchi footer) che contengono la parola 'footer' come classe
-        // div {
-        //     &[class*="footer"] {
-        //         width: 25%;
-        //     }
-        // }
-
         .right-footer {
             display: flex;
             justify-content: space-between;
@@ -175,11 +167,6 @@ footer {
             width: 35%;
 
             .list {
-                //display: flex;
-                //justify-content: space-between;
-                //align-items: flex-start;
-                //flex-wrap: wrap;
-                //gap: 30px;
 
                 .pt {
                     padding-top: 10px;
@@ -271,7 +258,6 @@ footer {
         .container {
             justify-content: center;
             flex-wrap: wrap;
-            //gap: 30px;
 
             .left-footer {
                 width: 50%;
@@ -292,7 +278,6 @@ footer {
             div {
                 &[class*="footer"] {
                     padding: 20px 0;
-                    //width: calc(50% - 15px);
                 }
 
             }

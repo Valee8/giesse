@@ -29,7 +29,7 @@ export default {
                     typo: "orizzontali",
                     id: 1,
                     hash: "#orizzontali-" + 4,
-                    image: imagePrefix + "img/jumbotron.png",
+                    image: imagePrefix + "img/jumbotron.jpg",
                     active: true,
                 },
                 {
@@ -37,7 +37,7 @@ export default {
                     typo: "verticali",
                     id: 0,
                     hash: "#laura-" + 1,
-                    image: imagePrefix + "img/jumbotron2.png",
+                    image: imagePrefix + "img/jumbotron2.jpg",
                     active: false,
                 },
                 {
@@ -45,7 +45,7 @@ export default {
                     typo: "orizzontali",
                     id: 1,
                     hash: "#luna-" + 2,
-                    image: imagePrefix + "img/jumbotron3.png",
+                    image: imagePrefix + "img/jumbotron3.jpg",
                     active: false
                 },
                 {
@@ -53,7 +53,7 @@ export default {
                     typo: "orizzontali",
                     id: 1,
                     hash: "#zelig-" + 3,
-                    image: imagePrefix + "img/jumbotron4.png",
+                    image: imagePrefix + "img/jumbotron4.jpg",
                     active: false
                 }
             ]
@@ -63,9 +63,9 @@ export default {
         // Metodo per far scorrere lo slider
         animateSlider(timestamp) {
 
-            const blurredImageDiv = document.querySelector(".header-container");
+            // const blurredImageDiv = document.querySelector(".header-container");
 
-            const img = blurredImageDiv.querySelector(".image");
+            // const img = blurredImageDiv.querySelector(".image");
 
             if (!this.isMouseOver) {
                 if (!this.lastTimestamp) {
@@ -74,7 +74,7 @@ export default {
 
                 const deltaTime = timestamp - this.lastTimestamp;
 
-                if (deltaTime >= 4000 && img.complete) {
+                if (deltaTime >= 4000) {
 
                     if (this.currentSlideIndex < this.sliderContent.length - 1) {
                         this.currentSlideIndex++;
@@ -114,49 +114,31 @@ export default {
 
             cancelAnimationFrame(this.animationFrameId);
         },
-        // handleVisibilityChange() {
-        //     if (document.visibilityState === "hidden") {
-        //         this.stopSlider();
-        //     }
-        //     else {
-        //         this.startSlider();
-        //     }
-        // },
     },
-    updated() {
+    // updated() {
 
-        const blurredImageDiv = document.querySelector(".header-container");
+    //     const blurredImageDiv = document.querySelector(".header-container");
 
-        const img = blurredImageDiv.querySelector(".image");
+    //     const img = blurredImageDiv.querySelector(".image");
 
-        function loaded() {
-            blurredImageDiv.classList.add("loaded");
-        }
+    //     function loaded() {
+    //         blurredImageDiv.classList.add("loaded");
+    //     }
 
-        if (img.complete) {
-            loaded();
-        }
-        else {
-            img.addEventListener("load", loaded);
-        }
+    //     if (img.complete) {
+    //         loaded();
+    //     }
+    //     else {
+    //         img.addEventListener("load", loaded);
+    //     }
 
-    },
+    // },
     // Richiamo il metodo changeSlide su mounted
     mounted() {
 
         this.animateSlider();
 
-        //document.addEventListener("visibilitychange", this.handleVisibilityChange);
     },
-    // watch: {
-    //     $route(to, from) {
-
-    //         if (to.path !== "/") {
-    //             this.stopSlider();
-    //         }
-    //     },
-    // },
-
 }
 </script>
 
@@ -216,8 +198,6 @@ export default {
         </div> -->
     </header>
 
-
-
     <!-- Rettangoli al centro sotto lo sfondo dell'header -->
     <div class="container" v-if="$route.name === 'home'">
         <div class="list-rectangles">
@@ -236,10 +216,6 @@ export default {
 .red {
     background-color: red;
 }
-
-// .loading {
-//     height: 543px;
-// }
 
 // Rettangolini in alto
 .list-rectangles {
@@ -329,34 +305,12 @@ header {
 // Sfondo con immagine dell'header nella home
 // Contiene l'immagine sfocata e a bassa risoluzione dell'header come sfondo, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
 .header-container {
-    background-image: url('/img/jumbotron-sfoc.jpg');
-    background-size: cover;
-    background-position: 0 -162px;
+    //background-image: url('/img/jumbotron-sfoc.jpg');
+    //background-size: cover;
+    //background-position: 0 -70px;
     height: 542px;
     width: 100%;
     position: relative;
-
-    // &::after {
-    //     content: "";
-    //     position: absolute;
-    //     inset: 0;
-    //     animation: pulse 2.5s infinite;
-    //     background-color: rgba(255, 255, 255, .3);
-    // }
-
-    // @keyframes pulse {
-    //     0% {
-    //         background-color: rgba(255, 255, 255, 0);
-    //     }
-
-    //     50% {
-    //         background-color: rgba(255, 255, 255, .3);
-    //     }
-
-    //     100% {
-    //         background-color: rgba(255, 255, 255, 0);
-    //     }
-    // }
 
     &:not(.home) {
         display: none;
@@ -367,40 +321,36 @@ header {
         width: 100%;
         object-fit: cover;
         position: absolute;
-        //object-position: center;
-        opacity: 0;
+        object-position: center;
         top: 0;
+        display: none;
         left: 0;
         transition: opacity 250ms ease-in-out;
 
-        &:first-child {
-            object-position: 0 -162px;
+        &.active {
+            display: block;
         }
-    }
 
-    &.loaded {
-        .image {
-
-            &:not(.active) {
-                opacity: 0;
-            }
-
-            &.active {
-                opacity: 1;
-            }
-
-        }
+        // &:first-child {
+        //     object-position: 0 -162px;
+        // }
     }
 
     // &.loaded {
-    //     &::after {
-    //         animation: none;
-    //         content: none;
+    //     .image {
+
+    //         &:not(.active) {
+    //             opacity: 0;
+    //         }
+
+    //         &.active {
+    //             opacity: 1;
+    //         }
+
     //     }
     // }
 }
 
-//
 
 @media only screen and (min-width: 300px) and (max-width: 479px) {
     .list-rectangles {
@@ -425,7 +375,6 @@ header {
 
         .header-container {
             height: 350px;
-            //background-position: 0 -350px;
 
             .image {
                 &:not(:first-child) {
@@ -449,7 +398,6 @@ header {
                     }
 
                     p {
-                        //width: 300px;
                         padding-top: 10px;
                         font-style: italic;
                         font-size: 1.1rem;

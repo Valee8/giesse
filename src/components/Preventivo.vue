@@ -2131,7 +2131,6 @@ export default {
     animation: opacity 1s ease;
     transform: translate(-50%, -50%);
     top: 50%;
-    //pointer-events: auto;
 
     div {
         display: flex;
@@ -2470,17 +2469,6 @@ section {
                     &.giada {
                         width: 140px;
                     }
-
-                    // &.laura,
-                    // &.luna,
-                    // &.zelig,
-                    // &.jolly {
-                    //     transform: scale(1.5, 1.7);
-                    // }
-
-                    // &.giada {
-                    //     transform: scale(1.3, 1.2);
-                    // }
                 }
             }
         }
@@ -2545,9 +2533,6 @@ section {
                 &.edited {
                     width: 940px;
                     flex-wrap: wrap;
-                    //pointer-events: default;
-                    //z-index: 200;
-                    //position: relative;
 
                     .quantity {
                         height: 40px;
@@ -2646,7 +2631,6 @@ section {
                 border-radius: 15px;
                 font-size: 1rem;
                 font-weight: 500;
-                //margin: 0 8px;
             }
 
             a {
@@ -2893,11 +2877,6 @@ section {
         width: 40%;
         max-height: 328px;
 
-        // input[type='submit'] {
-        //     position: relative;
-        //     top: -21px;
-        // }
-
         input[type='submit'] {
             font-weight: 600;
             font-size: 1.4rem;
@@ -3055,8 +3034,6 @@ section {
             color: $yellow-color;
             border: 2px solid $yellow-color;
             box-shadow: inset 0 3px 0 rgba(0, 0, 0, .1), 0 3px 0 rgba(0, 0, 0, .3);
-            //border-left: 4px solid $yellow-color;
-            //padding-left: 0;
         }
     }
 }
@@ -3113,7 +3090,6 @@ section {
                 position: relative;
                 z-index: 20;
                 object-fit: cover;
-                //border-bottom: 0;
             }
         }
 
@@ -3347,7 +3323,6 @@ section {
 
                             .width-edit,
                             .height-edit {
-                                //margin: 0 auto;
                                 font-size: 0.9rem;
                             }
 
@@ -3362,7 +3337,6 @@ section {
                             }
 
                             .quantity {
-                                //margin: 0 auto 5px auto;
                                 font-size: 0.9rem;
                             }
 
@@ -3426,10 +3400,6 @@ section {
 
                         select {
                             margin: 0;
-
-                            // &.select-typology {
-                            //     padding-right: 5px;
-                            // }
 
                             &.select-typology,
                             &.select-model,
@@ -3534,7 +3504,6 @@ section {
     .container {
         .top {
             flex-wrap: wrap;
-            //max-width: 90%;
 
             h1 {
                 text-align: center;
@@ -3715,9 +3684,6 @@ section {
         }
 
         .inputs-center {
-            // display: flex;
-            // justify-content: space-between;
-            // flex-wrap: wrap;
 
             label {
                 margin: 0 auto;

@@ -20,14 +20,6 @@ export default {
     },
     mounted() {
 
-        //const description = document.getElementsByClassName("description");
-
-        // description[0].innerHTML = "Il modello VERTICALE A MOLLA CLASSICA, adatto soprattutto per finestre e fornito con struttura in alluminio anodizzato o verniciato e la rete in fibra di vetro grigia, prodotto di serie con il cassonetto da 50mm, viene fornito con: cuffie laterali (ingombro cuffie 55mm), testata singola (ingombro testate 50mm), cassonetto da 40mm (ingombro testate 40mm), viene realizzata in diverse tipologie: <br>"
-
-        // setTimeout(() => {
-        //     this.store.imageZanz = "visible";
-        // }, 100);
-
         for (let i = 0; i < this.store.slider.length; i++) {
             if (window.location.href.endsWith("orizzontali/1") || window.location.href.endsWith("verticali/0")) {
                 this.store.slider[0].active = true;
@@ -44,12 +36,6 @@ export default {
     methods: {
         // Freccia avanti
         next(index) {
-
-            // this.store.imageZanz = "";
-
-            // setTimeout(() => {
-            //     this.store.imageZanz = "visible";
-            // }, 100);
 
             if (index < this.store.slider.length - 1) {
                 index++;
@@ -79,12 +65,6 @@ export default {
         },
         // Freccia indietro
         prev(index) {
-
-            // this.store.imageZanz = "";
-
-            // setTimeout(() => {
-            //     this.store.imageZanz = "visible";
-            // }, 100);
 
             if (index <= this.store.slider.length - 1 && index > 0) {
                 index--;
@@ -187,11 +167,6 @@ export default {
                         <!-- Immagine zanzariera -->
                         <img :src="slide.image" :alt="slide.model"
                             :class="slide.nameClass ? 'slide-image ' + slide.nameClass : 'slide-image '">
-
-                        <!-- <hr>
-
-                        <img src="/img/zanzariere/cricchetto.png" alt="Cricchetto" v-if="slide.image.includes('laura')"
-                            class="image-cricchetto"> -->
 
                         <!-- Icona freccia indietro -->
                         <a class="arrow left" @click="prev(index)">

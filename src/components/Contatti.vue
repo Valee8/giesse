@@ -178,28 +178,6 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-// .answer {
-//     opacity: 0;
-//     animation-name: expand;
-//     transition-duration: 0.2s;
-//     height: 0;
-
-//     &.show {
-//         opacity: 1;
-//         height: 25px;
-//     }
-// }
-
-// @keyframes expand {
-//     from {
-//         height: 0;
-//     }
-
-//     to {
-//         height: 25px;
-//     }
-// }
-
 // Contiene l'immagine sfocata e a bassa risoluzione delle faq come sfondo, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
 .bg-section {
     background-image: url('/img/sfondo-faq-sfoc.jpg');
@@ -269,7 +247,6 @@ section {
         .container {
             display: flex;
             justify-content: center;
-            //align-items: center;
 
             .faq-left {
                 width: 39%;

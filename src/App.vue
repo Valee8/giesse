@@ -134,25 +134,6 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-// .loading {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   font-size: 2rem;
-//   color: #000;
-//   height: 100vh;
-
-//   .spinner {
-//     animation: spin 1s linear infinite;
-//   }
-
-//   @keyframes spin {
-//     0% {
-//       transform: rotate(360deg);
-//     }
-//   }
-// }
-
 // Freccia per scrollare in alto
 .arrow-up {
   position: fixed;
@@ -289,13 +270,6 @@ section {
 
         .slide-image {
           height: 320px;
-          //width: 210px;
-          //opacity: 0;
-          //transition: all 1s ease-in-out;
-
-          // &.visible {
-          //   opacity: 1;
-          // }
 
           &.giada {
             transform: scale(1.3, 1);

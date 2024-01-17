@@ -133,30 +133,6 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-// .loading {
-//     width: 160px;
-//     height: 160px;
-//     color: #fff;
-//     opacity: 1;
-//     position: absolute;
-//     top: -15px;
-//     left: 0;
-
-//     &.hidden {
-//         opacity: 0;
-//     }
-
-//     .spinner {
-//         animation: spin 1s linear infinite;
-//     }
-
-//     @keyframes spin {
-//         0% {
-//             transform: rotate(360deg);
-//         }
-//     }
-// }
-
 // Parte tipologie colori e nomi colori
 .info-colors {
     color: #fff;
@@ -181,7 +157,6 @@ export default {
         align-items: flex-start;
         gap: 0 80px;
         height: 100%;
-        //padding: 85px 0 115px 0;
         padding: 100px 0;
 
         // Elenco tipologie colori - parte sinistra
@@ -224,7 +199,6 @@ export default {
             // Blocco intero colori
             .colors {
                 display: flex;
-                //justify-content: center;
                 flex-wrap: wrap;
                 gap: 150px 30px;
                 color: #fff;

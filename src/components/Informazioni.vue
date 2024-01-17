@@ -680,10 +680,6 @@ export default {
                 .text-file {
                     max-width: 130px;
                 }
-
-                // input::file-selector-button {
-                //     margin-right: 30px;
-                // }
             }
 
             .radios {
@@ -703,12 +699,6 @@ export default {
 
     .info {
         form {
-            // .right {
-
-            //     // input::file-selector-button {
-            //     //     margin-right: 30px;
-            //     // }
-            // }
 
             .messages {
                 padding-top: 0;
@@ -756,10 +746,6 @@ export default {
                     width: 300px;
                     font-size: 0.8rem;
                 }
-
-                // input::file-selector-button {
-                //     margin-right: 30px;
-                // }
             }
         }
     }
@@ -774,10 +760,6 @@ export default {
                     width: 340px;
                     font-size: 0.8rem;
                 }
-
-                // input::file-selector-button {
-                //     margin-right: 60px;
-                // }
             }
         }
     }

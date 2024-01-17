@@ -40,16 +40,6 @@ export default {
                 monoblocchi o
                 per vani regolari, infine la versione con <span>CASSONETTO DA 40mm</span> &egrave; adatta per spazi ridotti.
             </p>
-
-            <!-- !!!!!! Forse da rimuovere !!!!!! -->
-            <!-- <div style="display: none">
-                Con misura da <span>scontare</span> la zanzariera verr&agrave; fornita con 2mm in meno in LARGHEZZA e
-                ALTEZZA, con
-                misura <span>finita</span> la zanzariera verr&agrave; fornita con le stesse misure in LARGHEZZA e ALTEZZA,
-                invece con misura
-                <span>luce</span> verr&agrave; aumentata in LARGHEZZA e ALTEZZA in base alle varie tipologie dei modelli a
-                incasso.
-            </div> -->
         </div>
     </section>
 </template>
