@@ -129,7 +129,8 @@ export default {
                     <!-- Logo sulla sinistra -->
                     <li>
                         <router-link :to="{ name: 'home' }" class="logo">
-                            <img src="/img/logo-giesse.webp" alt="Logo Giesse Zanzariere" class="logo-image">
+                            <img src="/img/logo-giesse.webp" alt="Logo Giesse Zanzariere" class="logo-image" width="155"
+                                height="32">
                         </router-link>
                     </li>
 

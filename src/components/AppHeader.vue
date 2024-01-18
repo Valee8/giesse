@@ -145,8 +145,7 @@ export default {
         <AppNavbar />
 
         <div class="slider-home" :class="{ 'home': $route.name === 'home' }">
-            <div v-for="(slider, index) in sliderContent" :key="index" class="jumbotron"
-                :class="[slider.order + (index === currentSlideIndex ? ' active' : '')]">
+            <div class="jumbotron">
 
                 <div class="container">
                     <!-- Contenuto header -->
@@ -163,8 +162,10 @@ export default {
                         </div>
 
                         <!-- Inizio contenuto slider -->
-                        <div class="container-button" :class="{ 'active': index === currentSlideIndex }">
-                            <div class="slider-header" @mouseout="startSlider" @mouseover="stopSlider">
+                        <div class="container-button">
+                            <div v-for="(slider, index) in sliderContent" :key="index" class="slider-header"
+                                @mouseout="startSlider" @mouseover="stopSlider"
+                                :class="{ 'active': index === currentSlideIndex }">
                                 <!-- Testo -->
                                 <div class="name-zanz">
                                     {{ slider.nameZanz }}
@@ -205,6 +206,12 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+.slider-header {
+    &:not(.active) {
+        display: none;
+    }
+}
 
 .slider-home {
     position: relative;
@@ -284,6 +291,7 @@ header {
 // Sfondo con immagine dell'header nella home
 
 .jumbotron {
+    background-image: url('/img/jumbotron1.webp');
     background-size: cover;
     width: 100%;
     height: 100%;
@@ -291,22 +299,22 @@ header {
     top: 0;
     left: 0;
 
-    &.first {
-        background-image: url('/img/jumbotron1.webp');
+    // &.first {
+    //     background-image: url('/img/jumbotron1.webp');
 
-    }
+    // }
 
-    &.second {
-        background-image: url('/img/jumbotron2.jpg');
-    }
+    // &.second {
+    //     background-image: url('/img/jumbotron2.jpg');
+    // }
 
-    &.third {
-        background-image: url('/img/jumbotron3.jpg');
-    }
+    // &.third {
+    //     background-image: url('/img/jumbotron3.jpg');
+    // }
 
-    &.fourth {
-        background-image: url('/img/jumbotron4.jpg');
-    }
+    // &.fourth {
+    //     background-image: url('/img/jumbotron4.jpg');
+    // }
 
     &:not(.active) {
         z-index: 1;

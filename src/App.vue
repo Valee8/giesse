@@ -165,8 +165,6 @@ section {
 
 // Logo nav e footer
 .logo {
-  width: 250px;
-  height: 55px;
   vertical-align: middle;
 }
 

@@ -34,7 +34,7 @@ export default {
             <!-- Parte sinistra footer -->
             <div class="left-footer">
                 <!-- Logo Giesse -->
-                <img src="/img/logo-giesse.webp" alt="Logo Giesse Zanzariere" class="logo">
+                <img src="/img/logo-giesse.webp" alt="Logo Giesse Zanzariere" class="logo" width="250" height="55">
 
                 <!-- Paragrafo -->
                 <p>
