@@ -251,26 +251,6 @@ section {
 
       .div-image {
         position: relative;
-
-        .slide-image {
-          height: 320px;
-
-          // &.giada {
-          //   transform: scale(1.3, 1);
-          // }
-
-          // &.plisse {
-          //   transform: scaleX(1.2);
-          // }
-
-          // &.laterale-alba {
-          //   transform: scale(0.9, 0.95);
-          // }
-
-          // &.casper {
-          //   transform: scale(1, 0.9);
-          // }
-        }
       }
 
       h2 {

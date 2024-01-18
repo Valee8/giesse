@@ -50,7 +50,7 @@ export default {
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img src="/img/zanzariere/porta-a-battente.webp" alt="Immagine zanzariere Antarex"
+                        <img src="/img/zanzariere/porta-a-battente.webp" alt="Immagine zanzariera Antarex"
                             class="slide-image" width="244" height="320">
                     </div>
 

@@ -6,8 +6,6 @@ import AppNavbar from './AppNavbar.vue';
 // Importo store
 import { store } from '../store.js';
 
-const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
-
 export default {
     name: 'AppHeader',
     components: {
@@ -30,7 +28,6 @@ export default {
                     typo: "orizzontali",
                     id: 1,
                     hash: "#orizzontali-" + 4,
-                    image: imagePrefix + "img/jumbotron-new.webp",
                     active: true,
                 },
                 {
@@ -39,7 +36,6 @@ export default {
                     typo: "verticali",
                     id: 0,
                     hash: "#laura-" + 1,
-                    image: imagePrefix + "img/jumbotron2.jpg",
                     active: false,
                 },
                 {
@@ -48,7 +44,6 @@ export default {
                     typo: "orizzontali",
                     id: 1,
                     hash: "#luna-" + 2,
-                    image: imagePrefix + "img/jumbotron3.jpg",
                     active: false
                 },
                 {
@@ -57,7 +52,6 @@ export default {
                     typo: "orizzontali",
                     id: 1,
                     hash: "#zelig-" + 3,
-                    image: imagePrefix + "img/jumbotron4.jpg",
                     active: false
                 }
             ]
@@ -119,12 +113,27 @@ export default {
                 cancelAnimationFrame(this.animationFrameId);
             }
         },
+        handleVisibilityChange() {
+            if (document.hidden) {
+                // La pagina è diventata non visibile
+                this.stopSlider(); // Interrompi l'animazione quando la pagina diventa non visibile
+            } else {
+                // La pagina è diventata visibile
+                this.startSlider(); // Riavvia l'animazione quando la pagina diventa visibile
+            }
+        },
     },
     // Richiamo il metodo changeSlide su mounted
     mounted() {
 
-        this.animateSlider();
+        document.addEventListener('visibilitychange', this.handleVisibilityChange);
+        this.startSlider();
 
+    },
+
+    beforeDestroy() {
+        document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+        this.stopSlider(); // Interrompi l'animazione prima che il componente venga distrutto
     },
 }
 </script>
@@ -138,10 +147,6 @@ export default {
         <div class="slider-home" :class="{ 'home': $route.name === 'home' }">
             <div v-for="(slider, index) in sliderContent" :key="index" class="jumbotron"
                 :class="[slider.order + (index === currentSlideIndex ? ' active' : '')]">
-
-                <!-- Slider di immagini (la prima appare dopo che il caricamento della pagina e' terminato) -->
-                <!-- <img v-for="(img, index) in sliderContent" :key="index" :src="img.image" loading="lazy" class="image"
-                :class="{ 'active': index === currentSlideIndex }"> -->
 
                 <div class="container">
                     <!-- Contenuto header -->
@@ -201,11 +206,6 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-.red {
-    background-color: red;
-}
-
-
 .slider-home {
     position: relative;
     height: 538px;
@@ -238,29 +238,6 @@ export default {
     }
 }
 
-// Slider
-
-
-// .slider-header {
-//     //position: absolute;
-//     //top: 0;
-//     opacity: 1;
-//     transition: all 1s ease-in-out;
-
-.container-slide {
-    height: 90px;
-
-    .container-button {
-        opacity: 0;
-
-
-        &.active {
-            opacity: 1;
-        }
-    }
-}
-
-// }
 
 // Header
 header {
@@ -305,8 +282,6 @@ header {
 }
 
 // Sfondo con immagine dell'header nella home
-// Contiene l'immagine sfocata e a bassa risoluzione dell'header come sfondo, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
-
 
 .jumbotron {
     background-size: cover;
@@ -317,9 +292,8 @@ header {
     left: 0;
     transition: all 1s ease-in-out;
 
-
     &.first {
-        background-image: url('img/jumbotron-new.webp');
+        background-image: url('img/jumbotron1.webp');
     }
 
     &.second {
@@ -330,11 +304,9 @@ header {
         background-image: url('img/jumbotron3.jpg');
     }
 
-
     &.fourth {
         background-image: url('img/jumbotron4.jpg');
     }
-
 
     &:not(.active) {
         z-index: 1;
@@ -344,39 +316,10 @@ header {
         z-index: 20;
     }
 
-    .image {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        position: absolute;
-        object-position: center;
-        top: 0;
-        display: none;
-        left: 0;
-        transition: opacity 250ms ease-in-out;
-
-        &.active {
-            display: block;
-        }
-
-        // &:first-child {
-        //     object-position: 0 -162px;
-        // }
+    .container-slide {
+        height: 90px;
     }
 
-    // &.loaded {
-    //     .image {
-
-    //         &:not(.active) {
-    //             opacity: 0;
-    //         }
-
-    //         &.active {
-    //             opacity: 1;
-    //         }
-
-    //     }
-    // }
 }
 
 

@@ -50,7 +50,8 @@ export default {
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img src="/img/zanzariere/fissa.webp" alt="FISSA" class="slide-image" width="320" height="320">
+                        <img src="/img/zanzariere/fissa.webp" alt="Immagine zanzariera Fissa" class="slide-image"
+                            width="320" height="320">
                     </div>
 
                     <!-- Titolo - nome modello -->

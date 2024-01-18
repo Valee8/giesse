@@ -152,7 +152,7 @@ export default {
                 {
                     name: "Verticali a molla classica",
                     typo: "Verticali",
-                    image: imagePrefix + "img/zanzariere/alba.png",
+                    image: imagePrefix + "img/zanzariere/alba.webp",
                     active: true,
                     activeSelect: false,
                     models: [
@@ -167,7 +167,7 @@ export default {
                 {
                     name: "Verticali a molla (cricchetto)",
                     typo: "Verticali",
-                    image: imagePrefix + "img/zanzariere/laura.png",
+                    image: imagePrefix + "img/zanzariere/laura.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -179,7 +179,7 @@ export default {
                 {
                     name: "Verticali a catena classica",
                     typo: "Verticali",
-                    image: imagePrefix + "img/zanzariere/katia.png",
+                    image: imagePrefix + "img/zanzariere/katia.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -191,7 +191,7 @@ export default {
                 {
                     name: "Verticali a catena + molla",
                     typo: "Verticali",
-                    image: imagePrefix + "img/zanzariere/giada.png",
+                    image: imagePrefix + "img/zanzariere/giada.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -202,7 +202,7 @@ export default {
                 {
                     name: "Laterali a molla classica",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/alba-laterale.png",
+                    image: imagePrefix + "img/zanzariere/alba-laterale.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -214,7 +214,7 @@ export default {
                 {
                     name: "Laterali a molla (guida bassa da 2cm)",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/lara-rigata.png",
+                    image: imagePrefix + "img/zanzariere/lara-rigata.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -226,7 +226,7 @@ export default {
                 {
                     name: "Laterale a molla (guida arrotondata da 14mm)",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/luna.png",
+                    image: imagePrefix + "img/zanzariere/luna.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -236,7 +236,7 @@ export default {
                 {
                     name: "Laterale a molla (guida bassa da 3mm)",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/zelig.png",
+                    image: imagePrefix + "img/zanzariere/zelig.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -246,7 +246,7 @@ export default {
                 {
                     name: "Laterale Frizionata",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/jolly.png",
+                    image: imagePrefix + "img/zanzariere/jolly.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -257,7 +257,7 @@ export default {
                 {
                     name: "Laterale Antivento",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/bora.png",
+                    image: imagePrefix + "img/zanzariere/bora.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -267,7 +267,7 @@ export default {
                 {
                     name: "Laterale Plissettata",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/plisse-22.png",
+                    image: imagePrefix + "img/zanzariere/plisse-22.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -277,7 +277,7 @@ export default {
                 {
                     name: "Porta a battente",
                     typo: "Altre",
-                    image: imagePrefix + "img/zanzariere/porta-a-battente.png",
+                    image: imagePrefix + "img/zanzariere/porta-a-battente.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -287,7 +287,7 @@ export default {
                 {
                     name: "A pannelli scorrevoli",
                     typo: "Altre",
-                    image: imagePrefix + "img/zanzariere/scorri.png",
+                    image: imagePrefix + "img/zanzariere/scorri.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -297,7 +297,7 @@ export default {
                 {
                     name: "Telaio fisso",
                     typo: "Altre",
-                    image: imagePrefix + "img/zanzariere/fissa.png",
+                    image: imagePrefix + "img/zanzariere/fissa.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -307,7 +307,7 @@ export default {
                 {
                     name: "Incasso con guida da 50x35",
                     typo: "Altre",
-                    image: imagePrefix + "img/zanzariere/casper.png",
+                    image: imagePrefix + "img/zanzariere/casper.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -1233,26 +1233,6 @@ export default {
     },
     mounted() {
 
-
-        const blurredImageDiv = document.querySelector(".thank-you");
-
-        const img = blurredImageDiv.querySelector(".image");
-
-
-        // Funzione loaded per aggiungere la classe loaded a .header-container 
-        function loaded() {
-            blurredImageDiv.classList.add("loaded");
-        }
-
-        // Se l'immagine ha caricato completamente allora richiamo la funzione loaded() (complete e' una proprieta' di js)
-        if (img.complete) {
-            loaded();
-        }
-        // Altrimenti aggiungo un listener dell'evento "load" all'elemento immagine
-        else {
-            img.addEventListener("load", loaded);
-        }
-
         // Richiamo getClient e getOrder
         this.getClient();
         this.getOrder();
@@ -1283,32 +1263,12 @@ export default {
             // Non c'e' un popup attivo quindi metto activePopup a false
             this.activePopup = false;
         }
-
-        if (this.currentStep === 4) {
-            const blurredImageDiv = document.querySelector(".thank-you");
-
-            const img = blurredImageDiv.querySelector(".image");
-
-            function loaded() {
-                blurredImageDiv.classList.add("loaded");
-            }
-
-            if (img.complete) {
-                loaded();
-            }
-            else {
-                img.addEventListener("load", loaded);
-            }
-        }
     }
 }
 </script>
 
 <template>
     <section class="thank-you" :class="{ 'not-step': currentStep !== 4 }">
-
-        <!-- Immagine quarto step che appare una volta che la pagina ha caricato -->
-        <img :src="store.bgThanks" loading="lazy" class="image" :class="{ 'not-step': currentStep !== 4 }">
 
         <div class="container">
 
@@ -1459,8 +1419,8 @@ export default {
                                 <!-- Immagini zanzariere -->
                                 <div class="arrows-image">
                                     <div class="zanz-image">
-                                        <img :src="zanz.image" :alt="zanz.name"
-                                            :class="{ 'giada': zanzIndex === 3, 'plisse': zanzIndex === 10, 'casper': zanzIndex === 14 }">
+                                        <img :src="zanz.image" :alt="'Immagine zanzariera ' + zanz.name" width="120"
+                                            height="150">
                                     </div>
 
                                     <!-- Icona freccia indietro -->
@@ -1550,7 +1510,7 @@ export default {
                                         <input type="radio" name="color_name" @change="getColor(typoIndex, colorIndex)"
                                             :required="fixRequiredProblem" class="radio" :disabled="activePopup">
                                         <!-- Immagine colore -->
-                                        <img :src="color.image" :alt="color.name" class="color-image">
+                                        <img :src="color.image" :alt="'Colore ' + color.name" class="color-image">
 
                                         <!-- Nome colore -->
                                         <div class="color-name">
@@ -2205,34 +2165,12 @@ section {
 
     // Immagine di sfondo temporanea e sfocata che appare fino a quando l'immagine vera non ha caricato completamente
     &.thank-you {
-        background-image: url('/img/ringraziamento-sfoc.jpg');
+        background-image: url('/img/ringraziamento.jpg');
         background-size: cover;
         position: relative;
 
         &.not-step {
             background-image: none;
-        }
-
-        .image {
-            height: 105%;
-            width: 100%;
-            object-fit: cover;
-            object-position: 0 30px;
-            position: absolute;
-            top: -30px;
-            left: 0;
-            opacity: 0;
-            transition: opacity 250ms ease-in-out;
-
-            &.not-step {
-                display: none;
-            }
-        }
-
-        &.loaded {
-            .image {
-                opacity: 1;
-            }
         }
     }
 }
@@ -2453,23 +2391,6 @@ section {
                 width: 230px;
                 height: 230px;
                 background-color: #eaeaea;
-
-                img {
-                    width: 110px;
-                    height: 130px;
-
-                    &.plisse {
-                        width: 160px;
-                    }
-
-                    &.casper {
-                        width: 150px;
-                    }
-
-                    &.giada {
-                        width: 140px;
-                    }
-                }
             }
         }
 

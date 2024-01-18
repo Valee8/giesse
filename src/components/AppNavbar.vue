@@ -62,25 +62,6 @@ export default {
             return this.store.listModels.slice(4, 10);
         }
     },
-    mounted() {
-        const blurredImageDiv = document.querySelector(".logo-container");
-
-        const img = blurredImageDiv.querySelector(".logo-image");
-
-        // Funzione loaded per aggiungere la classe loaded a .header-container 
-        function loaded() {
-            blurredImageDiv.classList.add("loaded");
-        }
-
-        // Se l'immagine ha caricato completamente allora richiamo la funzione loaded() (complete e' una proprieta' di js)
-        if (img.complete) {
-            loaded();
-        }
-        // Altrimenti aggiungo un listener dell'evento "load" all'elemento immagine
-        else {
-            img.addEventListener("load", loaded);
-        }
-    },
     // updated: viene chiamato dopo che la componente viene aggiornata
     updated() {
         // Se l'url include "preventivo"
@@ -147,11 +128,9 @@ export default {
                 <ul class="ul-container">
                     <!-- Logo sulla sinistra -->
                     <li>
-                        <div class="logo-container">
-                            <router-link :to="{ name: 'home' }" class="logo">
-                                <img src="/img/logo-giesse.webp" alt="Logo Giesse" class="logo-image">
-                            </router-link>
-                        </div>
+                        <router-link :to="{ name: 'home' }" class="logo">
+                            <img src="/img/logo-giesse.webp" alt="Logo Giesse Zanzariere" class="logo-image">
+                        </router-link>
                     </li>
 
                     <!-- Scritta Zanzariere -->
@@ -315,32 +294,6 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-// Contiene l'immagine del logo come sfondo ad una bassa risoluzione, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
-.logo-container {
-    background-image: url('/img/logo-bad.jpeg');
-    background-size: cover;
-    height: 32px;
-    width: 155px;
-    position: relative;
-    margin-right: 40px;
-    border-radius: 5px;
-    border: 1px solid #000;
-
-    .logo-image {
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        transition: opacity 250ms ease-in-out;
-        border: 1px solid transparent;
-    }
-
-    &.loaded {
-        .logo-image {
-            opacity: 1;
-        }
-    }
-}
-
 // Menu in alto nero
 #blackMenu {
     color: #fff;
@@ -363,6 +316,7 @@ export default {
         width: 155px;
         height: 32px;
         display: block;
+        margin-right: 40px;
     }
 
     .bg {

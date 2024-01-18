@@ -47,26 +47,6 @@ export default {
                     return store.linksNav[i].text;
             }
         }
-    },
-    mounted() {
-
-        const blurredImageDiv = document.querySelector(".bg-section");
-
-        const img = blurredImageDiv.querySelector(".image");
-
-        // Funzione loaded per aggiungere la classe loaded a .header-container 
-        function loaded() {
-            blurredImageDiv.classList.add("loaded");
-        }
-
-        // Se l'immagine ha caricato completamente allora richiamo la funzione loaded() (complete e' una proprieta' di js)
-        if (img.complete) {
-            loaded();
-        }
-        // Altrimenti aggiungo un listener dell'evento "load" all'elemento immagine
-        else {
-            img.addEventListener("load", loaded);
-        }
     }
 }
 </script>
@@ -75,9 +55,6 @@ export default {
     <section class>
         <!-- Parte in alto con immagine come sfondo -->
         <div class="bg-section">
-
-            <!-- Immagine che appare una volta che il caricamento della pagina e' terminato -->
-            <img :src="store.bgFaqs" loading="lazy" class="image">
 
             <div class="container">
                 <div class="section-title">
@@ -180,31 +157,12 @@ export default {
 
 // Contiene l'immagine sfocata e a bassa risoluzione delle faq come sfondo, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
 .bg-section {
-    background-image: url('/img/sfondo-faq-sfoc.jpg');
+    background-image: url('/img/sfondo-faq.jpg');
     background-size: cover;
     background-position: center;
     height: 414px;
     width: 100%;
     position: relative;
-
-    .image {
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        width: 100%;
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        transition: opacity 250ms ease-in-out;
-    }
-
-    &.loaded {
-        .image {
-            opacity: 1;
-        }
-    }
 
     .section-title {
 
