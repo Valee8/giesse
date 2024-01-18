@@ -290,10 +290,10 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-    transition: all 1s ease-in-out;
 
     &.first {
-        background-image: url('img/jumbotron1.webp');
+        background-image: url('img/jumbotron.jpg');
+
     }
 
     &.second {
