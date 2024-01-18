@@ -34,7 +34,7 @@ export default {
             <!-- Parte sinistra footer -->
             <div class="left-footer">
                 <!-- Logo Giesse -->
-                <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo">
+                <img src="/img/logo-giesse.webp" alt="Logo Giesse" class="logo">
 
                 <!-- Paragrafo -->
                 <p>

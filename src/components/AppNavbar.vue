@@ -608,7 +608,7 @@ export default {
                 display: flex;
                 align-items: center;
                 height: 102px;
-                background-image: url('/img/bg-nav-center.png');
+                background-image: url('/img/bg-nav-center.webp');
                 background-position: -100px 0;
 
                 &.active {

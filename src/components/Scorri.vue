@@ -50,7 +50,7 @@ export default {
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img src="/img/zanzariere/scorri.png" alt="Immagine zanzariere Scorri" class="slide-image"
+                        <img src="/img/zanzariere/scorri.webp" alt="Immagine zanzariere Scorri" class="slide-image"
                             width="225" height="320">
                     </div>
 
