@@ -149,7 +149,7 @@ export default {
                     <li>
                         <div class="logo-container">
                             <router-link :to="{ name: 'home' }" class="logo">
-                                <img src="/img/logo-giesse.png" alt="Logo Giesse" class="logo-image">
+                                <img src="/img/logo-giesse.webp" alt="Logo Giesse" class="logo-image">
                             </router-link>
                         </div>
                     </li>
@@ -345,9 +345,9 @@ export default {
 #blackMenu {
     color: #fff;
     width: 100%;
-    height: 65px;
+    height: 66px;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 
     a {
         color: #fff;
@@ -367,7 +367,7 @@ export default {
 
     .bg {
         background-color: #1c1c1c;
-        height: 67px;
+        height: 66px;
         user-select: none;
 
         .ul-container {
@@ -461,7 +461,7 @@ export default {
 
             &.expand {
                 animation-name: expand;
-                z-index: 60;
+                z-index: 300;
 
                 a {
                     display: inline-block;
@@ -596,7 +596,7 @@ export default {
         }
 
         .icons-menu {
-            background-image: url('/img/bg-nav-top.png'), url('/img/bg-nav-bottom.png');
+            background-image: url('/img/bg-nav-top.webp'), url('/img/bg-nav-bottom.webp');
             background-position: top center, bottom center;
             background-size: 100%;
             background-repeat: no-repeat, no-repeat;

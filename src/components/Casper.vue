@@ -61,7 +61,8 @@ export default {
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img src="/img/zanzariere/casper.png" alt="CASPER" class="slide-image casper">
+                        <img src="/img/zanzariere/casper.png" alt="Immagine zanzariere Casper" class="slide-image casper"
+                            width="262" height="288">
                     </div>
 
                     <!-- Titolo - nome modello -->

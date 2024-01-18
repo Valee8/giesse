@@ -2964,7 +2964,7 @@ section {
                 border: 3px solid #fff;
                 border-radius: 50%;
                 min-width: 70px;
-                min-height: 70px;
+                height: 70px;
                 line-height: 70px;
                 font-weight: 500;
 

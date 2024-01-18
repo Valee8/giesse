@@ -165,7 +165,7 @@ export default {
                 <div class="slider" v-for="(slide, index) in getSlider" :key="index" :class="{ 'active': slide.active }">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img :src="slide.image" :alt="slide.model"
+                        <img :src="slide.image" :alt="'Immagine zanzariere ' + slide.model"
                             :class="slide.nameClass ? 'slide-image ' + slide.nameClass : 'slide-image '">
 
                         <!-- Icona freccia indietro -->

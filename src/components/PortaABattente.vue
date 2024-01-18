@@ -50,7 +50,8 @@ export default {
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img src="/img/zanzariere/porta-a-battente.png" alt="ANTAREX" class="slide-image">
+                        <img src="/img/zanzariere/porta-a-battente.png" alt="Immagine zanzariere Antarex"
+                            class="slide-image" width="244" height="320">
                     </div>
 
                     <!-- Titolo - nome modello -->

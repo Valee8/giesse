@@ -26,11 +26,12 @@ export default {
             <div class="list-typologies">
                 <div class="typologies" v-for="(typology, index) in store.typologies" :key="index">
                     <router-link :to="{ name: typology.name.toLowerCase().replace(/\s/g, '-'), params: { id: index } }"
-                        class="link">
+                        class="link" :class="typology.name.toLowerCase()">
 
                         <!-- Immagine zanzariera -->
-                        <img :src="typology.image" :alt="typology.name" v-if="typology.image"
-                            :class="'typology-image ' + typology.name.toLowerCase()">
+                        <img :src="typology.image" :alt="'Immagine zanzariere ' + typology.name" v-if="typology.image"
+                            :class="'typology-image ' + typology.name.toLowerCase()" :width="typology.width"
+                            :height="typology.height">
 
                         <!-- Nome tipologia -->
                         <h3 :class="typology.name.toLowerCase()">
@@ -75,6 +76,10 @@ section {
                 color: #000;
                 transition: all 0.5s ease-in-out;
 
+                &.fissa {
+                    padding-top: 40px;
+                }
+
                 &:hover {
                     transform: scale(0.8);
                 }
@@ -82,17 +87,8 @@ section {
 
             // Immagine
             .typology-image {
-                width: 210px;
+                //width: 210px;
                 display: block;
-
-                &.fissa {
-                    padding-top: 30px;
-                    transform: scale(1.4);
-                }
-
-                &.casper {
-                    transform: scale(1.2, 1.1);
-                }
             }
 
             &:nth-child(1),
@@ -129,7 +125,7 @@ section {
                 font-size: 1.3rem;
 
                 &.fissa {
-                    padding-top: 80px;
+                    padding-top: 50px;
                 }
             }
 

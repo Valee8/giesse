@@ -252,34 +252,24 @@ section {
       .div-image {
         position: relative;
 
-        hr {
-          border: 2px solid #000;
-          width: 200px;
-          position: absolute;
-          top: 35%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          transform: rotate(30deg);
-        }
-
         .slide-image {
           height: 320px;
 
-          &.giada {
-            transform: scale(1.3, 1);
-          }
+          // &.giada {
+          //   transform: scale(1.3, 1);
+          // }
 
-          &.plisse {
-            transform: scaleX(1.2);
-          }
+          // &.plisse {
+          //   transform: scaleX(1.2);
+          // }
 
-          &.laterale-alba {
-            transform: scale(0.9, 0.95);
-          }
+          // &.laterale-alba {
+          //   transform: scale(0.9, 0.95);
+          // }
 
-          &.casper {
-            transform: scale(1, 0.9);
-          }
+          // &.casper {
+          //   transform: scale(1, 0.9);
+          // }
         }
       }
 

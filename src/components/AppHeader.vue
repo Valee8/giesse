@@ -25,14 +25,16 @@ export default {
             // Contenuto slider
             sliderContent: [
                 {
+                    order: "first",
                     nameZanz: "Jolly, la Laterale Frizionata",
                     typo: "orizzontali",
                     id: 1,
                     hash: "#orizzontali-" + 4,
-                    image: imagePrefix + "img/jumbotron.jpg",
+                    image: imagePrefix + "img/jumbotron-new.webp",
                     active: true,
                 },
                 {
+                    order: "second",
                     nameZanz: "Laura, con sistema a cricchetto",
                     typo: "verticali",
                     id: 0,
@@ -41,6 +43,7 @@ export default {
                     active: false,
                 },
                 {
+                    order: "third",
                     nameZanz: "Luna, con guida arrotondata da 14mm",
                     typo: "orizzontali",
                     id: 1,
@@ -49,6 +52,7 @@ export default {
                     active: false
                 },
                 {
+                    order: "fourth",
                     nameZanz: "Zelig, con guida bassa da 3mm",
                     typo: "orizzontali",
                     id: 1,
@@ -60,12 +64,11 @@ export default {
         }
     },
     methods: {
+        calculateMarginTop(index) {
+            return (index) * this.marginMultiplier;
+        },
         // Metodo per far scorrere lo slider
         animateSlider(timestamp) {
-
-            // const blurredImageDiv = document.querySelector(".header-container");
-
-            // const img = blurredImageDiv.querySelector(".image");
 
             if (!this.isMouseOver) {
                 if (!this.lastTimestamp) {
@@ -78,7 +81,8 @@ export default {
 
                     if (this.currentSlideIndex < this.sliderContent.length - 1) {
                         this.currentSlideIndex++;
-                    } else {
+                    }
+                    else {
                         this.currentSlideIndex = 0;
                     }
 
@@ -110,29 +114,12 @@ export default {
         stopSlider() {
 
             // Assegno true a isMouseOver per bloccare lo slider
-            this.isMouseOver = true;
-
-            cancelAnimationFrame(this.animationFrameId);
+            if (this.animationFrameId !== null) {
+                this.isMouseOver = true;
+                cancelAnimationFrame(this.animationFrameId);
+            }
         },
     },
-    // updated() {
-
-    //     const blurredImageDiv = document.querySelector(".header-container");
-
-    //     const img = blurredImageDiv.querySelector(".image");
-
-    //     function loaded() {
-    //         blurredImageDiv.classList.add("loaded");
-    //     }
-
-    //     if (img.complete) {
-    //         loaded();
-    //     }
-    //     else {
-    //         img.addEventListener("load", loaded);
-    //     }
-
-    // },
     // Richiamo il metodo changeSlide su mounted
     mounted() {
 
@@ -148,46 +135,47 @@ export default {
         <!-- Navbar -->
         <AppNavbar />
 
-        <div class="header-container" :class="{ 'home': $route.name === 'home' }">
+        <div class="slider-home" :class="{ 'home': $route.name === 'home' }">
+            <div v-for="(slider, index) in sliderContent" :key="index" class="jumbotron"
+                :class="[slider.order + (index === currentSlideIndex ? ' active' : '')]">
 
-            <!-- Slider di immagini (la prima appare dopo che il caricamento della pagina e' terminato) -->
-            <img v-for="(img, index) in sliderContent" :key="index" :src="img.image" loading="lazy" class="image"
-                :class="{ 'active': index === currentSlideIndex }">
+                <!-- Slider di immagini (la prima appare dopo che il caricamento della pagina e' terminato) -->
+                <!-- <img v-for="(img, index) in sliderContent" :key="index" :src="img.image" loading="lazy" class="image"
+                :class="{ 'active': index === currentSlideIndex }"> -->
 
-            <div class="container">
-                <!-- Contenuto header -->
-                <div class="jumbotron">
-                    <!-- Titolo -->
-                    <div class="title">
-                        <h1>
-                            Proteggi <div>la tua casa</div>
-                        </h1>
+                <div class="container">
+                    <!-- Contenuto header -->
+                    <div class="header-container">
+                        <!-- Titolo -->
+                        <div class="title">
+                            <h1>
+                                Proteggi <div>la tua casa</div>
+                            </h1>
 
-                        <p>
-                            Affidati a noi che produciamo zanzariere da pi&ugrave; di 30 anni
-                        </p>
-                    </div>
+                            <p>
+                                Affidati a noi che produciamo zanzariere da pi&ugrave; di 30 anni
+                            </p>
+                        </div>
 
-                    <!-- Inizio contenuto slider -->
-                    <div class="container-slide">
-                        <div class="slider-header" v-for="(slider, index) in sliderContent" :key="index"
-                            :class="{ 'active': index === currentSlideIndex }" @mouseout="startSlider"
-                            @mouseover="stopSlider">
-                            <!-- Testo -->
-                            <div class="name-zanz">
-                                {{ slider.nameZanz }}
+                        <!-- Inizio contenuto slider -->
+                        <div class="container-button" :class="{ 'active': index === currentSlideIndex }">
+                            <div class="slider-header" @mouseout="startSlider" @mouseover="stopSlider">
+                                <!-- Testo -->
+                                <div class="name-zanz">
+                                    {{ slider.nameZanz }}
+                                </div>
+
+                                <!-- Bottone scopri di piu' -->
+                                <router-link :to="{ name: slider.typo, params: { id: slider.id }, hash: slider.hash }"
+                                    class="button header">
+                                    Scopri di pi&ugrave;
+                                    <!-- sulla {{ slider.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }} -->
+                                </router-link>
                             </div>
-
-                            <!-- Bottone scopri di piu' -->
-                            <router-link :to="{ name: slider.typo, params: { id: slider.id }, hash: slider.hash }"
-                                class="button header">
-                                Scopri di pi&ugrave;
-                                <!-- sulla {{ slider.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }} -->
-                            </router-link>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
 
@@ -217,6 +205,17 @@ export default {
     background-color: red;
 }
 
+
+.slider-home {
+    position: relative;
+    height: 538px;
+    z-index: 1;
+
+    &:not(.home) {
+        display: none;
+    }
+}
+
 // Rettangolini in alto
 .list-rectangles {
     display: flex;
@@ -240,25 +239,28 @@ export default {
 }
 
 // Slider
+
+
+// .slider-header {
+//     //position: absolute;
+//     //top: 0;
+//     opacity: 1;
+//     transition: all 1s ease-in-out;
+
 .container-slide {
-    position: relative;
     height: 90px;
-}
 
-.slider-header {
-    position: absolute;
-    top: 0;
-    transition: all 1s ease-in-out;
-
-    &:not(.active) {
+    .container-button {
         opacity: 0;
-        z-index: 1;
-    }
 
-    &.active {
-        z-index: 20;
+
+        &.active {
+            opacity: 1;
+        }
     }
 }
+
+// }
 
 // Header
 header {
@@ -267,13 +269,13 @@ header {
     .container {
 
         // Contenuto header
-        .jumbotron {
-            height: 400px;
+        .header-container {
+            height: 412px;
             padding-top: 60px;
 
             // Titolo
             .title {
-                height: 105%;
+                height: 100%;
 
                 h1 {
                     color: #fff;
@@ -304,16 +306,42 @@ header {
 
 // Sfondo con immagine dell'header nella home
 // Contiene l'immagine sfocata e a bassa risoluzione dell'header come sfondo, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
-.header-container {
-    //background-image: url('/img/jumbotron-sfoc.jpg');
-    //background-size: cover;
-    //background-position: 0 -70px;
-    height: 542px;
-    width: 100%;
-    position: relative;
 
-    &:not(.home) {
-        display: none;
+
+.jumbotron {
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 1s ease-in-out;
+
+
+    &.first {
+        background-image: url('img/jumbotron-new.webp');
+    }
+
+    &.second {
+        background-image: url('img/jumbotron2.jpg');
+    }
+
+    &.third {
+        background-image: url('img/jumbotron3.jpg');
+    }
+
+
+    &.fourth {
+        background-image: url('img/jumbotron4.jpg');
+    }
+
+
+    &:not(.active) {
+        z-index: 1;
+    }
+
+    &.active {
+        z-index: 20;
     }
 
     .image {
@@ -358,7 +386,7 @@ header {
     }
 
     header {
-        .header-container {
+        .jumbotron {
 
             .container-slide {
                 .button {
@@ -373,7 +401,7 @@ header {
 @media only screen and (min-width: 300px) and (max-width: 610px) {
     header {
 
-        .header-container {
+        .jumbotron {
             height: 350px;
 
             .image {
@@ -388,7 +416,7 @@ header {
         }
 
         .container {
-            .jumbotron {
+            .header-container {
                 padding-top: 30px;
                 height: 220px;
 
@@ -416,7 +444,7 @@ header {
 
 @media only screen and (min-width: 610px) and (max-width: 1060px) {
     header {
-        .header-container {
+        .jumbotron {
             height: 450px;
             background-position: 0 -450px;
 
@@ -428,7 +456,7 @@ header {
 
 
             .container {
-                .jumbotron {
+                .header-container {
                     height: 260px;
                     padding-top: 20px;
 
@@ -450,7 +478,7 @@ header {
 
 @media only screen and (min-width: 300px) and (max-width: 1060px) {
     header {
-        .header-container {
+        .jumbotron {
             background-position: top center;
 
             .image {
