@@ -292,20 +292,20 @@ header {
     left: 0;
 
     &.first {
-        background-image: url('img/jumbotron.jpg');
+        background-image: url('/img/jumbotron1.webp');
 
     }
 
     &.second {
-        background-image: url('img/jumbotron2.jpg');
+        background-image: url('/img/jumbotron2.jpg');
     }
 
     &.third {
-        background-image: url('img/jumbotron3.jpg');
+        background-image: url('/img/jumbotron3.jpg');
     }
 
     &.fourth {
-        background-image: url('img/jumbotron4.jpg');
+        background-image: url('/img/jumbotron4.jpg');
     }
 
     &:not(.active) {
