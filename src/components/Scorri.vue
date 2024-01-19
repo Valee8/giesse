@@ -51,7 +51,7 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img src="/img/zanzariere/scorri.webp" alt="Immagine zanzariera Scorri" class="slide-image"
-                            width="225" height="320">
+                            width="210" height="298">
                     </div>
 
                     <!-- Titolo - nome modello -->

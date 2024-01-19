@@ -175,5 +175,25 @@ section {
     }
 }
 
+@media only screen and (min-width: 850px) and (max-width: 990px) {
+    section {
+        .list-typologies {
+            .typologies {
+                width: 30%;
+
+                .link {
+                    width: 90%;
+
+                    .typology-image,
+                    h3 {
+                        width: 90%;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
 // Fine versioni mobile, tablet e intermedie
 </style>

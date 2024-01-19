@@ -157,7 +157,7 @@ export default {
 
 // Contiene l'immagine sfocata e a bassa risoluzione delle faq come sfondo, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
 .bg-section {
-    background-image: url('/img/sfondo-faq.jpg');
+    background-image: url('/img/sfondo-faq.webp');
     background-size: cover;
     background-position: center;
     height: 414px;

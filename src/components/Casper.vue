@@ -62,7 +62,7 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img src="/img/zanzariere/casper.webp" alt="Immagine zanzariera Casper" class="slide-image casper"
-                            width="262" height="288">
+                            width="210" height="280">
                     </div>
 
                     <!-- Titolo - nome modello -->

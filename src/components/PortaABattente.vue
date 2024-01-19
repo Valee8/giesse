@@ -51,7 +51,7 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img src="/img/zanzariere/porta-a-battente.webp" alt="Immagine zanzariera Antarex"
-                            class="slide-image" width="244" height="320">
+                            class="slide-image" width="210" height="280">
                     </div>
 
                     <!-- Titolo - nome modello -->

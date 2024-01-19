@@ -297,15 +297,16 @@ header {
     }
 
     &.second {
-        background-image: url('/img/jumbotron2.jpg');
+        background-image: url('/img/jumbotron2.webp');
+        margin-top: -1px;
     }
 
     &.third {
-        background-image: url('/img/jumbotron3.jpg');
+        background-image: url('/img/jumbotron3.webp');
     }
 
     &.fourth {
-        background-image: url('/img/jumbotron4.jpg');
+        background-image: url('/img/jumbotron4.webp');
     }
 
     &:not(.active) {
@@ -342,20 +343,15 @@ header {
 
 // Inizio versioni mobile, tablet e intermedie
 @media only screen and (min-width: 300px) and (max-width: 610px) {
+
+    .slider-home {
+        height: 350px;
+    }
+
     header {
 
         .jumbotron {
             height: 350px;
-
-            .image {
-                &:not(:first-child) {
-                    object-position: 0 -1px;
-                }
-
-                &:first-child {
-                    object-position: 0;
-                }
-            }
         }
 
         .container {
@@ -386,16 +382,14 @@ header {
 }
 
 @media only screen and (min-width: 610px) and (max-width: 1060px) {
+
+    .slider-home {
+        height: 450px;
+    }
+
     header {
         .jumbotron {
             height: 450px;
-            background-position: 0 -450px;
-
-            .image {
-                &:first-child {
-                    object-position: 0;
-                }
-            }
 
 
             .container {
@@ -423,10 +417,6 @@ header {
     header {
         .jumbotron {
             background-position: top center;
-
-            .image {
-                object-position: top center;
-            }
         }
     }
 }
