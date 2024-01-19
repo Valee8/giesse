@@ -330,11 +330,11 @@ section {
       .slider {
 
         h2 {
-          font-size: 1.5rem;
+          font-size: 1.3rem;
 
           &.luna,
           &.giada {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
           }
         }
 
@@ -345,12 +345,17 @@ section {
         .div-image {
 
           .slide-image {
+            width: 180px;
             height: 200px;
           }
         }
 
         .arrow {
           font-size: 1.5rem;
+        }
+
+        .casper-list {
+          font-size: 1rem;
         }
       }
     }

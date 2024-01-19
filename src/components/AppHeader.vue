@@ -58,9 +58,6 @@ export default {
         }
     },
     methods: {
-        calculateMarginTop(index) {
-            return (index) * this.marginMultiplier;
-        },
         // Metodo per far scorrere lo slider
         animateSlider(timestamp) {
 
