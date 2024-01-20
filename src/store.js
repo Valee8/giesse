@@ -5,7 +5,7 @@ const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 export const store = reactive({
     // Info Logo in Navbar e Footer
     logo: {
-        image: "/img/sfondi-e-logo/logo-giesse.webp",
+        image: imagePrefix + "img/sfondi-e-logo/logo-giesse.webp",
         alt: "Logo Giesse Zanzariere"
     },
     // Scritta "Home" nella varie sezioni
