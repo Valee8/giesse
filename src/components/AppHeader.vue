@@ -296,6 +296,7 @@ header {
     &.second {
         background-image: url('/img/jumbotron2.webp');
         margin-top: -1px;
+        padding-top: 1px;
     }
 
     &.third {

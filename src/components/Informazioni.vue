@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 // URL per la chiamata API
-const API_URL = 'https://b4dc-79-35-88-17.ngrok-free.app/api/v1/';
+const API_URL = 'http://localhost:8000/api/v1/';
 
 export default {
     name: 'Informazioni',

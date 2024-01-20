@@ -9,7 +9,7 @@ import axios from 'axios';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 // URL per la chiamata API
-const API_URL = 'https://b4dc-79-35-88-17.ngrok-free.app/api/v1/';
+const API_URL = 'http://localhost:8000/api/v1/';
 
 export default {
     name: 'Preventivo',
@@ -62,8 +62,6 @@ export default {
 
             // Per mostrare popup se scelgo di eliminare ordine
             showDeleteItemPopup: false,
-
-            showDeleteAllItemsPopup: false,
 
             // Per mostrare popup se scelgo di aggiornare modifiche ordine
             showUpdateItemPopup: false,
@@ -786,37 +784,6 @@ export default {
 
             }
         },
-        deleteAllModels() {
-
-            setTimeout(() => {
-                // Chiamata API per eliminare ordine
-                axios.delete(API_URL + 'delete/all-orders/' + this.clientId)
-                    .then(res => {
-                        const data = res.data;
-                        const success = data.success;
-
-                        // Richiamo getOrder
-                        if (success) {
-
-                            this.getOrder();
-                            // Faccio apparire messaggio
-                            this.textSuccessMessage = "Ordini eliminati con successo!";
-
-                        }
-                    })
-                    .catch(error => console.error(error.response.data));
-            }, 1000);
-
-            setTimeout(() => {
-                // Nascondo popup 
-                this.showDeleteAllItemsPopup = false;
-                // Non c'e' un popup attivo quindi metto activePopup a false
-                this.activePopup = false;
-                // Nascondo messaggio
-                this.textSuccessMessage = "";
-            }, 2000);
-
-        },
         // Metodo per eliminare un ordine
         deleteModel(order) {
 
@@ -1534,12 +1501,6 @@ export default {
                                 Il tuo elenco
                             </h2>
 
-                            <div class="delete-all-button">
-                                <a @click="showDeleteAllItemsPopup = true, activePopup = true" class="little-button">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </a>
-                            </div>
-
                             <!-- Elenco zanzariere preventivo - parte dove non puoi modificare l'ordine -->
                             <ul class="list-ul">
                                 <li v-for="order in orders" :key="order.id" class="list-order"
@@ -1732,28 +1693,6 @@ export default {
                                             </button>
 
                                             <button @click="deleteModel(order)">
-                                                Conferma
-                                            </button>
-                                        </div>
-
-                                        <div v-else>
-                                            {{ textSuccessMessage }}
-                                        </div>
-                                    </div>
-
-                                    <!-- Popup per confermare l'eliminazione di TUTTI gli elementi -->
-                                    <div class="popup" v-if="showDeleteAllItemsPopup">
-
-                                        <div v-if="textSuccessMessage === ''">
-                                            <h6>
-                                                Confermi di voler svuotare la lista&quest;
-                                            </h6>
-
-                                            <button @click="showDeleteAllItemsPopup = false, activePopup = false">
-                                                Annulla
-                                            </button>
-
-                                            <button @click="deleteAllModels">
                                                 Conferma
                                             </button>
                                         </div>
@@ -2021,56 +1960,6 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
-
-.orders-all {
-    position: relative;
-
-    .delete-all-button {
-        position: absolute;
-        right: 21px;
-        top: 0;
-        line-height: 34px;
-
-        .little-button {
-            margin-right: 0;
-        }
-    }
-}
-
-.little-button {
-    cursor: pointer;
-    display: inline-block;
-    border-radius: 50px;
-    color: #912020;
-    background-color: #fff;
-    font-size: 1rem;
-    font-weight: 500;
-    width: 34px;
-    height: 34px;
-    border: 0;
-
-
-    &:first-child {
-        margin-right: 16px;
-    }
-
-    &.disabled {
-        color: #000;
-        cursor: not-allowed;
-    }
-
-    &.confirm {
-        color: green;
-    }
-
-    &.cancel {
-        color: red;
-    }
-
-    svg {
-        vertical-align: middle;
-    }
-}
 
 // POPUP
 .popup {
@@ -2557,6 +2446,41 @@ section {
             a {
                 &.little-button {
                     line-height: 34px;
+                }
+            }
+
+            .little-button {
+                cursor: pointer;
+                display: inline-block;
+                border-radius: 50px;
+                color: #912020;
+                background-color: #fff;
+                font-size: 1rem;
+                font-weight: 500;
+                width: 34px;
+                height: 34px;
+                border: 0;
+
+
+                &:first-child {
+                    margin-right: 16px;
+                }
+
+                &.disabled {
+                    color: #000;
+                    cursor: not-allowed;
+                }
+
+                &.confirm {
+                    color: green;
+                }
+
+                &.cancel {
+                    color: red;
+                }
+
+                svg {
+                    vertical-align: middle;
                 }
             }
 
@@ -3371,17 +3295,17 @@ section {
 
 @media only screen and (min-width: 300px) and (max-width: 400px) {
 
-    .orders-all {
+    // .orders-all {
 
-        h2 {
-            margin-bottom: 15px;
-        }
+    //     h2 {
+    //         margin-bottom: 15px;
+    //     }
 
-        .delete-all-button {
-            position: relative;
-            right: 0;
-        }
-    }
+    //     .delete-all-button {
+    //         position: relative;
+    //         right: 0;
+    //     }
+    // }
 
     .container {
 

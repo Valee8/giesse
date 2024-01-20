@@ -142,7 +142,7 @@ export default {
                             <span v-if="!store.submenu">
                                 <i class="fa-solid fa-chevron-down"></i>
                             </span>
-                            <span v-else>
+                            <span v-else class="arrow-down">
                                 <i class="fa-solid fa-chevron-up"></i>
                             </span>
                         </span>
@@ -294,6 +294,12 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+
+.arrow-down {
+    position: relative;
+    top: 2px;
+}
 
 // Menu in alto nero
 #blackMenu {
