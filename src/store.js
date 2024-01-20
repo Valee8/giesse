@@ -3,6 +3,11 @@ import { reactive } from 'vue';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
 
 export const store = reactive({
+    // Info Logo in Navbar e Footer
+    logo: {
+        image: "/img/sfondi-e-logo/logo-giesse.webp",
+        alt: "Logo Giesse Zanzariere"
+    },
     // Scritta "Home" nella varie sezioni
     textHome: "Home",
     // Contiene gli slider Verticali o Orizzontali a seconda della sezione
@@ -123,7 +128,7 @@ export const store = reactive({
             image: imagePrefix + "img/zanzariere/katia.webp",
             width: 233,
             height: 320,
-            description: "Il modello VERTICALE A CATENA CLASSICA è adatto sia per finestre sia per portefinestre in quanto dotato di una catenella che può essere inserita dalla parte interna (e anche esterna), in modo da non doversi inchinare per l'apertura della zanzariera e può essere realizzato in diverse tipologie e modelli ma esclusivamente con cassonetto da 50mm.",
+            description: "Il modello VERTICALE A CATENA CLASSICA è adatto sia per finestre sia per portefinestre in quanto dotato di una catenella che può essere inserita dalla parte interna (e anche esterna), in modo da non doversi inchinare per l'apertura della zanzariera. Può essere realizzato in diverse tipologie e modelli ma esclusivamente con cassonetto da 50mm.",
             active: false
         },
         {
@@ -147,7 +152,7 @@ export const store = reactive({
             image: imagePrefix + "img/zanzariere/alba-laterale.webp",
             width: 240,
             height: 320,
-            description: "Il modello LATERALE A MOLLA CLASSICA è adatto sia per finestre sia per portefinestre in quanto permette di non doversi inchinare per l'apertura della zanzariera e viene realizzato in diverse tipologie e modelli.",
+            description: "Il modello LATERALE A MOLLA CLASSICA è adatto sia per finestre sia per portefinestre in quanto permette di non doversi inchinare per l'apertura della zanzariera. Può essere realizzato in diverse tipologie e modelli.",
             active: true
         },
         {

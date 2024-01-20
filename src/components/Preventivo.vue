@@ -2054,7 +2054,7 @@ section {
 
     // Immagine di sfondo temporanea e sfocata che appare fino a quando l'immagine vera non ha caricato completamente
     &.thank-you {
-        background-image: url('/img/sfondo-ringraziamento.webp');
+        background-image: url('/img/sfondi-e-logo/sfondo-ringraziamento.webp');
         background-size: cover;
         position: relative;
 

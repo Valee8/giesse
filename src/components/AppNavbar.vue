@@ -129,8 +129,7 @@ export default {
                     <!-- Logo sulla sinistra -->
                     <li>
                         <router-link :to="{ name: 'home' }" class="logo">
-                            <img src="/img/logo-giesse.webp" alt="Logo Giesse Zanzariere" class="logo-image" width="155"
-                                height="32">
+                            <img :src="store.logo.image" :alt="store.logo.alt" width="155" height="32">
                         </router-link>
                     </li>
 
@@ -557,7 +556,7 @@ export default {
         }
 
         .icons-menu {
-            background-image: url('/img/bg-nav-top.webp'), url('/img/bg-nav-bottom.webp');
+            background-image: url('/img/sfondi-e-logo/bg-nav-top.webp'), url('/img/sfondi-e-logo/bg-nav-bottom.webp');
             background-position: top center, bottom center;
             background-size: 100%;
             background-repeat: no-repeat, no-repeat;
@@ -569,7 +568,7 @@ export default {
                 display: flex;
                 align-items: center;
                 height: 102px;
-                background-image: url('/img/bg-nav-center.webp');
+                background-image: url('/img/sfondi-e-logo/bg-nav-center.webp');
                 background-position: -100px 0;
 
                 &.active {
@@ -640,11 +639,19 @@ export default {
                     background-size: 100%;
                     background-position: 0 0;
 
+                    &:first-child {
+                        svg {
+                            position: relative;
+                            left: 6px;
+                            top: -5px;
+                        }
+                    }
+
                     &:last-child {
                         svg {
                             position: relative;
                             left: 4px;
-                            top: -3px;
+                            top: -4px;
                         }
                     }
 

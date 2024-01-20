@@ -289,22 +289,22 @@ header {
     left: 0;
 
     &.first {
-        background-image: url('/img/jumbotron1.webp');
+        background-image: url('/img/sfondi-e-logo/jumbotron1.webp');
 
     }
 
     &.second {
-        background-image: url('/img/jumbotron2.webp');
+        background-image: url('/img/sfondi-e-logo/jumbotron2.webp');
         margin-top: -1px;
         padding-top: 1px;
     }
 
     &.third {
-        background-image: url('/img/jumbotron3.webp');
+        background-image: url('/img/sfondi-e-logo/jumbotron3.webp');
     }
 
     &.fourth {
-        background-image: url('/img/jumbotron4.webp');
+        background-image: url('/img/sfondi-e-logo/jumbotron4.webp');
     }
 
     &:not(.active) {
