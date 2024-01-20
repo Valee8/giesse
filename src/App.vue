@@ -354,9 +354,9 @@ section {
           font-size: 1.5rem;
         }
 
-        .casper-list {
-          font-size: 1rem;
-        }
+        //.casper-list {
+        //font-size: 1rem;
+        //}
       }
     }
   }

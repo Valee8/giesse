@@ -118,7 +118,7 @@ export const store = reactive({
             image: imagePrefix + "img/zanzariere/laura.webp",
             width: 262,
             height: 320,
-            description: "Il modello VERTICALE A MOLLA può essere realizzato con sistema a CRICCHETTO (un sistema a pulsante che permette l'apertura della zanzariera in modo semplice e veloce). Questo sistema viene realizzato solamente con guida telescopica.",
+            description: "Il modello VERTICALE A MOLLA può essere realizzato anche con sistema a CRICCHETTO (un sistema a pulsante che permette l'apertura della zanzariera in modo semplice e veloce). Questo sistema viene realizzato solamente con guida telescopica.",
             active: false
         },
         {
@@ -128,7 +128,7 @@ export const store = reactive({
             image: imagePrefix + "img/zanzariere/katia.webp",
             width: 233,
             height: 320,
-            description: "Il modello VERTICALE A CATENA CLASSICA è adatto sia per finestre sia per portefinestre in quanto dotato di una catenella che può essere inserita dalla parte interna (e anche esterna), in modo da non doversi inchinare per l'apertura della zanzariera. Può essere realizzato in diverse tipologie e modelli ma esclusivamente con cassonetto da 50mm.",
+            description: "Il modello VERTICALE A CATENA CLASSICA è adatto sia per finestre sia per portefinestre in quanto è dotato di una catenella che può essere inserita sia dalla parte interna che dalla parte esterna, in modo da non doversi inchinare. Può essere realizzato in diverse tipologie e modelli ed esclusivamente con il cassonetto da 50mm.",
             active: false
         },
         {
@@ -138,7 +138,7 @@ export const store = reactive({
             image: imagePrefix + "img/zanzariere/giada.webp",
             width: 220,
             height: 290,
-            description: "Il modello VERTICALE A CATENA + MOLLA, prodotto esclusivamente con il cassonetto da 50mm, si differenzia dal modello VERTICALE A CATENA CLASSICA in quanto viene dotato di una molla di richiamo che permette di tenere la rete ben tesa.",
+            description: "Il modello VERTICALE A CATENA + MOLLA, prodotto esclusivamente con il cassonetto da 50mm e la guida telescopica, si differenzia dal modello VERTICALE A CATENA CLASSICA in quanto viene dotato di una molla di richiamo che permette di tenere la rete ben tesa.",
             active: false
         }
     ],
@@ -152,7 +152,7 @@ export const store = reactive({
             image: imagePrefix + "img/zanzariere/alba-laterale.webp",
             width: 240,
             height: 320,
-            description: "Il modello LATERALE A MOLLA CLASSICA è adatto sia per finestre sia per portefinestre in quanto permette di non doversi inchinare per l'apertura della zanzariera. Può essere realizzato in diverse tipologie e modelli.",
+            description: "Il modello LATERALE A MOLLA CLASSICA è adatto per portefinestre in quanto permette di non doversi inchinare sia per l'apertura sia per la chiusura della zanzariera. Può essere realizzato in diverse tipologie e modelli.",
             active: true
         },
         {
@@ -174,25 +174,25 @@ export const store = reactive({
             active: false
         },
         {
-            model: "LATERALE A MOLLA (con guida bassa da 3mm)",
+            model: "LATERALE A MOLLA (con guida inferiore da 3mm)",
             name: "ZELIG",
             image: imagePrefix + "img/zanzariere/zelig.webp",
             width: 262,
             height: 320,
-            description: "Il modello ZELIG, prodotto esclusivamente con il cassonetto da 50mm e dotato di una catena che si adagia sulla guida durante l'apertura della zanzariera, è caratterizzato da una guida inferiore di soli 3mm.",
+            description: "Il modello ZELIG, prodotto esclusivamente con il cassonetto da 50mm, dotato di una catena che si adagia sulla guida durante l'apertura della zanzariera, è caratterizzato da una guida inferiore di soli 3mm.",
             active: false
         },
         {
-            model: "LATERALE FRIZIONATA (con guida bassa da 3mm)",
+            model: "LATERALE FRIZIONATA (con guida inferiore da 3mm)",
             name: "JOLLY - LEVANTE",
             image: imagePrefix + "img/zanzariere/jolly.webp",
             width: 240,
             height: 320,
-            description: "Il modello JOLLY è caratterizzato da un ingombro di 40mm. Prodotto con una guida inferiore di 3mm, a differenza del modello ZELIG, permette di arrestare l'apertura della zanzariera nella posizione desiderata. Viene dotato di una catena (chiusa) che si adagia sulla guida inferiore durante l'apertura della zanzariera.",
+            description: "Il modello LATERALE FRIZIONATA è caratterizzato da un ingombro di 40mm. Prodotto con una guida inferiore di 3mm, a differenza del modello ZELIG, permette di arrestare l'apertura della zanzariera nella posizione desiderata. Viene dotato di una catena (chiusa) che si adagia sulla guida inferiore durante l'apertura della zanzariera. Jolly (Larghezza  massima 160mm, Levante fino a 220mm)",
             active: false
         },
         {
-            model: "LATERALE ANTIVENTO (con guida bassa da 2mm)",
+            model: "LATERALE ANTIVENTO (con guida inferiore da 2mm)",
             name: "BORA",
             image: imagePrefix + "img/zanzariere/bora.webp",
             width: 262,
@@ -207,7 +207,7 @@ export const store = reactive({
             image: imagePrefix + "img/zanzariere/plisse-22.webp",
             width: 220,
             height: 320,
-            description: "Il modello PLISSE' 22, è caratterizzato da un ingombro di 22mm. Prodotto con una guida inferiore di 7mm e la rete plissettata in propilene nera o grigia, permette di arrestare l'apertura della zanzariera nella posizione desiderata.",
+            description: "Il modello PLISSE' 22 è caratterizzato da un ingombro di soli 22mm. Prodotto con una guida inferiore di 7mm e la rete plissettata in propilene nera o grigia, permette di arrestare l'apertura della zanzariera nella posizione desiderata.",
             active: false
         },
     ],

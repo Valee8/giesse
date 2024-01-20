@@ -6,10 +6,10 @@ import { store } from '../store.js';
 // Importo axios
 import axios from 'axios';
 
-const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
+const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '';
 
 // URL per la chiamata API
-const API_URL = 'http://localhost:8000/api/v1/';
+const API_URL = 'https://8826-79-35-88-17.ngrok-free.app/api/v1/';
 
 export default {
     name: 'Preventivo',
@@ -232,7 +232,7 @@ export default {
                     ]
                 },
                 {
-                    name: "Laterale a molla (guida bassa da 3mm)",
+                    name: "Laterale a molla (guida inferiore da 3mm)",
                     typo: "Orizzontali",
                     image: imagePrefix + "img/zanzariere/zelig.webp",
                     active: false,
@@ -303,7 +303,7 @@ export default {
                     ]
                 },
                 {
-                    name: "Incasso con guida da 50x35",
+                    name: "Con guida da incasso per falegnami",
                     typo: "Altre",
                     image: imagePrefix + "img/zanzariere/casper.webp",
                     active: false,
