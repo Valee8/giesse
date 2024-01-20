@@ -21,6 +21,9 @@ export default {
         printNameSection() {
             return this.store.typologies[3].name;
         },
+        printImagePath() {
+            return this.store.typologies[3].image;
+        }
     }
 }
 </script>
@@ -50,8 +53,8 @@ export default {
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img src="/img/zanzariere/scorri.webp" alt="Immagine zanzariera Scorri" class="slide-image"
-                            width="210" height="298">
+                        <img :src="printImagePath" alt="Immagine zanzariera Scorri" class="slide-image" width="210"
+                            height="298">
                     </div>
 
                     <!-- Titolo - nome modello -->

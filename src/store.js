@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 
-const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '/';
+const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '';
 
 export const store = reactive({
     // Info Logo in Navbar e Footer

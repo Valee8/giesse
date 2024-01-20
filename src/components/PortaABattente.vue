@@ -21,6 +21,9 @@ export default {
         printNameSection() {
             return this.store.typologies[2].name;
         },
+        printImagePath() {
+            return this.store.typologies[2].image;
+        }
     }
 }
 </script>
@@ -50,8 +53,8 @@ export default {
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img src="/img/zanzariere/porta-a-battente.webp" alt="Immagine zanzariera Antarex"
-                            class="slide-image" width="210" height="280">
+                        <img :src="printImagePath" alt="Immagine zanzariera Antarex" class="slide-image" width="210"
+                            height="280">
                     </div>
 
                     <!-- Titolo - nome modello -->
