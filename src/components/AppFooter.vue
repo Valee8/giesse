@@ -17,11 +17,11 @@ export default {
         },
         // Estraggo le Orizzontali dalla posizione 4 (incluso) alla posizione 10 (escluso) dell'array listModels presente nel file store.js
         filteredHorizontal() {
-            return this.store.listModels.slice(4, 10);
+            return this.store.listModels.slice(4, 11);
         },
         // Estraggo le Altre
         filteredOthers() {
-            return this.store.listModels.slice(10, 14);
+            return this.store.listModels.slice(11, 15);
         }
     },
 }
