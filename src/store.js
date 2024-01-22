@@ -43,7 +43,7 @@ export const store = reactive({
             hash: "#laterale-molla"
         },
         {
-            name: "Laterale a molla (guida bassa da 2cm)",
+            name: "Laterale a molla (guida inferiore da 2cm)",
             hash: "#molla-guida-bassa"
         },
         {
@@ -51,7 +51,7 @@ export const store = reactive({
             hash: "#luna"
         },
         {
-            name: "Laterale a molla (guida bassa da 3mm)",
+            name: "Laterale a molla (guida inferiore da 3mm)",
             hash: "#zelig"
         },
         {
