@@ -155,7 +155,7 @@ export default {
 section {
 
   &[id] {
-    padding-top: 60px;
+    padding-top: 70px;
   }
 
   &[class] {
@@ -252,7 +252,7 @@ section {
       }
 
       h2 {
-        padding: 25px 0;
+        padding: 40px 0;
         font-size: 2rem;
 
         &.giada,
@@ -261,12 +261,100 @@ section {
         }
       }
 
-      .name {
-        font-size: 1.1rem;
+      .models-description {
+        position: relative;
+      }
 
-        div {
-          &:nth-child(2) {
-            padding-top: 10px;
+      .names {
+
+        display: flex;
+        justify-content: center;
+        gap: 0 24px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        z-index: 2;
+
+        .name {
+          font-size: 1.1rem;
+          width: 130px;
+          text-align: center;
+          height: 30px;
+          line-height: 30px;
+          background-color: #cccbcb;
+          border-radius: 3px;
+          color: #fff;
+          transition: height 1.3s;
+
+          &.one-model {
+
+            span {
+              padding-right: 0;
+            }
+
+            &:hover {
+              height: 30px;
+            }
+
+            .infos,
+            svg {
+              display: none;
+            }
+          }
+
+          span {
+            padding-right: 8px;
+          }
+
+          svg {
+            transition: transform 0.5s;
+            font-size: 0.8rem;
+            padding-bottom: 2px;
+          }
+
+          .infos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            text-align: left;
+            line-height: normal;
+            padding: 5px 12px;
+            transition: opacity 1.2s;
+            opacity: 0;
+            visibility: hidden;
+
+            &:not(.laterale-frizionata) {
+              height: 110px;
+            }
+          }
+
+          &.laterale-frizionata {
+            width: 150px;
+
+            &:hover {
+              height: 80px;
+            }
+          }
+
+
+          &:hover {
+            height: 145px;
+
+            svg {
+              transform: rotate(180deg);
+            }
+
+            .infos {
+              opacity: 1;
+              visibility: visible;
+            }
+          }
+
+          &.laterale-classica {
+            font-size: 0.9rem;
           }
         }
       }
@@ -279,13 +367,15 @@ section {
       .description {
         text-align: justify;
         font-size: 1.05rem;
+        position: relative;
+        z-index: 1;
 
         &:not(.casper) {
-          padding: 50px 0 90px 0;
+          padding: 80px 0 90px 0;
         }
 
         &.casper {
-          padding: 30px 0;
+          padding: 80px 0 20px 0;
         }
       }
 

@@ -165,8 +165,7 @@ export default {
                 <div class="slider" v-for="(slide, index) in getSlider" :key="index" :class="{ 'active': slide.active }">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img :src="slide.image" :alt="'Immagine zanzariera ' + slide.model"
-                            :class="slide.nameClass ? 'slide-image ' + slide.nameClass : 'slide-image '"
+                        <img :src="slide.image" :alt="'Immagine zanzariera ' + slide.model" class="slide-image"
                             :width="slide.width" :height="slide.height">
 
                         <!-- Icona freccia indietro -->
@@ -183,26 +182,29 @@ export default {
                     <!-- Titolo - nome modello -->
                     <h2
                         :class="{ 'giada': index === 3 && store.slider === store.vertical, 'luna': index === 2 && store.slider === store.horizontal }">
-                        {{ slide.model }}
+                        {{ slide.typology }}
                     </h2>
 
-                    <!-- Nome zanzariera  -->
-                    <div class="name" v-if="slide.name">
-                        <div v-if="store.slider === store.vertical || store.slider === store.horizontal && index === 0">
-                            Con guida telescopica:
-                        </div> {{ slide.name }}
+                    <div class="models-description">
+                        <div class="names">
+                            <div v-for="(model, index) in slide.models" :key="index" class="name" :class="slide.nameClass">
+                                <span>
+                                    {{ model.name }}
+                                </span>
+                                <i class="fa-solid fa-caret-down"></i>
+                                <ul class="infos" :class="slide.nameClass">
+                                    <li v-for="(info, index) in model.info" :key="index" class="info">
+                                        - {{ info }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Descrizione zanzariera -->
+                        <p class="description">
+                            {{ slide.description }}
+                        </p>
                     </div>
-
-                    <div class="name" v-else>
-                        <div>Con guida telescopica:</div> {{ slide.firstName }}
-
-                        <div>Con guida singola:</div> {{ slide.secondName }}
-                    </div>
-
-                    <!-- Descrizione zanzariera -->
-                    <p class="description" :class="{ 'giada': index === 3 }">
-                        {{ slide.description }}
-                    </p>
                 </div>
 
             </div>

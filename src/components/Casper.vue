@@ -20,9 +20,9 @@ export default {
                 "VERTICALE A CATENA CLASSICA (CASPER A CATENA)",
                 "VERTICALE A CATENA + MOLLA (CASPER TIPO MERI)",
                 "LATERALE A MOLLA CLASSICA (CASPER LATERALE)",
-                "LATERALE CON GUIDA BASSA DA 2cm (CASPER TIPO VALERIA)",
+                "LATERALE CON GUIDA INFERIORE DA 2cm (CASPER TIPO VALERIA)",
                 "LATERALE CON GUIDA ARROTONDATA DA 14mm (CASPER TIPO LUNA)",
-                "LATERALE CON GUIDA BASSA DA 3mm (CASPER TIPO ZELIG)",
+                "LATERALE CON GUIDA INFERIORE DA 3mm (CASPER TIPO ZELIG)",
                 "LATERALE A MOLLA FRIZIONATA (CASPER TIPO JOLLY)",
             ]
         }
@@ -70,27 +70,36 @@ export default {
 
                     <!-- Titolo - nome modello -->
                     <h2>
-                        CON GUIDA DA INCASSO PER FALEGNAMI
+                        MODELLO CON GUIDA DA INCASSO <div>PER FALEGNAMI</div>
                     </h2>
 
-                    <!-- Nome zanzariera  -->
-                    <div class="name">
-                        CASPER
+                    <div class="models-description">
+
+                        <!-- Nome zanzariera  -->
+                        <div class="names">
+                            <div class="name one-model">
+                                CASPER
+                            </div>
+                        </div>
+
+                        <!-- Descrizione zanzariera -->
+                        <p class="description casper">
+                            Il modello CASPER &egrave; una zanzariera da incasso per falegnami. Viene prodotto con il
+                            cassonetto
+                            da 45 o 55mm e con una guida da 50x35. Questo modello pu&ograve; essere realizzato in tutte le
+                            versioni:
+                        </p>
+
+                        <!-- Lista vari tipi di casper -->
+                        <ul class="casper-list">
+                            <li v-for="(casper, index) in casperList" :key="index">
+                                - {{ casper }}
+                            </li>
+                        </ul>
+
                     </div>
 
-                    <!-- Descrizione zanzariera -->
-                    <p class="description casper">
-                        Il modello CASPER &egrave; una zanzariera da incasso per falegnami. Viene prodotto con il cassonetto
-                        da 45 o 55mm e con una guida da 50x35. Questo modello pu&ograve; essere realizzato in tutte le
-                        versioni:
-                    </p>
 
-                    <!-- Lista vari tipi di casper -->
-                    <ul class="casper-list">
-                        <li v-for="(casper, index) in casperList" :key="index">
-                            - {{ casper }}
-                        </li>
-                    </ul>
                 </div>
 
             </div>

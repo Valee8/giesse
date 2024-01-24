@@ -48,7 +48,7 @@ export default {
                 },
                 {
                     order: "fourth",
-                    nameZanz: "Zelig, con guida bassa da 3mm",
+                    nameZanz: "Zelig, con guida inferiore da 3mm",
                     typo: "orizzontali",
                     id: 1,
                     hash: "#zelig-" + 3,

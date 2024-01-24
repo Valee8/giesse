@@ -103,9 +103,58 @@ export const store = reactive({
     // Array di oggetti 'vertical' - contiene informazioni zanzariere
     vertical: [
         {
-            model: "VERTICALE A MOLLA CLASSICA",
-            firstName: "ALBA D.G. (con cuffie) - SONIA D.G. (senza cuffie) - GENNY (con cassonetto da 40mm)",
-            secondName: "GIUSY (con cuffie) - ELENA (senza cuffie) - EDDI (con cassonetto da 40mm)",
+            typology: "VERTICALE A MOLLA CLASSICA",
+            models: [
+                {
+                    name: "ALBA D.G.",
+                    info: [
+                        "Guida telescopica",
+                        "Cuffie laterali",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "SONIA D.G.",
+                    info: [
+                        "Guida telescopica",
+                        "Testata singola",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "GENNY",
+                    info: [
+                        "Guida telescopica",
+                        "Testata singola",
+                        "Cassonetto da 40mm"
+                    ]
+                },
+                {
+                    name: "GIUSY",
+                    info: [
+                        "Guida singola",
+                        "Cuffie laterali",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "ELENA",
+                    info: [
+                        "Guida singola",
+                        "Testata singola",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "EDDI",
+                    info: [
+                        "Guida singola",
+                        "Testata singola",
+                        "Cassonetto da 40mm"
+                    ]
+                }
+            ],
+            //secondName: "GIUSY (con cuffie) - ELENA (senza cuffie) - EDDI (con cassonetto da 40mm)",
             image: imagePrefix + "img/zanzariere/alba.webp",
             width: 240,
             height: 320,
@@ -113,27 +162,93 @@ export const store = reactive({
             active: true
         },
         {
-            model: "VERTICALE A MOLLA (con sistema a cricchetto)",
-            name: "LAURA (con cuffie) - EVA (senza cuffie) - ASIA (con cassonetto da 40mm)",
+            typology: "VERTICALE A MOLLA (con sistema a cricchetto)",
+            models: [
+                {
+                    name: "LAURA",
+                    info: [
+                        "Guida telescopica",
+                        "Cuffie laterali",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "EVA",
+                    info: [
+                        "Guida telescopica",
+                        "Testata singola",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "ASIA",
+                    info: [
+                        "Guida telescopica",
+                        "Testata singola",
+                        "Cassonetto da 40mm"
+                    ]
+                },
+            ],
             image: imagePrefix + "img/zanzariere/laura.webp",
-            width: 262,
-            height: 320,
+            width: 280,
+            height: 340,
             description: "Il modello VERTICALE A MOLLA può essere realizzato anche con sistema a CRICCHETTO (un sistema a pulsante che permette l'apertura della zanzariera in modo semplice e veloce). Questo sistema viene realizzato solamente con guida telescopica.",
             active: false
         },
         {
-            model: "VERTICALE A CATENA CLASSICA",
-            firstName: "KATIA D.G. (con cuffie) - VERA (senza cuffie)",
-            secondName: "SARA (senza cuffie)",
+            typology: "VERTICALE A CATENA CLASSICA",
+            models: [
+                {
+                    name: "KATIA D.G.",
+                    info: [
+                        "Guida telescopica",
+                        "Cuffie laterali",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "VERA",
+                    info: [
+                        "Guida telescopica",
+                        "Testata singola",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "SARA",
+                    info: [
+                        "Guida singola",
+                        "Testata singola",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+            ],
             image: imagePrefix + "img/zanzariere/katia.webp",
             width: 233,
             height: 320,
-            description: "Il modello VERTICALE A CATENA CLASSICA è adatto sia per finestre sia per portefinestre in quanto è dotato di una catenella che può essere inserita sia dalla parte interna che dalla parte esterna, in modo da non doversi inchinare. Può essere realizzato in diverse tipologie e modelli ed esclusivamente con il cassonetto da 50mm.",
+            description: "Il modello VERTICALE A CATENA CLASSICA è adatto sia per finestre sia per portefinestre in quanto è dotato di una catenella che può essere inserita sia dalla parte interna sia dalla parte esterna, in modo da non doversi inchinare. Può essere realizzato esclusivamente con il cassonetto da 50mm.",
             active: false
         },
         {
-            model: "VERTICALE A CATENA + MOLLA (con aggancio magnetico)",
-            name: "GIADA (con cuffie) - MERI (senza cuffie)",
+            typology: "VERTICALE A CATENA + MOLLA (con aggancio magnetico)",
+            models: [
+                {
+                    name: "GIADA",
+                    info: [
+                        "Guida telescopica",
+                        "Cuffie laterali",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "MERI",
+                    info: [
+                        "Guida telescopica",
+                        "Testata singola",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+            ],
             nameClass: "giada",
             image: imagePrefix + "img/zanzariere/giada.webp",
             width: 220,
@@ -145,37 +260,120 @@ export const store = reactive({
     // Array di oggetti 'horizontal' - contiene informazioni zanzariere
     horizontal: [
         {
-            model: "LATERALE A MOLLA CLASSICA",
-            firstName: "TIPO ALBA (con cuffie) - TIPO SONIA (senza cuffie) - TIPO GENNY (con cassonetto da 40mm)",
-            secondName: "TIPO GIUSY (con cuffie) - TIPO ELENA (senza cuffie) - TIPO EDDI (con cassonetto da 40mm)",
-            nameClass: "laterale-alba",
+            typology: "LATERALE A MOLLA CLASSICA",
+            models: [
+                {
+                    name: "TIPO ALBA",
+                    info: [
+                        "Guida telescopica",
+                        "Cuffie laterali",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "TIPO SONIA",
+                    info: [
+                        "Guida telescopica",
+                        "Testata singola",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "TIPO GENNY",
+                    info: [
+                        "Guida telescopica",
+                        "Testata singola",
+                        "Cassonetto da 40mm"
+                    ]
+                },
+                {
+                    name: "TIPO GIUSY",
+                    info: [
+                        "Guida singola",
+                        "Cuffie laterali",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "TIPO ELENA",
+                    info: [
+                        "Guida singola",
+                        "Testata singola",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "TIPO EDDI",
+                    info: [
+                        "Guida singola",
+                        "Testata singola",
+                        "Cassonetto da 40mm"
+                    ]
+                }
+            ],
+            nameClass: "laterale-classica",
             image: imagePrefix + "img/zanzariere/alba-laterale.webp",
             width: 240,
             height: 320,
-            description: "Il modello LATERALE A MOLLA CLASSICA è adatto per portefinestre in quanto permette di non doversi inchinare sia per l'apertura sia per la chiusura della zanzariera. Può essere realizzato in diverse tipologie e modelli.",
+            description: "Il modello LATERALE A MOLLA CLASSICA è adatto per portefinestre in quanto permette di non doversi inchinare sia per l'apertura sia per la chiusura della zanzariera.",
             active: true
         },
         {
-            model: "LATERALE A MOLLA (con guida bassa da 2cm)",
-            name: "LARA (con cuffie) - VALERIA (senza cuffie) - DESI (con cassonetto da 40mm)",
+            typology: "LATERALE A MOLLA (con guida bassa da 2cm)",
+            models: [
+                {
+                    name: "LARA",
+                    info: [
+                        "Guida telescopica",
+                        "Cuffie laterali",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "VALERIA",
+                    info: [
+                        "Guida telescopica",
+                        "Testata singola",
+                        "Cassonetto da 50mm"
+                    ]
+                },
+                {
+                    name: "DESI",
+                    info: [
+                        "Guida telescopica",
+                        "Testata singola",
+                        "Cassonetto da 40mm"
+                    ]
+                },
+            ],
             image: imagePrefix + "img/zanzariere/lara-rigata.webp",
             width: 246,
             height: 320,
-            description: "Il modello LATERALE con guida bassa da 2cm, si differenzia dal modello LATERALE A MOLLA CLASSICA in quanto viene fornito con una guida inferiore di 2cm. Può essere realizzato in diverse tipologie e modelli.",
+            description: "Il modello LATERALE con guida bassa da 2cm, si differenzia dal modello LATERALE A MOLLA CLASSICA in quanto viene fornito con una guida inferiore di 2cm.",
             active: false
         },
         {
-            model: "LATERALE A MOLLA (con guida arrotondata da 14mm)",
-            name: "LUNA",
+            typology: "LATERALE A MOLLA (con guida arrotondata da 14mm)",
+            models: [
+                {
+                    name: "LUNA"
+                }
+            ],
             image: imagePrefix + "img/zanzariere/luna.webp",
+            nameClass: "one-model",
             width: 262,
             height: 320,
             description: "Il modello LUNA, prodotto esclusivamente con il cassonetto da 50mm, si differenzia dal modello LATERALE A MOLLA CLASSICA in quanto viene fornito con una guida arrotondata (calpestabile) di soli 14mm.",
             active: false
         },
         {
-            model: "LATERALE A MOLLA (con guida inferiore da 3mm)",
-            name: "ZELIG",
+            typology: "LATERALE A MOLLA (con guida inferiore da 3mm)",
+            models: [
+                {
+                    name: "ZELIG"
+                }
+            ],
+            nameClass: "one-model",
             image: imagePrefix + "img/zanzariere/zelig.webp",
             width: 262,
             height: 320,
@@ -183,17 +381,36 @@ export const store = reactive({
             active: false
         },
         {
-            model: "LATERALE FRIZIONATA (con guida inferiore da 3mm)",
-            name: "JOLLY - LEVANTE",
+            typology: "LATERALE FRIZIONATA (con guida inferiore da 3mm)",
+            models: [
+                {
+                    name: "JOLLY",
+                    info: [
+                        "Larghezza massima 160mm"
+                    ]
+                },
+                {
+                    name: "LEVANTE",
+                    info: [
+                        "Larghezza massima 220mm"
+                    ]
+                }
+            ],
+            nameClass: "laterale-frizionata",
             image: imagePrefix + "img/zanzariere/jolly.webp",
             width: 240,
             height: 320,
-            description: "Il modello LATERALE FRIZIONATA è caratterizzato da un ingombro di 40mm. Prodotto con una guida inferiore di 3mm, a differenza del modello ZELIG, permette di arrestare l'apertura della zanzariera nella posizione desiderata. Viene dotato di una catena (chiusa) che si adagia sulla guida inferiore durante l'apertura della zanzariera. Jolly (Larghezza  massima 160mm, Levante fino a 220mm)",
+            description: "Il modello LATERALE FRIZIONATA è caratterizzato da un ingombro di 40mm. Prodotto con una guida inferiore di 3mm, a differenza del modello ZELIG, permette di arrestare l'apertura della zanzariera nella posizione desiderata. Viene dotato di una catena (chiusa) che si adagia sulla guida inferiore durante l'apertura della zanzariera. Si differenzia tra JOLLY (con una larghezza massima di 160mm) e LEVANTE (con una larghezza massima di 220mm).",
             active: false
         },
         {
-            model: "LATERALE ANTIVENTO (con guida inferiore da 2mm)",
-            name: "BORA",
+            typology: "LATERALE ANTIVENTO (con guida inferiore da 2mm)",
+            models: [
+                {
+                    name: "BORA"
+                }
+            ],
+            nameClass: "one-model",
             image: imagePrefix + "img/zanzariere/bora.webp",
             width: 262,
             height: 320,
@@ -201,9 +418,13 @@ export const store = reactive({
             active: false
         },
         {
-            model: "LATERALE PLISSETTATA",
-            name: "PLISSE' 22",
-            nameClass: "plisse",
+            typology: "LATERALE PLISSETTATA",
+            models: [
+                {
+                    name: "PLISSE' 22"
+                }
+            ],
+            nameClass: "one-model",
             image: imagePrefix + "img/zanzariere/plisse-22.webp",
             width: 220,
             height: 320,

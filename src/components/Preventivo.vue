@@ -2225,7 +2225,7 @@ section {
 // SECONDO STEP
 .second-step {
     background-color: #adadad;
-    max-width: 1170px;
+    max-width: 1200px;
     margin: 0 auto;
     text-align: center;
     padding: 60px 40px 40px 40px;
