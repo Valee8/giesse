@@ -292,8 +292,8 @@ section {
           transition: height 0.6s;
           overflow: hidden;
 
-
           &.one-model {
+            justify-content: center;
 
             &:hover {
               height: 30px;
