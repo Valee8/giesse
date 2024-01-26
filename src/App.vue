@@ -266,32 +266,34 @@ section {
       }
 
       .names {
-
         display: flex;
         justify-content: center;
         gap: 0 24px;
         position: absolute;
         top: 0;
         left: 50%;
-        transform: translate(-50%, 0);
+        transform: translateX(-50%);
         z-index: 2;
 
         .name {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
           font-size: 1.1rem;
           width: 130px;
           text-align: center;
+          padding: 0 8px;
           height: 30px;
-          line-height: 30px;
+          line-height: 31px;
           background-color: #cccbcb;
-          border-radius: 3px;
-          color: #fff;
-          transition: height 1.3s;
+          border-radius: 15px;
+          color: #4e4e4e;
+          transition: height 0.6s;
+          overflow: hidden;
+
 
           &.one-model {
-
-            span {
-              padding-right: 0;
-            }
 
             &:hover {
               height: 30px;
@@ -301,10 +303,6 @@ section {
             svg {
               display: none;
             }
-          }
-
-          span {
-            padding-right: 8px;
           }
 
           svg {
@@ -321,8 +319,8 @@ section {
             font-size: 0.8rem;
             text-align: left;
             line-height: normal;
-            padding: 5px 12px;
-            transition: opacity 1.2s;
+            padding: 5px 2px;
+            transition: opacity 1.5s;
             opacity: 0;
             visibility: hidden;
 
@@ -335,13 +333,13 @@ section {
             width: 150px;
 
             &:hover {
-              height: 80px;
+              height: 72px;
             }
           }
 
 
           &:hover {
-            height: 145px;
+            height: 140px;
 
             svg {
               transform: rotate(180deg);

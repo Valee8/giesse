@@ -100,7 +100,7 @@ export default {
                     <p>
                         In questo spazio abbiamo raccolto le domande pi&ugrave; frequenti che ci fate, se non trovi quello
                         che
-                        cerchi contattaci telefonicamente o compila il form in basso, saremo felici di aiutarti
+                        cerchi contattaci telefonicamente o compila il form in basso, saremo felici di aiutarti&excl;
                     </p>
                 </div>
 
