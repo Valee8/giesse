@@ -461,6 +461,10 @@ section {
           &:not(.casper) {
             padding: 30px 0;
           }
+
+          &.casper {
+            padding: 42px 0 30px 0;
+          }
         }
 
         h2 {
