@@ -396,10 +396,40 @@ section {
   }
 }
 
-@media only screen and (min-width: 300px) and (max-width: 479px) {
+
+@media only screen and (min-width: 480px) and (max-width: 980px) {
+
+  section {
+    .slider-container {
+      .slider {
+        .names {
+          flex-wrap: wrap;
+          gap: 15px;
+          position: relative;
+          height: auto;
+          left: 0;
+          transform: none;
+        }
+
+        .description {
+          &:not(.casper) {
+            padding: 50px 0;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media only screen and (min-width: 300px) and (max-width: 1000px) {
   .arrow-up {
     display: none;
   }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 479px) {
+
 
   section {
 
@@ -416,6 +446,22 @@ section {
 
       // Contenuto slider
       .slider {
+
+        .names {
+          flex-wrap: wrap;
+          gap: 15px 4px;
+          position: relative;
+          height: auto;
+          left: 0;
+          transform: none;
+        }
+
+        .description {
+
+          &:not(.casper) {
+            padding: 30px 0;
+          }
+        }
 
         h2 {
           font-size: 1.3rem;

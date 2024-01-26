@@ -134,7 +134,7 @@ section {
 }
 
 // Inizio versioni mobile, tablet e intermedie
-@media only screen and (min-width: 300px) and (max-width: 610px) {
+@media only screen and (min-width: 300px) and (max-width: 660px) {
     section {
 
         .list-typologies {
@@ -155,7 +155,8 @@ section {
     }
 }
 
-@media only screen and (min-width: 610px) and (max-width: 990px) {
+
+@media only screen and (min-width: 660px) and (max-width: 900px) {
     section {
         .list-typologies {
             .typologies {
@@ -175,18 +176,18 @@ section {
     }
 }
 
-@media only screen and (min-width: 850px) and (max-width: 990px) {
+@media only screen and (min-width: 770px) and (max-width: 900px) {
     section {
         .list-typologies {
             .typologies {
-                width: 30%;
+                width: 35%;
 
                 .link {
-                    width: 90%;
+                    width: 93%;
 
                     .typology-image,
                     h3 {
-                        width: 90%;
+                        width: 93%;
                     }
 
                 }
