@@ -20,7 +20,7 @@ export default {
   methods: {
     // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
     handleScroll() {
-      if (window.scrollY > 700) {
+      if (window.scrollY > 1000) {
         this.showArrowUp = true;
       }
       else {
