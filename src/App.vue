@@ -287,15 +287,20 @@ section {
           height: 30px;
           line-height: 31px;
           background-color: #cccbcb;
-          border-radius: 15px;
+          border-radius: 30px;
           color: #4e4e4e;
           transition: height 0.6s;
           overflow: hidden;
 
+          &.reduce {
+            border-radius: 15px;
+          }
+
+
           &.one-model {
             justify-content: center;
 
-            &:hover {
+            &.expand {
               height: 30px;
             }
 
@@ -332,14 +337,15 @@ section {
           &.laterale-frizionata {
             width: 150px;
 
-            &:hover {
+            &.expand {
               height: 72px;
             }
           }
 
 
-          &:hover {
+          &.expand {
             height: 140px;
+            border-radius: 15px;
 
             svg {
               transform: rotate(180deg);

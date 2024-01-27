@@ -34,6 +34,28 @@ export default {
         }
     },
     methods: {
+        hoverSlider(modelIndex) {
+
+            const name = document.getElementsByClassName("name");
+
+            if (name[modelIndex].className.includes("laterale-classica")) {
+                name[modelIndex].className = "name laterale-classica expand";
+            }
+            else {
+                name[modelIndex].className = "name expand";
+            }
+        },
+        notHoverSlider(modelIndex) {
+
+            const name = document.getElementsByClassName("name");
+
+            if (name[modelIndex].className.includes("laterale-classica")) {
+                name[modelIndex].className = "name laterale-classica reduce";
+            }
+            else {
+                name[modelIndex].className = "name reduce";
+            }
+        },
         // Freccia avanti
         next(index) {
 
@@ -162,32 +184,35 @@ export default {
                 </div>
 
                 <!-- Parte contenuto slider -->
-                <div class="slider" v-for="(slide, index) in getSlider" :key="index" :class="{ 'active': slide.active }">
+                <div class="slider" v-for="(slide, slideIndex) in getSlider" :key="slideIndex"
+                    :class="{ 'active': slide.active }">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img :src="slide.image" :alt="'Immagine zanzariera ' + slide.model" class="slide-image"
+                        <img :src="slide.image" :alt="'Immagine zanzariera ' + slide.typology" class="slide-image"
                             :width="slide.width" :height="slide.height">
 
                         <!-- Icona freccia indietro -->
-                        <a class="arrow left" @click="prev(index)">
+                        <a class="arrow left" @click="prev(slideIndex)">
                             <i class="fa-solid fa-chevron-left"></i>
                         </a>
 
                         <!-- Icona freccia avanti -->
-                        <a class="arrow right" @click="next(index)">
+                        <a class="arrow right" @click="next(slideIndex)">
                             <i class="fa-solid fa-chevron-right"></i>
                         </a>
                     </div>
 
                     <!-- Titolo - nome modello -->
                     <h2
-                        :class="{ 'giada': index === 3 && store.slider === store.vertical, 'luna': index === 2 && store.slider === store.horizontal }">
+                        :class="{ 'giada': slideIndex === 3 && store.slider === store.vertical, 'luna': slideIndex === 2 && store.slider === store.horizontal }">
                         {{ slide.typology }}
                     </h2>
 
                     <div class="models-description">
                         <div class="names">
-                            <div v-for="(model, index) in slide.models" :key="index" class="name" :class="slide.nameClass">
+                            <div v-for="(model, modelIndex) in slide.models" :key="modelIndex" class="name"
+                                :class="slide.nameClass" @mouseover="hoverSlider(modelIndex)"
+                                @mouseout="notHoverSlider(modelIndex)">
                                 <span>
                                     {{ model.name }}
                                 </span>
