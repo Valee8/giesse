@@ -140,11 +140,16 @@ export default {
   border-radius: 50%;
   padding: 3px 8px;
   color: #fff;
-  opacity: 0;
   transition: all 1s ease;
+
+  &:not(.show) {
+    visibility: hidden;
+    opacity: 0;
+  }
 
   &.show {
     opacity: 1;
+    visibility: visible;
   }
 }
 
