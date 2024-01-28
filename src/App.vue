@@ -503,6 +503,10 @@ section {
         h2 {
           font-size: 1.3rem;
 
+          &.fissa {
+            padding-top: 40px;
+          }
+
           &.luna,
           &.giada {
             font-size: 1.3rem;
