@@ -58,7 +58,7 @@ export default {
 
 
             <!-- Inizio parte slider zanzariere -->
-            <div class="slider-container casper" id="not-slider">
+            <div class="slider-container casper not-slider">
 
                 <!-- Parte contenuto slider -->
                 <div class="slider active">
@@ -70,7 +70,7 @@ export default {
 
                     <!-- Titolo - nome modello -->
                     <h2>
-                        MODELLO CON GUIDA DA INCASSO <div>PER FALEGNAMI</div>
+                        MODELLO CON GUIDA DA INCASSO PER FALEGNAMI
                     </h2>
 
                     <div class="models-description">

@@ -155,7 +155,7 @@ export default {
 section {
 
   &[id] {
-    padding-top: 70px;
+    padding-top: 120px;
   }
 
   &[class] {
@@ -209,8 +209,12 @@ section {
     max-width: 900px;
     margin: 0 auto;
 
-    &#not-slider {
-      padding-top: 72px;
+    &.not-slider {
+      padding-top: 136px;
+    }
+
+    &.fissa {
+      padding-top: 171px;
     }
 
     // Rettangolini in alto
@@ -255,9 +259,21 @@ section {
         padding: 40px 0;
         font-size: 2rem;
 
+        &.fissa {
+          padding: 75px 0 40px 0;
+        }
+
         &.giada,
         &.luna {
           font-size: 1.8rem;
+        }
+
+        &.giada {
+          padding: 74px 0 40px 0;
+        }
+
+        &.luna {
+          padding: 44px 0 40px 0;
         }
       }
 

@@ -47,14 +47,14 @@ export default {
 
 
             <!-- Inizio parte slider zanzariere -->
-            <div class="slider-container" id="not-slider">
+            <div class="slider-container not-slider">
 
                 <!-- Parte contenuto slider -->
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="printImagePath" alt="Immagine zanzariera Scorri" class="slide-image" width="210"
-                            height="298">
+                            height="280">
                     </div>
 
                     <!-- Titolo - nome modello -->

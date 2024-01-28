@@ -47,7 +47,7 @@ export default {
 
 
             <!-- Inizio parte slider zanzariere -->
-            <div class="slider-container" id="not-slider">
+            <div class="slider-container not-slider fissa">
 
                 <!-- Parte contenuto slider -->
                 <div class="slider active">
@@ -58,7 +58,7 @@ export default {
                     </div>
 
                     <!-- Titolo - nome modello -->
-                    <h2>
+                    <h2 class="fissa">
                         TELAIO FISSO
                     </h2>
 

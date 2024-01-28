@@ -200,7 +200,7 @@ export const store = reactive({
             ],
             image: imagePrefix + "img/zanzariere/laura.webp",
             width: 280,
-            height: 340,
+            height: 320,
             description: "Il modello VERTICALE A MOLLA può essere realizzato anche con sistema a CRICCHETTO (un sistema a pulsante che permette l'apertura della zanzariera in modo semplice e veloce). Questo sistema viene realizzato solamente con guida telescopica.",
             active: false
         },

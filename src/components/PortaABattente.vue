@@ -47,7 +47,7 @@ export default {
 
 
             <!-- Inizio parte slider zanzariere -->
-            <div class="slider-container" id="not-slider">
+            <div class="slider-container not-slider">
 
                 <!-- Parte contenuto slider -->
                 <div class="slider active">
