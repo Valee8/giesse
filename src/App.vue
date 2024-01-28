@@ -423,6 +423,12 @@ section {
 
   section {
     .slider-container {
+
+      &.not-slider,
+      &.fissa {
+        padding-top: 80px;
+      }
+
       .slider {
         .names {
           flex-wrap: wrap;
@@ -457,6 +463,11 @@ section {
 
     // Inizio contenuto slider presente in Verticali e Orizzontali
     .slider-container {
+
+      &.not-slider,
+      &.fissa {
+        padding-top: 50px;
+      }
 
       .list-rectangles {
         gap: 10px;
@@ -506,7 +517,12 @@ section {
 
           .slide-image {
             width: 180px;
-            height: 200px;
+            height: 220px;
+
+            &.fissa {
+              width: 180px;
+              height: 180px;
+            }
           }
         }
 
