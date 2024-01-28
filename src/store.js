@@ -111,7 +111,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Cuffie laterali",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "SONIA D.G.",
@@ -119,7 +120,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Testata singola",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "GENNY",
@@ -127,7 +129,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Testata singola",
                         "Cassonetto da 40mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "GIUSY",
@@ -135,7 +138,8 @@ export const store = reactive({
                         "Guida singola",
                         "Cuffie laterali",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "ELENA",
@@ -143,7 +147,8 @@ export const store = reactive({
                         "Guida singola",
                         "Testata singola",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "EDDI",
@@ -151,7 +156,8 @@ export const store = reactive({
                         "Guida singola",
                         "Testata singola",
                         "Cassonetto da 40mm"
-                    ]
+                    ],
+                    hover: false
                 }
             ],
             //secondName: "GIUSY (con cuffie) - ELENA (senza cuffie) - EDDI (con cassonetto da 40mm)",
@@ -170,7 +176,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Cuffie laterali",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "EVA",
@@ -178,7 +185,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Testata singola",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "ASIA",
@@ -186,7 +194,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Testata singola",
                         "Cassonetto da 40mm"
-                    ]
+                    ],
+                    hover: false
                 },
             ],
             image: imagePrefix + "img/zanzariere/laura.webp",
@@ -204,7 +213,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Cuffie laterali",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "VERA",
@@ -212,7 +222,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Testata singola",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "SARA",
@@ -220,7 +231,8 @@ export const store = reactive({
                         "Guida singola",
                         "Testata singola",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
             ],
             image: imagePrefix + "img/zanzariere/katia.webp",
@@ -238,7 +250,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Cuffie laterali",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "MERI",
@@ -246,7 +259,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Testata singola",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
             ],
             nameClass: "giada",
@@ -268,7 +282,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Cuffie laterali",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "TIPO SONIA",
@@ -276,7 +291,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Testata singola",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "TIPO GENNY",
@@ -284,7 +300,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Testata singola",
                         "Cassonetto da 40mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "TIPO GIUSY",
@@ -292,7 +309,8 @@ export const store = reactive({
                         "Guida singola",
                         "Cuffie laterali",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "TIPO ELENA",
@@ -300,7 +318,8 @@ export const store = reactive({
                         "Guida singola",
                         "Testata singola",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "TIPO EDDI",
@@ -308,7 +327,8 @@ export const store = reactive({
                         "Guida singola",
                         "Testata singola",
                         "Cassonetto da 40mm"
-                    ]
+                    ],
+                    hover: false
                 }
             ],
             nameClass: "laterale-classica",
@@ -327,7 +347,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Cuffie laterali",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "VALERIA",
@@ -335,7 +356,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Testata singola",
                         "Cassonetto da 50mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "DESI",
@@ -343,7 +365,8 @@ export const store = reactive({
                         "Guida telescopica",
                         "Testata singola",
                         "Cassonetto da 40mm"
-                    ]
+                    ],
+                    hover: false
                 },
             ],
             image: imagePrefix + "img/zanzariere/lara-rigata.webp",
@@ -387,13 +410,15 @@ export const store = reactive({
                     name: "JOLLY",
                     info: [
                         "Larghezza massima 160mm"
-                    ]
+                    ],
+                    hover: false
                 },
                 {
                     name: "LEVANTE",
                     info: [
                         "Larghezza massima 220mm"
-                    ]
+                    ],
+                    hover: false
                 }
             ],
             nameClass: "laterale-frizionata",

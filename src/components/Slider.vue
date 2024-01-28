@@ -34,27 +34,13 @@ export default {
         }
     },
     methods: {
-        hoverSlider(modelIndex) {
+        hoverSlider(slideIndex, modelIndex) {
 
-            const name = document.getElementsByClassName("name");
-
-            if (name[modelIndex].className.includes("laterale-classica")) {
-                name[modelIndex].className = "name laterale-classica expand";
-            }
-            else {
-                name[modelIndex].className = "name expand";
-            }
+            this.store.slider[slideIndex].models[modelIndex].hover = true;
         },
-        notHoverSlider(modelIndex) {
+        notHoverSlider(slideIndex, modelIndex) {
 
-            const name = document.getElementsByClassName("name");
-
-            if (name[modelIndex].className.includes("laterale-classica")) {
-                name[modelIndex].className = "name laterale-classica reduce";
-            }
-            else {
-                name[modelIndex].className = "name reduce";
-            }
+            this.store.slider[slideIndex].models[modelIndex].hover = false;
         },
         // Freccia avanti
         next(index) {
@@ -211,8 +197,9 @@ export default {
                     <div class="models-description">
                         <div class="names">
                             <div v-for="(model, modelIndex) in slide.models" :key="modelIndex" class="name"
-                                :class="slide.nameClass" @mouseover="hoverSlider(modelIndex)"
-                                @mouseout="notHoverSlider(modelIndex)">
+                                :class="slide.nameClass, { 'expand': model.hover, 'reduce': !model.hover }"
+                                @mouseover="hoverSlider(slideIndex, modelIndex)"
+                                @mouseout="notHoverSlider(slideIndex, modelIndex)">
                                 <span>
                                     {{ model.name }}
                                 </span>
