@@ -309,10 +309,12 @@ header {
 
     &:not(.active) {
         z-index: 1;
+        visibility: hidden;
     }
 
     &.active {
         z-index: 20;
+        visibility: visible;
     }
 
     .container-slide {
