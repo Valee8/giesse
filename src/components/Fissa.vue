@@ -54,7 +54,7 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="printImagePath" alt="Immagine zanzariera Fissa" class="slide-image fissa" width="210"
-                            height="210">
+                            height="210" loading="lazy">
                     </div>
 
                     <!-- Titolo - nome modello -->

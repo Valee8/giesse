@@ -54,7 +54,7 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="printImagePath" alt="Immagine zanzariera Antarex" class="slide-image" width="210"
-                            height="280">
+                            height="280" loading="lazy">
                     </div>
 
                     <!-- Titolo - nome modello -->

@@ -173,7 +173,7 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="slide.image" :alt="'Immagine zanzariera ' + slide.typology" class="slide-image"
-                            :width="slide.width" :height="slide.height">
+                            :width="slide.width" :height="slide.height" loading="lazy">
 
                         <!-- Icona freccia indietro -->
                         <a class="arrow left" @click="prev(slideIndex)">
