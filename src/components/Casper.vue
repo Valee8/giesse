@@ -73,31 +73,28 @@ export default {
                         MODELLO CON GUIDA DA INCASSO PER FALEGNAMI
                     </h2>
 
-                    <div class="models-description">
 
-                        <!-- Nome zanzariera  -->
-                        <div class="names casper">
-                            <div class="name one-model">
-                                CASPER
-                            </div>
+                    <!-- Descrizione zanzariera -->
+                    <p class="description casper">
+                        Il modello CASPER &egrave; una zanzariera da incasso per falegnami. Viene prodotto con il
+                        cassonetto
+                        da 45 o 55mm e con una guida da 50x35. Questo modello pu&ograve; essere realizzato in tutte le
+                        versioni:
+                    </p>
+
+                    <!-- Nome zanzariera  -->
+                    <div class="names casper">
+                        <div class="name one-model">
+                            CASPER
                         </div>
-
-                        <!-- Descrizione zanzariera -->
-                        <p class="description casper">
-                            Il modello CASPER &egrave; una zanzariera da incasso per falegnami. Viene prodotto con il
-                            cassonetto
-                            da 45 o 55mm e con una guida da 50x35. Questo modello pu&ograve; essere realizzato in tutte le
-                            versioni:
-                        </p>
-
-                        <!-- Lista vari tipi di casper -->
-                        <ul class="casper-list">
-                            <li v-for="(casper, index) in casperList" :key="index">
-                                - {{ casper }}
-                            </li>
-                        </ul>
-
                     </div>
+
+                    <!-- Lista vari tipi di casper -->
+                    <ul class="casper-list">
+                        <li v-for="(casper, index) in casperList" :key="index">
+                            - {{ casper }}
+                        </li>
+                    </ul>
 
 
                 </div>

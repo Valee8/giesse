@@ -292,14 +292,16 @@ section {
         justify-content: center;
         gap: 0 24px;
         position: absolute;
-        bottom: 10px;
+        bottom: 12px;
         left: 50%;
         transform: translateX(-50%);
         z-index: 2;
         height: 110px;
 
         &.casper {
-          top: 60px;
+          position: relative;
+          bottom: 0;
+          height: 50px;
         }
 
         .name {
@@ -406,7 +408,7 @@ section {
         // }
 
         &.casper {
-          padding-bottom: 80px;
+          padding-bottom: 20px;
         }
       }
 
@@ -430,7 +432,7 @@ section {
 }
 
 
-@media only screen and (min-width: 480px) and (max-width: 980px) {
+@media only screen and (min-width: 450px) and (max-width: 980px) {
 
   section {
     .slider-container {
@@ -441,9 +443,11 @@ section {
       }
 
       .slider {
+        padding-bottom: 100px;
+
         .names {
           flex-wrap: wrap;
-          gap: 15px;
+          gap: 15px 30px;
           position: relative;
           height: auto;
           left: 0;
@@ -452,7 +456,7 @@ section {
 
         .description {
           &:not(.casper) {
-            padding: 50px 0;
+            padding-bottom: 40px;
           }
         }
       }
@@ -467,18 +471,13 @@ section {
   }
 }
 
-@media only screen and (min-width: 300px) and (max-width: 479px) {
+@media only screen and (min-width: 300px) and (max-width: 450px) {
 
 
   section {
 
     // Inizio contenuto slider presente in Verticali e Orizzontali
     .slider-container {
-
-      &.not-slider,
-      &.fissa {
-        padding-top: 50px;
-      }
 
       .list-rectangles {
         gap: 10px;
@@ -490,6 +489,7 @@ section {
 
       // Contenuto slider
       .slider {
+        padding-bottom: 80px;
 
         .names {
           flex-wrap: wrap;
@@ -503,11 +503,7 @@ section {
         .description {
 
           &:not(.casper) {
-            padding: 30px 0;
-          }
-
-          &.casper {
-            padding: 42px 0 30px 0;
+            padding-bottom: 40px;
           }
         }
 
