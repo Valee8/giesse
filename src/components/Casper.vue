@@ -61,7 +61,7 @@ export default {
             <div class="slider-container casper not-slider">
 
                 <!-- Parte contenuto slider -->
-                <div class="slider active">
+                <div class="slider active casper">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="printImagePath" alt="Immagine zanzariera Casper" class="slide-image casper" width="210"
@@ -76,7 +76,7 @@ export default {
                     <div class="models-description">
 
                         <!-- Nome zanzariera  -->
-                        <div class="names">
+                        <div class="names casper">
                             <div class="name one-model">
                                 CASPER
                             </div>

@@ -62,19 +62,17 @@ export default {
                         TELAIO FISSO
                     </h2>
 
-                    <div class="models-description">
-                        <!-- Nome zanzariera  -->
-                        <div class="names">
-                            <div class="name one-model">
-                                FISSA
-                            </div>
-                        </div>
+                    <!-- Descrizione zanzariera -->
+                    <p class="description">
+                        Il modello FISSA viene fornito di serie con rete in fibra di vetro, su richiesta pu&ograve;
+                        essere realizzato anche con rete in alluminio, acciaio, petscreen.
+                    </p>
 
-                        <!-- Descrizione zanzariera -->
-                        <p class="description">
-                            Il modello FISSA viene fornito di serie con rete in fibra di vetro, su richiesta pu&ograve;
-                            essere realizzato anche con rete in alluminio, acciaio, petscreen.
-                        </p>
+                    <!-- Nome zanzariera  -->
+                    <div class="names">
+                        <div class="name one-model">
+                            FISSA
+                        </div>
                     </div>
                 </div>
 

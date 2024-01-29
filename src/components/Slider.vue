@@ -13,9 +13,7 @@ export default {
     },
     data() {
         return {
-            store,
-            // Elemento attivo
-            activeItem: "",
+            store
         }
     },
     mounted() {
@@ -194,28 +192,27 @@ export default {
                         {{ slide.typology }}
                     </h2>
 
-                    <div class="models-description">
-                        <div class="names">
-                            <div v-for="(model, modelIndex) in slide.models" :key="modelIndex" class="name"
-                                :class="slide.nameClass, { 'expand': model.hover, 'reduce': !model.hover }"
-                                @mouseover="hoverSlider(slideIndex, modelIndex)"
-                                @mouseout="notHoverSlider(slideIndex, modelIndex)">
-                                <span>
-                                    {{ model.name }}
-                                </span>
-                                <i class="fa-solid fa-caret-down"></i>
-                                <ul class="infos" :class="slide.nameClass">
-                                    <li v-for="(info, index) in model.info" :key="index" class="info">
-                                        - {{ info }}
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <!-- Descrizione zanzariera -->
+                    <p class="description">
+                        {{ slide.description }}
+                    </p>
 
-                        <!-- Descrizione zanzariera -->
-                        <p class="description">
-                            {{ slide.description }}
-                        </p>
+
+                    <div class="names">
+                        <div v-for="(model, modelIndex) in slide.models" :key="modelIndex" class="name"
+                            :class="slide.nameClass, { 'expand': model.hover, 'reduce': !model.hover }"
+                            @mouseover="hoverSlider(slideIndex, modelIndex)"
+                            @mouseout="notHoverSlider(slideIndex, modelIndex)">
+                            <span>
+                                {{ model.name }}
+                            </span>
+                            <i class="fa-solid fa-caret-down"></i>
+                            <ul class="infos" :class="slide.nameClass">
+                                <li v-for="(info, index) in model.info" :key="index" class="info">
+                                    - {{ info }}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 

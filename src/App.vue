@@ -215,11 +215,7 @@ section {
     margin: 0 auto;
 
     &.not-slider {
-      padding-top: 136px;
-    }
-
-    &.fissa {
-      padding-top: 171px;
+      padding-top: 80px;
     }
 
     // Rettangolini in alto
@@ -251,6 +247,11 @@ section {
     .slider {
       font-weight: bold;
       user-select: none;
+      padding-bottom: 160px;
+
+      &.casper {
+        padding-bottom: 100px;
+      }
 
       &:not(.active) {
         display: none;
@@ -261,25 +262,25 @@ section {
       }
 
       h2 {
-        padding: 40px 0;
+        padding: 50px 0;
         font-size: 2rem;
 
-        &.fissa {
-          padding: 75px 0 40px 0;
-        }
+        // &.fissa {
+        //   padding: 75px 0 40px 0;
+        // }
 
         &.giada,
         &.luna {
           font-size: 1.8rem;
         }
 
-        &.giada {
-          padding: 74px 0 40px 0;
-        }
+        // &.giada {
+        //   padding: 74px 0 40px 0;
+        // }
 
-        &.luna {
-          padding: 44px 0 40px 0;
-        }
+        // &.luna {
+        //   padding: 44px 0 40px 0;
+        // }
       }
 
       .models-description {
@@ -291,10 +292,15 @@ section {
         justify-content: center;
         gap: 0 24px;
         position: absolute;
-        top: 0;
+        bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
         z-index: 2;
+        height: 110px;
+
+        &.casper {
+          top: 60px;
+        }
 
         .name {
           display: flex;
@@ -386,7 +392,7 @@ section {
 
       .casper-list {
         text-align: left;
-        padding-bottom: 84px;
+        //padding-bottom: 84px;
       }
 
       .description {
@@ -395,12 +401,12 @@ section {
         position: relative;
         z-index: 1;
 
-        &:not(.casper) {
-          padding: 80px 0 90px 0;
-        }
+        // &:not(.casper) {
+        //   //padding: 80px 0 90px 0;
+        // }
 
         &.casper {
-          padding: 80px 0 20px 0;
+          padding-bottom: 80px;
         }
       }
 

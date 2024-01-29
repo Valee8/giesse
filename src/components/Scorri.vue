@@ -62,23 +62,21 @@ export default {
                         MODELLO A PANNELLI SCORREVOLI
                     </h2>
 
-                    <div class="models-description">
-                        <!-- Nome zanzariera  -->
-                        <div class="names">
-                            <div class="name one-model">
-                                SCORRI
-                            </div>
-                        </div>
+                    <!-- Descrizione zanzariera -->
+                    <p class="description">
+                        Il modello SCORRI &egrave; una zanzariera ad ante scorrevoli o saliscendi (a due o pi&ugrave;
+                        ante).
+                        Fornito di serie con la rete in fibra di vetro, su richiesta pu&ograve; essere realizzato anche
+                        con
+                        rete
+                        in alluminio, acciaio, petscreen.
+                    </p>
 
-                        <!-- Descrizione zanzariera -->
-                        <p class="description">
-                            Il modello SCORRI &egrave; una zanzariera ad ante scorrevoli o saliscendi (a due o pi&ugrave;
-                            ante).
-                            Fornito di serie con la rete in fibra di vetro, su richiesta pu&ograve; essere realizzato anche
-                            con
-                            rete
-                            in alluminio, acciaio, petscreen.
-                        </p>
+                    <!-- Nome zanzariera  -->
+                    <div class="names">
+                        <div class="name one-model">
+                            SCORRI
+                        </div>
                     </div>
                 </div>
 
