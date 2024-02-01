@@ -151,7 +151,7 @@ export default {
                         <!-- Titolo -->
                         <div class="title">
                             <h1>
-                                Proteggi <div>la tua casa</div>
+                                Proteggi la tua casa
                             </h1>
 
                             <p>
@@ -255,6 +255,7 @@ header {
                     color: #fff;
                     font-size: 4rem;
                     line-height: 110%;
+                    max-width: 360px;
                 }
 
                 p {
@@ -362,6 +363,7 @@ header {
                 .title {
                     h1 {
                         font-size: 2.3rem;
+                        max-width: 78%;
                     }
 
                     p {

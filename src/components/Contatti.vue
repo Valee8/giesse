@@ -73,13 +73,12 @@ export default {
                 <div class="content">
                     <!-- Titolo -->
                     <h1>
-                        Come possiamo <div>aiutarti&quest;</div>
+                        Come possiamo aiutarti&quest;
                     </h1>
 
                     <!-- Paragrafo -->
                     <p>
-                        Leggi le domande frequenti, se non trovi quello che
-                    <div>cerchi contattaci&excl;</div>
+                        Leggi le domande frequenti, se non trovi quello che cerchi contattaci&excl;
                     </p>
                 </div>
             </div>
@@ -176,13 +175,18 @@ export default {
         color: #fff;
         text-align: center;
 
+
         h1 {
             font-size: 3.2rem;
+            max-width: 430px;
+            margin: 0 auto;
         }
 
         p {
             padding-top: 15px;
             font-size: 1.3rem;
+            max-width: 540px;
+            margin: 0 auto;
         }
     }
 }
@@ -205,6 +209,7 @@ section {
         .container {
             display: flex;
             justify-content: center;
+
 
             .faq-left {
                 width: 39%;
