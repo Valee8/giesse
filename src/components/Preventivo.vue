@@ -348,7 +348,7 @@ export default {
                 enableButtonFirstStep = true;
             }
 
-            // Se la tipologia e' "Privato" i campi che non devono rimanere vuoti sono nome, cognome + quelli sopra 
+            // Se la tipologia e' "Privato" i campi che non devono rimanere vuoti sono nome, cognome + quelli sopra
             if (this.newClient.typology === "Privato") {
                 if (this.newClient.name.trim() !== "" && this.newClient.surname.trim() !== "" && enableButtonFirstStep) {
                     return true;
@@ -395,7 +395,7 @@ export default {
 
             return varTypology;
         },
-        // Modifico il nome del modello 
+        // Modifico il nome del modello
         changeNameModel(model) {
             // Prima lettera maiuscola + elimino le parentesi tonde, il loro contenuto e l'ultimo spazio che rimane con trimRight
             model = model.charAt(0).toUpperCase() + model.slice(1).toLowerCase().replace(/(\([^)]*\)|\d+)/g, "").trimRight();
@@ -524,7 +524,7 @@ export default {
             // showEditInputs a null
             this.showEditInputs = null;
 
-            // Non c'e' un popup attivo quindi metto activePopup a false 
+            // Non c'e' un popup attivo quindi metto activePopup a false
             this.activePopup = false;
 
             // Nascondo il popup
@@ -718,7 +718,7 @@ export default {
                         const data = res.data;
                         const success = data.success;
 
-                        // Se tutto e' andato a buon fine richiamo this.getOrder e faccio apparire il popup 
+                        // Se tutto e' andato a buon fine richiamo this.getOrder e faccio apparire il popup
                         if (success) {
                             this.getOrder();
                         }
@@ -806,7 +806,7 @@ export default {
             }, 1000);
 
             setTimeout(() => {
-                // Nascondo popup 
+                // Nascondo popup
                 this.showDeleteItemPopup = false;
                 // Non c'e' un popup attivo quindi metto activePopup a false
                 this.activePopup = false;
@@ -961,7 +961,7 @@ export default {
                 enableButtonThirdStep = true;
             }
 
-            // Se la tipologia e' "Privato" i campi che non devono rimanere vuoti sono nome, cognome + quelli sopra 
+            // Se la tipologia e' "Privato" i campi che non devono rimanere vuoti sono nome, cognome + quelli sopra
             if (client.typology === "Privato") {
                 if (client.name.trim() !== "" && client.surname.trim() !== "" && enableButtonThirdStep) {
                     thirdStepValid = true;
@@ -1582,8 +1582,8 @@ export default {
                                             <option value="" disabled selected>
                                                 {{ order.color_name }}
                                             </option>
-                                            <optgroup v-for="color  in  store.colors" :label="color.typology">
-                                                <option v-for="colorName  in  color.colorInfo">
+                                            <optgroup v-for="(color, colorIndex) in store.colors" :label="color.typology" :key="colorIndex">
+                                                <option v-for="(colorName, colorNameIndex) in color.colorInfo" :key="colorNameIndex">
                                                     {{ colorName.name }}
                                                 </option>
                                             </optgroup>
@@ -1771,40 +1771,44 @@ export default {
                         </h2>
 
                         <!-- Riepilogo info cliente -->
-                        <ul v-for="client in clients" :key="client.id" class="summary info" v-if="!editClientInfo">
-                            <li>
-                                {{ client.typology }}
-                                <hr>
-                            </li>
-                            <li v-if="client.typology === 'Privato'">
-                                Nome: {{ client.name }}
-                            </li>
-                            <li v-if="client.typology === 'Privato'">
-                                Cognome: {{ client.surname }}
-                            </li>
-                            <li v-if="client.typology === 'Azienda'">
-                                Nome Azienda: {{ client.agency_name }}
-                            </li>
-                            <li v-if="client.typology === 'Azienda'">
-                                Partita Iva: {{ client.vat_number }}
-                            </li>
-                            <li>
-                                Email: {{ client.client_email }}
-                            </li>
-                            <li>
-                                Telefono: {{ client.telephone_number }}
-                            </li>
-                            <li>
-                                Comune: {{ client.city_of_residence }}
-                            </li>
-                            <li class="li-button">
-                                <button @click="showInfoClient(client)" v-if="!editClientInfo">Modifica dati
-                                    cliente</button>
-                            </li>
-                        </ul>
+                        <div v-if="!editClientInfo">
+                            <ul v-for="client in clients" :key="client.id" class="summary info">
+                                <li>
+                                    {{ client.typology }}
+                                    <hr>
+                                </li>
+                                <li v-if="client.typology === 'Privato'">
+                                    Nome: {{ client.name }}
+                                </li>
+                                <li v-if="client.typology === 'Privato'">
+                                    Cognome: {{ client.surname }}
+                                </li>
+                                <li v-if="client.typology === 'Azienda'">
+                                    Nome Azienda: {{ client.agency_name }}
+                                </li>
+                                <li v-if="client.typology === 'Azienda'">
+                                    Partita Iva: {{ client.vat_number }}
+                                </li>
+                                <li>
+                                    Email: {{ client.client_email }}
+                                </li>
+                                <li>
+                                    Telefono: {{ client.telephone_number }}
+                                </li>
+                                <li>
+                                    Comune: {{ client.city_of_residence }}
+                                </li>
+                                <li class="li-button">
+                                    <button @click="showInfoClient(client)" v-if="!editClientInfo">Modifica dati
+                                        cliente</button>
+                                </li>
+                            </ul>
+                        </div>
+
 
                         <!-- Parte con modificato dei dati del cliente -->
-                        <ul v-for="client in clients" :key="client.id" class="summary info edit" v-if="editClientInfo">
+                        <div v-if="editClientInfo">
+                            <ul v-for="client in clients" :key="client.id" class="summary info edit">
                             <li>
                                 <!-- Select tipologia - Privato o Azienda -->
                                 <select v-model="client.typology" title="Modifica la tipologia">
@@ -1883,6 +1887,8 @@ export default {
                                 <input class="update" type="submit" @click="editInfoClient(client)" value="Aggiorna dati">
                             </li>
                         </ul>
+                        </div>
+
 
 
                         <!-- Riepilogo info ordine -->
