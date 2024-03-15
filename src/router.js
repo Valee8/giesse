@@ -12,6 +12,9 @@ import Preventivo from './components/Preventivo.vue';
 import Sede from './components/Sede.vue';
 import Contatti from './components/Contatti.vue';
 
+
+import { store } from './store';
+
 const router = createRouter({
     history: createWebHashHistory(),
     //mode: "hash",
@@ -82,6 +85,37 @@ const router = createRouter({
         // Per scrollare in alto
         return { top: 0 }
     },
+});
+
+router.beforeEach((to, from, next) => {
+
+    if (from.path === '/preventivo') {
+
+       if (store.currentStep === 2 || store.currentStep === 3) {
+            store.activePopup = true;
+            store.showPopupExitRoutePreventivo = true;
+            store.linkRoute = to.path;
+
+            if (store.changeRoute) {
+                next();
+                store.changeRoute = false;
+                store.activePopup = false;
+                store.showPopupExitRoutePreventivo = false;
+            }
+            else {
+                next(false);
+            }
+       }
+       else {
+            next();
+       }
+
+    } 
+
+    else {
+        next();
+    }
+
 });
 
 export { router };
