@@ -3,6 +3,23 @@ import { reactive } from 'vue';
 const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '';
 
 export const store = reactive({
+    showPopupExitRoutePreventivo: false,
+    changeRoute: false,
+    linkRoute: null,
+    // Array contenente i dati del cliente
+    clients: [],
+    // Array contenente i dati dell'ordine
+    orders: [],
+    // Mi salvo l'id di client
+    clientId: "",
+    // Messaggio di errore se l'invio dei dati (sia step 1 per il cliente, sia step2 per gli ordini) non e' andato a buon fine
+    showError: false,
+    // activePopup - Per verificare che un popup sia presente, in questo modo posso bloccare il contenuto attorno al popup e non far interagire l'utente con nient'altro nella pagina fino a quando il popup non scompare
+    activePopup: false,
+    // Step corrente del preventivo
+    currentStep: 1,
+    // URL per la chiamata API
+    apiUrl: "http://localhost:8000/api/",
     // Info Logo in Navbar e Footer
     logo: {
         image: imagePrefix + "img/sfondi-e-logo/logo-giesse.webp",
