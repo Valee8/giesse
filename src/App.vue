@@ -129,6 +129,14 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+.error-axios {
+    color: red;
+    text-align: center;
+    width: 100%;
+    font-size: 0.8rem;
+    padding-top: 10px;
+}
+
 
 .first-step,
 .second-step,
