@@ -2,10 +2,14 @@
 // Importo axios
 import axios from 'axios';
 
+// Importo store
+import { store } from '../store';
+
 export default {
     name: 'Informazioni',
     data() {
         return {
+            store,
             // Scritta che appare se nessuna immagine e' stata allegata
             textFiles: "Nessun file selezionato",
             // loading inizialmente a false per non far apparire la scritta "Invio in corso, attendere..."
@@ -181,7 +185,7 @@ export default {
                         if (success) {
 
                             // Chiamata api per salvarmi i file allegati e l'email del destinatario (response.id contiene l'id del messaggio)
-                            axios.post(API_URL + 'message/' + response.id, {
+                            axios.post(this.store.apiUrl + 'message/' + response.id, {
                                 attached_files: this.newInfo.attached_files,
                                 owner_email: this.newInfo.owner_email
                             })
