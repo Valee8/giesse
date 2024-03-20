@@ -181,7 +181,7 @@ export default {
         // Salvo valore currentStep in localStorage
         sessionStorage.setItem("CurrentStep", this.store.currentStep.toString());
 
-        this.getClient();
+        //this.getClient();
     },
     created() {
 

@@ -2,9 +2,6 @@
 // Importo axios
 import axios from 'axios';
 
-// URL per la chiamata API
-const API_URL = 'http://localhost:8000/api/v1/';
-
 export default {
     name: 'Informazioni',
     data() {
@@ -148,7 +145,7 @@ export default {
                     }
 
                     // Chiamata API per inviare file allegati da frontend a backend
-                    axios.post(API_URL + 'uploadFile', formData, {
+                    axios.post(this.store.apiUrl + 'uploadFile', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data',
                         }
@@ -174,7 +171,7 @@ export default {
                 this.loading = true;
 
                 // Chiamata api per inviare le informazioni inserire dall'utente
-                axios.post(API_URL + 'information/store', this.newInfo)
+                axios.post(this.store.apiUrl + 'information/store', this.newInfo)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
@@ -357,14 +354,15 @@ export default {
 
                             <!-- Paragrafo -->
                             <p>
-                                &Egrave; possibile allegare un file con i seguenti formati .png, .jpg, .jpeg, .docx, .pdf
+                                &Egrave; possibile allegare un file con i seguenti formati .png, .jpg, .jpeg, .docx,
+                                .pdf
                                 dimensione massima 15MB
                             </p>
 
                             <!-- Input per allegare i file -->
                             <div class="file">
-                                <input type="file" @change="onFileChange" ref="fileInput" id="file" name="attached_files[]"
-                                    accept=".png, .jpg, .jpeg, .docx, .pdf" multiple>
+                                <input type="file" @change="onFileChange" ref="fileInput" id="file"
+                                    name="attached_files[]" accept=".png, .jpg, .jpeg, .docx, .pdf" multiple>
                                 <div class="text-file">
                                     {{ textFiles }}
                                 </div>
@@ -766,5 +764,4 @@ export default {
 
 }
 
-// Fine versioni mobile, tablet e intermedie
-</style>
+// Fine versioni mobile, tablet e intermedie</style>

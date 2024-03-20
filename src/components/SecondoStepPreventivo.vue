@@ -809,7 +809,7 @@ export default {
         // Ottengo valore tipologia
         this.newOrder.typology = this.zanzs[0].name;
 
-        this.getOrder();
+        //this.getOrder();
     }
 }
 </script>
