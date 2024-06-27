@@ -6,7 +6,7 @@ import { store } from '../store';
 // Importo axios
 import axios from 'axios';
 
-const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '';
+//const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '';
 
 export default {
     name: 'SecondoStepPreventivo',
@@ -99,7 +99,7 @@ export default {
                 {
                     name: "Verticali a molla classica",
                     typo: "Verticali",
-                    image: imagePrefix + "img/zanzariere/alba.webp",
+                    image: "img/zanzariere/alba.webp",
                     active: true,
                     activeSelect: false,
                     models: [
@@ -114,7 +114,7 @@ export default {
                 {
                     name: "Verticali a molla (cricchetto)",
                     typo: "Verticali",
-                    image: imagePrefix + "img/zanzariere/laura.webp",
+                    image: "img/zanzariere/laura.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -126,7 +126,7 @@ export default {
                 {
                     name: "Verticali a catena classica",
                     typo: "Verticali",
-                    image: imagePrefix + "img/zanzariere/katia.webp",
+                    image: "img/zanzariere/katia.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -138,7 +138,7 @@ export default {
                 {
                     name: "Verticali a catena + molla",
                     typo: "Verticali",
-                    image: imagePrefix + "img/zanzariere/giada.webp",
+                    image: "img/zanzariere/giada.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -149,7 +149,7 @@ export default {
                 {
                     name: "Laterali a molla classica",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/alba-laterale.webp",
+                    image: "img/zanzariere/alba-laterale.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -161,7 +161,7 @@ export default {
                 {
                     name: "Laterali a molla (guida bassa da 2cm)",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/lara-rigata.webp",
+                    image: "img/zanzariere/lara-rigata.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -173,7 +173,7 @@ export default {
                 {
                     name: "Laterale a molla (guida arrotondata da 14mm)",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/luna.webp",
+                    image: "img/zanzariere/luna.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -183,7 +183,7 @@ export default {
                 {
                     name: "Laterale a molla (guida inferiore da 3mm)",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/zelig.webp",
+                    image: "img/zanzariere/zelig.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -193,7 +193,7 @@ export default {
                 {
                     name: "Laterale Frizionata",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/jolly.webp",
+                    image: "img/zanzariere/jolly.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -203,7 +203,7 @@ export default {
                 {
                     name: "Laterale Antivento",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/bora.webp",
+                    image: "img/zanzariere/bora.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -213,7 +213,7 @@ export default {
                 {
                     name: "Laterale Plissettata",
                     typo: "Orizzontali",
-                    image: imagePrefix + "img/zanzariere/plisse-22.webp",
+                    image: "img/zanzariere/plisse-22.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -223,7 +223,7 @@ export default {
                 {
                     name: "Porta a battente",
                     typo: "Altre",
-                    image: imagePrefix + "img/zanzariere/porta-a-battente.webp",
+                    image: "img/zanzariere/porta-a-battente.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -233,7 +233,7 @@ export default {
                 {
                     name: "A pannelli scorrevoli",
                     typo: "Altre",
-                    image: imagePrefix + "img/zanzariere/scorri.webp",
+                    image: "img/zanzariere/scorri.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -243,7 +243,7 @@ export default {
                 {
                     name: "Telaio fisso",
                     typo: "Altre",
-                    image: imagePrefix + "img/zanzariere/fissa.webp",
+                    image: "img/zanzariere/fissa.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -253,7 +253,7 @@ export default {
                 {
                     name: "Con guida da incasso per falegnami",
                     typo: "Altre",
-                    image: imagePrefix + "img/zanzariere/casper.webp",
+                    image: "img/zanzariere/casper.webp",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -1017,7 +1017,7 @@ export default {
                                 :class="{ 'visible': showNetEditItem || order.net.includes('Rete') }">
                                 {{ order.net }}
                             </option>
-                            <option v-for="(net, netIndex) in  nets" :key="netIndex"
+                            <option v-for="(net, netIndex) in nets" :key="netIndex"
                                 :class="{ 'visible': showNetEditItem || netIndex === 0 || netIndex === 1 }">
                                 {{ net }}
                             </option>
