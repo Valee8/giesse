@@ -23,6 +23,7 @@ export default {
                 typology: "",
                 // Nome
                 name: "",
+                client_token: "",
                 // Cognome
                 surname: "",
                 // Nome Azienda
@@ -114,7 +115,7 @@ export default {
                             const success = data.success;
                             const response = data.response;
 
-                            this.store.clientId = response.id;
+                            this.store.clientId = response.client_token;
 
                             // Salvo clientId in localStorage cosi' non ci sono problemi se dovessi aggiornare la pagina
                             if (this.store.clientId) {

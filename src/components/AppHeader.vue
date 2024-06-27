@@ -148,6 +148,17 @@ export default {
         document.removeEventListener('visibilitychange', this.handleVisibilityChange);
         this.stopSlider(); // Interrompi l'animazione prima che il componente venga distrutto
     }, */
+    methods: {
+        onSwiper(swiper) {
+            this.swiperInstance = swiper;
+        },
+        stopAutoplay() {
+            this.swiperInstance.autoplay.stop();
+        },
+        startAutoplay() {
+            this.swiperInstance.autoplay.start();
+        }
+    }
 }
 </script>
 
@@ -157,13 +168,16 @@ export default {
         <!-- Navbar -->
         <AppNavbar />
 
-        <Swiper :effect="'fade'" :autoplay="{
-            //delay: 10000,
+        <Swiper ref="mySwiper" :effect="'fade'" :autoplay="{
+            delay: 3000,
+            //pauseOnMouseEnter: true,
+            //disableOnInteraction: false
             //disableOnInteraction: true,
         }" :pagination="{
             clickable: false,
             el: '.list-rectangles'
-        }" :loop="true" :allowTouchMove="false" :modules="modules" class="slider-home" v-if="$route.name === 'home'">
+        }" :loop="true" :allowTouchMove="false" :modules="modules" class="slider-home" v-if="$route.name === 'home'"
+            @swiper="onSwiper">
 
             <SwiperSlide v-for="(slider, index) in sliderContent" :key="index" :class="slider.order">
 
@@ -182,7 +196,7 @@ export default {
                         </div>
 
                         <!-- Inizio contenuto slider -->
-                        <div class="container-button">
+                        <div class="container-button" @mouseover="stopAutoplay" @mouseout="startAutoplay">
                             <div class="slider-header">
                                 <!-- Testo -->
                                 <div class="name-zanz">
