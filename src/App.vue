@@ -129,6 +129,18 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
+.swiper-pagination-bullet {
+    background-color: #999999;
+    width: 45px;
+    height: 8px;
+    border-radius: 0;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #000;
+}
+
 .error-axios {
     color: red;
     text-align: center;

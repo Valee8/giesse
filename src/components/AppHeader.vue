@@ -6,13 +6,29 @@ import AppNavbar from './AppNavbar.vue';
 // Importo store
 import { store } from '../store.js';
 
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
+// Import Swiper styles
+import 'swiper/css';
+
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
+
+//import './style.css';
+
+// import required modules
+import { EffectFade, Autoplay, Pagination } from 'swiper/modules';
+
 export default {
     name: 'AppHeader',
     components: {
-        AppNavbar
+        AppNavbar,
+        Swiper,
+        SwiperSlide
     },
     data() {
         return {
+            modules: [EffectFade, Autoplay, Pagination],
             lastTimestamp: null,
             animationFrameId: null,
             store,
@@ -57,7 +73,7 @@ export default {
             ]
         }
     },
-    methods: {
+    /* methods: {
         // Metodo per far scorrere lo slider
         animateSlider(timestamp) {
 
@@ -119,9 +135,9 @@ export default {
                 this.startSlider(); // Riavvia l'animazione quando la pagina diventa visibile
             }
         },
-    },
+    }, */
     // Richiamo il metodo changeSlide su mounted
-    mounted() {
+    /* mounted() {
 
         document.addEventListener('visibilitychange', this.handleVisibilityChange);
         this.startSlider();
@@ -131,7 +147,7 @@ export default {
     beforeDestroy() {
         document.removeEventListener('visibilitychange', this.handleVisibilityChange);
         this.stopSlider(); // Interrompi l'animazione prima che il componente venga distrutto
-    },
+    }, */
 }
 </script>
 
@@ -141,7 +157,66 @@ export default {
         <!-- Navbar -->
         <AppNavbar />
 
-        <div class="slider-home" :class="{ 'home': $route.name === 'home' }">
+        <Swiper :effect="'fade'" :autoplay="{
+            //delay: 10000,
+            //disableOnInteraction: true,
+        }" :pagination="{
+            clickable: false,
+            el: '.my-pagination'
+        }" :loop="true" :allowTouchMove="false" :modules="modules" class="slider-home" v-if="$route.name === 'home'">
+
+            <SwiperSlide v-for="(slider, index) in sliderContent" :key="index" :class="slider.order">
+
+                <div class="container">
+                    <!-- Contenuto header -->
+                    <div class="header-container">
+                        <!-- Titolo -->
+                        <div class="title">
+                            <h1>
+                                Proteggi la tua casa
+                            </h1>
+
+                            <p>
+                                Affidati a noi che produciamo zanzariere da pi&ugrave; di 30 anni
+                            </p>
+                        </div>
+
+                        <!-- Inizio contenuto slider -->
+                        <div class="container-button">
+                            <div class="slider-header">
+                                <!-- Testo -->
+                                <div class="name-zanz">
+                                    {{ slider.nameZanz }}
+                                </div>
+
+                                <!-- Bottone scopri di piu' -->
+                                <router-link :to="{ name: slider.typo, params: { id: slider.id }, hash: slider.hash }"
+                                    class="button header">
+                                    Scopri di pi&ugrave;
+                                    <!-- sulla {{ slider.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }} -->
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </SwiperSlide>
+            <!-- <swiper-slide class="swiper-slide second">Slide 2</swiper-slide>
+            <swiper-slide class="swiper-slide third">Slide 3</swiper-slide>
+            <swiper-slide class="swiper-slide fourth">Slide 4</swiper-slide> -->
+
+        </Swiper>
+
+
+        <div v-if="$route.name === 'home'" class="list-rectangles"></div>
+
+
+        <!-- <Swiper :spaceBetween="30" :centeredSlides="true" :navigation="true" :modules="modules" :effect="'fade'"
+            class="mySwiper">
+
+        </Swiper> -->
+
+        <div class="slider-home" :class="{ 'home': $route.name === 'home' }" style="display:none;">
             <div v-for="(slider, index) in sliderContent" :key="index" class="jumbotron"
                 :class="[slider.order + (index === currentSlideIndex ? ' active' : '')]">
 
@@ -160,8 +235,8 @@ export default {
                         </div>
 
                         <!-- Inizio contenuto slider -->
-                        <div class="container-button" :class="{ 'active': index === currentSlideIndex }">
-                            <div class="slider-header" @mouseout="startSlider" @mouseover="stopSlider">
+                        <div class="container-button">
+                            <div class="slider-header">
                                 <!-- Testo -->
                                 <div class="name-zanz">
                                     {{ slider.nameZanz }}
@@ -189,13 +264,13 @@ export default {
     </header>
 
     <!-- Rettangoli al centro sotto lo sfondo dell'header -->
-    <div class="container" v-if="$route.name === 'home'">
+    <!-- <div class="container" v-if="$route.name === 'home'">
         <div class="list-rectangles">
             <div class="rectangles" v-for="(rectangles, index) in sliderContent" :key="index"
                 :class="{ 'active': rectangles.active }">
             </div>
         </div>
-    </div>
+    </div> -->
 </template>
 
 <style lang="scss" scoped>
@@ -203,14 +278,37 @@ export default {
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-.slider-home {
-    position: relative;
-    height: 538px;
-    z-index: 1;
+.swiper-slide {
+    width: 100%;
 
-    &:not(.home) {
-        display: none;
+    &.first {
+        background-image: url('/img/sfondi-e-logo/jumbotron1.webp');
     }
+
+    &.second {
+        background-image: url('/img/sfondi-e-logo/jumbotron2.webp');
+        margin-top: -1px;
+        padding-top: 1px;
+    }
+
+    &.third {
+        background-image: url('/img/sfondi-e-logo/jumbotron3.webp');
+    }
+
+    &.fourth {
+        background-image: url('/img/sfondi-e-logo/jumbotron4.webp');
+    }
+}
+
+.slider-home {
+    width: 100%;
+    //position: relative;
+    height: 538px;
+    //z-index: 1;
+
+    /* &:not(.home) {
+        display: none;
+    } */
 }
 
 // Rettangolini in alto
@@ -281,7 +379,7 @@ header {
 
 // Sfondo con immagine dell'header nella home
 
-.jumbotron {
+/* .jumbotron {
     background-size: cover;
     width: 100%;
     height: 100%;
@@ -322,7 +420,7 @@ header {
         height: 90px;
     }
 
-}
+} */
 
 
 @media only screen and (min-width: 300px) and (max-width: 479px) {
@@ -423,5 +521,4 @@ header {
     }
 }
 
-// Fine versioni mobile, tablet e intermedie
-</style>
+// Fine versioni mobile, tablet e intermedie</style>
