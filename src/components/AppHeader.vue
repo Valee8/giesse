@@ -162,7 +162,7 @@ export default {
             //disableOnInteraction: true,
         }" :pagination="{
             clickable: false,
-            el: '.my-pagination'
+            el: '.list-rectangles'
         }" :loop="true" :allowTouchMove="false" :modules="modules" class="slider-home" v-if="$route.name === 'home'">
 
             <SwiperSlide v-for="(slider, index) in sliderContent" :key="index" :class="slider.order">
