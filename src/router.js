@@ -22,7 +22,7 @@ const router = createRouter({
         // Rotta Home
         {
             path: '/',
-            alias: '/giesse/',
+            //alias: '/giesse/',
             name: 'home',
             component: App
         },
