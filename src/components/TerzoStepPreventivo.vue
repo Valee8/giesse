@@ -213,10 +213,10 @@ export default {
             client.city_of_residence = client.city_of_residence.replace(/[0-9\s]/g, '');
         },
     },
-    /* mounted() {
+    mounted() {
         this.getClient();
         this.getOrder();
-    } */
+    }
 }
 </script>
 

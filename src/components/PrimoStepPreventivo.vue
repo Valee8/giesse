@@ -115,7 +115,7 @@ export default {
                             const success = data.success;
                             const response = data.response;
 
-                            this.store.clientId = response.client_token;
+                            this.store.clientId = response.client_id;
 
                             // Salvo clientId in localStorage cosi' non ci sono problemi se dovessi aggiornare la pagina
                             if (this.store.clientId) {

@@ -95,8 +95,6 @@ export default {
     },
     created() {
 
-        //this.store.clientId = useCookie('CLIENT_TOKEN');
-
         this.store.clientId = sessionStorage.getItem("ClientId");
     },
     mounted() {
