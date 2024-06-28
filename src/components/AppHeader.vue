@@ -316,13 +316,7 @@ export default {
 
 .slider-home {
     width: 100%;
-    //position: relative;
     height: 538px;
-    //z-index: 1;
-
-    /* &:not(.home) {
-        display: none;
-    } */
 }
 
 // Rettangolini in alto
@@ -374,6 +368,7 @@ header {
                     font-style: italic;
                     font-size: 1.4rem;
                     font-weight: 500;
+                    padding-top: 20px;
                 }
             }
 
@@ -391,66 +386,10 @@ header {
     }
 }
 
-// Sfondo con immagine dell'header nella home
-
-/* .jumbotron {
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    &.first {
-        background-image: url('/img/sfondi-e-logo/jumbotron1.webp');
-
-    }
-
-    &.second {
-        background-image: url('/img/sfondi-e-logo/jumbotron2.webp');
-        margin-top: -1px;
-        padding-top: 1px;
-    }
-
-    &.third {
-        background-image: url('/img/sfondi-e-logo/jumbotron3.webp');
-    }
-
-    &.fourth {
-        background-image: url('/img/sfondi-e-logo/jumbotron4.webp');
-    }
-
-    &:not(.active) {
-        z-index: 1;
-        visibility: hidden;
-    }
-
-    &.active {
-        z-index: 20;
-        visibility: visible;
-    }
-
-    .container-slide {
-        height: 90px;
-    }
-
-} */
-
 
 @media only screen and (min-width: 300px) and (max-width: 479px) {
     .list-rectangles {
         transform: scale(0.8);
-    }
-
-    header {
-        .jumbotron {
-
-            .container-slide {
-                .button {
-                    font-size: 0.8rem;
-                }
-            }
-        }
     }
 }
 
@@ -463,7 +402,7 @@ header {
 
     header {
 
-        .jumbotron {
+        .swiper-slide {
             height: 350px;
         }
 
@@ -502,26 +441,23 @@ header {
     }
 
     header {
-        .jumbotron {
-            height: 450px;
 
+        .container {
+            .header-container {
+                height: 310px;
+                padding-top: 20px;
 
-            .container {
-                .header-container {
-                    height: 260px;
-                    padding-top: 20px;
+                .title {
 
-                    .title {
-                        h1 {
-                            font-size: 2.5rem;
-                        }
-
-                        p {
-                            padding-right: 90px;
-                        }
+                    h1 {
+                        font-size: 2.5rem;
                     }
 
+                    p {
+                        padding-right: 90px;
+                    }
                 }
+
             }
         }
     }
@@ -529,10 +465,9 @@ header {
 
 @media only screen and (min-width: 300px) and (max-width: 1060px) {
     header {
-        .jumbotron {
+        .swiper-slide {
             background-position: top center;
         }
     }
 }
-
-// Fine versioni mobile, tablet e intermedie</style>
+</style>
