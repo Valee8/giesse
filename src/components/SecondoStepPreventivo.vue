@@ -938,7 +938,7 @@ export default {
 
         <!-- Bottone aggiungi zanzariera -->
         <div class="form-button" :class="{ 'padding': store.orders.length !== 0 }">
-            <button type="submit" @click="addZanz()" class="button">
+            <button type="submit" @click.once="addZanz()" class="button">
                 Aggiungi Zanzariera
             </button>
         </div>
@@ -1201,7 +1201,7 @@ export default {
         <!-- Bottone per passare allo step successivo -->
         <div class="form-button confirm">
             <!-- <button @click="prevStep" class="button" id="buttons">Torna indietro</button> -->
-            <input type="submit" @click="orderSubmit" class="button" value="Conferma le zanzariere">
+            <input type="submit" @click.once="orderSubmit" class="button" value="Conferma le zanzariere">
         </div>
 
     </div>

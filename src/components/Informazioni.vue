@@ -334,7 +334,7 @@ export default {
 
                         <!-- Bottone INVIA -->
                         <div class="submit">
-                            <button type="submit" @click="sendEmail"
+                            <button type="submit" @click.once="sendEmail"
                                 :disabled="messageSizes !== '' || messageFormats !== ''">
                                 Invia
                                 <i class="fa-regular fa-envelope"></i></button>

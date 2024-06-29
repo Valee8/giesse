@@ -19,7 +19,7 @@ export const store = reactive({
     // Step corrente del preventivo
     currentStep: 1,
     // URL per la chiamata API
-    apiUrl: "https://f55b-80-116-19-58.ngrok-free.app/api/",
+    apiUrl: "http://localhost:8000/api/",
     // Info Logo in Navbar e Footer
     logo: {
         image: "img/sfondi-e-logo/logo-giesse.webp",

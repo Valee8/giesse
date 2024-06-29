@@ -267,7 +267,7 @@ Le email devono avere il formato corretto
 
             <!-- Bottone completa i dati -->
             <div class="form-button">
-                <input type="submit" @click="clientSubmit" class="button" value="Completa i dati">
+                <input type="submit" @click.once="clientSubmit" class="button" value="Completa i dati">
             </div>
 
         </div>

@@ -383,12 +383,12 @@ export default {
 
         <!-- Bottone per proseguire con lo step successivo -->
         <div class="form-button">
-            <button @click="prevStep" class="button">
+            <button @click.once="prevStep" class="button">
                 <span>
                     Torna indietro
                 </span>
             </button>
-            <input type="submit" @click="sendEmail" class="button" value="Completa">
+            <input type="submit" @click.once="sendEmail" class="button" value="Completa">
         </div>
     </div>
 </template>
