@@ -1306,6 +1306,7 @@ export default {
     background-color: #adadad;
     max-width: 1200px;
     margin: 0 auto;
+    min-height: 300px;
     text-align: center;
     padding: 60px 40px 40px 40px;
 

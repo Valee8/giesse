@@ -159,34 +159,43 @@ export default {
                 <span>{{ printNameSection }}</span>
             </div>
 
-            <div class="top" :class="{ 'none': store.currentStep > 3 }">
-                <h1>
-                    Fai il <div>Preventivo</div>
-                </h1>
+            <!-- 
+                v-if="store.currentStep === 1 || store.currentStep > 1 && store.clientId" -->
 
-                <!-- Cerchi degli step -->
-                <div class="steps-circles">
-                    <div class="circle" :class="{ 'current': store.currentStep === 1 }">1</div>
-                    <hr>
-                    <div class="circle" :class="{ 'current': store.currentStep === 2 }">2</div>
-                    <hr>
-                    <div class="circle" :class="{ 'current': store.currentStep === 3 }">3</div>
+            <div v-if="store.currentStep === 1 || store.currentStep > 1 && store.clientId">
+                <div class="top" :class="{ 'none': store.currentStep > 3 }">
+                    <h1>
+                        Fai il <div>Preventivo</div>
+                    </h1>
+
+                    <!-- Cerchi degli step -->
+                    <div class="steps-circles">
+                        <div class="circle" :class="{ 'current': store.currentStep === 1 }">1</div>
+                        <hr>
+                        <div class="circle" :class="{ 'current': store.currentStep === 2 }">2</div>
+                        <hr>
+                        <div class="circle" :class="{ 'current': store.currentStep === 3 }">3</div>
+                    </div>
+                </div>
+
+                <!-- Scritte sotto ai cerchi -->
+                <div class="steps-text" :class="{ 'none': store.currentStep > 3 }">
+                    <div class="step">
+                        <div class="step-one">
+                            Compila i dati <span>personali</span>
+                        </div>
+                        <div class="step-two">
+                            Compila il form per inviare il preventivo
+                        </div>
+                        <div class="step-three">
+                            Clicca <span>conferma</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Scritte sotto ai cerchi -->
-            <div class="steps-text" :class="{ 'none': store.currentStep > 3 }">
-                <div class="step">
-                    <div class="step-one">
-                        Compila i dati <span>personali</span>
-                    </div>
-                    <div class="step-two">
-                        Compila il form per inviare il preventivo
-                    </div>
-                    <div class="step-three">
-                        Clicca <span>conferma</span>
-                    </div>
-                </div>
+            <div v-else>
+                ERRORE
             </div>
 
             <!-- Inizio form -->
@@ -197,12 +206,12 @@ export default {
                     <PrimoStepPreventivo :getClient="getClient" v-if="store.currentStep === 1" />
 
                     <SecondoStepPreventivo :getClient="getClient" :getOrder="getOrder"
-                        v-else-if="store.currentStep === 2" />
+                        v-else-if="store.currentStep === 2 && store.clientId" />
 
                     <TerzoStepPreventivo :getClient="getClient" :getOrder="getOrder"
-                        v-else-if="store.currentStep === 3" />
+                        v-else-if="store.currentStep === 3 && store.clientId" />
 
-                    <QuartoStepPreventivo v-else />
+                    <QuartoStepPreventivo v-if="store.currentStep === 4 && store.clientId" />
 
                 </form>
             </div>
