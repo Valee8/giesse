@@ -143,7 +143,8 @@ export default {
 
     </div>
 
-    <section class="thank-you" :class="{ 'not-step': store.currentStep !== 4 }">
+    <section class="thank-you"
+        :class="{ 'not-step': store.currentStep !== 4, 'error-step-bottom': store.currentStep === 1 || !store.clientId }">
 
         <div class="container">
 
@@ -194,8 +195,8 @@ export default {
                 </div>
             </div>
 
-            <div v-else>
-                ERRORE
+            <div v-else class="error-step">
+                Si è verificato un errore.
             </div>
 
             <!-- Inizio form -->
@@ -223,6 +224,16 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+.error-step {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: red;
+    min-height: 147px;
+    margin-top: 60px;
+}
 
 .popup {
     display: flex;
@@ -291,6 +302,10 @@ export default {
 section {
     background-color: #686868;
     min-height: calc(100vh - 312px);
+
+    &.error-step-bottom {
+        min-height: auto;
+    }
 
     // Immagine di sfondo temporanea e sfocata che appare fino a quando l'immagine vera non ha caricato completamente
     &.thank-you {

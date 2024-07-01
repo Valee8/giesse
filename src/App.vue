@@ -417,7 +417,7 @@ section {
                         width: 150px;
 
                         &.expand {
-                            height: 72px;
+                            height: 70px;
                         }
                     }
 
