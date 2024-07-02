@@ -478,7 +478,7 @@ export default {
         addZanz() {
 
             // Se i campi dei valori di newOrder non sono vuoti
-            if (this.newOrder.model_name !== "" && this.newOrder.width !== "" && this.newOrder.height !== "" && this.newOrder.quantity !== 0 && this.newOrder.net !== "" && this.newOrder.color_name !== "") {
+            if (this.newOrder.model_name !== "" && this.newOrder.width !== "" && this.newOrder.height !== "" && this.newOrder.quantity !== "" && this.newOrder.net !== "" && this.newOrder.color_name !== "") {
 
                 // Risolvo problemi di required, il messaggio di avviso del browser mi appare ogni volta che cambio slide, con questo evito che accada
                 this.fixRequiredProblem = false;
@@ -938,7 +938,7 @@ export default {
 
         <!-- Bottone aggiungi zanzariera -->
         <div class="form-button" :class="{ 'padding': store.orders.length !== 0 }">
-            <button type="submit" @click.once="addZanz()" class="button">
+            <button type="submit" @click="addZanz()" class="button">
                 Aggiungi Zanzariera
             </button>
         </div>
@@ -1201,7 +1201,7 @@ export default {
         <!-- Bottone per passare allo step successivo -->
         <div class="form-button confirm">
             <!-- <button @click="prevStep" class="button" id="buttons">Torna indietro</button> -->
-            <input type="submit" @click.once="orderSubmit" class="button" value="Conferma le zanzariere">
+            <input type="submit" @click="orderSubmit" class="button" value="Conferma le zanzariere">
         </div>
 
     </div>
