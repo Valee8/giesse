@@ -46,8 +46,6 @@ export default {
                 attached_files: [],
                 // Messaggio
                 message: "",
-                // Email destinatario
-                owner_email: "",
             },
             // Contiene elenco formati accettati per i file allegati
             formats: [
@@ -167,9 +165,6 @@ export default {
                 for (let i = 0; i < this.files.length; i++) {
                     this.newInfo.attached_files[i] = this.files[i].name.replace(/\s/g, '');
                 }
-
-                // Assegno l'email del destinatario
-                this.newInfo.owner_email = "oirelav95@gmail.com";
 
                 // loading a true e faccio apparire la scritta "Invio in corso, attendere..."
                 this.loading = true;

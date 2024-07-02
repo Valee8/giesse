@@ -169,9 +169,6 @@ export default {
         // Metodo per inviare il preventivo tramite email (passo dallo step 3 allo step 4)
         sendEmail() {
 
-            // Assegno email destinatario
-            //this.newEmail.ownerEmail = "oirelav95@gmail.com";
-
             // Assegno email cliente
             //this.newEmail.clientEmail = this.newClient.email;
             //this.newEmail.order_id = this.clientId;

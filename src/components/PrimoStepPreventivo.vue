@@ -17,6 +17,8 @@ export default {
         return {
             store,
 
+            messageWaiting: "",
+
             // Oggetto che contiene le informazioni di un cliente
             newClient: {
                 // Tipologia (Privato o Azienda)
@@ -34,8 +36,6 @@ export default {
                 client_email: "",
                 // Conferma Email
                 confirm_client_email: "",
-                // Destinatario email
-                owner_email: "",
                 // Numero di telefono
                 telephone_number: "",
                 // Comune
@@ -95,11 +95,10 @@ export default {
             // Se firstStepValid e' true
             if (this.firstStepValid) {
 
+                this.messageWaiting = "Attendi...";
+
                 // showMessageEmailConfirm e' uguale a true e mi appare messaggio di conferma
                 this.showMessageEmailConfirm = true;
-
-                // Assegno l'email del destinatario
-                this.newClient.owner_email = "oirelav95@gmail.com";
 
                 // this.newEmail.owner_email = this.newClient.owner_email;
 
@@ -272,6 +271,10 @@ Le email devono avere il formato corretto
 
         </div>
 
+        <div v-if="messageWaiting" class="message-waiting">
+            {{ messageWaiting }}
+        </div>
+
         <!-- Messaggio d'errore -->
         <div v-if="store.showError" class="error-axios">
             Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
@@ -284,7 +287,11 @@ Le email devono avere il formato corretto
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
 
-
+.message-waiting {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+}
 
 
 // PRIMO STEP
