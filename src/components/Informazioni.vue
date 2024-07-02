@@ -181,8 +181,7 @@ export default {
 
                             // Chiamata api per salvarmi i file allegati e l'email del destinatario (response.id contiene l'id del messaggio)
                             axios.post(this.store.apiUrl + 'message/' + response.id, {
-                                attached_files: this.newInfo.attached_files,
-                                owner_email: this.newInfo.owner_email
+                                attached_files: this.newInfo.attached_files
                             })
                                 .then(res => {
                                     const data = res.data;
