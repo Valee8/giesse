@@ -5,11 +5,25 @@ import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import AppFooter from './components/AppFooter.vue';
 
+import { useHead } from "@vueuse/head";
+
+
 export default {
     components: {
         AppHeader,
         AppMain,
         AppFooter,
+    },
+    setup() {
+        useHead({
+            title: "Giesse Zanzariere - zanzariere in Sardegna, qualità e innovazione",
+            meta: [
+                {
+                    name: "description",
+                    content: "Scopri le migliori zanzariere in Sardegna, qualità e soluzioni su misura da 30 anni."
+                }
+            ]
+        })
     },
     data() {
         return {
@@ -104,6 +118,9 @@ export default {
         // Rimuovo evento per lo scroll
         window.removeEventListener('scroll', this.handleScroll);
     },
+    /* mounted() {
+        console.log(document.body.innerText);
+    } */
 }
 </script>
 
@@ -525,6 +542,10 @@ section {
 
 
     section {
+
+        &[id] {
+            padding-top: 20px;
+        }
 
         // Inizio contenuto slider presente in Verticali e Orizzontali
         .slider-container {

@@ -6,10 +6,23 @@ import { store } from '../store.js';
 // Importo Informazioni
 import Informazioni from './Informazioni.vue';
 
+import { useHead } from "@vueuse/head";
+
 export default {
     name: 'Contatti',
     components: {
         Informazioni
+    },
+    setup() {
+        useHead({
+            title: "Contatti della Giesse Zanzariere",
+            meta: [
+                {
+                    name: "description",
+                    content: "Contattaci per informazioni su zanzariere - telefono, email, indirizzo."
+                }
+            ]
+        })
     },
     data() {
         return {
@@ -97,7 +110,8 @@ export default {
 
                     <!-- Paragrafo -->
                     <p>
-                        In questo spazio abbiamo raccolto le domande pi&ugrave; frequenti che ci fate, se non trovi quello
+                        In questo spazio abbiamo raccolto le domande pi&ugrave; frequenti che ci fate, se non trovi
+                        quello
                         che
                         cerchi contattaci telefonicamente o compila il form in basso, saremo felici di aiutarti&excl;
                     </p>
@@ -107,25 +121,26 @@ export default {
                 <div class="faq-right">
                     <ul>
                         <!-- Elenco domande -->
-                        <li class="faq" v-for="(faq, index) in faqs" :key="index"
-                            @click="faqs[index].show = !faqs[index].show" :class="{ 'pb': faqs[index].show }">
+                        <li class="faq" v-for="(faq, index) in faqs" :key="index" :class="{ 'pb': faqs[index].show }">
 
-                            <!-- Icona punto -->
-                            <div class="dot">
-                                <i class="fa-solid fa-circle"></i>
-                            </div>
+                            <div @click="faqs[index].show = !faqs[index].show" class="dot-question-arrow">
+                                <!-- Icona punto -->
+                                <div class="dot">
+                                    <i class="fa-solid fa-circle"></i>
+                                </div>
 
-                            <!-- Testo domanda -->
-                            <div class="question">{{ faq.question }}</div>
+                                <!-- Testo domanda -->
+                                <div class="question">{{ faq.question }}</div>
 
-                            <!-- Icona freccia -->
-                            <div class="arrow">
-                                <span v-if="!faqs[index].show">
-                                    <i class="fa-solid fa-chevron-down"></i>
-                                </span>
-                                <span v-else>
-                                    <i class="fa-solid fa-chevron-up"></i>
-                                </span>
+                                <!-- Icona freccia -->
+                                <div class="arrow">
+                                    <span v-if="!faqs[index].show">
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </span>
+                                    <span v-else>
+                                        <i class="fa-solid fa-chevron-up"></i>
+                                    </span>
+                                </div>
                             </div>
 
                             <!-- Testo Risposta -->
@@ -191,10 +206,6 @@ export default {
     }
 }
 
-.loading {
-    height: 410px;
-}
-
 // Sezione Contatti
 section {
     color: #fff;
@@ -232,12 +243,6 @@ section {
                     user-select: none;
 
                     li {
-                        display: flex;
-                        justify-content: flex-start;
-                        align-items: flex-start;
-                        flex-wrap: wrap;
-                        padding: 5px 0 10px 0;
-                        cursor: pointer;
                         font-size: 1.4rem;
 
                         a {
@@ -255,6 +260,17 @@ section {
                                 border-bottom: 2px solid #fff;
                             }
 
+                            &.pb {
+                                padding-bottom: 10px;
+                            }
+
+                            .dot-question-arrow {
+                                display: flex;
+                                width: 100%;
+                                padding: 5px 0 10px 0;
+                                cursor: pointer;
+                            }
+
                             .question {
                                 flex-grow: 1;
                                 font-weight: 600;
@@ -270,10 +286,11 @@ section {
 
                         .answer {
                             padding-left: 15px;
-                            padding-top: 10px;
+                            //padding-top: 10px;
                             padding-right: 30px;
                             width: 100%;
                             font-size: 1.1rem;
+                            cursor: text;
                         }
                     }
                 }
@@ -329,6 +346,47 @@ section {
                     }
                 }
             }
+        }
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 610px) {
+
+    .bg-section {
+        height: 350px;
+
+        .content {
+
+            h1 {
+                font-size: 2.3rem;
+            }
+
+            p {
+                font-size: 1.1rem;
+            }
+
+        }
+    }
+
+    section {
+        .faq-section {
+            .container {
+                .faq-left {
+                    h2 {
+                        font-size: 1.6rem;
+                    }
+
+                    p {
+                        font-size: 1.1rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .info {
+        h2 {
+            color: red;
         }
     }
 }
@@ -400,7 +458,7 @@ section {
 
                 .faq-left,
                 .faq-right {
-                    width: 100%;
+                    width: 600px;
                 }
             }
         }
@@ -450,6 +508,7 @@ section {
         .faq-section {
 
             .container {
+                align-items: center;
 
                 .faq-left {
                     width: 30%;
@@ -475,5 +534,4 @@ section {
     }
 }
 
-// Fine versioni mobile, tablet e intermedie
-</style>
+// Fine versioni mobile, tablet e intermedie</style>

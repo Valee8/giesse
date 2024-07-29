@@ -11,6 +11,8 @@ import TerzoStepPreventivo from './TerzoStepPreventivo.vue';
 
 import QuartoStepPreventivo from './QuartoStepPreventivo.vue';
 
+import { useHead } from "@vueuse/head";
+
 // Importo axios
 import axios from 'axios';
 
@@ -21,6 +23,17 @@ export default {
         SecondoStepPreventivo,
         TerzoStepPreventivo,
         QuartoStepPreventivo
+    },
+    setup() {
+        useHead({
+            title: "Richiedi un preventivo per le tue zanzariere",
+            meta: [
+                {
+                    name: "description",
+                    content: "Preventivo gratuito per zanzariere - servizio rapido e professionale."
+                }
+            ]
+        })
     },
     data() {
         return {

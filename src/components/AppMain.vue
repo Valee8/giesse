@@ -3,7 +3,7 @@
 import DescrizioneDitta from './DescrizioneDitta.vue';
 import Tipologie from './Tipologie.vue';
 import Verticali from './Verticali.vue';
-import Orizzontali from './Orizzontali.vue';
+import Laterali from './Laterali.vue';
 import PortaABattente from './PortaABattente.vue';
 import Scorri from './Scorri.vue';
 import Fissa from './Fissa.vue';
@@ -18,7 +18,7 @@ export default {
         DescrizioneDitta,
         Tipologie,
         Verticali,
-        Orizzontali,
+        Laterali,
         PortaABattente,
         Scorri,
         Fissa,
@@ -38,7 +38,7 @@ export default {
 
     <Verticali v-if="$route.name === 'verticali'" />
 
-    <Orizzontali v-if="$route.name === 'orizzontali'" />
+    <Laterali v-if="$route.name === 'laterali'" />
 
     <PortaABattente v-if="$route.name === 'porta-a-battente'" />
 

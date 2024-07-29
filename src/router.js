@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 // Importo componenti
 import App from './App.vue';
 import Verticali from './components/Verticali.vue';
-import Orizzontali from './components/Orizzontali.vue';
+import Laterali from './components/Laterali.vue';
 import PortaABattente from './components/PortaABattente.vue';
 import Scorri from './components/Scorri.vue';
 import Fissa from './components/Fissa.vue';
@@ -34,9 +34,9 @@ const router = createRouter({
         },
         // Rotta Orizzontali
         {
-            path: '/orizzontali/:id',
-            name: 'orizzontali',
-            component: Orizzontali
+            path: '/laterali/:id',
+            name: 'laterali',
+            component: Laterali
         },
         // Rotta Porta a Battente
         {
@@ -64,13 +64,13 @@ const router = createRouter({
         },
         // Rotta preventivo
         {
-            path: '/preventivo',
+            path: '/richiedi-preventivo',
             name: 'preventivo',
             component: Preventivo
         },
         // Rotta Sede
         {
-            path: '/sede',
+            path: '/posizione-sede',
             name: 'sede',
             component: Sede
         },

@@ -3,12 +3,27 @@
 // Importo store
 import { store } from '../store.js';
 
+
+import { useHead } from "@vueuse/head";
+
+
 export default {
     name: 'Sede',
     data() {
         return {
             store,
         }
+    },
+    setup() {
+        useHead({
+            title: "Posizione sede della Giesse Zanzariere",
+            meta: [
+                {
+                    name: "description",
+                    content: "Visita la nostra sede in Sardegna per scoprire le nostre zanzariere - consulta la nostra mappa."
+                }
+            ]
+        })
     },
     computed: {
         // Stampa nome sezione nel titolo
@@ -55,7 +70,7 @@ export default {
                     <span>Via Damiano Chiesa 69 <div>09016 Iglesias (SU)</div></span>
                 </li>
                 <li class="pt">
-                    <div class="time">Orari di apertura</div>
+                    <h2 class="time">Orari di apertura</h2>
                     Lun - Ven 09:00 - 13:00 / 15:00 - 19:00
                 </li>
                 <li class="pt">
@@ -94,6 +109,7 @@ section {
 
         .time {
             font-weight: bold;
+            font-size: 16px;
         }
 
         span {

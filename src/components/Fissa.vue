@@ -6,6 +6,8 @@ import { store } from '../store';
 // Importo Colori
 import Colori from './Colori.vue';
 
+import { useHead } from "@vueuse/head";
+
 export default {
     name: 'Fissa',
     components: {
@@ -15,6 +17,21 @@ export default {
         return {
             store
         }
+    },
+    setup() {
+        useHead({
+            title: "Zanzariera fissa",
+            meta: [
+                {
+                    name: "description",
+                    content: "Zanzariera fissa per una protezione permanente in Sardegna.",
+                },
+                {
+                    name: "robots",
+                    content: "index, follow"
+                }
+            ]
+        })
     },
     computed: {
         // Metodo per stampare il nome della sezione (elemento 4 dell'array typologies presente nel file store.js)

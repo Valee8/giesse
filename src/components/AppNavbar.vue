@@ -186,13 +186,13 @@ export default {
                         <li>
                             <!-- Titolo -->
                             <h5>
-                                Orizzontali
+                                Laterali
                             </h5>
                         </li>
 
                         <!-- Elenco zanzariere Orizzontali -->
                         <li v-for="(model, index) in filteredHorizontal" :key="index">
-                            <router-link :to="{ name: 'orizzontali', params: { id: 1 }, hash: model.hash + '-' + index }">
+                            <router-link :to="{ name: 'laterali', params: { id: 1 }, hash: model.hash + '-' + index }">
                                 {{ model.name }}
                             </router-link>
                         </li>

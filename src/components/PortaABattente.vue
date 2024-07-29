@@ -6,6 +6,8 @@ import { store } from '../store';
 // Importo Colori
 import Colori from './Colori.vue';
 
+import { useHead } from "@vueuse/head";
+
 export default {
     name: 'PortaABattente',
     components: {
@@ -15,6 +17,21 @@ export default {
         return {
             store
         }
+    },
+    setup() {
+        useHead({
+            title: "Zanzariera porta a battente",
+            meta: [
+                {
+                    name: "description",
+                    content: "Zanzariera porta a battente in Sardegna - eleganza e funzionalità.",
+                },
+                {
+                    name: "robots",
+                    content: "index, follow"
+                }
+            ]
+        })
     },
     computed: {
         // Metodo per stampare il nome della sezione (elemento 2 dell'array typologies presente nel file store.js)
@@ -53,8 +70,8 @@ export default {
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img :src="printImagePath" alt="Immagine zanzariera Antarex" class="slide-image" width="210"
-                            height="280">
+                        <img :src="printImagePath" alt="Immagine zanzariera Porta a battente" class="slide-image"
+                            width="210" height="280">
                     </div>
 
                     <!-- Titolo - nome modello -->

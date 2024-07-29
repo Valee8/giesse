@@ -1,7 +1,5 @@
 import { reactive } from 'vue';
 
-//const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '';
-
 export const store = reactive({
     showPopupExitRoutePreventivo: false,
     changeRoute: false,
@@ -19,7 +17,7 @@ export const store = reactive({
     // Step corrente del preventivo
     currentStep: 1,
     // URL per la chiamata API
-    apiUrl: "https://9442-80-116-19-58.ngrok-free.app/api/",
+    apiUrl: "http://localhost:8000/api/",
     // Info Logo in Navbar e Footer
     logo: {
         image: "img/sfondi-e-logo/logo-giesse.webp",
@@ -483,7 +481,7 @@ export const store = reactive({
             height: 280
         },
         {
-            name: "Orizzontali",
+            name: "Laterali",
             image: "img/zanzariere/lara.webp",
             width: 210,
             height: 280

@@ -6,6 +6,8 @@ import { store } from '../store';
 // Importo Colori
 import Colori from './Colori.vue';
 
+import { useHead } from "@vueuse/head";
+
 export default {
     name: 'Scorri',
     components: {
@@ -15,6 +17,21 @@ export default {
         return {
             store
         }
+    },
+    setup() {
+        useHead({
+            title: "Zanzariera ad ante scorrevoli",
+            meta: [
+                {
+                    name: "description",
+                    content: "Zanzariera ad ante scorrevoli - soluzioni pratiche in Sardegna.",
+                },
+                {
+                    name: "robots",
+                    content: "index, follow"
+                }
+            ]
+        })
     },
     computed: {
         // Metodo per stampare il nome della sezione (elemento 3 dell'array typologies presente nel file store.js)
@@ -53,8 +70,8 @@ export default {
                 <div class="slider active">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img :src="printImagePath" alt="Immagine zanzariera Scorri" class="slide-image" width="210"
-                            height="280">
+                        <img :src="printImagePath" alt="Immagine zanzariera a Pannelli Scorrevoli" class="slide-image"
+                            width="210" height="280">
                     </div>
 
                     <!-- Titolo - nome modello -->

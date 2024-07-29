@@ -41,9 +41,9 @@ export default {
                 {
                     order: "first",
                     nameZanz: "Jolly, la Laterale Frizionata",
-                    typo: "orizzontali",
+                    typo: "laterali",
                     id: 1,
-                    hash: "#orizzontali-" + 4,
+                    hash: "#laterali-" + 4,
                     active: true,
                 },
                 {
@@ -57,7 +57,7 @@ export default {
                 {
                     order: "third",
                     nameZanz: "Luna, con guida arrotondata da 14mm",
-                    typo: "orizzontali",
+                    typo: "laterali",
                     id: 1,
                     hash: "#luna-" + 2,
                     active: false
@@ -65,7 +65,7 @@ export default {
                 {
                     order: "fourth",
                     nameZanz: "Zelig, con guida inferiore da 3mm",
-                    typo: "orizzontali",
+                    typo: "laterali",
                     id: 1,
                     hash: "#zelig-" + 3,
                     active: false
@@ -177,7 +177,7 @@ export default {
             clickable: false,
             el: '.list-rectangles'
         }" :loop="true" :allowTouchMove="false" :modules="modules" class="slider-home" v-if="$route.name === 'home'"
-            @swiper="onSwiper">
+            @swiper="onSwiper" :speed="1000">
 
             <SwiperSlide v-for="(slider, index) in sliderContent" :key="index" :class="slider.order">
 

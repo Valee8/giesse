@@ -6,10 +6,27 @@ import { store } from '../store';
 // Importo Colori
 import Colori from './Colori.vue';
 
+import { useHead } from "@vueuse/head";
+
 export default {
     name: 'Casper',
     components: {
         Colori
+    },
+    setup() {
+        useHead({
+            title: "Zanzariera con guida da incasso per falegnami",
+            meta: [
+                {
+                    name: "description",
+                    content: "Zanzariera con guida da incasso per falegnami in Sardegna - soluzioni innovative.",
+                },
+                {
+                    name: "robots",
+                    content: "index, follow"
+                }
+            ]
+        })
     },
     data() {
         return {
@@ -64,8 +81,8 @@ export default {
                 <div class="slider active casper">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
-                        <img :src="printImagePath" alt="Immagine zanzariera Casper" class="slide-image casper" width="210"
-                            height="280">
+                        <img :src="printImagePath" alt="Immagine zanzariera con guida da incasso per falegnami"
+                            class="slide-image casper" width="210" height="280">
                     </div>
 
                     <!-- Titolo - nome modello -->

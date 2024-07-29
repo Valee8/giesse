@@ -352,6 +352,7 @@ Le email devono avere il formato corretto
         flex-direction: column;
         width: 40%;
         max-height: 328px;
+        align-items: start;
 
         input[type='submit'] {
             font-weight: 600;
@@ -402,24 +403,7 @@ Le email devono avere il formato corretto
 
 }
 
-@media only screen and (min-width: 300px) and (max-width: 580px) {
-
-    .first-step {
-        .first-step-right {
-            .form-button {
-                .button {
-                    width: 184px;
-                    font-size: 0.8rem;
-                    padding: 10px 0;
-                }
-            }
-        }
-    }
-}
-
 @media only screen and (min-width: 300px) and (max-width: 700px) {
-
-
 
     .first-step {
         width: 100%;
@@ -432,17 +416,21 @@ Le email devono avere il formato corretto
 
             input[type] {
                 width: 100%;
+                font-size: 0.9rem;
             }
         }
 
         .first-step-right {
             padding-top: 65px;
-            width: 380px;
+            width: auto;
             margin: 0 auto;
 
             .radios {
                 position: absolute;
                 top: 25px;
+                //left: 50%;
+                //transform: translateX(-50%);
+                width: 100%;
             }
 
             label {
@@ -455,12 +443,58 @@ Le email devono avere il formato corretto
                 }
             }
 
-            input[type="submit"] {
+            .form-button {
+                .button {
+                    width: 184px;
+                    font-size: 0.9rem;
+                    padding: 10px 0;
+                }
+            }
+
+            /* input[type="submit"] {
                 font-size: 1.1rem;
                 top: 0;
                 margin: 0 auto;
                 display: block;
+            } */
+        }
+    }
+}
+
+@media only screen and (min-width: 580px) and (max-width: 700px) {
+
+    .first-step {
+        .first-step-right {
+
+            .form-button {
+                .button {
+                    font-size: 1.2rem;
+                }
             }
+        }
+    }
+}
+
+@media only screen and (min-width: 700px) and (max-width: 850px) {
+
+    .first-step {
+        .first-step-right {
+
+            .form-button {
+                .button {
+                    padding: 10px 30px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 430px) and (max-width: 580px) {
+
+    .first-step {
+
+        .first-step-left {
+            width: 300px;
         }
     }
 }

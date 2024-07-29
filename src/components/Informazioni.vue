@@ -340,10 +340,13 @@ export default {
                     <div class="right">
                         <div class="text-width">
                             <!-- Titolo -->
-                            <h1>
+                            <div class="text-title">
                                 <div class="border"></div>
-                                <div>Scrivici</div>
-                            </h1>
+                                <h2>
+                                    Scrivici
+                                </h2>
+                            </div>
+
 
                             <!-- Altro titolo -->
                             <h4>
@@ -560,11 +563,9 @@ export default {
                 width: 71%;
             }
 
-            h1 {
+            .text-title {
                 width: 282px;
                 height: 175px;
-                font-size: 1.8rem;
-                font-weight: normal;
 
                 .border {
                     background-color: $yellow-color;
@@ -572,7 +573,7 @@ export default {
                     height: 10px;
                 }
 
-                div {
+                h2 {
                     font-weight: bold;
                     color: $yellow-color;
                     font-size: 2.7rem;
@@ -662,12 +663,54 @@ export default {
     }
 }
 
-@media only screen and (min-width: 300px) and (max-width: 480px) {
+@media only screen and (min-width: 300px) and (max-width: 900px) {
+    .info {
+
+        h2 {
+            &:first-child {
+                padding-bottom: 0;
+            }
+        }
+
+        form {
+
+            .left {
+                order: 2;
+            }
+
+            .right {
+                order: 1;
+                padding-bottom: 70px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 420px) {
 
     .info {
         form {
 
+            .left {
+
+                .inputs-top,
+                .inputs-bottom {
+                    margin-bottom: 0;
+
+                    input:not(.submit) {
+                        width: 100%;
+                        margin-bottom: 20px;
+                    }
+                }
+
+
+            }
+
             .right {
+                .text-title {
+                    height: auto;
+                }
+
                 .file {
                     width: 265px;
                     font-size: 0.7rem;
@@ -712,7 +755,7 @@ export default {
             .right {
 
                 .file {
-                    width: 400px;
+                    width: 380px;
                     font-size: 0.8rem;
                 }
             }
@@ -727,7 +770,8 @@ export default {
 
             .left,
             .right {
-                width: 100%;
+                width: 600px;
+                margin: 0 auto;
             }
         }
     }

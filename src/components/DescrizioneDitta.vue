@@ -18,8 +18,10 @@ export default {
             <p>
                 La <span>Giesse Zanzariere</span>, da pi&ugrave; di 30 anni impegnata nella realizzazione di zanzariere,
                 &egrave;
-                attrezzata per la produzione di <span>ZANZARIERE SU MISURA</span> con rete saldata e bottoncini antivento.
-                Le nostre zanzariere vengono prodotte <span>di serie</span> con il <span>cassonetto da 50mm</span> e possono
+                attrezzata per la produzione di <span>ZANZARIERE SU MISURA</span> con rete saldata e bottoncini
+                antivento.
+                Le nostre zanzariere vengono prodotte <span>di serie</span> con il <span>cassonetto da 50mm</span> e
+                possono
                 essere
                 fornite con:
                 <span class="list-short">
@@ -34,11 +36,14 @@ export default {
                     <span>CASSONETTO DA 40mm
                     </span>
                 </span>
-                La versione con <span>CUFFIE LATERALI E GUIDA TELESCOPICA</span> garantisce una facile installazione anche
+                La versione con <span>CUFFIE LATERALI E GUIDA TELESCOPICA</span> garantisce una facile installazione
+                anche
                 nei vani con
-                notevoli fuori squadra, la versione con <span>TESTATA SINGOLA</span> invece &egrave; adatta soprattutto per
+                notevoli fuori squadra, la versione con <span>TESTATA SINGOLA</span> invece &egrave; adatta soprattutto
+                per
                 monoblocchi o
-                per vani regolari, infine la versione con <span>CASSONETTO DA 40mm</span> &egrave; adatta per spazi ridotti.
+                per vani regolari, infine la versione con <span>CASSONETTO DA 40mm</span> &egrave; adatta per spazi
+                ridotti.
             </p>
         </div>
     </section>
@@ -88,6 +93,11 @@ section {
         .container {
             p {
                 padding: 30px 10px;
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
             }
         }
     }

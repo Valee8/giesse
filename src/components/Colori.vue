@@ -109,7 +109,8 @@ export default {
                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
                     <div v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                         <!-- Immagine colore -->
-                        <img :src="color.image" :alt="'Immagine ' + color.name" class="color-image" :class="colorClass">
+                        <img :src="color.image" :alt="'Immagine colore ' + color.name" class="color-image"
+                            :class="colorClass">
 
                         <!-- <div class="loading" :class="loadingClass">
                             <div class="spinner">
@@ -364,5 +365,4 @@ export default {
     }
 }
 
-// Fine versioni mobile, tablet e intermedie
-</style>
+// Fine versioni mobile, tablet e intermedie</style>

@@ -38,7 +38,8 @@ export default {
 
                 <!-- Paragrafo -->
                 <p>
-                    Benvenuti nel mondo delle zanzariere di alta qualità! La <span>Giesse Zanzariere</span> si dedica con
+                    Benvenuti nel mondo delle zanzariere di alta qualità. La <span>Giesse Zanzariere</span> si dedica
+                    con
                     passione alla produzione di zanzariere che uniscono design elegante e funzionalità avanzata.
                     <!-- Proteggiamo i tuoi spazi
                     con soluzioni su misura, realizzate con materiali di prima qualità per garantire comfort e sicurezza.
@@ -51,7 +52,7 @@ export default {
             <div class="center-footer">
                 <!-- Titolo -->
                 <h3>
-                    Giesse Zanzariere di <div>Sandro Locci</div>
+                    Giesse Zanzariere di Sandro Locci
                 </h3>
                 <!-- Bordo sotto il titolo -->
                 <div class="border"></div>
@@ -82,7 +83,7 @@ export default {
                 <div class="left">
                     <!-- Titolo -->
                     <h3>
-                        Verticali e Orizzontali
+                        Verticali e Laterali
                     </h3>
                     <!-- Bordo sotto il titolo -->
                     <div class="border"></div>
@@ -293,5 +294,4 @@ footer {
     }
 }
 
-// Fine versioni mobile, tablet e intermedie
-</style>
+// Fine versioni mobile, tablet e intermedie</style>

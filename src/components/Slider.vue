@@ -6,6 +6,8 @@ import { store } from '../store';
 // Importo Colori
 import Colori from './Colori.vue';
 
+import { useHead } from "@vueuse/head";
+
 export default {
     name: 'Slider',
     components: {
@@ -13,10 +15,39 @@ export default {
     },
     data() {
         return {
-            store
+            store,
+            description: ""
         }
     },
+    setup() {
+        useHead({
+            title: window.location.href.includes("verticali") ? "Zanzariere verticali" : "Zanzariere laterali",
+            meta: [
+                {
+                    name: "description",
+                    content: window.location.href.includes("verticali") ? "Zanzariere verticali di alta qualità in Sardegna." : "Zanzariere laterali con design innovativo per portefinestre in Sardegna."
+                },
+                {
+                    name: "robots",
+                    content: "index, follow"
+                }
+            ]
+        })
+    },
     mounted() {
+
+        /* for (let i = 0; i < this.store.slider.length; i++) {
+            this.description += this.store.slider[i].description;
+
+            for (let j = 0; j < this.store.slider[i].models.length; j++) {
+                if (this.store.slider[i].models[j].info) {
+                    this.description += this.store.slider[i].models[j].info;
+                }
+                this.description += this.store.slider[i].models[j].name;
+            }
+        }
+
+        console.log(this.description); */
 
         for (let i = 0; i < this.store.slider.length; i++) {
             if (window.location.href.endsWith("orizzontali/1") || window.location.href.endsWith("verticali/0")) {
@@ -169,7 +200,7 @@ export default {
 
                 <!-- Parte contenuto slider -->
                 <div class="slider" v-for="(slide, slideIndex) in getSlider" :key="slideIndex"
-                    :class="{ 'active': slide.active }">
+                    :class="{ 'active': slide.active }" ref="mySlider">
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="slide.image" :alt="'Immagine zanzariera ' + slide.typology" class="slide-image"

@@ -176,6 +176,17 @@ section {
     }
 }
 
+@media only screen and (min-width: 300px) and (max-width: 480px) {
+    section {
+        .container {
+
+            h2 {
+                font-size: 1.6rem;
+            }
+        }
+    }
+}
+
 @media only screen and (min-width: 770px) and (max-width: 900px) {
     section {
         .list-typologies {
@@ -196,5 +207,4 @@ section {
     }
 }
 
-// Fine versioni mobile, tablet e intermedie
-</style>
+// Fine versioni mobile, tablet e intermedie</style>
