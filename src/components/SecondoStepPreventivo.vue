@@ -148,7 +148,7 @@ export default {
                 },
                 {
                     name: "Laterali a molla classica",
-                    typo: "Orizzontali",
+                    typo: "Laterali",
                     image: "img/zanzariere/alba-laterale.webp",
                     active: false,
                     activeSelect: false,
@@ -160,7 +160,7 @@ export default {
                 },
                 {
                     name: "Laterali a molla (guida bassa da 2cm)",
-                    typo: "Orizzontali",
+                    typo: "Laterali",
                     image: "img/zanzariere/lara-rigata.webp",
                     active: false,
                     activeSelect: false,
@@ -172,7 +172,7 @@ export default {
                 },
                 {
                     name: "Laterale a molla (guida arrotondata da 14mm)",
-                    typo: "Orizzontali",
+                    typo: "Laterali",
                     image: "img/zanzariere/luna.webp",
                     active: false,
                     activeSelect: false,
@@ -182,7 +182,7 @@ export default {
                 },
                 {
                     name: "Laterale a molla (guida inferiore da 3mm)",
-                    typo: "Orizzontali",
+                    typo: "Laterali",
                     image: "img/zanzariere/zelig.webp",
                     active: false,
                     activeSelect: false,
@@ -192,7 +192,7 @@ export default {
                 },
                 {
                     name: "Laterale Frizionata",
-                    typo: "Orizzontali",
+                    typo: "Laterali",
                     image: "img/zanzariere/jolly.webp",
                     active: false,
                     activeSelect: false,
@@ -202,7 +202,7 @@ export default {
                 },
                 {
                     name: "Laterale Antivento",
-                    typo: "Orizzontali",
+                    typo: "Laterali",
                     image: "img/zanzariere/bora.webp",
                     active: false,
                     activeSelect: false,
@@ -212,7 +212,7 @@ export default {
                 },
                 {
                     name: "Laterale Plissettata",
-                    typo: "Orizzontali",
+                    typo: "Laterali",
                     image: "img/zanzariere/plisse-22.webp",
                     active: false,
                     activeSelect: false,

@@ -4,7 +4,7 @@
 import Slider from './Slider.vue';
 
 export default {
-    name: 'Orizzontali',
+    name: 'Laterali',
     components: {
         Slider
     }

@@ -46,7 +46,7 @@ export default {
 </script>
 
 <template>
-    <!-- Inizio sezioni Verticali/Orizzontali -->
+    <!-- Inizio sezione scorri -->
     <section>
         <div class="container">
             <!-- Titolo in alto a sinistra -->

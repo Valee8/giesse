@@ -30,7 +30,19 @@ export default {
                 {
                     name: "robots",
                     content: "index, follow"
-                }
+                },
+                /* {
+                    property: "og:title",
+                    content: "Prodotto XYZ - NomeBrand"
+                },
+                {
+                    property: "og:description",
+                    content: "Scopri il Prodotto XYZ di NomeBrand, con caratteristiche eccellenti e prestazioni superiori."
+                },
+                {
+                    property: "og:image",
+                    content: ""
+                } */
             ]
         })
     },
@@ -50,7 +62,7 @@ export default {
         console.log(this.description); */
 
         for (let i = 0; i < this.store.slider.length; i++) {
-            if (window.location.href.endsWith("orizzontali/1") || window.location.href.endsWith("verticali/0")) {
+            if (window.location.href.endsWith("laterali") || window.location.href.endsWith("verticali")) {
                 this.store.slider[0].active = true;
 
                 for (let i = 0; i < this.store.slider.length; i++) {
@@ -91,13 +103,13 @@ export default {
             }
 
             // Azzero valore hash che appare quando clicco il bottone "Scopri di piu'" presente nella home
-            if (window.location.hash && window.location.href.includes("verticali")) {
-                window.location.hash = "/verticali/" + 0;
+            if (window.location.hash) {
+                window.location.hash = "";
             }
 
-            if (window.location.hash && window.location.href.includes("orizzontali")) {
-                window.location.hash = "/orizzontali/" + 1;
-            }
+            /*  if (window.location.hash && window.location.href.includes("laterali")) {
+                 window.location.hash = "/laterali";
+             } */
 
         },
         // Freccia indietro
@@ -120,13 +132,13 @@ export default {
             }
 
             // Azzero valore hash che appare quando clicco il bottone "Scopri di piu'" presente nella home
-            if (window.location.hash && window.location.href.includes("verticali")) {
-                window.location.hash = "/verticali/" + 0;
+            if (window.location.hash) {
+                window.location.hash = "";
             }
 
-            if (window.location.hash && window.location.href.includes("orizzontali")) {
-                window.location.hash = "/orizzontali/" + 1;
-            }
+            /* if (window.location.hash && window.location.href.includes("laterali")) {
+                window.location.hash = "/";
+            } */
         },
         //Cambio slide premendo i rettangoli in alto
         changeSlide(index) {

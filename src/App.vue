@@ -79,7 +79,7 @@ export default {
                 this.store.slider = this.store.vertical;
             }
             // Altrimenti se l'url contiene "orizzontali" slider conterra' l'array horizontal 
-            else if (window.location.href.includes("orizzontali")) {
+            else if (window.location.href.includes("laterali")) {
                 this.store.slider = this.store.horizontal;
             }
 
