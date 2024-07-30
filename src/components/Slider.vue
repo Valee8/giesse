@@ -30,18 +30,6 @@ export default {
                 {
                     name: "robots",
                     content: "index, follow"
-                },
-                {
-                    property: "og:title",
-                    content: "Giesse Zanzariere"
-                },
-                {
-                    property: "og:description",
-                    content: "Scopri il Prodotto XYZ di NomeBrand, con caratteristiche eccellenti e prestazioni superiori."
-                },
-                {
-                    property: "og:image",
-                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
                 }
             ]
         })

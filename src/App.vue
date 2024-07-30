@@ -21,6 +21,18 @@ export default {
                 {
                     name: "description",
                     content: "Scopri le migliori zanzariere in Sardegna, qualità e soluzioni su misura da 30 anni."
+                },
+                {
+                    property: "og:title",
+                    content: "Giesse Zanzariere"
+                },
+                {
+                    property: "og:description",
+                    content: "Scopri il Prodotto XYZ di NomeBrand, con caratteristiche eccellenti e prestazioni superiori."
+                },
+                {
+                    property: "og:image",
+                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
                 }
             ]
         })
