@@ -11,6 +11,7 @@ import Casper from './Casper.vue';
 import Preventivo from './Preventivo.vue';
 import Sede from './Sede.vue';
 import Contatti from './Contatti.vue';
+import NotFoundPage from './NotFoundPage.vue';
 
 export default {
     name: 'AppMain',
@@ -26,6 +27,7 @@ export default {
         Preventivo,
         Sede,
         Contatti,
+        NotFoundPage
     }
 }
 </script>
@@ -53,6 +55,8 @@ export default {
     <Sede v-if="$route.name === 'sede'" />
 
     <Contatti v-if="$route.name === 'contatti'" />
+
+    <NotFoundPage v-if="$route.name === 'notFound'" />
 </template>
 
 <style lang="scss" scoped>

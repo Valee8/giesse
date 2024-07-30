@@ -11,6 +11,7 @@ import Casper from './components/Casper.vue';
 import Preventivo from './components/Preventivo.vue';
 import Sede from './components/Sede.vue';
 import Contatti from './components/Contatti.vue';
+import NotFoundPage from './components/NotFoundPage.vue';
 
 
 import { store } from './store';
@@ -79,6 +80,11 @@ const router = createRouter({
             path: '/contatti',
             name: 'contatti',
             component: Contatti
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            name: 'notFound',
+            component: NotFoundPage
         },
     ],
     scrollBehavior(to, from, savedPosition) {
