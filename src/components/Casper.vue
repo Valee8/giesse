@@ -24,6 +24,18 @@ export default {
                 {
                     name: "robots",
                     content: "index, follow"
+                },
+                {
+                    property: "og:title",
+                    content: "Zanzariera con guida da incasso per falegnami"
+                },
+                {
+                    property: "og:description",
+                    content: "Zanzariera con guida da incasso per falegnami in Sardegna - qualità e soluzioni su misura da più di 30 anni."
+                },
+                {
+                    property: "og:image",
+                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
                 }
             ]
         })

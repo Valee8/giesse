@@ -31,6 +31,22 @@ export default {
                 {
                     name: "description",
                     content: "Preventivo gratuito per zanzariere - servizio rapido e professionale."
+                },
+                {
+                    name: "robots",
+                    content: "index, follow"
+                },
+                {
+                    property: "og:title",
+                    content: "Richiedi un preventivo per le tue zanzariere"
+                },
+                {
+                    property: "og:description",
+                    content: "Preventivo gratuito per zanzariere - servizio rapido e professionale."
+                },
+                {
+                    property: "og:image",
+                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
                 }
             ]
         })

@@ -29,6 +29,22 @@ export default {
                 {
                     name: "robots",
                     content: "index, follow"
+                },
+                {
+                    name: "robots",
+                    content: "index, follow"
+                },
+                {
+                    property: "og:title",
+                    content: "Zanzariera porta a battente"
+                },
+                {
+                    property: "og:description",
+                    content: "Zanzariera porta a battente in Sardegna - eleganza e funzionalità su misura da più di 30 anni."
+                },
+                {
+                    property: "og:image",
+                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
                 }
             ]
         })

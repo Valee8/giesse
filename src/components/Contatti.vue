@@ -20,6 +20,22 @@ export default {
                 {
                     name: "description",
                     content: "Contattaci per informazioni su zanzariere - telefono, email, indirizzo."
+                },
+                {
+                    name: "robots",
+                    content: "index, follow"
+                },
+                {
+                    property: "og:title",
+                    content: "Contatti della Giesse Zanzariere"
+                },
+                {
+                    property: "og:description",
+                    content: "Contattaci per informazioni su zanzariere - telefono, email, indirizzo."
+                },
+                {
+                    property: "og:image",
+                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
                 }
             ]
         })

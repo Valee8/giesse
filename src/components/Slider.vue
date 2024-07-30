@@ -6,8 +6,6 @@ import { store } from '../store';
 // Importo Colori
 import Colori from './Colori.vue';
 
-import { useHead } from "@vueuse/head";
-
 export default {
     name: 'Slider',
     components: {
@@ -19,35 +17,7 @@ export default {
             description: ""
         }
     },
-    setup() {
-        useHead({
-            title: window.location.href.includes("verticali") ? "Zanzariere verticali" : "Zanzariere laterali",
-            meta: [
-                {
-                    name: "description",
-                    content: window.location.href.includes("verticali") ? "Zanzariere verticali di alta qualità in Sardegna." : "Zanzariere laterali con design innovativo per portefinestre in Sardegna."
-                },
-                {
-                    name: "robots",
-                    content: "index, follow"
-                }
-            ]
-        })
-    },
     mounted() {
-
-        /* for (let i = 0; i < this.store.slider.length; i++) {
-            this.description += this.store.slider[i].description;
-
-            for (let j = 0; j < this.store.slider[i].models.length; j++) {
-                if (this.store.slider[i].models[j].info) {
-                    this.description += this.store.slider[i].models[j].info;
-                }
-                this.description += this.store.slider[i].models[j].name;
-            }
-        }
-
-        console.log(this.description); */
 
         for (let i = 0; i < this.store.slider.length; i++) {
             if (window.location.href.endsWith("laterali") || window.location.href.endsWith("verticali")) {
@@ -144,7 +114,7 @@ export default {
         printNameSection() {
             let nameSection;
             // Stampo Verticali o Orizzontali a seconda che ci sia 0 o 1 nell'url ("verticali/0" e "orizzontali/1")
-            if (window.location.href.includes(0)) {
+            if (window.location.href.includes("verticali")) {
                 nameSection = this.store.typologies[0].name;
             }
             else {

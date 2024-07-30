@@ -29,6 +29,18 @@ export default {
                 {
                     name: "robots",
                     content: "index, follow"
+                },
+                {
+                    property: "og:title",
+                    content: "Zanzariera fissa"
+                },
+                {
+                    property: "og:description",
+                    content: "Zanzariera fissa per una protezione permanente in Sardegna."
+                },
+                {
+                    property: "og:image",
+                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
                 }
             ]
         })

@@ -24,11 +24,11 @@ export default {
                 },
                 {
                     property: "og:title",
-                    content: "Giesse Zanzariere"
+                    content: "Giesse Zanzariere - zanzariere in Sardegna, qualità e innovazione"
                 },
                 {
                     property: "og:description",
-                    content: "Scopri il Prodotto XYZ di NomeBrand, con caratteristiche eccellenti e prestazioni superiori."
+                    content: "Scopri le migliori zanzariere in Sardegna, qualità e soluzioni su misura da 30 anni. Vendite, installazioni e riparazioni professionali."
                 },
                 {
                     property: "og:image",
