@@ -264,9 +264,9 @@ export default {
         <!-- Inizio contenuto Informazioni -->
         <div v-else>
             <!-- Titolo -->
-            <h2>
+            <h3>
                 Informazioni sui prodotti
-            </h2>
+            </h3>
 
             <!-- Container -->
             <div class="container">
@@ -433,8 +433,9 @@ export default {
         color: green;
     }
 
-    h2 {
+    h3 {
         padding-bottom: 50px;
+        font-size: 1.5rem;
     }
 
     .obligatory {
