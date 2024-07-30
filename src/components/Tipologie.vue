@@ -206,5 +206,4 @@ section {
         }
     }
 }
-
-// Fine versioni mobile, tablet e intermedie</style>
+</style>

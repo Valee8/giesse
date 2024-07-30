@@ -117,10 +117,7 @@ export default {
     destroyed() {
         // Rimuovo evento per lo scroll
         window.removeEventListener('scroll', this.handleScroll);
-    },
-    /* mounted() {
-        console.log(document.body.innerText);
-    } */
+    }
 }
 </script>
 
