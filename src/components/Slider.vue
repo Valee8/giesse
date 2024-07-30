@@ -31,9 +31,9 @@ export default {
                     name: "robots",
                     content: "index, follow"
                 },
-                /* {
+                {
                     property: "og:title",
-                    content: "Prodotto XYZ - NomeBrand"
+                    content: "Giesse Zanzariere"
                 },
                 {
                     property: "og:description",
@@ -41,8 +41,8 @@ export default {
                 },
                 {
                     property: "og:image",
-                    content: ""
-                } */
+                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
+                }
             ]
         })
     },
