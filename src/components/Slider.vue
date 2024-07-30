@@ -13,8 +13,7 @@ export default {
     },
     data() {
         return {
-            store,
-            description: ""
+            store
         }
     },
     mounted() {
