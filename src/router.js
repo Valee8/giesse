@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 // Importo componenti
 import App from './App.vue';
@@ -16,7 +16,7 @@ import Contatti from './components/Contatti.vue';
 import { store } from './store';
 
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     //mode: "hash",
     routes: [
         // Rotta Home
@@ -28,37 +28,37 @@ const router = createRouter({
         },
         // Rotta Verticali
         {
-            path: '/verticali/:id',
+            path: '/verticali',
             name: 'verticali',
             component: Verticali
         },
         // Rotta Orizzontali
         {
-            path: '/laterali/:id',
+            path: '/laterali',
             name: 'laterali',
             component: Laterali
         },
         // Rotta Porta a Battente
         {
-            path: '/porta-a-battente/:id',
+            path: '/porta-a-battente',
             name: 'porta-a-battente',
             component: PortaABattente
         },
         // Rotta Scorri
         {
-            path: '/scorri/:id',
+            path: '/scorri',
             name: 'scorri',
             component: Scorri
         },
         // Rotta Fissa
         {
-            path: '/fissa/:id',
+            path: '/fissa',
             name: 'fissa',
             component: Fissa
         },
         // Rotta Casper
         {
-            path: '/casper/:id',
+            path: '/casper',
             name: 'casper',
             component: Casper
         },

@@ -25,8 +25,8 @@ export default {
             <!-- Elenco tipologie zanzariere -->
             <div class="list-typologies">
                 <div class="typologies" v-for="(typology, index) in store.typologies" :key="index">
-                    <router-link :to="{ name: typology.name.toLowerCase().replace(/\s/g, '-'), params: { id: index } }"
-                        class="link" :class="typology.name.toLowerCase()">
+                    <router-link :to="{ name: typology.name.toLowerCase().replace(/\s/g, '-') }" class="link"
+                        :class="typology.name.toLowerCase()">
 
                         <!-- Immagine zanzariera -->
                         <img :src="typology.image" :alt="'Immagine zanzariere ' + typology.name" v-if="typology.image"

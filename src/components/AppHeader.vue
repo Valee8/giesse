@@ -204,8 +204,7 @@ export default {
                                 </div>
 
                                 <!-- Bottone scopri di piu' -->
-                                <router-link :to="{ name: slider.typo, params: { id: slider.id }, hash: slider.hash }"
-                                    class="button header">
+                                <router-link :to="{ name: slider.typo, hash: slider.hash }" class="button header">
                                     Scopri di pi&ugrave;
                                     <!-- sulla {{ slider.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }} -->
                                 </router-link>
@@ -257,8 +256,7 @@ export default {
                                 </div>
 
                                 <!-- Bottone scopri di piu' -->
-                                <router-link :to="{ name: slider.typo, params: { id: slider.id }, hash: slider.hash }"
-                                    class="button header">
+                                <router-link :to="{ name: slider.typo, hash: slider.hash }" class="button header">
                                     Scopri di pi&ugrave;
                                     <!-- sulla {{ slider.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }} -->
                                 </router-link>

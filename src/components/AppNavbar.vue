@@ -175,7 +175,7 @@ export default {
 
                         <!-- Elenco zanzariere verticali -->
                         <li v-for="(model, index) in filteredVertical" :key="index">
-                            <router-link :to="{ name: 'verticali', params: { id: 0 }, hash: model.hash + '-' + index }">
+                            <router-link :to="{ name: 'verticali', hash: model.hash + '-' + index }">
                                 {{ model.name }}
                             </router-link>
                         </li>
@@ -192,7 +192,7 @@ export default {
 
                         <!-- Elenco zanzariere Orizzontali -->
                         <li v-for="(model, index) in filteredHorizontal" :key="index">
-                            <router-link :to="{ name: 'laterali', params: { id: 1 }, hash: model.hash + '-' + index }">
+                            <router-link :to="{ name: 'laterali', hash: model.hash + '-' + index }">
                                 {{ model.name }}
                             </router-link>
                         </li>
@@ -209,22 +209,22 @@ export default {
 
                         <!-- Elenco Altre zanzariere -->
                         <li>
-                            <router-link :to="{ name: 'porta-a-battente', params: { id: 2 } }">
+                            <router-link :to="{ name: 'porta-a-battente' }">
                                 Porta a battente
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{ name: 'scorri', params: { id: 3 } }">
+                            <router-link :to="{ name: 'scorri' }">
                                 Scorri
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{ name: 'fissa', params: { id: 4 } }">
+                            <router-link :to="{ name: 'fissa' }">
                                 Fissa
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{ name: 'casper', params: { id: 5 } }">
+                            <router-link :to="{ name: 'casper' }">
                                 Casper
                             </router-link>
                         </li>
