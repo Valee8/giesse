@@ -81,11 +81,11 @@ const router = createRouter({
             name: 'contatti',
             component: Contatti
         },
-        /* {
+        {
             path: '/:pathMatch(.*)*',
             name: 'notFound',
             component: NotFoundPage
-        }, */
+        },
     ],
     scrollBehavior(to, from, savedPosition) {
         // Per scrollare in alto
