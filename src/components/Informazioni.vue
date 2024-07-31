@@ -667,13 +667,19 @@ export default {
 @media only screen and (min-width: 300px) and (max-width: 900px) {
     .info {
 
-        h2 {
+        /* h2 {
             &:first-child {
                 padding-bottom: 0;
             }
-        }
+        } */
 
         form {
+
+            .left,
+            .right {
+                width: 600px;
+                margin: 0 auto;
+            }
 
             .left {
                 order: 2;
@@ -682,6 +688,11 @@ export default {
             .right {
                 order: 1;
                 padding-bottom: 70px;
+                padding-top: 0;
+
+                .text-width {
+                    width: 100%;
+                }
             }
         }
     }
@@ -690,6 +701,10 @@ export default {
 @media only screen and (min-width: 300px) and (max-width: 420px) {
 
     .info {
+
+        /* padding-right: 10px;
+        padding-left: 10px;
+ */
         form {
 
             .left {
@@ -708,12 +723,15 @@ export default {
             }
 
             .right {
+                padding-right: 10px;
+                padding-left: 10px;
+
                 .text-title {
-                    height: auto;
+                    height: 120px;
                 }
 
                 .file {
-                    width: 265px;
+                    width: 250px;
                     font-size: 0.7rem;
                 }
 
@@ -764,19 +782,18 @@ export default {
     }
 }
 
-// Inizio versioni mobile, tablet e intermedie
-@media only screen and (min-width: 300px) and (max-width: 900px) {
+/* @media only screen and (min-width: 300px) and (max-width: 900px) {
     .info {
         form {
 
             .left,
             .right {
-                width: 600px;
+                width: 100%;
                 margin: 0 auto;
             }
         }
     }
-}
+} */
 
 @media only screen and (min-width: 900px) and (max-width: 1000px) {
     .info {

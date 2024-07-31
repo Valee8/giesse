@@ -388,6 +388,13 @@ header {
     }
 }
 
+@media only screen and (min-width: 480px) and (max-width: 600px) {
+    .list-rectangles {
+        transform: scale(0.8);
+        padding-top: 20px;
+    }
+}
+
 // Inizio versioni mobile, tablet e intermedie
 @media only screen and (min-width: 300px) and (max-width: 610px) {
 

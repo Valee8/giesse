@@ -88,7 +88,7 @@ section {
     }
 }
 
-@media only screen and (min-width: 300px) and (max-width: 480px) {
+@media only screen and (min-width: 300px) and (max-width: 600px) {
 
     section {
         .container {

@@ -563,14 +563,20 @@ section {
     }
 }
 
-@media only screen and (min-width: 300px) and (max-width: 450px) {
-
+@media only screen and (min-width: 300px) and (max-width: 600px) {
 
     section {
 
         &[id] {
             padding-top: 20px;
         }
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 450px) {
+
+
+    section {
 
         // Inizio contenuto slider presente in Verticali e Orizzontali
         .slider-container {
