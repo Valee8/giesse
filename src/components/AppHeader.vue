@@ -42,15 +42,13 @@ export default {
                     order: "first",
                     nameZanz: "Jolly, la Laterale Frizionata",
                     typo: "laterali",
-                    id: 1,
-                    hash: "#laterali-" + 4,
+                    hash: "#jolly-" + 4,
                     active: true,
                 },
                 {
                     order: "second",
                     nameZanz: "Laura, con sistema a cricchetto",
                     typo: "verticali",
-                    id: 0,
                     hash: "#laura-" + 1,
                     active: false,
                 },
@@ -58,7 +56,6 @@ export default {
                     order: "third",
                     nameZanz: "Luna, con guida arrotondata da 14mm",
                     typo: "laterali",
-                    id: 1,
                     hash: "#luna-" + 2,
                     active: false
                 },
@@ -66,7 +63,6 @@ export default {
                     order: "fourth",
                     nameZanz: "Zelig, con guida inferiore da 3mm",
                     typo: "laterali",
-                    id: 1,
                     hash: "#zelig-" + 3,
                     active: false
                 }
@@ -387,7 +383,8 @@ header {
 
 @media only screen and (min-width: 300px) and (max-width: 479px) {
     .list-rectangles {
-        transform: scale(0.8);
+        transform: scale(0.7);
+        padding-top: 20px;
     }
 }
 

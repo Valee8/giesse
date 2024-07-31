@@ -11,14 +11,13 @@ export default {
         <div class="container">
             <!-- Titolo -->
             <h2>
-                La <span>G</span>aranzia a nome <div><span>G</span>iesse Zanzariere</div>
+                La <span>G</span>aranzia a nome <span>G</span>iesse Zanzariere
             </h2>
 
             <!-- Testo - descrizione ditta -->
             <p>
-                La <span>Giesse Zanzariere</span>, da pi&ugrave; di 30 anni impegnata nella realizzazione di zanzariere,
-                &egrave;
-                attrezzata per la produzione di <span>ZANZARIERE SU MISURA</span> con rete saldata e bottoncini
+                La <span>Giesse Zanzariere</span>, da pi&ugrave; di 30 anni è attrezzata per la produzione di
+                <span>ZANZARIERE SU MISURA</span> con rete saldata e bottoncini
                 antivento.
                 Le nostre zanzariere vengono prodotte <span>di serie</span> con il <span>cassonetto da 50mm</span> e
                 possono
@@ -62,6 +61,8 @@ section {
         h2 {
             text-align: center;
             font-size: 1.9rem;
+            max-width: 330px;
+            margin: 0 auto;
         }
 
         // Scritte in rosso
