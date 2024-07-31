@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://silly-salmiakki-065fbc.netlify.app/sitemap.xml
