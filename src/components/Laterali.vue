@@ -19,20 +19,12 @@ export default {
                     content: "Zanzariere laterali con design innovativo per portefinestre in Sardegna."
                 },
                 {
-                    name: "robots",
-                    content: "index, follow"
-                },
-                {
                     property: "og:title",
                     content: "Zanzariere laterali"
                 },
                 {
                     property: "og:description",
                     content: "Zanzariere laterali con design innovativo per portefinestre in Sardegna da più di 30 anni."
-                },
-                {
-                    property: "og:image",
-                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
                 }
             ]
         })

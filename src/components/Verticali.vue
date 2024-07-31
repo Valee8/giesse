@@ -18,20 +18,12 @@ export default {
                     content: "Zanzariere verticali di alta qualità in Sardegna."
                 },
                 {
-                    name: "robots",
-                    content: "index, follow"
-                },
-                {
                     property: "og:title",
                     content: "Zanzariere verticali"
                 },
                 {
                     property: "og:description",
                     content: "Zanzariere verticali di alta qualità in Sardegna da più di 30 anni."
-                },
-                {
-                    property: "og:image",
-                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
                 }
             ]
         })

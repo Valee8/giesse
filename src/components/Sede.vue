@@ -23,20 +23,12 @@ export default {
                     content: "Visita la nostra sede in Sardegna per scoprire le nostre zanzariere - consulta la nostra mappa."
                 },
                 {
-                    name: "robots",
-                    content: "index, follow"
-                },
-                {
                     property: "og:title",
                     content: "Posizione sede della Giesse Zanzariere"
                 },
                 {
                     property: "og:description",
                     content: "Visita la nostra sede in Sardegna per scoprire le nostre zanzariere - consulta la nostra mappa."
-                },
-                {
-                    property: "og:image",
-                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
                 }
             ]
         })

@@ -20,7 +20,7 @@ export default {
             meta: [
                 {
                     name: "description",
-                    content: "Scopri le migliori zanzariere in Sardegna, qualità e soluzioni su misura da 30 anni."
+                    content: "Scopri le migliori zanzariere in Sardegna, qualità e soluzioni su misura da più di 30 anni."
                 },
                 {
                     property: "og:title",
@@ -28,12 +28,28 @@ export default {
                 },
                 {
                     property: "og:description",
-                    content: "Scopri le migliori zanzariere in Sardegna, qualità e soluzioni su misura da 30 anni. Vendite, installazioni e riparazioni professionali."
+                    content: "Scopri le migliori zanzariere in Sardegna, qualità e soluzioni su misura da più di 30 anni. Vendite, installazioni e riparazioni professionali."
+                },
+                /* {
+                    name: "robots",
+                    content: "index, follow"
+                }, 
+                {
+                    property: "og:site_name",
+                    content: "Giesse Zanzariere"
                 },
                 {
                     property: "og:image",
                     content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
-                }
+                },
+                {
+                    property: "og:image:width",
+                    content: "1200"
+                },
+                {
+                    property: "og:image:height",
+                    content: "630"
+                } */
             ]
         })
     },

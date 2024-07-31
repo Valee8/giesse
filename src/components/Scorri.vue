@@ -27,20 +27,12 @@ export default {
                     content: "Zanzariera ad ante scorrevoli - soluzioni pratiche in Sardegna.",
                 },
                 {
-                    name: "robots",
-                    content: "index, follow"
-                },
-                {
                     property: "og:title",
                     content: "Zanzariera ad ante scorrevoli"
                 },
                 {
                     property: "og:description",
                     content: "Zanzariera ad ante scorrevoli - soluzioni pratiche in Sardegna da più di 30 anni."
-                },
-                {
-                    property: "og:image",
-                    content: "https://silly-salmiakki-065fbc.netlify.app/img/sfondi-e-logo/logo-giesse.webp"
                 }
             ]
         })
