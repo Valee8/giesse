@@ -43,7 +43,7 @@ export default {
                         <h4>CUFFIE LATERALI e GUIDA TELESCOPICA </h4>
 
                         <p>
-                            Garantiscono una facile installazione, in particolare nei vani
+                            Garantiscono una facile installazione, anche nei vani
                             con notevoli fuori squadra.
                         </p>
                     </div>
