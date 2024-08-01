@@ -11,47 +11,59 @@ export default {
         <div class="container">
             <!-- Titolo -->
             <h2>
-                La <span>G</span>aranzia a nome <span>G</span>iesse Zanzariere
+                La <span class="highlight">G</span>aranzia a nome <span class="highlight">G</span>iesse Zanzariere
             </h2>
 
             <h3>
-                <span>Giesse Zanzariere</span>, soluzioni su misura di qualit&agrave; superiore.
+                <span class="highlight">Giesse Zanzariere</span>, soluzioni su misura di qualit&agrave; superiore.
             </h3>
 
             <!-- Testo - descrizione ditta -->
             <div class="description">
 
-                Da oltre 30 anni <span>Giesse Zanzariere</span> si dedica alla produzione di zanzariere con
-                rete saldata e bottoncini antivento, offrendo protezione per la tua casa.
-                <div>
-                    Inoltre, offriamo servizi
-                    professionali di riparazione delle zanzariere e sostituzione della rete, assicurando che le tue
-                    zanzariere rimangano sempre in perfette condizioni.
-                </div>
+                <p>
+                    Da oltre 30 anni <span class="highlight">Giesse Zanzariere</span> si dedica alla produzione di
+                    zanzariere con
+                    rete saldata e bottoncini antivento, offrendo protezione per la tua casa.
+                </p>
 
-                Le nostre zanzariere, <span>di serie</span>, sono realizzate con
-                <span>cassonetto da 50mm</span> e sono disponibili con:
+                <p>
+                    Inoltre, offriamo servizi professionali di riparazione delle zanzariere e sostituzione della rete,
+                    assicurando che le tue
+                    zanzariere rimangano sempre in perfette condizioni.
+                </p>
+
+                <p>
+                    Le nostre zanzariere, <span class="highlight">di serie</span>, sono realizzate con
+                    <span class="highlight">cassonetto da 50mm</span> e sono disponibili con:
+                </p>
 
                 <div class="flex">
                     <div class="flex-item">
                         <h4>CUFFIE LATERALI e GUIDA TELESCOPICA </h4>
 
-                        Garantiscono una facile installazione, in particolare nei vani
-                        con notevoli fuori squadra.
+                        <p>
+                            Garantiscono una facile installazione, in particolare nei vani
+                            con notevoli fuori squadra.
+                        </p>
                     </div>
 
                     <div class="flex-item">
                         <h4>TESTATA SINGOLA e GUIDA SINGOLA</h4>
 
-                        Adatte principalmente
-                        per monoblocchi o vani regolari, offrono una soluzione funzionale.
+                        <p>
+                            Adatte principalmente
+                            per monoblocchi o vani regolari, offrono una soluzione funzionale.
+                        </p>
                     </div>
 
                     <div class="flex-item">
                         <h4>CASSONETTO DA 40mm</h4>
 
-                        Adatto per spazi ridotti, questa opzione mantiene l'efficienza delle zanzariere in uno
-                        spazio limitato.
+                        <p>
+                            Adatto per spazi ridotti, questa opzione mantiene l'efficienza delle zanzariere in uno
+                            spazio limitato.
+                        </p>
                     </div>
                 </div>
 
@@ -83,7 +95,7 @@ section {
         }
 
         // Scritte in rosso
-        span {
+        .highlight {
             color: #e91d24;
         }
 
