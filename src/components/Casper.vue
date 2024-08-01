@@ -27,7 +27,7 @@ export default {
                 },
                 {
                     property: "og:description",
-                    content: "Zanzariera con guida da incasso per falegnami in Sardegna - qualità e soluzioni su misura da più di 30 anni."
+                    content: "Zanzariera con guida da incasso per falegnami in Sardegna - qualità e soluzioni su misura da oltre 30 anni."
                 },
             ]
         })

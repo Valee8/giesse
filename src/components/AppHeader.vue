@@ -187,7 +187,7 @@ export default {
                             </h1>
 
                             <p>
-                                Affidati a noi che produciamo zanzariere da pi&ugrave; di 30 anni
+                                Affidati a noi che produciamo zanzariere da oltre 30 anni
                             </p>
                         </div>
 

@@ -23,7 +23,7 @@ export default {
                 },
                 {
                     property: "og:description",
-                    content: "Zanzariere verticali di alta qualità in Sardegna da più di 30 anni."
+                    content: "Zanzariere verticali di alta qualità in Sardegna da oltre 30 anni."
                 }
             ]
         })

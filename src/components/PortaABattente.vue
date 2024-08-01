@@ -32,7 +32,7 @@ export default {
                 },
                 {
                     property: "og:description",
-                    content: "Zanzariera porta a battente in Sardegna - eleganza e funzionalità su misura da più di 30 anni."
+                    content: "Zanzariera porta a battente in Sardegna - eleganza e funzionalità su misura da oltre 30 anni."
                 }
             ]
         })

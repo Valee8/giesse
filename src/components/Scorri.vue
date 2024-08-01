@@ -32,7 +32,7 @@ export default {
                 },
                 {
                     property: "og:description",
-                    content: "Zanzariera ad ante scorrevoli - soluzioni pratiche in Sardegna da più di 30 anni."
+                    content: "Zanzariera ad ante scorrevoli - soluzioni pratiche in Sardegna da oltre 30 anni."
                 }
             ]
         })
