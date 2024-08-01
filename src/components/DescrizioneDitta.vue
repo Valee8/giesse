@@ -49,11 +49,11 @@ export default {
                     </div>
 
                     <div class="flex-item">
-                        <h4>TESTATA SINGOLA e GUIDA SINGOLA</h4>
+                        <h4>TESTATA SINGOLA</h4>
 
                         <p>
-                            Adatte principalmente
-                            per monoblocchi o vani regolari, offrono una soluzione funzionale.
+                            Adatta principalmente
+                            per monoblocchi o vani regolari, offre una soluzione funzionale.
                         </p>
                     </div>
 
@@ -105,10 +105,14 @@ section {
             margin-top: 30px;
 
             h4 {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 color: #e91d24;
                 text-align: center;
                 margin-bottom: 25px;
                 font-weight: 600;
+                height: 43px;
             }
 
             .flex-item {
