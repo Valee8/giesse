@@ -129,12 +129,6 @@ section {
             max-width: 725px;
             font-size: 1.1rem;
             font-weight: 600;
-
-            .list-short {
-                display: block;
-                margin: 7px 0;
-                text-align: center;
-            }
         }
     }
 }
@@ -174,6 +168,19 @@ section {
 
             .flex {
                 flex-wrap: wrap;
+
+                .flex-item {
+
+                    &:first-child {
+                        h4 {
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+
+                h4 {
+                    margin-bottom: 0;
+                }
 
                 .flex-item {
                     width: 100%;
