@@ -135,17 +135,49 @@ section {
     }
 }
 
+@media only screen and (min-width: 600px) and (max-width: 800px) {
+
+    section {
+        .container {
+            .flex {
+                justify-content: center;
+                flex-wrap: wrap;
+
+                .flex-item {
+                    width: 40%;
+
+                    p {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media only screen and (min-width: 300px) and (max-width: 600px) {
 
     section {
         .container {
-            p {
+            .description {
                 padding: 30px 10px;
                 font-size: 1rem;
             }
 
             h2 {
                 font-size: 1.6rem;
+            }
+
+            .flex {
+                flex-wrap: wrap;
+
+                .flex-item {
+                    width: 100%;
+
+                    p {
+                        text-align: center;
+                    }
+                }
             }
         }
     }

@@ -568,7 +568,7 @@ section {
     section {
 
         &[id] {
-            padding-top: 20px;
+            padding-top: 60px;
         }
     }
 }
