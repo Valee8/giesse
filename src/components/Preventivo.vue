@@ -146,12 +146,14 @@ export default {
 </script>
 
 <template>
-    <div class="popup" v-if="store.showPopupExitRoutePreventivo">
-        <span>
+    <div class="popup exit-route" v-if="store.showPopupExitRoutePreventivo">
+        <div>
             Sei sicuro di voler abbandonare la pagina?
-            <br> <br>
+        </div>
+
+        <div>
             Tutti i dati inseriti verranno eliminati.
-        </span>
+        </div>
 
         <button @click="store.showPopupExitRoutePreventivo = false, store.activePopup = false">
             Annulla
@@ -279,15 +281,24 @@ export default {
         text-align: center;
     }
 
-    div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        height: 100%;
+    &.exit-route {
+        div {
+            text-align: center;
+        }
+    }
 
-        &:last-child {
-            font-weight: bold;
+    &:not(.exit-route) {
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            height: 100%;
+
+            &:last-child {
+                font-weight: bold;
+            }
         }
     }
 

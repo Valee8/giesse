@@ -95,7 +95,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
-    if (from.path === '/preventivo') {
+    if (from.path === '/richiedi-preventivo') {
 
        if (store.currentStep === 2 || store.currentStep === 3) {
             store.activePopup = true;
