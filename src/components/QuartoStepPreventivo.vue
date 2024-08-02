@@ -18,11 +18,11 @@ export default {
     <div class="fourth-step">
 
         <div class="first">
-            <div>Grazie</div> per aver scelto la qualit&agrave; <div>con un preventivo</div>
+            <div>Grazie</div> per aver scelto la qualità <div>con un preventivo</div>
         </div>
 
         <div class="second">
-            <div>La <span>Giesse Zanzariere</span> ti contatter&agrave;</div>
+            <div>La <span>Giesse Zanzariere</span> ti contatterà</div>
             <div>il prima possibile</div>
         </div>
 

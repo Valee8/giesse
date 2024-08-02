@@ -86,13 +86,13 @@ export default {
 
                     <!-- Descrizione zanzariera -->
                     <p class="description">
-                        Il modello ANTAREX &egrave; una zanzariera a battente per portafinestra. Caratterizzata
+                        Il modello ANTAREX è una zanzariera a battente per portafinestra. Caratterizzata
                         dall'assenza
                         di
-                        profili a pavimento, pu&ograve; essere realizzata ad una o pi&ugrave; ante. Fornita di serie con
+                        profili a pavimento, può; essere realizzata ad una o più ante. Fornita di serie con
                         la
                         rete
-                        in fibra di vetro, su richiesta pu&ograve; essere fornita anche con rete in alluminio, acciaio,
+                        in fibra di vetro, su richiesta può essere fornita anche con rete in alluminio, acciaio,
                         petscreen.
                     </p>
 

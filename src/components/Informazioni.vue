@@ -324,7 +324,7 @@ export default {
                             title="Inserisci il messaggio"></textarea>
 
                         <!-- Messaggio campi obbligatori -->
-                        <div class="obligatory">&ast; Campi obbligatori</div>
+                        <div class="obligatory">* Campi obbligatori</div>
 
                         <!-- Bottone INVIA -->
                         <div class="submit">
@@ -355,7 +355,7 @@ export default {
 
                             <!-- Paragrafo -->
                             <p>
-                                &Egrave; possibile allegare un file con i seguenti formati .png, .jpg, .jpeg, .docx,
+                                È possibile allegare un file con i seguenti formati .png, .jpg, .jpeg, .docx,
                                 .pdf
                                 dimensione massima 15MB
                             </p>
@@ -397,7 +397,7 @@ export default {
                     <!-- Messaggio di errore se il messaggio non e' stato inviato e ci son stati problemi -->
                     <div class="messages">
                         <div v-if="showError" class="error-axios">
-                            Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
+                            Si è verificato un errore. Aggiorna la pagina e riprova.
                         </div>
 
                         <!-- Messaggio di invio in corso del messaggio -->

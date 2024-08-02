@@ -148,7 +148,7 @@ export default {
 <template>
     <div class="popup" v-if="store.showPopupExitRoutePreventivo">
         <span>
-            Sei sicuro di voler abbandonare la pagina&quest;
+            Sei sicuro di voler abbandonare la pagina?
             <br> <br>
             Tutti i dati inseriti verranno eliminati.
         </span>

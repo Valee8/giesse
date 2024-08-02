@@ -97,9 +97,9 @@ export default {
 
                     <!-- Descrizione zanzariera -->
                     <p class="description casper">
-                        Il modello CASPER &egrave; una zanzariera da incasso per falegnami. Viene prodotto con il
+                        Il modello CASPER è una zanzariera da incasso per falegnami. Viene prodotto con il
                         cassonetto
-                        da 45 o 55mm e con una guida da 50x35. Questo modello pu&ograve; essere realizzato in tutte le
+                        da 45 o 55mm e con una guida da 50x35. Questo modello può essere realizzato in tutte le
                         versioni:
                     </p>
 

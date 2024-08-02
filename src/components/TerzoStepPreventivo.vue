@@ -357,7 +357,7 @@ export default {
             </li>
             <!-- Quantita' -->
             <li>
-                Quantit&agrave;: {{ order.quantity }}
+                Quantità: {{ order.quantity }}
             </li>
             <!-- Larghezza e altezza -->
             <li>

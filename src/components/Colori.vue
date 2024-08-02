@@ -86,7 +86,7 @@ export default {
 
             <!-- Paragrafo -->
             <p>
-                Le zanzariere sono parte dell'arredo, per questo per noi &egrave; prezioso che si adattino all'atmosfera
+                Le zanzariere sono parte dell'arredo, per questo per noi è prezioso che si adattino all'atmosfera
                 della tua stanza
             </p>
         </div>

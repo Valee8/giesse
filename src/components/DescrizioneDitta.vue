@@ -15,7 +15,7 @@ export default {
             </h2>
 
             <h3>
-                <span class="highlight">Giesse Zanzariere</span>, soluzioni su misura di qualit&agrave; superiore.
+                <span class="highlight">Giesse Zanzariere</span>, soluzioni su misura di qualità superiore.
             </h3>
 
             <!-- Testo - descrizione ditta -->

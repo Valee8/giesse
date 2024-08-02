@@ -201,8 +201,7 @@ export default {
 
                                 <!-- Bottone scopri di piu' -->
                                 <router-link :to="{ name: slider.typo, hash: slider.hash }" class="button header">
-                                    Scopri di pi&ugrave;
-                                    <!-- sulla {{ slider.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }} -->
+                                    Scopri di più
                                 </router-link>
                             </div>
                         </div>
@@ -210,75 +209,11 @@ export default {
 
                 </div>
             </SwiperSlide>
-            <!-- <swiper-slide class="swiper-slide second">Slide 2</swiper-slide>
-            <swiper-slide class="swiper-slide third">Slide 3</swiper-slide>
-            <swiper-slide class="swiper-slide fourth">Slide 4</swiper-slide> -->
 
         </Swiper>
 
-
         <div v-if="$route.name === 'home'" class="list-rectangles"></div>
-
-
-        <!-- <Swiper :spaceBetween="30" :centeredSlides="true" :navigation="true" :modules="modules" :effect="'fade'"
-            class="mySwiper">
-
-        </Swiper> -->
-
-        <div class="slider-home" :class="{ 'home': $route.name === 'home' }" style="display:none;">
-            <div v-for="(slider, index) in sliderContent" :key="index" class="jumbotron"
-                :class="[slider.order + (index === currentSlideIndex ? ' active' : '')]">
-
-                <div class="container">
-                    <!-- Contenuto header -->
-                    <div class="header-container">
-                        <!-- Titolo -->
-                        <div class="title">
-                            <h1>
-                                Proteggi la tua casa
-                            </h1>
-
-                            <p>
-                                Affidati a noi che produciamo zanzariere da pi&ugrave; di 30 anni
-                            </p>
-                        </div>
-
-                        <!-- Inizio contenuto slider -->
-                        <div class="container-button">
-                            <div class="slider-header">
-                                <!-- Testo -->
-                                <div class="name-zanz">
-                                    {{ slider.nameZanz }}
-                                </div>
-
-                                <!-- Bottone scopri di piu' -->
-                                <router-link :to="{ name: slider.typo, hash: slider.hash }" class="button header">
-                                    Scopri di pi&ugrave;
-                                    <!-- sulla {{ slider.nameZanz.replace(/,(.*?)[\s\w]*/g, "") }} -->
-                                </router-link>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- <div class="loading" v-else-if="store.isLoading && $route.name === 'home'">
-            <div class="spinner">
-                <i class="fa-solid fa-spinner"></i>
-            </div>
-        </div> -->
     </header>
-
-    <!-- Rettangoli al centro sotto lo sfondo dell'header -->
-    <!-- <div class="container" v-if="$route.name === 'home'">
-        <div class="list-rectangles">
-            <div class="rectangles" v-for="(rectangles, index) in sliderContent" :key="index"
-                :class="{ 'active': rectangles.active }">
-            </div>
-        </div>
-    </div> -->
 </template>
 
 <style lang="scss" scoped>

@@ -244,7 +244,7 @@ Le email devono avere il formato corretto
                 title="Inserisci il comune" @input="filterNumbers" maxlength="64" required>
 
             <div class="obligatory">
-                i campi contrassegnati con &ast; sono obbligatori
+                i campi contrassegnati con * sono obbligatori
             </div>
         </div>
 
@@ -277,7 +277,7 @@ Le email devono avere il formato corretto
 
         <!-- Messaggio d'errore -->
         <div v-if="store.showError" class="error-axios">
-            Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
+            Si è verificato un errore. Aggiorna la pagina e riprova.
         </div>
     </div>
 </template>

@@ -96,7 +96,7 @@ export default {
                     Tel. <span>0781 33387</span>
                 </li>
                 <li>
-                    Cell. <span>&plus;39 3939139300</span>
+                    Cell. <span>+39 3939139300</span>
                 </li>
             </ul>
         </div>

@@ -94,12 +94,12 @@ export default {
                 <div class="content">
                     <!-- Titolo -->
                     <h1>
-                        Come possiamo aiutarti&quest;
+                        Come possiamo aiutarti?
                     </h1>
 
                     <!-- Paragrafo -->
                     <p>
-                        Leggi le domande frequenti, se non trovi quello che cerchi contattaci&excl;
+                        Leggi le domande frequenti, se non trovi quello che cerchi contattaci!
                     </p>
                 </div>
             </div>
@@ -118,10 +118,10 @@ export default {
 
                     <!-- Paragrafo -->
                     <p>
-                        In questo spazio abbiamo raccolto le domande pi&ugrave; frequenti che ci fate, se non trovi
+                        In questo spazio abbiamo raccolto le domande più frequenti che ci fate, se non trovi
                         quello
                         che
-                        cerchi contattaci telefonicamente o compila il form in basso, saremo felici di aiutarti&excl;
+                        cerchi contattaci telefonicamente o compila il form in basso, saremo felici di aiutarti!
                     </p>
                 </div>
 

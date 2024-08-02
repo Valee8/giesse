@@ -971,7 +971,7 @@ export default {
                         <!-- Quantita' -->
                         <span class="quantity">
                             <div class="text">
-                                Quantit&agrave;:
+                                Quantità:
                                 <div class="number">
                                     {{ order.quantity }}
                                 </div>
@@ -1057,7 +1057,7 @@ export default {
                         <!-- Input Quantita' -->
                         <span class="quantity" title="Modifica la quantità">
                             <div class="text">
-                                Quantit&agrave;:
+                                Quantità:
                                 <span class="number">
                                     {{ order.quantity }}
                                 </span>
@@ -1111,7 +1111,7 @@ export default {
                     <!-- Popup che appare dopo che hai aggiunto una nuova zanzariera -->
                     <div class="popup" v-if="showAddedItemPopup">
                         <h6>
-                            Zanzariera aggiunta con successo&excl;
+                            Zanzariera aggiunta con successo!
                         </h6>
 
                         <span>
@@ -1129,7 +1129,7 @@ export default {
 
                         <div v-if="textSuccessMessage === ''">
                             <h6>
-                                Confermi di voler eliminare l'ordine dalla lista&quest;
+                                Confermi di voler eliminare l'ordine dalla lista?
                             </h6>
 
                             <button @click="showDeleteItemPopup = false, store.activePopup = false">
@@ -1151,7 +1151,7 @@ export default {
 
                         <div v-if="textSuccessMessage === ''">
                             <h6>
-                                Confermi le modifiche effettuate&quest;
+                                Confermi le modifiche effettuate?
                             </h6>
 
                             <button @click="showUpdateItemPopup = false, store.activePopup = false">
@@ -1172,7 +1172,7 @@ export default {
                     <div class="popup" v-if="showCancelUpdateItemPopup" :class="{ 'id': checkIdOrders === order.id }">
 
                         <h6>
-                            Confermi di voler annullare le modifiche&quest;
+                            Confermi di voler annullare le modifiche?
                         </h6>
 
                         <button @click="cancelUpdateItem()">
@@ -1195,7 +1195,7 @@ export default {
 
         <!-- Messaggio d'errore -->
         <div v-if="store.showError" class="error-axios">
-            Si &egrave; verificato un errore. Aggiorna la pagina e riprova.
+            Si è verificato un errore. Aggiorna la pagina e riprova.
         </div>
 
         <!-- Bottone per passare allo step successivo -->

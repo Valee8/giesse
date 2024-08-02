@@ -85,9 +85,9 @@ export default {
 
                     <!-- Descrizione zanzariera -->
                     <p class="description">
-                        Il modello SCORRI &egrave; una zanzariera ad ante scorrevoli o saliscendi (a due o pi&ugrave;
+                        Il modello SCORRI è; una zanzariera ad ante scorrevoli o saliscendi (a due o più
                         ante).
-                        Fornito di serie con la rete in fibra di vetro, su richiesta pu&ograve; essere realizzato anche
+                        Fornito di serie con la rete in fibra di vetro, su richiesta può essere realizzato anche
                         con
                         rete
                         in alluminio, acciaio, petscreen.
