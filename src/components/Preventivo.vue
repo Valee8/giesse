@@ -40,6 +40,13 @@ export default {
                     property: "og:description",
                     content: "Preventivo gratuito per zanzariere - servizio rapido e professionale."
                 }
+            ],
+            link: [
+                {
+                    rel: "preload",
+                    href: "/img/sfondi-e-logo/sfondo-ringraziamento.webp",
+                    as: "image"
+                }
             ]
         })
     },

@@ -8,6 +8,8 @@ import { store } from '../store.js';
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
+import { useHead } from "@vueuse/head";
+
 // Import Swiper styles
 import 'swiper/css';
 
@@ -25,6 +27,32 @@ export default {
         AppNavbar,
         Swiper,
         SwiperSlide
+    },
+    setup() {
+        useHead({
+            link: [
+                {
+                    rel: "preload",
+                    href: "/img/sfondi-e-logo/jumbotron1.webp",
+                    as: "image"
+                },
+                {
+                    rel: "preload",
+                    href: "/img/sfondi-e-logo/jumbotron2.webp",
+                    as: "image"
+                },
+                {
+                    rel: "preload",
+                    href: "/img/sfondi-e-logo/jumbotron3.webp",
+                    as: "image"
+                },
+                {
+                    rel: "preload",
+                    href: "/img/sfondi-e-logo/jumbotron4.webp",
+                    as: "image"
+                }
+            ]
+        })
     },
     data() {
         return {
