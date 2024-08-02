@@ -573,6 +573,7 @@ section {
     }
 }
 
+
 @media only screen and (min-width: 300px) and (max-width: 450px) {
 
 
@@ -580,6 +581,7 @@ section {
 
         // Inizio contenuto slider presente in Verticali e Orizzontali
         .slider-container {
+            padding-bottom: 80px;
 
             .list-rectangles {
                 gap: 10px;
@@ -649,6 +651,21 @@ section {
             }
         }
     }
+}
+
+@media only screen and (min-width: 380px) and (max-width: 500px) {
+    section {
+        .slider-container {
+
+            .slider {
+
+                .names {
+                    gap: 20px 50px;
+                }
+            }
+        }
+    }
+
 }
 
 // Inizio versioni mobile, tablet e intermedie
