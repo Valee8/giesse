@@ -3,8 +3,7 @@
 // Importo store
 import { store } from '../store';
 
-import { useHead } from "@vueuse/head";
-
+/* import { useHead } from "@vueuse/head"; */
 
 export default {
     name: 'QuartoStepPreventivo',
@@ -13,7 +12,7 @@ export default {
             store
         }
     },
-    setup() {
+    /* setup() {
         useHead({
             link: [
                 {
@@ -23,7 +22,7 @@ export default {
                 }
             ]
         })
-    },
+    }, */
 }
 </script>
 

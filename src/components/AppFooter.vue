@@ -198,7 +198,7 @@ footer {
 
         p {
             &:first-of-type {
-                padding-top: 20px;
+                padding-top: 30px;
             }
 
             &:last-of-type {
