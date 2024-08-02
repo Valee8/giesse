@@ -1,6 +1,14 @@
 import { reactive } from 'vue';
 
 export const store = reactive({
+    infoDitta: {
+        address: "Via Damiano Chiesa 69",
+        postalCode: "09016 Iglesias",
+        telephone: "0781 33387",
+        cell: "+39 3939139300",
+        email: "giessezanzariere@tiscali.it",
+        vatNumber: "01376020929"
+    },
     showPopupExitRoutePreventivo: false,
     changeRoute: false,
     linkRoute: null,

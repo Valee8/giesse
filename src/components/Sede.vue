@@ -86,17 +86,20 @@ export default {
             <!-- Lista info -->
             <ul class="pt">
                 <li>
-                    <span>Via Damiano Chiesa 69 <div>09016 Iglesias (SU)</div></span>
+                    <div>
+                        <span>{{ store.infoDitta.address }}</span>
+                    </div>
+                    <span>{{ store.infoDitta.postalCode }} (SU)</span>
                 </li>
                 <li class="pt">
                     <h2 class="time">Orari di apertura</h2>
                     Lun - Ven 09:00 - 13:00 / 15:00 - 19:00
                 </li>
                 <li class="pt">
-                    Tel. <span>0781 33387</span>
+                    Tel. <span>{{ store.infoDitta.telephone }}</span>
                 </li>
                 <li>
-                    Cell. <span>+39 3939139300</span>
+                    Cell. <span>{{ store.infoDitta.cell }}</span>
                 </li>
             </ul>
         </div>
@@ -109,8 +112,11 @@ export default {
 @use '../src/styles/partials/variables' as *;
 
 .loading {
+    margin-top: 30px;
+    width: 100%;
+    height: 473px;
+    //background-color: #F1F3F4;
     display: flex;
-    height: 504px;
     justify-content: center;
     align-items: center;
 }

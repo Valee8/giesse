@@ -62,20 +62,20 @@ export default {
                 <!-- Elenco informazioni -->
                 <ul>
                     <li>
-                        P. IVA: <span>01376020929</span>
+                        P. IVA: <span>{{ store.infoDitta.vatNumber }}</span>
                     </li>
                     <li class="pt">
-                        <div>Via Damiano Chiesa 69</div>
-                        09016 Iglesias (Sud Sardegna)
+                        <div>{{ store.infoDitta.address }}</div>
+                        {{ store.infoDitta.postalCode }} (Sud Sardegna)
                     </li>
                     <li class="pt">
-                        Telefono: <span>0781 33387</span>
+                        Telefono: <span>{{ store.infoDitta.telephone }}</span>
                     </li>
                     <li>
-                        Cellulare: <span>&plus;39 3939139300</span>
+                        Cellulare: <span>{{ store.infoDitta.cell }}</span>
                     </li>
                     <li>
-                        E-mail: <span>giessezanzariere&commat;tiscali.it</span>
+                        E-mail: <span>{{ store.infoDitta.email }}</span>
                     </li>
                 </ul>
             </div>

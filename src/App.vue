@@ -7,7 +7,6 @@ import AppFooter from './components/AppFooter.vue';
 
 import { useHead } from "@vueuse/head";
 
-
 export default {
     components: {
         AppHeader,
@@ -170,6 +169,63 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+.popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #fff;
+    width: 400px;
+    padding: 20px 40px;
+    height: 250px;
+    position: fixed;
+    left: 50%;
+    z-index: 200;
+    color: #000;
+    border-radius: 5px;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, .1);
+    animation: opacity 1s ease;
+    transform: translate(-50%, -50%);
+    top: 50%;
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        height: 100%;
+    }
+
+    p {
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    &.id {
+        z-index: 300;
+    }
+
+    a,
+    button {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #686868;
+        color: #fff;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 5px;
+        margin: 0 3px;
+        font-size: 1rem;
+        border: 0;
+        font-weight: 600;
+    }
+
+    a {
+        font-weight: normal;
+    }
+
+}
 
 .swiper-pagination-bullet {
     background-color: #999999;

@@ -559,24 +559,22 @@ export default {
         // Metodo per eliminare un ordine
         deleteModel(order) {
 
-            setTimeout(() => {
-                // Chiamata API per eliminare ordine
-                axios.delete(this.store.apiUrl + 'delete/' + order.id)
-                    .then(res => {
-                        const data = res.data;
-                        const success = data.success;
+            // Chiamata API per eliminare ordine
+            axios.delete(this.store.apiUrl + 'delete/' + order.id)
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
 
-                        // Richiamo getOrder
-                        if (success) {
+                    // Richiamo getOrder
+                    if (success) {
 
-                            this.getOrder();
-                            // Faccio apparire messaggio
-                            this.textSuccessMessage = "Ordine eliminato con successo!";
+                        this.getOrder();
+                        // Faccio apparire messaggio
+                        this.textSuccessMessage = "Ordine eliminato con successo!";
 
-                        }
-                    })
-                    .catch(error => console.error(error));
-            }, 1000);
+                    }
+                })
+                .catch(error => console.error(error));
 
             setTimeout(() => {
                 // Nascondo popup
@@ -857,7 +855,7 @@ export default {
             </div>
 
             <!-- Seleziona modello -->
-            <span v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex">
+            <div v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex">
                 <select v-if="zanz.active" :required="fixRequiredProblem" v-model="newOrder.model_name"
                     :disabled="store.activePopup">
                     <option value="" disabled selected hidden>
@@ -867,35 +865,35 @@ export default {
                         {{ nameModel }}
                     </option>
                 </select>
-            </span>
+            </div>
         </div>
 
 
         <!-- Input centrale - Larghezza, altezza e quantita' -->
         <div class="inputs-center">
-            <span>
+            <label>
                 Inserisci:
-            </span>
-            <input type="text" name="width" placeholder="Larghezza (in cm) *" v-model="newOrder.width"
-                @input="filterSizes" :required="fixRequiredProblem" maxlength="6" :disabled="store.activePopup">
+                <input type="text" name="width" placeholder="Larghezza (in cm) *" v-model="newOrder.width"
+                    @input="filterSizes" :required="fixRequiredProblem" maxlength="6" :disabled="store.activePopup">
 
-            <input type="text" name="height" placeholder="Altezza (in cm) *" v-model="newOrder.height"
-                @input="filterSizes" :required="fixRequiredProblem" maxlength="6" :disabled="store.activePopup">
+                <input type="text" name="height" placeholder="Altezza (in cm) *" v-model="newOrder.height"
+                    @input="filterSizes" :required="fixRequiredProblem" maxlength="6" :disabled="store.activePopup">
 
-            <input type="number" name="quantity" placeholder="Quantità *" min="1" v-model="newOrder.quantity"
-                :required="fixRequiredProblem" :disabled="store.activePopup">
+                <input type="number" name="quantity" placeholder="Quantità *" min="1" v-model="newOrder.quantity"
+                    :required="fixRequiredProblem" :disabled="store.activePopup">
+            </label>
         </div>
 
         <!-- Input sotto - input radio scelta rete -->
         <div class="inputs-bottom">
-            <span v-for="(net, netIndex) in nets" :key="netIndex"
-                :class="{ 'visible': showNet || netIndex === 0 || netIndex === 1 }">
+            <div v-for="(net, netIndex) in nets" :key="netIndex"
+                :class="{ 'visible': showNet || netIndex === 0 || netIndex === 1 }" class="netsClass">
                 <label>
                     {{ net }}
                     <input type="radio" name="net" :value="net" v-model="newOrder.net" :required="fixRequiredProblem"
                         :disabled="store.activePopup">
                 </label>
-            </span>
+            </div>
         </div>
 
         <!-- Bordo separazione -->
@@ -970,12 +968,12 @@ export default {
 
                         <!-- Quantita' -->
                         <span class="quantity">
-                            <div class="text">
+                            <span class="text">
                                 Quantità:
-                                <div class="number">
+                                <span class="number">
                                     {{ order.quantity }}
-                                </div>
-                            </div>
+                                </span>
+                            </span>
                         </span>
                     </div>
 
@@ -1055,7 +1053,7 @@ export default {
                         </div>
 
                         <!-- Input Quantita' -->
-                        <span class="quantity" title="Modifica la quantità">
+                        <div class="quantity" title="Modifica la quantità">
                             <div class="text">
                                 Quantità:
                                 <span class="number">
@@ -1070,7 +1068,7 @@ export default {
                                     <i class="fa-solid fa-angle-down"></i>
                                 </a>
                             </div>
-                        </span>
+                        </div>
                     </div>
 
                     <!-- Bottoni "Modifica" ed "Elimina" -->
@@ -1110,9 +1108,9 @@ export default {
 
                     <!-- Popup che appare dopo che hai aggiunto una nuova zanzariera -->
                     <div class="popup" v-if="showAddedItemPopup">
-                        <h6>
+                        <p>
                             Zanzariera aggiunta con successo!
-                        </h6>
+                        </p>
 
                         <span>
                             Puoi aggiungere altre zanzariere ricompilando i campi o
@@ -1128,9 +1126,9 @@ export default {
                     <div class="popup" v-if="showDeleteItemPopup" :class="{ 'id': checkIdOrders === order.id }">
 
                         <div v-if="textSuccessMessage === ''">
-                            <h6>
+                            <p>
                                 Confermi di voler eliminare l'ordine dalla lista?
-                            </h6>
+                            </p>
 
                             <button @click="showDeleteItemPopup = false, store.activePopup = false">
                                 Annulla
@@ -1150,9 +1148,9 @@ export default {
                     <div class="popup" v-if="showUpdateItemPopup" :class="{ 'id': checkIdOrders === order.id }">
 
                         <div v-if="textSuccessMessage === ''">
-                            <h6>
+                            <p>
                                 Confermi le modifiche effettuate?
-                            </h6>
+                            </p>
 
                             <button @click="showUpdateItemPopup = false, store.activePopup = false">
                                 Annulla
@@ -1171,9 +1169,9 @@ export default {
                     <!-- Popup per confermare l'annullamento delle modifiche di un elemento -->
                     <div class="popup" v-if="showCancelUpdateItemPopup" :class="{ 'id': checkIdOrders === order.id }">
 
-                        <h6>
+                        <p>
                             Confermi di voler annullare le modifiche?
-                        </h6>
+                        </p>
 
                         <button @click="cancelUpdateItem()">
                             Annulla
@@ -1211,67 +1209,6 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
-
-
-// POPUP
-.popup {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    background-color: #fff;
-    width: 400px;
-    padding: 20px 40px;
-    height: 250px;
-    position: fixed;
-    left: 50%;
-    z-index: 200;
-    color: #000;
-    border-radius: 5px;
-    box-shadow: 0 3px 2px rgba(0, 0, 0, .1);
-    animation: opacity 1s ease;
-    transform: translate(-50%, -50%);
-    top: 50%;
-
-    div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        height: 100%;
-
-        &:last-child {
-            font-weight: bold;
-        }
-    }
-
-    &.id {
-        z-index: 300;
-    }
-
-    h6 {
-        font-size: 1.1rem;
-    }
-
-    a,
-    button {
-        background-color: #686868;
-        color: #fff;
-        cursor: pointer;
-        padding: 5px;
-        border-radius: 5px;
-        margin: 0 3px;
-        font-size: 1rem;
-        border: 0;
-        font-weight: 600;
-    }
-
-    a {
-        font-weight: normal;
-    }
-
-}
-
 
 @keyframes opacity {
     0% {
@@ -1410,8 +1347,14 @@ export default {
                 gap: 15px 20px;
 
                 &:not(.edited) {
-                    span {
+
+                    .typology-model,
+                    .width-height,
+                    .quantity {
                         padding: 10px;
+                    }
+
+                    span {
 
                         &.typology-model {
                             width: 568px;
@@ -1644,6 +1587,9 @@ export default {
     }
 
     .inputs-bottom {
+        .netsClass {
+            display: inline-block;
+        }
 
         span {
             &:not(.visible) {
@@ -1672,6 +1618,10 @@ export default {
     .inputs-center {
         input {
             width: 190px;
+        }
+
+        label {
+            font-weight: 500;
         }
 
         input+input+input {

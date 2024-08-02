@@ -40,13 +40,6 @@ export default {
                     property: "og:description",
                     content: "Preventivo gratuito per zanzariere - servizio rapido e professionale."
                 }
-            ],
-            link: [
-                {
-                    rel: "preload",
-                    href: "/img/sfondi-e-logo/sfondo-ringraziamento.webp",
-                    as: "image"
-                }
             ]
         })
     },
@@ -153,14 +146,14 @@ export default {
 </script>
 
 <template>
-    <div class="popup exit-route" v-if="store.showPopupExitRoutePreventivo">
-        <div>
+    <div class="popup" v-if="store.showPopupExitRoutePreventivo">
+        <p>
             Sei sicuro di voler abbandonare la pagina?
-        </div>
+        </p>
 
-        <div>
+        <p>
             Tutti i dati inseriti verranno eliminati.
-        </div>
+        </p>
 
         <button @click="store.showPopupExitRoutePreventivo = false, store.activePopup = false">
             Annulla
@@ -169,8 +162,6 @@ export default {
         <button @click="changeRoute">
             Conferma
         </button>
-
-
     </div>
 
     <section class="thank-you"
@@ -264,78 +255,6 @@ export default {
     min-height: 147px;
     margin-top: 60px;
 }
-
-.popup {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    background-color: #fff;
-    width: 400px;
-    padding: 20px 40px;
-    height: 250px;
-    position: fixed;
-    left: 50%;
-    z-index: 200;
-    color: #000;
-    border-radius: 5px;
-    box-shadow: 0 3px 2px rgba(0, 0, 0, .1);
-    animation: opacity 1s ease;
-    transform: translate(-50%, -50%);
-    top: 50%;
-
-    span {
-        text-align: center;
-    }
-
-    &.exit-route {
-        div {
-            text-align: center;
-        }
-    }
-
-    &:not(.exit-route) {
-
-        div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            height: 100%;
-
-            &:last-child {
-                font-weight: bold;
-            }
-        }
-    }
-
-    &.id {
-        z-index: 300;
-    }
-
-    h6 {
-        font-size: 1.1rem;
-    }
-
-    a,
-    button {
-        background-color: #686868;
-        color: #fff;
-        cursor: pointer;
-        padding: 5px;
-        border-radius: 5px;
-        margin: 0 3px;
-        font-size: 1rem;
-        border: 0;
-        font-weight: 600;
-    }
-
-    a {
-        font-weight: normal;
-    }
-
-}
-
 
 // Inizio sezione
 section {

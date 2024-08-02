@@ -3,13 +3,27 @@
 // Importo store
 import { store } from '../store';
 
+import { useHead } from "@vueuse/head";
+
+
 export default {
     name: 'QuartoStepPreventivo',
     data() {
         return {
             store
         }
-    }
+    },
+    setup() {
+        useHead({
+            link: [
+                {
+                    rel: "preload",
+                    href: "/img/sfondi-e-logo/sfondo-ringraziamento.webp",
+                    as: "image"
+                }
+            ]
+        })
+    },
 }
 </script>
 
