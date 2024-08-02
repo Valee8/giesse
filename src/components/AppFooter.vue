@@ -39,8 +39,7 @@ export default {
                 <!-- Paragrafo -->
                 <p>
                     <span>Giesse Zanzariere</span>: zanzariere su misura e servizi di riparazione da oltre 30 anni.
-                    Qualità e
-                    assistenza per ogni esigenza.
+                    Qualità e assistenza per ogni esigenza.
                 </p>
                 <p>
                     Contattaci per preventivi personalizzati.

@@ -12,20 +12,17 @@ export default {
 <template>
     <section>
         <div class="container">
-            <div class="icon-down">
-                <i class="fa-regular fa-face-frown"></i>
-            </div>
-
-            <h1>
-                404
-            </h1>
 
             <h2>
-                Pagina non trovata
+                Oops!
             </h2>
 
+            <p>
+                Ehi, forse hai rotto qualcosa!
+            </p>
+
             <router-link to="/">
-                Torna alla Homepage
+                Torna alla Home
             </router-link>
         </div>
     </section>
@@ -38,33 +35,29 @@ export default {
 @use '../src/styles/partials/variables' as *;
 
 section {
-    background-color: #ADADAD;
+    background-color: #f5f5f5;
     color: #000;
     padding: 20px 0;
 
     .container {
         text-align: center;
-        /* display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center; */
-        //height: calc(100vh - 340px);
-
-        .icon-down {
-            font-size: 9rem;
-        }
-
-        h1 {
-            font-size: 5rem;
-        }
 
         h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin: 20px 0;
         }
 
         a {
-            color: #000;
+            color: #fff;
+            background-color: #000;
+            font-weight: 500;
+            padding: 4px 50px;
+            border-radius: 8px;
+            font-size: 0.9rem;
         }
     }
 }
