@@ -43,11 +43,11 @@ section {
         text-align: center;
 
         h2 {
-            font-size: 2.5rem;
+            font-size: 55px;
         }
 
         p {
-            font-size: 1.5rem;
+            font-size: 21px;
             margin: 20px 0;
         }
 
