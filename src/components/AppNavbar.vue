@@ -129,7 +129,8 @@ export default {
                     <!-- Logo sulla sinistra -->
                     <li>
                         <router-link :to="{ name: 'home' }" class="logo">
-                            <img :src="store.logo.image" :alt="store.logo.alt" width="155" height="32">
+                            <img src="/public/img/sfondi-e-logo/logo-giesse.webp" :alt="store.logo.alt" width="155"
+                                height="32">
                         </router-link>
                     </li>
 
