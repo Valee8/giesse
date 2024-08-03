@@ -28,7 +28,7 @@ export const store = reactive({
     apiUrl: "http://localhost:8000/api/",
     // Info Logo in Navbar e Footer
     logo: {
-        image: "/img/sfondi-e-logo/logo-giesse.webp",
+        image: "/img/logo-giesse.webp",
         alt: "Logo Giesse Zanzariere"
     },
     // Scritta "Home" nella varie sezioni
