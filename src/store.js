@@ -28,7 +28,7 @@ export const store = reactive({
     apiUrl: "http://localhost:8000/api/",
     // Info Logo in Navbar e Footer
     logo: {
-        image: "img/sfondi-e-logo/logo-giesse.webp",
+        image: "/img/sfondi-e-logo/logo-giesse.webp",
         alt: "Logo Giesse Zanzariere"
     },
     // Scritta "Home" nella varie sezioni
@@ -184,7 +184,7 @@ export const store = reactive({
                 }
             ],
             //secondName: "GIUSY (con cuffie) - ELENA (senza cuffie) - EDDI (con cassonetto da 40mm)",
-            image: "img/zanzariere/alba.webp",
+            image: "/img/zanzariere/alba.webp",
             width: 240,
             height: 320,
             description: "Il modello VERTICALE A MOLLA CLASSICA, adatto soprattutto per finestre, può essere realizzato in diverse tipologie e modelli.",
@@ -221,7 +221,7 @@ export const store = reactive({
                     hover: false
                 },
             ],
-            image: "img/zanzariere/laura.webp",
+            image: "/img/zanzariere/laura.webp",
             width: 280,
             height: 320,
             description: "Il modello VERTICALE A MOLLA può essere realizzato anche con sistema a CRICCHETTO (un sistema a pulsante che permette l'apertura della zanzariera in modo semplice e veloce). Questo sistema viene realizzato solamente con guida telescopica.",
@@ -258,7 +258,7 @@ export const store = reactive({
                     hover: false
                 },
             ],
-            image: "img/zanzariere/katia.webp",
+            image: "/img/zanzariere/katia.webp",
             width: 233,
             height: 320,
             description: "Il modello VERTICALE A CATENA CLASSICA è adatto sia per finestre sia per portefinestre in quanto è dotato di una catenella che può essere inserita sia dalla parte interna sia dalla parte esterna, in modo da non doversi inchinare. Può essere realizzato esclusivamente con il cassonetto da 50mm.",
@@ -287,7 +287,7 @@ export const store = reactive({
                 },
             ],
             nameClass: "giada",
-            image: "img/zanzariere/giada.webp",
+            image: "/img/zanzariere/giada.webp",
             width: 220,
             height: 290,
             description: "Il modello VERTICALE A CATENA + MOLLA, prodotto esclusivamente con il cassonetto da 50mm e la guida telescopica, si differenzia dal modello VERTICALE A CATENA CLASSICA in quanto viene dotato di una molla di richiamo che permette di tenere la rete ben tesa.",
@@ -355,7 +355,7 @@ export const store = reactive({
                 }
             ],
             nameClass: "laterale-classica",
-            image: "img/zanzariere/alba-laterale.webp",
+            image: "/img/zanzariere/alba-laterale.webp",
             width: 240,
             height: 320,
             description: "Il modello LATERALE A MOLLA CLASSICA è adatto per portefinestre in quanto permette di non doversi inchinare sia per l'apertura sia per la chiusura della zanzariera.",
@@ -392,7 +392,7 @@ export const store = reactive({
                     hover: false
                 },
             ],
-            image: "img/zanzariere/lara-rigata.webp",
+            image: "/img/zanzariere/lara-rigata.webp",
             width: 246,
             height: 320,
             description: "Il modello LATERALE con guida bassa da 2cm, si differenzia dal modello LATERALE A MOLLA CLASSICA in quanto viene fornito con una guida inferiore di 2cm.",
@@ -405,7 +405,7 @@ export const store = reactive({
                     name: "LUNA"
                 }
             ],
-            image: "img/zanzariere/luna.webp",
+            image: "/img/zanzariere/luna.webp",
             nameClass: "one-model",
             width: 262,
             height: 320,
@@ -420,7 +420,7 @@ export const store = reactive({
                 }
             ],
             nameClass: "one-model",
-            image:"img/zanzariere/zelig.webp",
+            image:"/img/zanzariere/zelig.webp",
             width: 262,
             height: 320,
             description: "Il modello ZELIG, prodotto esclusivamente con il cassonetto da 50mm, dotato di una catena che si adagia sulla guida durante l'apertura della zanzariera, è caratterizzato da una guida inferiore di soli 3mm.",
@@ -445,7 +445,7 @@ export const store = reactive({
                 }
             ],
             nameClass: "laterale-frizionata",
-            image: "img/zanzariere/jolly.webp",
+            image: "/img/zanzariere/jolly.webp",
             width: 240,
             height: 320,
             description: "Il modello LATERALE FRIZIONATA è caratterizzato da un ingombro di 40mm. Prodotto con una guida inferiore di 3mm, a differenza del modello ZELIG, permette di arrestare l'apertura della zanzariera nella posizione desiderata. Viene dotato di una catena (chiusa) che si adagia sulla guida inferiore durante l'apertura della zanzariera. Si differenzia tra JOLLY (con una larghezza massima di 160mm) e LEVANTE (con una larghezza massima di 220mm).",
@@ -459,7 +459,7 @@ export const store = reactive({
                 }
             ],
             nameClass: "one-model",
-            image: "img/zanzariere/bora.webp",
+            image: "/img/zanzariere/bora.webp",
             width: 262,
             height: 320,
             description: "Il modello BORA, adatto per portefinestre, viene fornito con una guida inferiore di soli 2mm. Semplicissima da montare, è grazie ad uno speciale meccanismo brevettato che la rete non esce dalle guide anche in presenza di un forte vento.",
@@ -473,7 +473,7 @@ export const store = reactive({
                 }
             ],
             nameClass: "one-model",
-            image: "img/zanzariere/plisse-22.webp",
+            image: "/img/zanzariere/plisse-22.webp",
             width: 220,
             height: 320,
             description: "Il modello PLISSE' 22 è caratterizzato da un ingombro di soli 22mm. Prodotto con una guida inferiore di 7mm e la rete plissettata in propilene nera o grigia, permette di arrestare l'apertura della zanzariera nella posizione desiderata.",
@@ -484,37 +484,37 @@ export const store = reactive({
     typologies: [
         {
             name: "Verticali",
-            image: "img/zanzariere/alba.webp",
+            image: "/img/zanzariere/alba.webp",
             width: 210,
             height: 280
         },
         {
             name: "Laterali",
-            image: "img/zanzariere/lara.webp",
+            image: "/img/zanzariere/lara.webp",
             width: 210,
             height: 280
         },
         {
             name: "Porta a battente",
-            image: "img/zanzariere/porta-a-battente.webp",
+            image: "/img/zanzariere/porta-a-battente.webp",
             width: 210,
             height: 280
         },
         {
             name: "Scorri",
-            image: "img/zanzariere/scorri.webp",
+            image: "/img/zanzariere/scorri.webp",
             width: 210,
             height: 298
         },
         {
             name: "Fissa",
-            image: "img/zanzariere/fissa.webp",
+            image: "/img/zanzariere/fissa.webp",
             width: 210,
             height: 210
         },
         {
             name: "Casper",
-            image: "img/zanzariere/casper.webp",
+            image: "/img/zanzariere/casper.webp",
             width: 210,
             height: 280
         },
@@ -527,11 +527,11 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Bianco 9010",
-                    image: "img/colori/bianco-9010.webp"
+                    image: "/img/colori/bianco-9010.webp"
                 },
                 {
                     name: "Avorio 1013",
-                    image: "img/colori/avorio-1013.webp"
+                    image: "/img/colori/avorio-1013.webp"
                 },
             ]
         },
@@ -541,39 +541,39 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Marrone 8017",
-                    image: "img/colori/marrone-8017.webp"
+                    image: "/img/colori/marrone-8017.webp"
                 },
                 {
                     name: "Nero 9005",
-                    image: "img/colori/nero-9005.webp"
+                    image: "/img/colori/nero-9005.webp"
                 },
                 {
                     name: "Bronzo Chiaro Verniciato",
-                    image: "img/colori/bronzo-chiaro-verniciato.webp"
+                    image: "/img/colori/bronzo-chiaro-verniciato.webp"
                 },
                 {
                     name: "Bronzo Scuro Verniciato",
-                    image: "img/colori/bronzo-scuro-verniciato.webp"
+                    image: "/img/colori/bronzo-scuro-verniciato.webp"
                 },
                 {
                     name: "Argento",
-                    image: "img/colori/argento.webp"
+                    image: "/img/colori/argento.webp"
                 },
                 {
                     name: "Rosso Gotico",
-                    image: "img/colori/rosso-gotico.webp"
+                    image: "/img/colori/rosso-gotico.webp"
                 },
                 {
                     name: "Verde Gotico",
-                    image: "img/colori/verde-gotico.webp"
+                    image: "/img/colori/verde-gotico.webp"
                 },
                 {
                     name: "Marrone Gotico",
-                    image: "img/colori/marrone-gotico.webp"
+                    image: "/img/colori/marrone-gotico.webp"
                 },
                 {
                     name: "Grigio Gotico",
-                    image: "img/colori/grigio-gotico.webp"
+                    image: "/img/colori/grigio-gotico.webp"
                 }
             ]
         },
@@ -583,31 +583,31 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Noce Chiaro NH31",
-                    image: "img/colori/noce-chiaro-nh31.webp"
+                    image: "/img/colori/noce-chiaro-nh31.webp"
                 },
                 {
                     name: "Noce Scuro NH30",
-                    image: "img/colori/noce-scuro-nh30.webp"
+                    image: "/img/colori/noce-scuro-nh30.webp"
                 },
                 {
                     name: "Verde GH30",
-                    image:  "img/colori/verde-gh30.webp"
+                    image:  "/img/colori/verde-gh30.webp"
                 },
                 {
                     name: "Ciliegio CH30",
-                    image: "img/colori/ciliegio-ch30.webp"
+                    image: "/img/colori/ciliegio-ch30.webp"
                 },
                 {
                     name: "Bianco WH30",
-                    image: "img/colori/bianco-wh30.webp"
+                    image: "/img/colori/bianco-wh30.webp"
                 },
                 {
                     name: "Renolit Chiaro Effecta",
-                    image: "img/colori/renolit-chiaro-effecta.webp"
+                    image: "/img/colori/renolit-chiaro-effecta.webp"
                 },
                 {
                     name: "Renolit Scuro Effecta",
-                    image: "img/colori/renolit-scuro-effecta.webp"
+                    image: "/img/colori/renolit-scuro-effecta.webp"
                 },
             ]
         },
@@ -617,27 +617,27 @@ export const store = reactive({
             colorInfo: [
                 {
                     name: "Ciliegio Scuro",
-                    image: "img/colori/ciliegio-scuro.webp"
+                    image: "/img/colori/ciliegio-scuro.webp"
                 },
                 {
                     name: "Castano",
-                    image: "img/colori/castano.webp"
+                    image: "/public/img/colori/castano.webp"
                 },
                 {
                     name: "Renolit Chiaro Sublimall",
-                    image:"img/colori/renolit-chiaro-sublimall.webp"
+                    image: "/img/colori/renolit-chiaro-sublimall.webp"
                 },
                 {
                     name: "Renolit Scuro Sublimall",
-                    image: "img/colori/renolit-scuro-sublimall.webp"
+                    image: "/img/colori/renolit-scuro-sublimall.webp"
                 },
                 {
                     name: "Renolit Bianco Sublimall",
-                    image: "img/colori/renolit-bianco-sublimall.webp"
+                    image: "/img/colori/renolit-bianco-sublimall.webp"
                 },
                 {
                     name: "Renolit Marrone Sublimall",
-                    image: "img/colori/renolit-marrone-sublimall.webp"
+                    image: "/img/colori/renolit-marrone-sublimall.webp"
                 }
             ]
         },
