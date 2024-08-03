@@ -33,22 +33,22 @@ export default {
             link: [
                 {
                     rel: "preload",
-                    href: "/img/sfondi-e-logo/jumbotron1.webp",
+                    href: "/img/sfondi-e-logo/jumbotron1.jpg",
                     as: "image"
                 },
                 {
                     rel: "preload",
-                    href: "/img/sfondi-e-logo/jumbotron2.webp",
+                    href: "/img/sfondi-e-logo/jumbotron2.jpg",
                     as: "image"
                 },
                 {
                     rel: "preload",
-                    href: "/img/sfondi-e-logo/jumbotron3.webp",
+                    href: "/img/sfondi-e-logo/jumbotron3.jpg",
                     as: "image"
                 },
                 {
                     rel: "preload",
-                    href: "/img/sfondi-e-logo/jumbotron4.webp",
+                    href: "/img/sfondi-e-logo/jumbotron4.jpg",
                     as: "image"
                 }
             ]
@@ -253,21 +253,21 @@ export default {
     width: 100%;
 
     &.first {
-        background-image: url('/img/sfondi-e-logo/jumbotron1.webp');
+        background-image: url('/img/sfondi-e-logo/jumbotron1.jpg');
     }
 
     &.second {
-        background-image: url('/img/sfondi-e-logo/jumbotron2.webp');
+        background-image: url('/img/sfondi-e-logo/jumbotron2.jpg');
         margin-top: -1px;
         padding-top: 1px;
     }
 
     &.third {
-        background-image: url('/img/sfondi-e-logo/jumbotron3.webp');
+        background-image: url('/img/sfondi-e-logo/jumbotron3.jpg');
     }
 
     &.fourth {
-        background-image: url('/img/sfondi-e-logo/jumbotron4.webp');
+        background-image: url('/img/sfondi-e-logo/jumbotron4.jpg');
     }
 }
 

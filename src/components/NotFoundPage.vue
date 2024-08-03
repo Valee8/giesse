@@ -21,9 +21,13 @@ export default {
                 Ehi, forse hai rotto qualcosa!
             </p>
 
-            <router-link to="/">
-                Torna alla Home
-            </router-link>
+            <!--  <img src="/img/sfondi-e-logo/pagina-non-trovata.gif" alt="Immagine pagina non trovata"> -->
+
+            <div>
+                <router-link to="/">
+                    Torna alla Home
+                </router-link>
+            </div>
         </div>
     </section>
 

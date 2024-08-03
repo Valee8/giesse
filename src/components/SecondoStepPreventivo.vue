@@ -99,7 +99,7 @@ export default {
                 {
                     name: "Verticali a molla classica",
                     typo: "Verticali",
-                    image: "img/zanzariere/alba.webp",
+                    image: "/img/zanzariere/alba.jpg",
                     active: true,
                     activeSelect: false,
                     models: [
@@ -126,7 +126,7 @@ export default {
                 {
                     name: "Verticali a catena classica",
                     typo: "Verticali",
-                    image: "img/zanzariere/katia.webp",
+                    image: "/img/zanzariere/katia.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -138,7 +138,7 @@ export default {
                 {
                     name: "Verticali a catena + molla",
                     typo: "Verticali",
-                    image: "img/zanzariere/giada.webp",
+                    image: "/img/zanzariere/giada.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -149,7 +149,7 @@ export default {
                 {
                     name: "Laterali a molla classica",
                     typo: "Laterali",
-                    image: "img/zanzariere/alba-laterale.webp",
+                    image: "/img/zanzariere/alba-laterale.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -161,7 +161,7 @@ export default {
                 {
                     name: "Laterali a molla (guida bassa da 2cm)",
                     typo: "Laterali",
-                    image: "img/zanzariere/lara-rigata.webp",
+                    image: "/img/zanzariere/lara-rigata.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -173,7 +173,7 @@ export default {
                 {
                     name: "Laterale a molla (guida arrotondata da 14mm)",
                     typo: "Laterali",
-                    image: "img/zanzariere/luna.webp",
+                    image: "/img/zanzariere/luna.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -183,7 +183,7 @@ export default {
                 {
                     name: "Laterale a molla (guida inferiore da 3mm)",
                     typo: "Laterali",
-                    image: "img/zanzariere/zelig.webp",
+                    image: "/img/zanzariere/zelig.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -193,7 +193,7 @@ export default {
                 {
                     name: "Laterale Frizionata",
                     typo: "Laterali",
-                    image: "img/zanzariere/jolly.webp",
+                    image: "/img/zanzariere/jolly.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -203,7 +203,7 @@ export default {
                 {
                     name: "Laterale Antivento",
                     typo: "Laterali",
-                    image: "img/zanzariere/bora.webp",
+                    image: "/img/zanzariere/bora.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -213,7 +213,7 @@ export default {
                 {
                     name: "Laterale Plissettata",
                     typo: "Laterali",
-                    image: "img/zanzariere/plisse-22.webp",
+                    image: "/img/zanzariere/plisse-22.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -223,7 +223,7 @@ export default {
                 {
                     name: "Porta a battente",
                     typo: "Altre",
-                    image: "img/zanzariere/porta-a-battente.webp",
+                    image: "/img/zanzariere/porta-a-battente.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -233,7 +233,7 @@ export default {
                 {
                     name: "A pannelli scorrevoli",
                     typo: "Altre",
-                    image: "img/zanzariere/scorri.webp",
+                    image: "/img/zanzariere/scorri.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -243,7 +243,7 @@ export default {
                 {
                     name: "Telaio fisso",
                     typo: "Altre",
-                    image: "img/zanzariere/fissa.webp",
+                    image: "/img/zanzariere/fissa.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -253,7 +253,7 @@ export default {
                 {
                     name: "Con guida da incasso per falegnami",
                     typo: "Altre",
-                    image: "img/zanzariere/casper.webp",
+                    image: "/img/zanzariere/casper.jpg",
                     active: false,
                     activeSelect: false,
                     models: [

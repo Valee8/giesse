@@ -556,7 +556,7 @@ export default {
         }
 
         .icons-menu {
-            background-image: url('/img/sfondi-e-logo/bg-nav-top.webp'), url('/img/sfondi-e-logo/bg-nav-bottom.webp');
+            background-image: url('/img/sfondi-e-logo/bg-nav-top.svg'), url('/img/sfondi-e-logo/bg-nav-bottom.svg');
             background-position: top center, bottom center;
             background-size: 100%;
             background-repeat: no-repeat, no-repeat;
@@ -568,7 +568,7 @@ export default {
                 display: flex;
                 align-items: center;
                 height: 102px;
-                background-image: url('/img/sfondi-e-logo/bg-nav-center.webp');
+                background-image: url('/img/sfondi-e-logo/bg-nav-center.svg');
                 background-position: -100px 0;
 
                 &.active {

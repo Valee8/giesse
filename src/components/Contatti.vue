@@ -33,7 +33,7 @@ export default {
             link: [
                 {
                     rel: "preload",
-                    href: "/img/sfondi-e-logo/sfondo-faq.webp",
+                    href: "/img/sfondi-e-logo/sfondo-faq.jpg",
                     as: "image"
                 }
             ]
@@ -186,7 +186,7 @@ export default {
 
 // Contiene l'immagine sfocata e a bassa risoluzione delle faq come sfondo, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
 .bg-section {
-    background-image: url('/img/sfondi-e-logo/sfondo-faq.webp');
+    background-image: url('/img/sfondi-e-logo/sfondo-faq.jpg');
     background-size: cover;
     background-position: center;
     height: 414px;
