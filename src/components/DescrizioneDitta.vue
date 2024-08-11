@@ -9,6 +9,7 @@ export default {
     <!-- Inizio sezione Ditta -->
     <section id="ditta">
         <div class="container">
+
             <!-- Titolo -->
             <h2>
                 La <span class="highlight">G</span>aranzia a nome <span class="highlight">G</span>iesse Zanzariere

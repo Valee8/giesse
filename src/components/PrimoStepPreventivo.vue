@@ -430,7 +430,6 @@ Le email devono avere il formato corretto
                 top: 25px;
                 //left: 50%;
                 //transform: translateX(-50%);
-                width: 100%;
             }
 
             label {

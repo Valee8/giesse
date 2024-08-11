@@ -70,11 +70,7 @@ export default {
         getClient() {
             // Se clientId e' presente eseguo la chiama API
             if (this.store.clientId) {
-                axios.get(this.store.apiUrl + 'clients/' + this.store.clientId, {
-                    headers: {
-                        'ngrok-skip-browser-warning': 'skip-browser-warning'
-                    }
-                })
+                axios.get(this.store.apiUrl + 'clients/' + this.store.clientId)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
@@ -91,11 +87,7 @@ export default {
         getOrder() {
             // Se clientId e' presente eseguo la chiama API
             if (this.store.clientId) {
-                axios.get(this.store.apiUrl + 'orders/' + this.store.clientId, {
-                    headers: {
-                        'ngrok-skip-browser-warning': 'skip-browser-warning'
-                    }
-                })
+                axios.get(this.store.apiUrl + 'orders/' + this.store.clientId)
                     .then(res => {
                         const data = res.data;
                         const success = data.success;
@@ -187,7 +179,7 @@ export default {
             <div v-if="store.currentStep === 1 || store.currentStep > 1 && store.clientId">
                 <div class="top" :class="{ 'none': store.currentStep > 3 }">
                     <h1>
-                        Fai il <div>Preventivo</div>
+                        Fai il Preventivo
                     </h1>
 
                     <!-- Cerchi degli step -->
@@ -267,7 +259,7 @@ section {
 
     // Immagine di sfondo temporanea e sfocata che appare fino a quando l'immagine vera non ha caricato completamente
     &.thank-you {
-        background-image: url('/img/sfondi-e-logo/sfondo-ringraziamento.webp');
+        background-image: url('/img/sfondi-e-logo/sfondo-ringraziamento.jpg');
         background-size: cover;
         position: relative;
 
@@ -529,11 +521,7 @@ section {
             flex-wrap: wrap;
 
             h1 {
-                text-align: center;
-
-                div {
-                    display: inline-block;
-                }
+                text-align: left;
 
             }
 

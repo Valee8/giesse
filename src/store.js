@@ -25,7 +25,7 @@ export const store = reactive({
     // Step corrente del preventivo
     currentStep: 1,
     // URL per la chiamata API
-    apiUrl: "/backend/api/",
+    apiUrl: "https://www.giessezanzariere.it/backend/public/api/",
     // Info Logo in Navbar e Footer
     logo: {
         image: "/img/sfondi-e-logo/logo-giesse.jpg",

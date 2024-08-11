@@ -47,6 +47,11 @@ export default {
                 <p>
                     © Giesse. Tutti i diritti riservati.
                 </p>
+
+                <a href="https://www.iubenda.com/privacy-policy/78392068" target="_blank" title="Privacy Policy">Privacy
+                    Policy</a> - <a href="https://www.iubenda.com/privacy-policy/78392068/cookie-policy" target="_blank"
+                    title="Cookie Policy">Cookie
+                    Policy</a>
             </div>
 
             <!-- Parte centrale footer -->
@@ -134,6 +139,14 @@ footer {
     font-size: 0.75rem;
     line-height: 15px;
 
+    a {
+        color: #fff;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
     // Container piccolo
     .container {
         display: flex;
@@ -202,6 +215,7 @@ footer {
 
             &:last-of-type {
                 padding-top: 10px;
+                padding-bottom: 10px;
             }
 
 

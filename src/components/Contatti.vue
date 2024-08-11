@@ -29,13 +29,6 @@ export default {
                     property: "og:description",
                     content: "Contattaci per informazioni su zanzariere - telefono, email, indirizzo."
                 }
-            ],
-            link: [
-                {
-                    rel: "preload",
-                    href: "/img/sfondi-e-logo/sfondo-faq.jpg",
-                    as: "image"
-                }
             ]
         })
     },
