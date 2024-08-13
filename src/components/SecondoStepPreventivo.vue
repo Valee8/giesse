@@ -564,7 +564,7 @@ export default {
 
             try {
                 // Eseguo la chiamata API
-                const response = await fetch(`${this.store.apiUrl}delete/${orderId}`, {
+                const response = await fetch(`${this.store.apiUrl}delete/${order.id}`, {
                     method: 'DELETE'
                 });
 
