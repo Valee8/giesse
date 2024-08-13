@@ -1,7 +1,4 @@
 <script>
-// Importo axios
-import axios from 'axios';
-
 // Importo store
 import { store } from '../store';
 
@@ -130,7 +127,7 @@ export default {
 
         },
         // Metodo per inviare l'email
-        sendEmail() {
+        async sendEmail() {
 
             // Se firstStepValid e' uguale a true (i campi non sono vuoti)
             if (this.firstStepValid) {
@@ -147,17 +144,24 @@ export default {
                     }
 
                     // Chiamata API per inviare file allegati da frontend a backend
-                    axios.post(this.store.apiUrl + 'uploadFile', formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data',
-                        }
-                    })
-                        .then((res) => {
+                    try {
+                        // Eseguo la chiamata API
+                        const response = await fetch(`${this.store.apiUrl}uploadFile`, {
+                            method: 'POST',
+                            body: formData, // Passa l'oggetto FormData direttamente
+                            headers: {
+                                'Content-Type': 'multipart/form-data', // Specifica il tipo di contenuto
+                            }
+                        });
 
-                            console.log(res);
+                        // Converte la risposta in JSON
+                        const data = await response.json();
 
-                        })
-                        .catch(error => console.error(error));
+                        console.log(data);
+                    } catch (error) {
+                        // Gestisce gli errori
+                        console.error('Errore durante il caricamento del file:', error);
+                    }
 
                 }
 
@@ -170,44 +174,49 @@ export default {
                 this.loading = true;
 
                 // Chiamata api per inviare le informazioni inserire dall'utente
-                axios.post(this.store.apiUrl + 'information/store', this.newInfo)
-                    .then(res => {
-                        const data = res.data;
-                        const success = data.success;
-                        const response = data.response;
-
-
-                        if (success) {
-
-                            // Chiamata api per salvarmi i file allegati e l'email del destinatario (response.id contiene l'id del messaggio)
-                            axios.post(this.store.apiUrl + 'message/' + response.id, {
-                                attached_files: this.newInfo.attached_files
-                            })
-                                .then(res => {
-                                    const data = res.data;
-                                    const success = data.success;
-
-                                    // Se e' tutto andato a buon fine assegno il messaggio corrispondente
-                                    if (success) {
-                                        this.messageSuccess = "Messaggio inviato con successo!";
-
-                                        // La pagina si ricarica da sola dopo 1 secondo
-                                        setTimeout(() => {
-                                            location.reload();
-                                        }, 2000);
-                                    }
-
-                                })
-                                .catch(error => console.error(error)); // error.response.data
-                        }
-
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        // Se ci sono stati errori allora showError a true in modo da far apparire il messaggio d'errore
-                        this.showError = true;
-
+                try {
+                    // Prima chiamata API
+                    const response1 = await fetch(`${this.store.apiUrl}information/store`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(this.newInfo) // Converte l'oggetto newInfo in JSON
                     });
+
+                    const data1 = await response1.json();
+                    const success1 = data1.success;
+                    const response = data1.response;
+
+                    if (success1) {
+                        // Seconda chiamata API
+                        const response2 = await fetch(`${this.store.apiUrl}message/${response.id}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                attached_files: this.newInfo.attached_files
+                            }) // Converte l'oggetto allegati in JSON
+                        });
+
+                        const data2 = await response2.json();
+                        const success2 = data2.success;
+
+                        if (success2) {
+                            this.messageSuccess = "Messaggio inviato con successo!";
+
+                            // La pagina si ricarica da sola dopo 1 secondo
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Errore durante la chiamata API:', error);
+                    // Se ci sono stati errori allora showError a true in modo da far apparire il messaggio d'errore
+                    this.showError = true;
+                }
             }
         },
         // PreventDefault per evitare che la pagina ricarichi con l'invio del form

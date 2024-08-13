@@ -13,9 +13,6 @@ import QuartoStepPreventivo from './QuartoStepPreventivo.vue';
 
 import { useHead } from "@vueuse/head";
 
-// Importo axios
-import axios from 'axios';
-
 export default {
     name: 'Preventivo',
     components: {
@@ -67,38 +64,46 @@ export default {
             this.$router.push(this.store.linkRoute);
         },
         // getClient per ottenere i dati dei clienti
-        getClient() {
-            // Se clientId e' presente eseguo la chiama API
+        async getClient() {
+            // Se clientId è presente eseguo la chiamata API
             if (this.store.clientId) {
-                axios.get(this.store.apiUrl + 'clients/' + this.store.clientId)
-                    .then(res => {
-                        const data = res.data;
-                        const success = data.success;
-                        const response = data.response;
+                try {
+                    // Eseguo la chiamata API
+                    const response = await fetch(`${this.store.apiUrl}clients/${this.store.clientId}`);
 
-                        if (success) {
-                            this.store.clients = response.clients;
-                        }
+                    // Converte la risposta in JSON
+                    const data = await response.json();
+                    const success = data.success;
+                    const responseData = data.response; // Cambiato da "response" a "responseData" per evitare conflitti
 
-                    })
-                    .catch(error => console.error(error));
+                    if (success) {
+                        this.store.clients = responseData.clients;
+                    }
+                } catch (error) {
+                    // Gestisce gli errori
+                    console.error('Errore durante la chiamata API:', error);
+                }
             }
         },
-        getOrder() {
-            // Se clientId e' presente eseguo la chiama API
+        async getOrder() {
+            // Se clientId è presente eseguo la chiamata API
             if (this.store.clientId) {
-                axios.get(this.store.apiUrl + 'orders/' + this.store.clientId)
-                    .then(res => {
-                        const data = res.data;
-                        const success = data.success;
-                        const response = data.response;
+                try {
+                    // Eseguo la chiamata API
+                    const response = await fetch(`${this.store.apiUrl}orders/${this.store.clientId}`);
 
-                        if (success) {
-                            this.store.orders = response.orders;
-                        }
+                    // Converte la risposta in JSON
+                    const data = await response.json();
+                    const success = data.success;
+                    const responseData = data.response; // Cambiato da "response" a "responseData" per evitare conflitti
 
-                    })
-                    .catch(error => console.error(error));
+                    if (success) {
+                        this.store.orders = responseData.orders;
+                    }
+                } catch (error) {
+                    // Gestisce gli errori
+                    console.error('Errore durante la chiamata API:', error);
+                }
             }
         },
         // PreventDefault per evitare che la pagina ricarichi con l'invio del form

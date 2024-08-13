@@ -3,10 +3,6 @@
 // Importo store
 import { store } from '../store';
 
-
-// Importo axios
-import axios from 'axios';
-
 export default {
     name: 'TerzoStepPreventivo',
     props: {
@@ -106,7 +102,7 @@ export default {
 
         },
         // Metodo per modificare i dati del cliente nel terzo step, dopo aver premuto bottone "Aggiorna dati"
-        editInfoClient(client) {
+        async editInfoClient(client) {
 
             // thirdStepValid inizialmente a false
             let thirdStepValid = false;
@@ -146,19 +142,29 @@ export default {
                 city_of_residence: client.city_of_residence */
 
                 // Chiamata api per modificare i dati del cliente
-                axios.post(this.store.apiUrl + 'infoClients/update/' + this.store.clientId, client)
-                    .then(res => {
-                        const data = res.data;
-                        const success = data.success;
+                try {
+                    // Eseguo la chiamata API
+                    const response = await fetch(`${this.store.apiUrl}infoClients/update/${this.store.clientId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(client) // Converte l'oggetto client in JSON
+                    });
 
-                        // Se success = true richiamo getClient, aggiorno dati cliente
-                        if (success) {
-                            // Aggiorno i dati
-                            this.getClient();
-                        }
+                    // Converte la risposta in JSON
+                    const data = await response.json();
+                    const success = data.success;
 
-                    })
-                    .catch(error => console.error(error));
+                    // Se success = true richiamo getClient, aggiorno dati cliente
+                    if (success) {
+                        // Aggiorno i dati
+                        this.getClient();
+                    }
+                } catch (error) {
+                    // Gestisce gli errori
+                    console.error('Errore durante la chiamata API:', error);
+                }
 
                 // Nascondo la schermata di modifica dei dati dopo averli modificati
                 this.editClientInfo = false;
@@ -167,23 +173,34 @@ export default {
             }
         },
         // Metodo per inviare il preventivo tramite email (passo dallo step 3 allo step 4)
-        sendEmail() {
+        async sendEmail() {
 
             // Assegno email cliente
             //this.newEmail.clientEmail = this.newClient.email;
             //this.newEmail.order_id = this.clientId;
 
             // Chiamata API per inviare email con le informazioni del preventivo
-            axios.post(this.store.apiUrl + 'email/' + this.store.clientId, this.newEmail)
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
+            try {
+                // Eseguo la chiamata API
+                const response = await fetch(`${this.store.apiUrl}email/${this.store.clientId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.newEmail) // Converte l'oggetto newEmail in JSON
+                });
 
-                    if (success) {
-                        console.log("Email inviata con successo");
-                    }
-                })
-                .catch(error => console.error(error)); // error.response.data
+                // Converte la risposta in JSON
+                const data = await response.json();
+                const success = data.success;
+
+                if (success) {
+                    console.log("Email inviata con successo");
+                }
+            } catch (error) {
+                // Gestisce gli errori
+                console.error('Errore durante l\'invio dell\'email:', error);
+            } // error.response.data
 
             // Incremento currentStep
             this.store.currentStep++;

@@ -3,9 +3,6 @@
 // Importo store
 import { store } from '../store';
 
-// Importo axios
-import axios from 'axios';
-
 export default {
     name: 'PrimoStepPreventivo',
     props: {
@@ -105,43 +102,47 @@ export default {
                 // this.newEmail.client_email = this.newClient.client_email;
 
                 // Funzione setTimeout per eseguire azioni dopo tot secondi (2 in questo caso)
-                setTimeout(() => {
-
-                    // Eseguo chiamata api
-                    axios.post(this.store.apiUrl + 'client/store', this.newClient)
-                        .then(res => {
-                            const data = res.data;
-                            const success = data.success;
-                            const response = data.response;
-
-                            this.store.clientId = response.client_id;
-
-                            // Salvo clientId in localStorage cosi' non ci sono problemi se dovessi aggiornare la pagina
-                            if (this.store.clientId) {
-                                sessionStorage.setItem("ClientId", this.store.clientId.toString());
-                            }
-
-                            // Se tutto e' andato a buon fine richiamo richiamo getClient
-                            if (success) {
-
-                                // Incremento il valore di currentStep
-                                this.store.currentStep++;
-
-                                // Aggiorno valore currentStep in localStorage
-                                sessionStorage.setItem("CurrentStep", this.store.currentStep.toString());
-
-                                // Scrollo in alto per evitare problemi di visualizzazione pagina
-                                this.scrollToTop();
-
-                                this.getClient();
-                            }
-
-                        })
-                        .catch(error => {
-                            console.error(error);
-                            // Faccio apparire messaggio di errore
-                            this.store.showError = true;
+                setTimeout(async () => {
+                    try {
+                        // Eseguo la chiamata API
+                        const response = await fetch(this.store.apiUrl + 'client/store', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(this.newClient) // Converte newClient in JSON
                         });
+
+                        // Converte la risposta in JSON
+                        const data = await response.json();
+                        const success = data.success;
+                        const responseData = data.response; // Modificato da "response" a "responseData" per evitare conflitti
+
+                        this.store.clientId = responseData.client_id;
+
+                        // Salvo clientId in sessionStorage così non ci sono problemi se dovessi aggiornare la pagina
+                        if (this.store.clientId) {
+                            sessionStorage.setItem("ClientId", this.store.clientId.toString());
+                        }
+
+                        // Se tutto è andato a buon fine richiamo getClient
+                        if (success) {
+                            // Incremento il valore di currentStep
+                            this.store.currentStep++;
+
+                            // Aggiorno valore currentStep in sessionStorage
+                            sessionStorage.setItem("CurrentStep", this.store.currentStep.toString());
+
+                            // Scrollo in alto per evitare problemi di visualizzazione pagina
+                            this.scrollToTop();
+
+                            this.getClient();
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        // Faccio apparire messaggio di errore
+                        this.store.showError = true;
+                    }
                 }, 2000);
             }
 

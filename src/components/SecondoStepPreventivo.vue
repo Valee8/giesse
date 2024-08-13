@@ -3,11 +3,6 @@
 // Importo store
 import { store } from '../store';
 
-// Importo axios
-import axios from 'axios';
-
-//const imagePrefix = process.env.NODE_ENV === 'production' ? '/giesse/' : '';
-
 export default {
     name: 'SecondoStepPreventivo',
     props: {
@@ -475,7 +470,7 @@ export default {
             }
         },
         // Metodo per aggiungere una zanzariera
-        addZanz() {
+        async addZanz() {
 
             // Se i campi dei valori di newOrder non sono vuoti
             if (this.newOrder.model_name !== "" && this.newOrder.width !== "" && this.newOrder.height !== "" && this.newOrder.quantity !== "" && this.newOrder.net !== "" && this.newOrder.color_name !== "") {
@@ -487,21 +482,29 @@ export default {
                 this.newOrder.client_id = this.store.clientId;
 
                 // Chiamata API per creare un nuovo ordine
-                axios.post(this.store.apiUrl + 'order/store', this.newOrder)
-                    .then(res => {
-                        const data = res.data;
-                        const success = data.success;
-
-                        // Se tutto e' andato a buon fine richiamo this.getOrder e faccio apparire il popup
-                        if (success) {
-                            this.getOrder();
-                        }
-
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                        this.store.showError = true;
+                try {
+                    // Eseguo la chiamata API
+                    const response = await fetch(`${this.store.apiUrl}order/store`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(this.newOrder) // Converte newOrder in JSON
                     });
+
+                    // Converte la risposta in JSON
+                    const data = await response.json();
+                    const success = data.success;
+
+                    // Se tutto è andato a buon fine richiamo this.getOrder e faccio apparire il popup
+                    if (success) {
+                        this.getOrder();
+                    }
+                } catch (error) {
+                    // Gestisce gli errori
+                    console.error('Errore durante la chiamata API:', error);
+                    this.store.showError = true;
+                }
 
                 setTimeout(() => {
                     // Faccio comparire il popup
@@ -557,24 +560,27 @@ export default {
             }
         },
         // Metodo per eliminare un ordine
-        deleteModel(order) {
+        async deleteModel(order) {
 
-            // Chiamata API per eliminare ordine
-            axios.delete(this.store.apiUrl + 'delete/' + order.id)
-                .then(res => {
-                    const data = res.data;
-                    const success = data.success;
+            try {
+                // Eseguo la chiamata API
+                const response = await fetch(`${this.store.apiUrl}delete/${orderId}`, {
+                    method: 'DELETE'
+                });
 
-                    // Richiamo getOrder
-                    if (success) {
+                // Converte la risposta in JSON
+                const data = await response.json();
+                const success = data.success;
 
-                        this.getOrder();
-                        // Faccio apparire messaggio
-                        this.textSuccessMessage = "Ordine eliminato con successo!";
-
-                    }
-                })
-                .catch(error => console.error(error));
+                // Se tutto è andato a buon fine richiamo getOrder e faccio apparire il messaggio
+                if (success) {
+                    this.getOrder();
+                    this.textSuccessMessage = "Ordine eliminato con successo!";
+                }
+            } catch (error) {
+                // Gestisce gli errori
+                console.error('Errore durante la chiamata API:', error);
+            }
 
             setTimeout(() => {
                 // Nascondo popup
@@ -588,7 +594,7 @@ export default {
 
         },
         // Metodo per passare dal secondo al terzo step (bottone "Completa le Zanzariere")
-        orderSubmit() {
+        async orderSubmit() {
 
             // Se orders contiene elementi allora posso proseguire
             if (this.store.orders.length !== 0) {
@@ -598,21 +604,28 @@ export default {
                 //Se il messaggio e' presente
                 if (this.message) {
                     // Chiamata api per modificare il messaggio (inizialmente vuoto)
-                    axios.post(this.store.apiUrl + 'message/update/' + this.store.clientId, {
-                        message: this.message
-                    })
-                        .then(res => {
-                            const data = res.data;
-                            const success = data.success;
+                    try {
+                        // Eseguo la chiamata API
+                        const response = await fetch(`${this.store.apiUrl}message/update/${this.store.clientId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ message: this.message }) // Converte message in JSON
+                        });
 
-                            // Se success = true richiamo getClient, aggiorno dati cliente
-                            if (success) {
-                                // Aggiorno dati
-                                this.getClient();
-                            }
+                        // Converte la risposta in JSON
+                        const data = await response.json();
+                        const success = data.success;
 
-                        })
-                        .catch(error => console.error(error));
+                        // Se success = true richiamo getClient, aggiorno dati cliente
+                        if (success) {
+                            this.getClient();
+                        }
+                    } catch (error) {
+                        // Gestisce gli errori
+                        console.error('Errore durante la chiamata API:', error);
+                    }
                 }
 
                 // Incremento currentStep
@@ -629,30 +642,38 @@ export default {
             }
         },
         // Metodo per modificare effettivamente l'ordine
-        editOrder(order) {
+        async editOrder(order) {
 
             // Se ogni valore non contiene spazi vuoti
             if (order.model_name.trim() !== "" && order.net.trim() !== "" && order.width.trim() !== "" && order.height.trim() !== "") {
 
                 // Chiamata per moodificare i dati
-                axios.post(this.store.apiUrl + 'orders/update/' + order.id, order)
-                    .then(res => {
-                        const data = res.data;
-                        const success = data.success;
-
-                        // Se success = true richiamo getClient, aggiorno dati cliente
-                        if (success) {
-                            // Aggiorno dati
-                            this.getOrder();
-
-                            // Faccio apparire messaggio
-                            this.textSuccessMessage = "Modifiche effettuate con successo!";
-                        }
-
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
+                try {
+                    // Eseguo la chiamata API
+                    const response = await fetch(`${this.store.apiUrl}orders/update/${order.id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(order) // Converte l'oggetto order in JSON
                     });
+
+                    // Converte la risposta in JSON
+                    const data = await response.json();
+                    const success = data.success;
+
+                    // Se success = true richiamo getOrder, aggiorno dati cliente
+                    if (success) {
+                        // Aggiorno dati
+                        this.getOrder();
+
+                        // Faccio apparire messaggio
+                        this.textSuccessMessage = "Modifiche effettuate con successo!";
+                    }
+                } catch (error) {
+                    // Gestisce gli errori
+                    console.error('Errore durante la chiamata API:', error);
+                }
 
                 setTimeout(() => {
                     // C'e' un popup attivo quindi metto activePopup a true
@@ -808,7 +829,7 @@ export default {
         this.newOrder.typology = this.zanzs[0].name;
 
         this.getOrder();
-    }
+    },
 }
 </script>
 
