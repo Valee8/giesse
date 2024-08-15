@@ -19,6 +19,8 @@ export default {
         return {
             store,
 
+            colorClass: "",
+
             // Messaggio di avvenuto successo di aggiunta, aggiorna e eliminazione ordine
             textSuccessMessage: "",
 
@@ -109,7 +111,7 @@ export default {
                 {
                     name: "Verticali a molla (cricchetto)",
                     typo: "Verticali",
-                    image: "img/zanzariere/laura.webp",
+                    image: "img/zanzariere/laura.jpg",
                     active: false,
                     activeSelect: false,
                     models: [
@@ -798,8 +800,13 @@ export default {
                 this.newOrder.color_name = this.store.colors[index].colorInfo[colorIndex].name;
             }
         },
+        imageLoading() {
+            this.colorClass = "visible";
+        },
         // Cambio colore cliccando il nome della tipologia
         changeColorTypology(index) {
+
+            this.colorClass = "";
 
             this.store.colors[index].active = true;
 
@@ -950,7 +957,8 @@ export default {
                         <input type="radio" name="color_name" @change="getColor(typoIndex, colorIndex)"
                             :required="fixRequiredProblem" class="radio" :disabled="store.activePopup">
                         <!-- Immagine colore -->
-                        <img :src="color.image" :alt="'Colore ' + color.name" class="color-image" loading="lazy">
+                        <img :src="color.image" :alt="'Colore ' + color.name" class="color-image" loading="lazy"
+                            @load="imageLoading" :class="colorClass">
 
                         <!-- Nome colore -->
                         <div class="color-name">
@@ -1796,6 +1804,12 @@ export default {
                 position: relative;
                 z-index: 20;
                 object-fit: cover;
+                opacity: 0;
+                transition: all 1s ease-in-out;
+
+                &.visible {
+                    opacity: 1;
+                }
             }
         }
 

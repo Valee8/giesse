@@ -10,9 +10,13 @@ export default {
             store,
             // Nome classe css che assegno all'elemento corrente del menu'
             activeSection: "",
+            logoClass: "",
         }
     },
     methods: {
+        imageLoading() {
+            this.logoClass = "visible";
+        },
         // Metodo showSubmenu per mostrare il sottomenu quando viene cliccata la scritta "Zanzariere" nel nav
         showSubmenu() {
             // Se submenu (presente nel file store.js) e' false
@@ -129,7 +133,8 @@ export default {
                     <!-- Logo sulla sinistra -->
                     <li>
                         <router-link :to="{ name: 'home' }" class="logo">
-                            <img :src="store.logo.image" :alt="store.logo.alt" width="155" height="32">
+                            <img :src="store.logo.image" :alt="store.logo.alt" width="155" height="32" loading="lazy"
+                                @load="imageLoading" :class="logoClass">
                         </router-link>
                     </li>
 
@@ -323,6 +328,15 @@ export default {
         height: 32px;
         display: block;
         margin-right: 40px;
+
+        img {
+            opacity: 0;
+            transition: all 1s ease-in-out;
+
+            &.visible {
+                opacity: 1;
+            }
+        }
     }
 
     .bg {

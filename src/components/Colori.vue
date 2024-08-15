@@ -13,6 +13,9 @@ export default {
         }
     },
     methods: {
+        imageLoading() {
+            this.colorClass = "visible";
+        },
         // Metodo per cambiare colore cliccando il nome della tipologia
         changeColorTypology(index) {
 
@@ -20,9 +23,9 @@ export default {
             this.colorClass = "";
 
             // Faccio apparire i colori aggiungendo la classe visible dopo 200 ms
-            setTimeout(() => {
+            /* setTimeout(() => {
                 this.colorClass = "visible";
-            }, 200);
+            }, 200); */
 
             // Assegno true all'active dell'elemento corrente dell'array colors (presente nel file store.js)
             this.store.colors[index].active = true;
@@ -38,9 +41,9 @@ export default {
     created() {
 
         // Faccio apparire i colori aggiungendo la classe visible dopo 200 ms (per l'elemento 0 quindi i colori Standard)
-        setTimeout(() => {
+        /* setTimeout(() => {
             this.colorClass = "visible";
-        }, 200);
+        }, 200); */
 
         // All'avvio della pagina dovra' essere sempre il primo elemento quello corrente, lo faccio tramite questi codici
         for (let i = 0; i < this.store.colors.length; i++) {
@@ -110,7 +113,7 @@ export default {
                     <div v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                         <!-- Immagine colore -->
                         <img :src="color.image" :alt="'Immagine colore ' + color.name" class="color-image"
-                            :class="colorClass" loading="lazy">
+                            :class="colorClass" loading="lazy" @load="imageLoading">
 
                         <!-- <div class="loading" :class="loadingClass">
                             <div class="spinner">

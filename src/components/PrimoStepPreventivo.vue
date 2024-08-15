@@ -93,31 +93,6 @@ export default {
         // Metodo per creare nuovo cliente
         clientSubmit() {
 
-            /* grecaptcha.enterprise.ready(async () => {
-                const token = await grecaptcha.enterprise.execute('6LfDrCUqAAAAAADXQSzGllsNv2CN30e0v6qE0xPZ');
-
-                const jsonToken = JSON.stringify({ recaptchaToken: token });
-
-                try {
-                    const response = await fetch(this.store.apiUrl + 'verify-recaptcha', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: jsonToken
-                    });
-
-                    const result = response;
-
-                    if (result.ok) {
-                        // Procedi con la logica successiva, ad esempio inviare il modulo
-                        console.log('Verifica reCAPTCHA riuscita:', result);
-                    } else {
-                        console.error('Verifica reCAPTCHA fallita:', result);
-                    }
-                } catch (error) {
-                    console.error('Errore nella richiesta:', error.response);
-                }
-            }); */
-
             // Se firstStepValid e' true
             if (this.firstStepValid) {
 

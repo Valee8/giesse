@@ -13,7 +13,8 @@ export default {
     },
     data() {
         return {
-            store
+            store,
+            imageClass: ""
         }
     },
     mounted() {
@@ -32,6 +33,9 @@ export default {
         }
     },
     methods: {
+        imageLoading() {
+            this.imageClass = "visible";
+        },
         hoverSlider(slideIndex, modelIndex) {
 
             this.store.slider[slideIndex].models[modelIndex].hover = true;
@@ -173,7 +177,8 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="slide.image" :alt="'Immagine zanzariera ' + slide.typology" class="slide-image"
-                            :width="slide.width" :height="slide.height" loading="lazy">
+                            :width="slide.width" :height="slide.height" loading="lazy" @load="imageLoading"
+                            :class="imageClass">
 
                         <!-- Icona freccia indietro -->
                         <a class="arrow left" @click="prev(slideIndex)">

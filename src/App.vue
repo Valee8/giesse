@@ -689,6 +689,12 @@ section {
                     .slide-image {
                         width: 180px;
                         height: 220px;
+                        opacity: 0;
+                        transition: all 1s ease-in-out;
+
+                        &.visible {
+                            opacity: 1;
+                        }
 
                         &.fissa {
                             width: 180px;
