@@ -42,6 +42,7 @@ export default {
     },
     data() {
         return {
+            bgClass: "",
             // store (dall'import di store.js)
             store,
         }
@@ -56,6 +57,9 @@ export default {
         }
     },
     methods: {
+        onImageLoad() {
+            this.bgClass = "loaded";
+        },
         changeRoute() {
             this.store.showPopupExitRoutePreventivo = false;
             this.store.activePopup = false;
@@ -112,7 +116,6 @@ export default {
         },
     },
     created() {
-
         this.store.clientId = sessionStorage.getItem("ClientId");
     },
     mounted() {
@@ -162,7 +165,10 @@ export default {
     </div>
 
     <section class="thank-you"
-        :class="{ 'not-step': store.currentStep !== 4, 'error-step-bottom': store.currentStep === 1 || !store.clientId }">
+        :class="{ 'not-step': store.currentStep !== 4, 'error-step-bottom': store.currentStep === 1 || !store.clientId }, bgClass">
+
+        <img src="/img/sfondi-e-logo/sfondo-ringraziamento.jpg" alt="Immagine Ringraziamento" class="image"
+            loading="lazy" @load="onImageLoad" v-if="store.currentStep == 4">
 
         <div class="container">
 
@@ -264,9 +270,25 @@ section {
 
     // Immagine di sfondo temporanea e sfocata che appare fino a quando l'immagine vera non ha caricato completamente
     &.thank-you {
-        background-image: url('/img/sfondi-e-logo/sfondo-ringraziamento.jpg');
+        background-image: url('/img/sfondi-e-logo/ringraziamento-sfoc.jpg');
         background-size: cover;
         position: relative;
+
+        .image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        &.loaded {
+            .image {
+                opacity: 1;
+            }
+        }
 
         &.not-step {
             background-image: none;

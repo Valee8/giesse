@@ -34,6 +34,7 @@ export default {
     },
     data() {
         return {
+            bgClass: "",
             store,
             // Array contenente le faq
             faqs: [
@@ -68,6 +69,11 @@ export default {
                     return store.linksNav[i].text;
             }
         }
+    },
+    methods: {
+        onImageLoad() {
+            this.bgClass = "loaded";
+        }
     }
 }
 </script>
@@ -75,7 +81,10 @@ export default {
 <template>
     <section class>
         <!-- Parte in alto con immagine come sfondo -->
-        <div class="bg-section">
+        <div class="bg-section" :class="bgClass">
+
+            <img src="/img/sfondi-e-logo/sfondo-faq.jpg" alt="Immagine Contatti" class="image" loading="lazy"
+                @load="onImageLoad">
 
             <div class="container">
                 <div class="section-title">
@@ -179,12 +188,28 @@ export default {
 
 // Contiene l'immagine sfocata e a bassa risoluzione delle faq come sfondo, che apparira' temporaneamente fino a quando non verra' caricata la vera immagine
 .bg-section {
-    background-image: url('/img/sfondi-e-logo/sfondo-faq.jpg');
+    background-image: url('/img/sfondi-e-logo/faq-sfoc.jpg');
     background-size: cover;
     background-position: center;
     height: 414px;
     width: 100%;
     position: relative;
+
+    &.loaded {
+        .image {
+            opacity: 1;
+        }
+    }
+
+    .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
     .section-title {
 

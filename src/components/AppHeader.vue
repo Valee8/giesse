@@ -28,6 +28,7 @@ export default {
     },
     data() {
         return {
+            swiperClass: "",
             modules: [EffectFade, Autoplay, Pagination],
             lastTimestamp: null,
             animationFrameId: null,
@@ -44,6 +45,7 @@ export default {
                     typo: "laterali",
                     hash: "#jolly-" + 4,
                     active: true,
+                    src: "/img/sfondi-e-logo/jumbotron1.jpg"
                 },
                 {
                     order: "second",
@@ -51,99 +53,27 @@ export default {
                     typo: "verticali",
                     hash: "#laura-" + 1,
                     active: false,
+                    src: "/img/sfondi-e-logo/jumbotron2.jpg"
                 },
                 {
                     order: "third",
                     nameZanz: "Luna, con guida arrotondata da 14mm",
                     typo: "laterali",
                     hash: "#luna-" + 2,
-                    active: false
+                    active: false,
+                    src: "/img/sfondi-e-logo/jumbotron3.jpg"
                 },
                 {
                     order: "fourth",
                     nameZanz: "Zelig, con guida inferiore da 3mm",
                     typo: "laterali",
                     hash: "#zelig-" + 3,
-                    active: false
+                    active: false,
+                    src: "/img/sfondi-e-logo/jumbotron4.jpg"
                 }
             ]
         }
     },
-    /* methods: {
-        // Metodo per far scorrere lo slider
-        animateSlider(timestamp) {
-
-            if (!this.isMouseOver) {
-                if (!this.lastTimestamp) {
-                    this.lastTimestamp = timestamp;
-                }
-
-                const deltaTime = timestamp - this.lastTimestamp;
-
-                if (deltaTime >= 6000) {
-
-                    if (this.currentSlideIndex < this.sliderContent.length - 1) {
-                        this.currentSlideIndex++;
-                    }
-                    else {
-                        this.currentSlideIndex = 0;
-                    }
-
-                    // Assegno true all'active dello slider corrente
-                    this.sliderContent[this.currentSlideIndex].active = true;
-
-                    // Scorro l'array sliderContent con for e assegno false a tutti gli altri active che non sono correnti
-                    for (let i = 0; i < this.sliderContent.length; i++) {
-                        if (i !== this.currentSlideIndex) {
-                            this.sliderContent[i].active = false;
-                        }
-                    }
-
-                    this.lastTimestamp = timestamp;
-
-                }
-
-                this.animationFrameId = requestAnimationFrame(this.animateSlider);
-            }
-
-        },
-        startSlider() {
-            // Assegno a isMouseOver false in modo che lo slider riprenda a funzionare ogni volta che levo il puntatore
-            this.isMouseOver = false;
-
-            this.animationFrameId = requestAnimationFrame(this.animateSlider);
-        },
-        // Metodo per bloccare lo slider se ci vado sopra con il puntatore
-        stopSlider() {
-
-            // Assegno true a isMouseOver per bloccare lo slider
-            if (this.animationFrameId !== null) {
-                this.isMouseOver = true;
-                cancelAnimationFrame(this.animationFrameId);
-            }
-        },
-        handleVisibilityChange() {
-            if (document.hidden) {
-                // La pagina è diventata non visibile
-                this.stopSlider(); // Interrompi l'animazione quando la pagina diventa non visibile
-            } else {
-                // La pagina è diventata visibile
-                this.startSlider(); // Riavvia l'animazione quando la pagina diventa visibile
-            }
-        },
-    }, */
-    // Richiamo il metodo changeSlide su mounted
-    /* mounted() {
-
-        document.addEventListener('visibilitychange', this.handleVisibilityChange);
-        this.startSlider();
-
-    },
-
-    beforeDestroy() {
-        document.removeEventListener('visibilitychange', this.handleVisibilityChange);
-        this.stopSlider(); // Interrompi l'animazione prima che il componente venga distrutto
-    }, */
     methods: {
         onSwiper(swiper) {
             this.swiperInstance = swiper;
@@ -153,6 +83,9 @@ export default {
         },
         startAutoplay() {
             this.swiperInstance.autoplay.start();
+        },
+        onImageLoad() {
+            this.swiperClass = "loaded";
         }
     }
 }
@@ -175,7 +108,10 @@ export default {
         }" :loop="true" :allowTouchMove="false" :modules="modules" class="slider-home" v-if="$route.name === 'home'"
             @swiper="onSwiper" :speed="1000">
 
-            <SwiperSlide v-for="(slider, index) in sliderContent" :key="index" :class="slider.order">
+            <SwiperSlide v-for="(slider, index) in sliderContent" :key="index" :class="swiperClass">
+
+                <img :src="slider.src" alt="Immagine Jumbotron" class="image" :class="{ 'second': index === 1 }"
+                    loading="lazy" @load="onImageLoad">
 
                 <div class="container">
                     <!-- Contenuto header -->
@@ -222,9 +158,31 @@ export default {
 @use '../src/styles/partials/variables' as *;
 
 .swiper-slide {
+    background-image: url('/img/sfondi-e-logo/jumbotron1-sfoc.jpg');
     width: 100%;
+    position: relative;
 
-    &.first {
+    .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+
+        &.second {
+            margin-top: -1px;
+        }
+    }
+
+    &.loaded {
+        .image {
+            opacity: 1;
+        }
+    }
+
+    /*&.first {
         background-image: url('/img/sfondi-e-logo/jumbotron1.jpg');
     }
 
@@ -240,7 +198,7 @@ export default {
 
     &.fourth {
         background-image: url('/img/sfondi-e-logo/jumbotron4.jpg');
-    }
+    }*/
 }
 
 .slider-home {
