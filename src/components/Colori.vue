@@ -110,7 +110,7 @@ export default {
                     <div v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
                         <!-- Immagine colore -->
                         <img :src="color.image" :alt="'Immagine colore ' + color.name" class="color-image"
-                            :class="colorClass">
+                            :class="colorClass" loading="lazy">
 
                         <!-- <div class="loading" :class="loadingClass">
                             <div class="spinner">

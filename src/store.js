@@ -622,7 +622,7 @@ export const store = reactive({
                 },
                 {
                     name: "Castano",
-                    image: "/public/img/colori/castano.jpg"
+                    image: "/img/colori/castano.jpg"
                 },
                 {
                     name: "Renolit Chiaro Sublimall",

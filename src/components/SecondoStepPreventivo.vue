@@ -791,7 +791,6 @@ export default {
             }
         },
 
-
         // getColor mi permette di ottenere il nome e l'immagine del colore selezionati nello step 2
         getColor(index, colorIndex) {
             for (let i = 0; i < this.store.colors.length; i++) {
@@ -809,7 +808,6 @@ export default {
                     this.store.colors[i].active = false;
                 }
             }
-
         },
 
         // Impedisco che questi campi possano contenere lettere
@@ -827,6 +825,14 @@ export default {
     mounted() {
         // Ottengo valore tipologia
         this.newOrder.typology = this.zanzs[0].name;
+
+        this.store.colors[0].active = true;
+
+        for (let i = 0; i < this.store.colors.length; i++) {
+            if (i !== 0) {
+                this.store.colors[i].active = false;
+            }
+        }
 
         this.getOrder();
     },
