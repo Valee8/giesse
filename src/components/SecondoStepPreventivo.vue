@@ -629,7 +629,7 @@ export default {
                 }
 
                 // Incremento currentStep
-                this.store.currentStep++;
+                this.store.currentStep = 3;
 
                 // Aggiorno valore currentStep in localStorage
                 sessionStorage.setItem("CurrentStep", this.store.currentStep.toString());
@@ -944,7 +944,7 @@ export default {
                         <input type="radio" name="color_name" @change="getColor(typoIndex, colorIndex)"
                             :required="fixRequiredProblem" class="radio" :disabled="store.activePopup">
                         <!-- Immagine colore -->
-                        <img :src="color.image" :alt="'Colore ' + color.name" class="color-image">
+                        <img :src="color.image" :alt="'Colore ' + color.name" class="color-image" loading="lazy">
 
                         <!-- Nome colore -->
                         <div class="color-name">

@@ -30,18 +30,19 @@ export default {
     <!-- Quarto e ultimo step -->
     <div class="fourth-step">
 
-        <div class="first">
-            <div>Grazie</div> per aver scelto la qualità <div>con un preventivo</div>
-        </div>
+        <p class="first">
+            <span>Grazie</span> per aver scelto la qualità con un preventivo
+        </p>
 
-        <div class="second">
-            <div>La <span>Giesse Zanzariere</span> ti contatterà</div>
-            <div>il prima possibile</div>
-        </div>
+        <p class="second">
+            La <span class="yellow">Giesse Zanzariere</span> ti contatterà
+            il prima possibile
+        </p>
 
-        <div class="third">
+        <p class="third">
             Tutte le informazioni sono state inviate per email
-        </div>
+        </p>
+
         <router-link :to="{ name: store.textHome.toLowerCase() }" class="button">
             Torna alla Homepage
         </router-link>
@@ -58,18 +59,31 @@ export default {
     text-align: center;
     color: #fff;
     font-size: 2rem;
-    padding: 80px 0;
+    padding: 0 0 80px 0;
+
+    p {
+        margin: 0 auto;
+
+        span {
+            &:not(.yellow) {
+                display: block;
+            }
+        }
+    }
 
     .first {
         font-size: 3.9rem;
         padding: 5px 0;
         font-weight: 600;
+        max-width: 900px;
     }
 
     .second {
         font-size: 2.1rem;
         padding: 10px 0 25px 0;
         font-weight: 500;
+        max-width: 620px;
+        margin: 0 auto;
     }
 
     .third {
@@ -78,7 +92,7 @@ export default {
         font-weight: 500;
     }
 
-    span {
+    .yellow {
         color: $yellow-color;
     }
 

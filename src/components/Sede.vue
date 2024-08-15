@@ -74,7 +74,7 @@ export default {
             loading="lazy"></iframe>
 
         <div v-else class="loading">
-            Caricamento...
+            <img src="/img/sfondi-e-logo/loading.gif" alt="Immagine caricamento" width="150" height="150">
         </div>
 
         <!-- Informazioni in basso -->

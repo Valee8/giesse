@@ -14,6 +14,8 @@ export default {
         return {
             store,
 
+            terms: false,
+
             messageWaiting: "",
 
             // Oggetto che contiene le informazioni di un cliente
@@ -61,7 +63,7 @@ export default {
             let enableButtonFirstStep = false;
 
             // Se email, email di conferma, numero di telefono e comune non hanno spazi vuoti all'inizio alla fine e se email e email di conferma coincidono allora assegno true a enableButton
-            if (this.newClient.client_email.trim() !== "" && this.newClient.confirm_client_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.client_email === this.newClient.confirm_client_email && this.newClient.client_email.includes("@") && this.newClient.confirm_client_email.includes("@") && this.newClient.telephone_number.length === 10) {
+            if (this.newClient.client_email.trim() !== "" && this.newClient.confirm_client_email.trim() !== "" && this.newClient.telephone_number.trim() !== "" && this.newClient.city_of_residence.trim() !== "" && this.newClient.client_email === this.newClient.confirm_client_email && this.newClient.client_email.includes("@") && this.newClient.confirm_client_email.includes("@") && this.newClient.telephone_number.length === 10 && this.terms === true) {
                 enableButtonFirstStep = true;
             }
 
@@ -85,9 +87,36 @@ export default {
         scrollToTop() {
             window.scrollTo(0, 0);
         },
-
+        selectTerms(event) {
+            this.terms = event.target.checked;
+        },
         // Metodo per creare nuovo cliente
         clientSubmit() {
+
+            /* grecaptcha.enterprise.ready(async () => {
+                const token = await grecaptcha.enterprise.execute('6LfDrCUqAAAAAADXQSzGllsNv2CN30e0v6qE0xPZ');
+
+                const jsonToken = JSON.stringify({ recaptchaToken: token });
+
+                try {
+                    const response = await fetch(this.store.apiUrl + 'verify-recaptcha', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: jsonToken
+                    });
+
+                    const result = response;
+
+                    if (result.ok) {
+                        // Procedi con la logica successiva, ad esempio inviare il modulo
+                        console.log('Verifica reCAPTCHA riuscita:', result);
+                    } else {
+                        console.error('Verifica reCAPTCHA fallita:', result);
+                    }
+                } catch (error) {
+                    console.error('Errore nella richiesta:', error.response);
+                }
+            }); */
 
             // Se firstStepValid e' true
             if (this.firstStepValid) {
@@ -128,7 +157,7 @@ export default {
                         // Se tutto è andato a buon fine richiamo getClient
                         if (success) {
                             // Incremento il valore di currentStep
-                            this.store.currentStep++;
+                            this.store.currentStep = 2;
 
                             // Aggiorno valore currentStep in sessionStorage
                             sessionStorage.setItem("CurrentStep", this.store.currentStep.toString());
@@ -266,8 +295,14 @@ Le email devono avere il formato corretto
             </div>
 
             <!-- Bottone completa i dati -->
+
+            <label class="label-checkbox">
+                <input type="checkbox" name="terms" value="agree" class="checkbox" @change="selectTerms" required>
+                <span>Trattamento dei dati della privacy</span>
+            </label>
+
             <div class="form-button">
-                <input type="submit" @click.once="clientSubmit" class="button" value="Completa i dati">
+                <input type="submit" @click="clientSubmit" class="button" value="Completa i dati">
             </div>
 
         </div>
@@ -369,17 +404,48 @@ Le email devono avere il formato corretto
 
         }
 
-        label {
-            display: block;
-            text-align: left;
-            margin: 8px 0;
-            font-weight: 500;
-            font-size: 1.1rem;
+        .radios {
+            flex-grow: 1;
+
+            label {
+                display: block;
+                text-align: left;
+                margin: 8px 0;
+                font-weight: 500;
+                font-size: 1.1rem;
+                cursor: pointer;
+            }
+        }
+
+        input[type='checkbox'] {
+            appearance: none;
+            background-color: #fff;
+            font: inherit;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #333333;
             cursor: pointer;
         }
 
-        .radios {
-            flex-grow: 1;
+        input[type='checkbox']:checked {
+            appearance: auto
+        }
+
+        .label-checkbox {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .label-checkbox {
+
+            span {
+                font-weight: 500;
+                font-size: 0.7rem;
+                user-select: none;
+            }
         }
 
     }

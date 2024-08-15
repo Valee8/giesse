@@ -48,8 +48,10 @@ export default {
                     © Giesse. Tutti i diritti riservati.
                 </p>
 
-                <a href="https://www.iubenda.com/privacy-policy/78392068" target="_blank" title="Privacy Policy">Privacy
-                    Policy</a> - <a href="https://www.iubenda.com/privacy-policy/78392068/cookie-policy" target="_blank"
+                <a href="https://www.iubenda.com/privacy-policy/78392068"
+                    class="iubenda-white iubenda-embed iubenda-noiframe" id="policy" title="Privacy Policy">Privacy
+                    Policy</a> | <a href="https://www.iubenda.com/privacy-policy/78392068/cookie-policy"
+                    class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" id="policy"
                     title="Cookie Policy">Cookie
                     Policy</a>
             </div>
@@ -138,6 +140,16 @@ footer {
     padding: 30px 0;
     font-size: 0.75rem;
     line-height: 15px;
+
+    #policy {
+        background-color: transparent !important;
+        color: #fff !important;
+        background-image: none !important;
+        padding: 0 !important;
+        font-weight: 500 !important;
+        font-family: 'Montserrat', sans-serif !important;
+        box-shadow: none !important;
+    }
 
     a {
         color: #fff;

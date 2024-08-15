@@ -68,7 +68,7 @@ export default {
         // Per torna indietro dallo step 3 allo step 2
         prevStep() {
             // Decremento il valore di currentStep
-            this.store.currentStep--;
+            this.store.currentStep = 2;
 
             // Aggiorno valore currentStep in localStorage
             sessionStorage.setItem("CurrentStep", this.store.currentStep.toString());
@@ -182,7 +182,7 @@ export default {
             // Chiamata API per inviare email con le informazioni del preventivo
             try {
                 // Eseguo la chiamata API
-                const response = await fetch(`${this.store.apiUrl}email/${this.store.clientId}`, {
+                const response = fetch(`${this.store.apiUrl}email/${this.store.clientId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -203,7 +203,7 @@ export default {
             } // error.response.data
 
             // Incremento currentStep
-            this.store.currentStep++;
+            this.store.currentStep = 4;
 
             // Salvo valore di currentStep in localStorage
             sessionStorage.setItem("CurrentStep", this.store.currentStep.toString());
@@ -397,12 +397,12 @@ export default {
 
         <!-- Bottone per proseguire con lo step successivo -->
         <div class="form-button">
-            <button @click.once="prevStep" class="button">
+            <button @click="prevStep" class="button">
                 <span>
                     Torna indietro
                 </span>
             </button>
-            <input type="submit" @click.once="sendEmail" class="button" value="Completa">
+            <input type="submit" @click="sendEmail" class="button" value="Completa">
         </div>
     </div>
 </template>
