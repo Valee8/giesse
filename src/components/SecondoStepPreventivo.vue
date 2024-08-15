@@ -820,14 +820,15 @@ export default {
         // Impedisco che questi campi possano contenere lettere
         filterSizes(order) {
             if (this.showEditInputs === order.id) {
-                order.width = order.width.replace(/^[a-zA-Z]*$/g, "");
-                order.height = order.height.replace(/^[a-zA-Z]*$/g, "");
+                order.width = order.width.replace(/[a-zA-Z]/g, "");
+                order.height = order.height.replace(/[a-zA-Z]/g, "");
             }
             else {
-                this.newOrder.width = this.newOrder.width.replace(/^[a-zA-Z]*$/g, "");
-                this.newOrder.height = this.newOrder.height.replace(/^[a-zA-Z]*$/g, "");
+                this.newOrder.width = this.newOrder.width.replace(/[a-zA-Z]/g, "");
+                this.newOrder.height = this.newOrder.height.replace(/[a-zA-Z]/g, "");
             }
-        },
+        }
+
     },
     mounted() {
         // Ottengo valore tipologia
