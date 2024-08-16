@@ -182,16 +182,12 @@ export default {
             // Chiamata API per inviare email con le informazioni del preventivo
             try {
                 // Eseguo la chiamata API
-                const response = fetch(`${this.store.apiUrl}email/${this.store.clientId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(this.newEmail) // Converte l'oggetto newEmail in JSON
+                const response = await fetch(`${this.store.apiUrl}email/${this.store.clientId}`, {
+                    method: 'POST'
                 });
 
-                // Converte la risposta in JSON
                 const data = await response.json();
+
                 const success = data.success;
 
                 if (success) {

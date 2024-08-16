@@ -59,6 +59,39 @@ export default {
         }
     },
     methods: {
+        loadIubendaScripts() {
+            const script1 = document.createElement('script');
+            script1.src = "https://cs.iubenda.com/autoblocking/3730464.js";
+            script1.async = true;
+            //script1.onload = () => console.log('Script 1 caricato con successo');
+            //script1.onerror = () => console.error('Errore nel caricamento di Script 1');
+            document.body.appendChild(script1);
+
+            const script2 = document.createElement('script');
+            script2.src = "//cdn.iubenda.com/cs/iubenda_cs.js";
+            script2.async = true;
+            //script2.onload = () => console.log('Script 2 caricato con successo');
+            //script2.onerror = () => console.error('Errore nel caricamento di Script 2');
+            document.body.appendChild(script2);
+
+            const loader = () => {
+                const s = document.createElement('script');
+                s.src = 'https://cdn.iubenda.com/iubenda.js';
+                s.async = true; // Carica lo script in modo asincrono
+                //s.onload = () => console.log('Script Iubenda caricato con successo');
+                //s.onerror = () => console.error('Errore nel caricamento dello script Iubenda');
+                document.body.appendChild(s);
+            };
+
+            // Verifica se il documento è già caricato
+            if (document.readyState === 'loading') {
+                // Se il documento è ancora in fase di caricamento, usa l'evento 'DOMContentLoaded'
+                document.addEventListener('DOMContentLoaded', loader);
+            } else {
+                // Se il documento è già caricato, chiama direttamente il loader
+                loader();
+            }
+        },
         // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
         handleScroll() {
             if (window.scrollY > 1000) {
@@ -144,6 +177,9 @@ export default {
     destroyed() {
         // Rimuovo evento per lo scroll
         window.removeEventListener('scroll', this.handleScroll);
+    },
+    mounted() {
+        this.loadIubendaScripts();
     }
 }
 </script>
@@ -169,6 +205,17 @@ export default {
 @use '../src/styles/general.scss' as *;
 @use '../src/styles/partials/mixins' as *;
 @use '../src/styles/partials/variables' as *;
+
+#policy-footer,
+#cookie-footer {
+    background-image: none !important;
+    padding: 0 !important;
+    font-family: 'Montserrat', sans-serif !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    color: #fff !important;
+    font-weight: 500 !important;
+}
 
 .popup {
     display: flex;
@@ -361,6 +408,15 @@ section {
         text-align: center;
         max-width: 900px;
         margin: 0 auto;
+
+        .slide-image {
+            opacity: 0;
+            transition: all 1s ease-in-out;
+
+            &.visible {
+                opacity: 1;
+            }
+        }
 
         &.not-slider {
             padding-top: 80px;
@@ -689,12 +745,6 @@ section {
                     .slide-image {
                         width: 180px;
                         height: 220px;
-                        opacity: 0;
-                        transition: all 1s ease-in-out;
-
-                        &.visible {
-                            opacity: 1;
-                        }
 
                         &.fissa {
                             width: 180px;

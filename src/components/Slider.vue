@@ -33,9 +33,6 @@ export default {
         }
     },
     methods: {
-        imageLoading() {
-            this.imageClass = "visible";
-        },
         hoverSlider(slideIndex, modelIndex) {
 
             this.store.slider[slideIndex].models[modelIndex].hover = true;
@@ -47,12 +44,23 @@ export default {
         // Freccia avanti
         next(index) {
 
+            this.$refs.images[index].classList.remove("visible");
+
+            setTimeout(() => {
+                this.$refs.images[index].classList.add("visible");
+            }, 100);
+
+
             if (index < this.store.slider.length - 1) {
                 index++;
             }
 
             else {
                 index = 0;
+
+                this.$refs.images.forEach(element => {
+                    element.classList.remove("visible");
+                });
             }
 
             this.store.slider[index].active = true;
@@ -76,12 +84,21 @@ export default {
         // Freccia indietro
         prev(index) {
 
+            this.$refs.images[index].classList.remove("visible");
+
+            setTimeout(() => {
+                this.$refs.images[index].classList.add("visible");
+            }, 100);
+
             if (index <= this.store.slider.length - 1 && index > 0) {
                 index--;
             }
 
             else {
                 index = this.store.slider.length - 1;
+                this.$refs.images.forEach(element => {
+                    element.classList.remove("visible");
+                });
             }
 
             this.store.slider[index].active = true;
@@ -103,6 +120,15 @@ export default {
         },
         //Cambio slide premendo i rettangoli in alto
         changeSlide(index) {
+
+            this.$refs.images.forEach(element => {
+                element.classList.remove("visible");
+            });
+
+            setTimeout(() => {
+                this.$refs.images[index].classList.add("visible");
+            }, 100);
+
             for (let i = 0; i < this.store.slider.length; i++) {
                 if (i !== index) {
                     this.store.slider[i].active = false;
@@ -140,6 +166,12 @@ export default {
             // Ritorno slider
             return this.store.slider;
         }
+    },
+    mounted() {
+        setTimeout(() => {
+            this.$refs.images[0].classList.add("visible");
+        }, 100);
+
     }
 }
 </script>
@@ -177,8 +209,7 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="slide.image" :alt="'Immagine zanzariera ' + slide.typology" class="slide-image"
-                            :width="slide.width" :height="slide.height" loading="lazy" @load="imageLoading"
-                            :class="imageClass">
+                            :width="slide.width" :height="slide.height" loading="lazy" ref="images">
 
                         <!-- Icona freccia indietro -->
                         <a class="arrow left" @click="prev(slideIndex)">

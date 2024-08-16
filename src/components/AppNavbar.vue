@@ -14,8 +14,8 @@ export default {
         }
     },
     methods: {
-        imageLoading() {
-            this.logoClass = "visible";
+        onImageLoad() {
+            this.logoClass = "loaded";
         },
         // Metodo showSubmenu per mostrare il sottomenu quando viene cliccata la scritta "Zanzariere" nel nav
         showSubmenu() {
@@ -132,9 +132,9 @@ export default {
                 <ul class="ul-container">
                     <!-- Logo sulla sinistra -->
                     <li>
-                        <router-link :to="{ name: 'home' }" class="logo">
-                            <img :src="store.logo.image" :alt="store.logo.alt" width="155" height="32" loading="lazy"
-                                @load="imageLoading" :class="logoClass">
+                        <router-link :to="{ name: 'home' }" class="logo" :class="logoClass">
+                            <img src="/img/sfondi-e-logo/logo-giesse.jpg" :alt="store.logo.alt" width="155" height="32"
+                                loading="lazy" @load="onImageLoad">
                         </router-link>
                     </li>
 
@@ -328,12 +328,18 @@ export default {
         height: 32px;
         display: block;
         margin-right: 40px;
+        background-image: url('/img/sfondi-e-logo/logo-giesse-sfoc.png');
+        background-repeat: no-repeat;
+        background-size: cover;
 
         img {
             opacity: 0;
-            transition: all 1s ease-in-out;
+            object-fit: cover;
+        }
 
-            &.visible {
+        &.loaded {
+
+            img {
                 opacity: 1;
             }
         }

@@ -21,7 +21,7 @@ export default {
                 Ehi, forse hai rotto qualcosa!
             </p>
 
-            <img src="/img/sfondi-e-logo/glitch-404.gif" alt="Immagine pagina non trovata" width="150" height="57">
+            <img src="/img/sfondi-e-logo/glitch-404.gif" alt="Immagine pagina non trovata" width="190" height="80">
 
             <div>
                 <router-link to="/">

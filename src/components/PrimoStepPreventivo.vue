@@ -273,7 +273,11 @@ Le email devono avere il formato corretto
 
             <label class="label-checkbox">
                 <input type="checkbox" name="terms" value="agree" class="checkbox" @change="selectTerms" required>
-                <span>Trattamento dei dati della privacy</span>
+                <span>Trattamento dei dati della
+                    <a href="https://www.iubenda.com/privacy-policy/78392068" target="_blank" title="Privacy Policy">
+                        privacy</a>
+                </span>
+
             </label>
 
             <div class="form-button">
@@ -410,16 +414,29 @@ Le email devono avere il formato corretto
             margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
             cursor: pointer;
         }
 
         .label-checkbox {
 
+            a,
             span {
                 font-weight: 500;
                 font-size: 0.7rem;
                 user-select: none;
+                color: #000;
+            }
+
+            a {
+                font-weight: bold;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            span {
+                margin-left: 10px;
             }
         }
 
@@ -443,6 +460,17 @@ Le email devono avere il formato corretto
         color: #b9b9b9;
     }
 
+}
+
+@media only screen and (min-width: 441px) and (max-width: 700px) {
+    .first-step {
+        .first-step-right {
+            .radios {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    }
 }
 
 @media only screen and (min-width: 300px) and (max-width: 700px) {
@@ -470,17 +498,15 @@ Le email devono avere il formato corretto
             .radios {
                 position: absolute;
                 top: 25px;
-                //left: 50%;
-                //transform: translateX(-50%);
-            }
 
-            label {
-                top: 0;
-                font-size: 0.9rem;
-                display: inline-block;
 
-                &:last-child {
-                    padding-left: 30px;
+                label {
+                    font-size: 0.9rem;
+                    display: inline-block;
+
+                    &:last-child {
+                        margin-left: 20px;
+                    }
                 }
             }
 

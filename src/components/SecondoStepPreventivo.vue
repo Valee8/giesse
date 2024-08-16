@@ -1836,6 +1836,7 @@ export default {
     }
 
     [type=radio]:checked+.color-image {
+        transition: none;
         border: 3px solid $yellow-color;
     }
 }

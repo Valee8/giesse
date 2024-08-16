@@ -15,7 +15,8 @@ export default {
     },
     data() {
         return {
-            store
+            store,
+            imageClass: ""
         }
     },
     setup() {
@@ -45,6 +46,11 @@ export default {
         printImagePath() {
             return this.store.typologies[4].image;
         }
+    },
+    methods: {
+        imageLoading() {
+            this.imageClass = "visible";
+        },
     }
 }
 </script>
@@ -75,7 +81,7 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="printImagePath" alt="Immagine zanzariera Fissa" class="slide-image fissa" width="210"
-                            height="210">
+                            height="210" loading="lazy" @load="imageLoading" :class="imageClass">
                     </div>
 
                     <!-- Titolo - nome modello -->

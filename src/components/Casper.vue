@@ -35,6 +35,7 @@ export default {
     data() {
         return {
             store,
+            imageClass: "",
             casperList: [
                 "VERTICALE A MOLLA CLASSICA (CASPER A MOLLA)",
                 "VERTICALE A MOLLA CON SISTEMA A CRICCHETTO (CASPER A CRICCHETTO)",
@@ -56,6 +57,11 @@ export default {
         printImagePath() {
             return this.store.typologies[5].image;
         }
+    },
+    methods: {
+        imageLoading() {
+            this.imageClass = "visible";
+        },
     }
 }
 </script>
@@ -86,7 +92,8 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="printImagePath" alt="Immagine zanzariera con guida da incasso per falegnami"
-                            class="slide-image casper" width="210" height="280">
+                            class="slide-image casper" width="210" height="280" loading="lazy" @load="imageLoading"
+                            :class="imageClass">
                     </div>
 
                     <!-- Titolo - nome modello -->
