@@ -499,7 +499,6 @@ Le email devono avere il formato corretto
                 position: absolute;
                 top: 25px;
 
-
                 label {
                     font-size: 0.9rem;
                     display: inline-block;
@@ -510,7 +509,17 @@ Le email devono avere il formato corretto
                 }
             }
 
+            .label-checkbox {
+
+                span,
+                a {
+                    font-size: 0.6rem;
+                }
+            }
+
             .form-button {
+                margin: 0 auto;
+
                 .button {
                     width: 184px;
                     font-size: 0.9rem;

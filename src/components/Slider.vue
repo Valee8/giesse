@@ -14,10 +14,13 @@ export default {
     data() {
         return {
             store,
-            imageClass: ""
         }
     },
     mounted() {
+
+        setTimeout(() => {
+            this.store.sliderImageClass = "visible";
+        }, 100);
 
         for (let i = 0; i < this.store.slider.length; i++) {
             if (window.location.href.endsWith("laterali") || window.location.href.endsWith("verticali")) {
@@ -33,6 +36,9 @@ export default {
         }
     },
     methods: {
+        /* imageLoading() {
+            this.store.sliderImageClass = "visible";
+        }, */
         hoverSlider(slideIndex, modelIndex) {
 
             this.store.slider[slideIndex].models[modelIndex].hover = true;
@@ -44,11 +50,17 @@ export default {
         // Freccia avanti
         next(index) {
 
-            this.$refs.images[index].classList.remove("visible");
+            this.store.sliderImageClass = "";
+
+            setTimeout(() => {
+                this.store.sliderImageClass = "visible";
+            }, 100);
+
+            /* this.$refs.images[index].classList.remove("visible");
 
             setTimeout(() => {
                 this.$refs.images[index].classList.add("visible");
-            }, 100);
+            }, 100); */
 
 
             if (index < this.store.slider.length - 1) {
@@ -58,9 +70,9 @@ export default {
             else {
                 index = 0;
 
-                this.$refs.images.forEach(element => {
+                /* this.$refs.images.forEach(element => {
                     element.classList.remove("visible");
-                });
+                }); */
             }
 
             this.store.slider[index].active = true;
@@ -84,11 +96,17 @@ export default {
         // Freccia indietro
         prev(index) {
 
-            this.$refs.images[index].classList.remove("visible");
+            this.store.sliderImageClass = "";
+
+            setTimeout(() => {
+                this.store.sliderImageClass = "visible";
+            }, 100);
+
+            /* this.$refs.images[index].classList.remove("visible");
 
             setTimeout(() => {
                 this.$refs.images[index].classList.add("visible");
-            }, 100);
+            }, 100); */
 
             if (index <= this.store.slider.length - 1 && index > 0) {
                 index--;
@@ -96,9 +114,9 @@ export default {
 
             else {
                 index = this.store.slider.length - 1;
-                this.$refs.images.forEach(element => {
+                /* this.$refs.images.forEach(element => {
                     element.classList.remove("visible");
-                });
+                }); */
             }
 
             this.store.slider[index].active = true;
@@ -121,13 +139,19 @@ export default {
         //Cambio slide premendo i rettangoli in alto
         changeSlide(index) {
 
-            this.$refs.images.forEach(element => {
+            this.store.sliderImageClass = "";
+
+            setTimeout(() => {
+                this.store.sliderImageClass = "visible";
+            }, 100);
+
+            /* this.$refs.images.forEach(element => {
                 element.classList.remove("visible");
             });
 
             setTimeout(() => {
                 this.$refs.images[index].classList.add("visible");
-            }, 100);
+            }, 100); */
 
             for (let i = 0; i < this.store.slider.length; i++) {
                 if (i !== index) {
@@ -166,12 +190,6 @@ export default {
             // Ritorno slider
             return this.store.slider;
         }
-    },
-    mounted() {
-        setTimeout(() => {
-            this.$refs.images[0].classList.add("visible");
-        }, 100);
-
     }
 }
 </script>
@@ -209,7 +227,7 @@ export default {
                     <div class="div-image">
                         <!-- Immagine zanzariera -->
                         <img :src="slide.image" :alt="'Immagine zanzariera ' + slide.typology" class="slide-image"
-                            :width="slide.width" :height="slide.height" loading="lazy" ref="images">
+                            :width="slide.width" :height="slide.height" loading="lazy" :class="store.sliderImageClass">
 
                         <!-- Icona freccia indietro -->
                         <a class="arrow left" @click="prev(slideIndex)">

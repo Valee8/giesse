@@ -398,7 +398,7 @@ export default {
                     Torna indietro
                 </span>
             </button>
-            <input type="submit" @click="sendEmail" class="button" value="Completa">
+            <input type="submit" @click="sendEmail" class="button" value="Conferma">
         </div>
     </div>
 </template>
@@ -484,6 +484,10 @@ export default {
         text-align: center;
         position: relative;
         bottom: -22px;
+
+        .button {
+            border-radius: 20px;
+        }
     }
 }
 

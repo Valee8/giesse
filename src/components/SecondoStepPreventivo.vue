@@ -514,6 +514,7 @@ export default {
 
                     // C'e' un popup attivo quindi metto activePopup a true
                     this.store.activePopup = true;
+
                 }, 1000);
 
                 // Svuoto valori cosi' posso inserire nuove zanzariere
@@ -844,6 +845,25 @@ export default {
 
         this.getOrder();
     },
+    updated() {
+        // Se c'e' un popup attivo e quindi activePopup e' true allora aggiungo al body la classe active-popup che mi permette di bloccare all'utente ogni interazione con il body se non con il popup
+        if (this.store.activePopup) {
+            document.body.classList.add('active-popup');
+            //document.body.classList.remove("active-edit");
+        }
+        // Altrimenti rimuovo la classe
+        else {
+            document.body.classList.remove('active-popup');
+        }
+
+        // Se il messaggio d'errore e' presente rimuovo la classe dal body
+        if (this.store.showError) {
+            document.body.classList.remove('active-popup');
+
+            // Non c'e' un popup attivo quindi metto activePopup a false
+            this.store.activePopup = false;
+        }
+    }
 }
 </script>
 
@@ -859,7 +879,7 @@ export default {
         <!-- Parte sopra - slider -->
         <div class="inputs-top">
             <div class="slider-preventivo" v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex"
-                :class="{ 'active': zanz.active }">
+                :class="{ 'active': zanz.active, 'disabled': showEditInputs !== null }">
 
                 <!-- Titolo con modello zanzariera -->
                 <h3>
@@ -892,7 +912,7 @@ export default {
             <!-- Seleziona modello -->
             <div v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex">
                 <select v-if="zanz.active" :required="fixRequiredProblem" v-model="newOrder.model_name"
-                    :disabled="store.activePopup">
+                    :disabled="showEditInputs !== null">
                     <option value="" disabled selected hidden>
                         Seleziona il modello *
                     </option>
@@ -909,13 +929,15 @@ export default {
             <label>
                 Inserisci:
                 <input type="text" name="width" placeholder="Larghezza (in cm) *" v-model="newOrder.width"
-                    @input="filterSizes" :required="fixRequiredProblem" maxlength="6" :disabled="store.activePopup">
+                    @input="filterSizes" :required="fixRequiredProblem" maxlength="6"
+                    :disabled="showEditInputs !== null">
 
                 <input type="text" name="height" placeholder="Altezza (in cm) *" v-model="newOrder.height"
-                    @input="filterSizes" :required="fixRequiredProblem" maxlength="6" :disabled="store.activePopup">
+                    @input="filterSizes" :required="fixRequiredProblem" maxlength="6"
+                    :disabled="showEditInputs !== null">
 
                 <input type="number" name="quantity" placeholder="Quantità *" min="1" v-model="newOrder.quantity"
-                    :required="fixRequiredProblem" :disabled="store.activePopup">
+                    :required="fixRequiredProblem" :disabled="showEditInputs !== null">
             </label>
         </div>
 
@@ -926,7 +948,7 @@ export default {
                 <label>
                     {{ net }}
                     <input type="radio" name="net" :value="net" v-model="newOrder.net" :required="fixRequiredProblem"
-                        :disabled="store.activePopup">
+                        :disabled="showEditInputs !== null">
                 </label>
             </div>
         </div>
@@ -940,7 +962,7 @@ export default {
         </h2>
 
         <!-- Tipologia colori -->
-        <div class="color-choice">
+        <div class="color-choice" :class="{ 'disabled': showEditInputs !== null }">
             <div class="list-typologies">
                 <div v-for="(typo, typoIndex) in store.colors" :key="typoIndex" class="typologies">
                     <div @click="changeColorTypology(typoIndex)" class="typology-name"
@@ -954,9 +976,10 @@ export default {
             <div class="list-colors" v-for="(typo, typoIndex) in store.colors" :key="typoIndex"
                 :class="{ 'selected': typo.active }">
                 <div class="colors" :class="typo.typology.toLowerCase()" v-if="typo.active">
-                    <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color">
+                    <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color"
+                        :class="{ 'disabled': showEditInputs }">
                         <input type="radio" name="color_name" @change="getColor(typoIndex, colorIndex)"
-                            :required="fixRequiredProblem" class="radio" :disabled="store.activePopup">
+                            :required="fixRequiredProblem" class="radio">
                         <!-- Immagine colore -->
                         <img :src="color.image" :alt="'Colore ' + color.name" class="color-image" loading="lazy"
                             @load="imageLoading" :class="colorClass">
@@ -972,7 +995,8 @@ export default {
 
         <!-- Bottone aggiungi zanzariera -->
         <div class="form-button" :class="{ 'padding': store.orders.length !== 0 }">
-            <button type="submit" @click="addZanz()" class="button">
+            <button type="submit" @click="addZanz()" class="button" :disabled="showEditInputs !== null"
+                :class="{ 'disabled': showEditInputs !== null }">
                 Aggiungi Zanzariera
             </button>
         </div>
@@ -1223,8 +1247,8 @@ export default {
 
         <!-- Textarea -->
         <div class="textarea" :class="{ 'padding': store.orders.length === 0 }">
-            <textarea name="message" v-model="message" rows="8" placeholder="Messaggio"
-                title="Aggiungi un messaggio"></textarea>
+            <textarea name="message" v-model="message" rows="8" placeholder="Messaggio" title="Aggiungi un messaggio"
+                :disabled="showEditInputs !== null"></textarea>
         </div>
 
         <!-- Messaggio d'errore -->
@@ -1235,7 +1259,9 @@ export default {
         <!-- Bottone per passare allo step successivo -->
         <div class="form-button confirm">
             <!-- <button @click="prevStep" class="button" id="buttons">Torna indietro</button> -->
-            <input type="submit" @click="orderSubmit" class="button" value="Conferma le zanzariere">
+            <input type="submit" @click="orderSubmit" class="button" value="Termina Preventivo"
+                v-if="store.orders.length !== 0" :disabled="showEditInputs !== null"
+                :class="{ 'disabled': showEditInputs !== null }">
         </div>
 
     </div>
@@ -1300,7 +1326,10 @@ export default {
         height: 314px;
         margin: 0 auto;
         user-select: none;
-        transition: all 500ms ease;
+
+        &.disabled {
+            pointer-events: none;
+        }
 
         h3 {
 
@@ -1555,22 +1584,29 @@ export default {
     .form-button {
         padding-top: 10px;
 
+        .disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
         &.confirm {
             position: relative;
             bottom: -62px;
 
-            button {
-                border-radius: 0;
+            input {
+                border-radius: 20px;
+                font-size: 1.6rem;
             }
         }
 
         button {
             padding: 10px 15px;
-            font-size: 1.4rem;
+            font-size: 1rem;
         }
     }
 
     .textarea {
+
         &.padding {
             padding-top: 60px;
         }
@@ -1580,7 +1616,7 @@ export default {
             padding: 15px;
             font-size: 0.9rem;
             border: 0;
-            color: #b9b9b9;
+            color: #000;
             font-weight: 500;
             outline: none;
             resize: none;
@@ -1721,7 +1757,7 @@ export default {
         }
 
         button {
-            border-radius: 10px;
+            border-radius: 15px;
             margin: 0 10px;
         }
     }
@@ -1805,12 +1841,10 @@ export default {
                 position: relative;
                 z-index: 20;
                 object-fit: cover;
-                opacity: 0;
-                transition: all 1s ease-in-out;
 
-                &.visible {
+                /* &.visible {
                     opacity: 1;
-                }
+                } */
             }
         }
 
@@ -1821,6 +1855,10 @@ export default {
 .color-choice {
     margin: 0 auto;
     padding: 60px 20px;
+
+    &.disabled {
+        pointer-events: none;
+    }
 
 
     label {
@@ -1836,8 +1874,7 @@ export default {
     }
 
     [type=radio]:checked+.color-image {
-        transition: none;
-        border: 3px solid $yellow-color;
+        border: 4px solid $yellow-color;
     }
 }
 

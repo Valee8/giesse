@@ -59,7 +59,7 @@ export default {
         }
     },
     methods: {
-        loadIubendaScripts() {
+        /* loadIubendaScripts() {
             const script1 = document.createElement('script');
             script1.src = "https://cs.iubenda.com/autoblocking/3730464.js";
             script1.async = true;
@@ -91,7 +91,7 @@ export default {
                 // Se il documento è già caricato, chiama direttamente il loader
                 loader();
             }
-        },
+        }, */
         // Mostro la freccia o la nascondo a seconda dell'altezza raggiunta della pagina
         handleScroll() {
             if (window.scrollY > 1000) {
@@ -151,6 +151,12 @@ export default {
                 // Assegno true all'active di hashNumber 
                 this.store.slider[hashNumber].active = true;
 
+                this.store.sliderImageClass = "";
+
+                setTimeout(() => {
+                    this.store.sliderImageClass = "visible";
+                }, 100);
+
                 // Scorro lo slider con ciclo for
                 for (let i = 0; i < this.store.slider.length; i++) {
                     // Se l'i-esimo elemento e' diverso da hashNumber
@@ -178,9 +184,9 @@ export default {
         // Rimuovo evento per lo scroll
         window.removeEventListener('scroll', this.handleScroll);
     },
-    mounted() {
+    /* mounted() {
         this.loadIubendaScripts();
-    }
+    } */
 }
 </script>
 

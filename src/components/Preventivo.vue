@@ -194,29 +194,33 @@ export default {
                     </h1>
 
                     <!-- Cerchi degli step -->
-                    <div class="steps-circles">
-                        <div class="circle" :class="{ 'current': store.currentStep === 1 }">1</div>
-                        <hr>
-                        <div class="circle" :class="{ 'current': store.currentStep === 2 }">2</div>
-                        <hr>
-                        <div class="circle" :class="{ 'current': store.currentStep === 3 }">3</div>
+                    <div class="top-right">
+                        <div class="steps-circles">
+                            <div class="circle" :class="{ 'current': store.currentStep === 1 }">1</div>
+                            <hr>
+                            <div class="circle" :class="{ 'current': store.currentStep === 2 }">2</div>
+                            <hr>
+                            <div class="circle" :class="{ 'current': store.currentStep === 3 }">3</div>
+                        </div>
+
+                        <!-- Scritte sotto ai cerchi -->
+                        <div class="steps-text" :class="{ 'none': store.currentStep > 3 }">
+                            <div class="step">
+                                <div class="step-one">
+                                    Compila i dati <span>personali</span>
+                                </div>
+                                <div class="step-two">
+                                    Compila il form per inviare il preventivo
+                                </div>
+                                <div class="step-three">
+                                    Clicca <span>conferma</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Scritte sotto ai cerchi -->
-                <div class="steps-text" :class="{ 'none': store.currentStep > 3 }">
-                    <div class="step">
-                        <div class="step-one">
-                            Compila i dati <span>personali</span>
-                        </div>
-                        <div class="step-two">
-                            Compila il form per inviare il preventivo
-                        </div>
-                        <div class="step-three">
-                            Clicca <span>conferma</span>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
             <div v-else class="error-step">
@@ -340,11 +344,15 @@ section {
         display: flex;
         text-align: center;
         justify-content: space-between;
-        align-items: center;
-        gap: 50px;
+        align-items: flex-start;
         max-width: 700px;
         margin: 0 auto;
         padding-top: 40px;
+        flex-wrap: wrap;
+
+        .top-right {
+            width: 50%;
+        }
 
         &.none {
             display: none;
@@ -353,11 +361,12 @@ section {
         h1 {
             font-size: 2rem;
             text-align: left;
+            padding-top: 15px;
         }
 
         .steps-circles {
             display: flex;
-            justify-content: space-between;
+            //justify-content: space-between;
             align-items: center;
             font-size: 1.8rem;
 
@@ -383,9 +392,9 @@ section {
     }
 
     .steps-text {
-        max-width: 700px;
+        /* max-width: 700px;
         margin: 0 auto;
-        text-align: center;
+        text-align: center; */
         padding-top: 15px;
 
         &.none {
@@ -394,25 +403,53 @@ section {
 
         .step {
             display: flex;
-            margin-left: auto;
-            width: 350px;
+            justify-content: space-between;
+            //gap: 56px;
+            //margin-left: auto;
+            //width: 350px;
 
             .step-one {
-                left: -25px;
+                position: relative;
+                left: -10px;
             }
 
-            .step-three {
+            /*.step-three {
                 left: 25px;
-            }
+            } */
 
+            /* .step-three {
+                span {
+                    display: block;
+                }
+            } */
+
+            .step-two {
+                margin-left: 15px;
+                margin-right: 30px;
+            }
 
             .step-one,
             .step-two,
             .step-three {
-                min-width: calc(100% / 3);
-                position: relative;
+                //min-width: 70px;
+                //position: relative;
                 font-weight: 500;
                 font-size: 0.8rem;
+                //min-width: calc(100% / 3 - 20px);
+            }
+        }
+    }
+}
+
+
+@media only screen and (min-width: 600px) and (max-width: 700px) {
+    .container {
+        .steps-text {
+
+            .step {
+                gap: 170px;
+                //margin-left: 0;
+                width: 100%;
             }
         }
     }
@@ -421,13 +458,15 @@ section {
 
 
 
-@media only screen and (min-width: 520px) and (max-width: 700px) {
+
+@media only screen and (min-width: 520px) and (max-width: 600px) {
 
     .container {
         .steps-text {
 
             .step {
-                margin-left: 0;
+                gap: 140px;
+                //margin-left: 0;
                 width: 100%;
 
                 .step-one,
@@ -437,7 +476,7 @@ section {
                 }
 
                 .step-one {
-                    left: -10%;
+                    /* left: -10%; */
 
                     span {
                         display: block;
@@ -446,7 +485,7 @@ section {
                 }
 
                 .step-three {
-                    left: 10%;
+                    /*  left: 10%; */
 
                     span {
                         display: block;
@@ -467,7 +506,8 @@ section {
         .steps-text {
 
             .step {
-                margin-left: 0;
+                //margin-left: 0;
+                gap: 80px;
                 width: 100%;
 
                 .step-one,
@@ -477,7 +517,7 @@ section {
                 }
 
                 .step-one {
-                    left: -8%;
+                    /* left: -8%; */
 
                     span {
                         display: block;
@@ -486,7 +526,7 @@ section {
                 }
 
                 .step-three {
-                    left: 8%;
+                    /* left: 8%; */
 
                     span {
                         display: block;
@@ -526,15 +566,7 @@ section {
         .steps-text {
 
             .step {
-                .step-one {
-                    left: -10px;
-
-                }
-
-                .step-three {
-                    left: 10px;
-
-                }
+                gap: 20px;
             }
         }
     }
@@ -546,6 +578,11 @@ section {
     .container {
         .top {
             flex-wrap: wrap;
+            gap: 50px 0;
+
+            .top-right {
+                width: 100%;
+            }
 
             h1 {
                 text-align: left;
@@ -563,8 +600,16 @@ section {
         }
 
         .steps-text {
+
             .step {
-                width: 100%;
+                .step-two {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+
+                .step-one {
+                    left: 0;
+                }
             }
         }
     }

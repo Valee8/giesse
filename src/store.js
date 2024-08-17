@@ -1,6 +1,7 @@
 import { reactive } from 'vue';
 
 export const store = reactive({
+    sliderImageClass: "",
     infoDitta: {
         address: "Via Damiano Chiesa 69",
         postalCode: "09016 Iglesias",
