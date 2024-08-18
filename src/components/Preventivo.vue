@@ -442,12 +442,12 @@ section {
 }
 
 
-@media only screen and (min-width: 600px) and (max-width: 700px) {
+@media only screen and (min-width: 590px) and (max-width: 700px) {
     .container {
         .steps-text {
 
             .step {
-                gap: 170px;
+                gap: 160px;
                 //margin-left: 0;
                 width: 100%;
             }
@@ -459,7 +459,7 @@ section {
 
 
 
-@media only screen and (min-width: 520px) and (max-width: 600px) {
+@media only screen and (min-width: 540px) and (max-width: 590px) {
 
     .container {
         .steps-text {
@@ -500,14 +500,14 @@ section {
 
 // DEVO MODIFICARE QUI
 
-@media only screen and (min-width: 400px) and (max-width: 520px) {
+@media only screen and (min-width: 480px) and (max-width: 540px) {
 
     .container {
         .steps-text {
 
             .step {
                 //margin-left: 0;
-                gap: 80px;
+                gap: 110px;
                 width: 100%;
 
                 .step-one,

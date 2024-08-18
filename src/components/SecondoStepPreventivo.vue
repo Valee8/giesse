@@ -530,7 +530,9 @@ export default {
                 this.store.colors[0].active = true;
 
                 // Quando aggiungo una zanzariera rimane su checked il colore che ho appena selezionato, con questo codice, una volta che ho aggiunto una zanzariera, rimuovo tutti i checked dai colori
-                const radio = document.getElementsByClassName("radio");
+                /* const radio = document.getElementsByClassName("radio"); */
+
+                const radio = this.$refs.radios;
 
                 if (this.store.colors[0].active) {
                     for (let i = 0; i < radio.length; i++) {
@@ -588,12 +590,12 @@ export default {
             setTimeout(() => {
                 // Nascondo popup
                 this.showDeleteItemPopup = false;
-                // Non c'e' un popup attivo quindi metto activePopup a false
-                this.store.activePopup = false;
                 // Nascondo messaggio
                 this.textSuccessMessage = "";
-            }, 2000);
+                // Non c'e' un popup attivo quindi metto activePopup a false
+            }, 1000);
 
+            this.store.activePopup = false;
 
         },
         // Metodo per passare dal secondo al terzo step (bottone "Completa le Zanzariere")
@@ -605,31 +607,31 @@ export default {
                 this.fixRequiredProblem = false;
 
                 //Se il messaggio e' presente
-                if (this.message) {
-                    // Chiamata api per modificare il messaggio (inizialmente vuoto)
-                    try {
-                        // Eseguo la chiamata API
-                        const response = await fetch(`${this.store.apiUrl}message/update/${this.store.clientId}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ message: this.message }) // Converte message in JSON
-                        });
-
-                        // Converte la risposta in JSON
-                        const data = await response.json();
-                        const success = data.success;
-
-                        // Se success = true richiamo getClient, aggiorno dati cliente
-                        if (success) {
-                            this.getClient();
-                        }
-                    } catch (error) {
-                        // Gestisce gli errori
-                        console.error('Errore durante la chiamata API:', error);
-                    }
-                }
+                /*  if (this.message) {
+                     // Chiamata api per modificare il messaggio (inizialmente vuoto)
+                     try {
+                         // Eseguo la chiamata API
+                         const response = await fetch(`${this.store.apiUrl}message/update/${this.store.clientId}`, {
+                             method: 'POST',
+                             headers: {
+                                 'Content-Type': 'application/json'
+                             },
+                             body: JSON.stringify({ message: this.message }) // Converte message in JSON
+                         });
+ 
+                         // Converte la risposta in JSON
+                         const data = await response.json();
+                         const success = data.success;
+ 
+                         // Se success = true richiamo getClient, aggiorno dati cliente
+                         if (success) {
+                             this.getClient();
+                         }
+                     } catch (error) {
+                         // Gestisce gli errori
+                         console.error('Errore durante la chiamata API:', error);
+                     }
+                 } */
 
                 // Incremento currentStep
                 this.store.currentStep = 3;
@@ -979,7 +981,7 @@ export default {
                     <label v-for="(color, colorIndex) in typo.colorInfo" :key="colorIndex" class="color"
                         :class="{ 'disabled': showEditInputs }">
                         <input type="radio" name="color_name" @change="getColor(typoIndex, colorIndex)"
-                            :required="fixRequiredProblem" class="radio">
+                            :required="fixRequiredProblem" class="radio" ref="radios">
                         <!-- Immagine colore -->
                         <img :src="color.image" :alt="'Colore ' + color.name" class="color-image" loading="lazy"
                             @load="imageLoading" :class="colorClass">
@@ -994,12 +996,12 @@ export default {
         </div>
 
         <!-- Bottone aggiungi zanzariera -->
-        <div class="form-button" :class="{ 'padding': store.orders.length !== 0 }">
+        <!--<div class="form-button" :class="{ 'padding': store.orders.length !== 0 }">
             <button type="submit" @click="addZanz()" class="button" :disabled="showEditInputs !== null"
                 :class="{ 'disabled': showEditInputs !== null }">
                 Aggiungi Zanzariera
             </button>
-        </div>
+        </div> -->
 
         <!-- Titolo -->
         <div class="orders-all" v-if="store.orders.length !== 0">
@@ -1174,7 +1176,7 @@ export default {
 
                         <span>
                             Puoi aggiungere altre zanzariere ricompilando i campi o
-                            proseguire con il bottone "Conferma le zanzariere".
+                            proseguire con il bottone "Termina preventivo".
                         </span>
 
                         <button @click="hideAddedItemPopup">
@@ -1246,10 +1248,10 @@ export default {
         </div>
 
         <!-- Textarea -->
-        <div class="textarea" :class="{ 'padding': store.orders.length === 0 }">
+        <!--  <div class="textarea" :class="{ 'padding': store.orders.length === 0 }">
             <textarea name="message" v-model="message" rows="8" placeholder="Messaggio" title="Aggiungi un messaggio"
                 :disabled="showEditInputs !== null"></textarea>
-        </div>
+        </div> -->
 
         <!-- Messaggio d'errore -->
         <div v-if="store.showError" class="error-axios">
@@ -1258,10 +1260,14 @@ export default {
 
         <!-- Bottone per passare allo step successivo -->
         <div class="form-button confirm">
+            <button type="submit" @click="addZanz()" class="button" :disabled="showEditInputs !== null"
+                :class="{ 'disabled': showEditInputs !== null }">
+                Aggiungi Zanzariera
+            </button>
             <!-- <button @click="prevStep" class="button" id="buttons">Torna indietro</button> -->
             <input type="submit" @click="orderSubmit" class="button" value="Termina Preventivo"
-                v-if="store.orders.length !== 0" :disabled="showEditInputs !== null"
-                :class="{ 'disabled': showEditInputs !== null }">
+                :disabled="showEditInputs !== null" :class="{ 'disabled': showEditInputs !== null }"
+                v-if="store.orders.length !== 0">
         </div>
 
     </div>
@@ -1303,8 +1309,8 @@ export default {
 // SECONDO STEP
 .second-step {
     background-color: #adadad;
-    max-width: 1200px;
-    margin: 0 auto;
+    //max-width: 1100px;
+    //margin: 0 auto;
     min-height: 300px;
     text-align: center;
     padding: 60px 40px 40px 40px;
@@ -1397,6 +1403,7 @@ export default {
         margin: 20px 0 40px 0;
         user-select: none;
         min-height: 30px;
+        padding: 15px 0;
 
         .list-order {
             padding: 20px;
@@ -1405,11 +1412,16 @@ export default {
             justify-content: space-between;
             align-items: center;
 
+            /* &:nth-child(2) {
+                display: none !important;
+            } */
+
             .list-order-div {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 gap: 15px 20px;
+                width: 88%;
 
                 &:not(.edited) {
 
@@ -1417,6 +1429,10 @@ export default {
                     .width-height,
                     .quantity {
                         padding: 10px;
+                    }
+
+                    .width-height {
+                        width: 188px;
                     }
 
                     span {
@@ -1516,7 +1532,7 @@ export default {
             .width-height,
             .quantity {
                 background-color: #fff;
-                border-radius: 15px;
+                border-radius: 25px;
                 font-size: 1rem;
                 font-weight: 500;
             }
@@ -1525,7 +1541,7 @@ export default {
             input {
                 background-color: #fff;
                 padding: 10px;
-                border-radius: 15px;
+                border-radius: 25px;
                 font-size: 1rem;
                 font-weight: 500;
             }
@@ -1594,14 +1610,16 @@ export default {
             bottom: -62px;
 
             input {
-                border-radius: 20px;
-                font-size: 1.6rem;
+                border-radius: 15px;
+                font-size: 1.5rem;
+                margin-left: 60px;
             }
         }
 
         button {
+            background-color: #E6E6E6;
             padding: 10px 15px;
-            font-size: 1rem;
+            font-size: 1.5rem;
         }
     }
 
@@ -1880,7 +1898,7 @@ export default {
 
 
 
-@media only screen and (min-width: 400px) and (max-width: 700px) {
+/* @media only screen and (min-width: 400px) and (max-width: 800px) {
     .container {
 
         .second-step {
@@ -1888,16 +1906,22 @@ export default {
             .form-button {
                 top: 40px;
 
-                input {
-                    width: 300px;
-                    padding: 10px;
+                &.confirm {
+                    input {
+                        //width: 300px;
+                        //padding: 10px;
+                        font-size: 1.2rem;
+                        text-align: center;
+                    }
+                }
+
+                button {
                     font-size: 1.2rem;
-                    text-align: center;
                 }
             }
         }
     }
-}
+} */
 
 
 
@@ -1917,6 +1941,7 @@ export default {
 
                                 &.typology-model {
                                     width: 100%;
+                                    //background-color: red
                                 }
                             }
                         }
@@ -2071,15 +2096,15 @@ export default {
             .form-button {
                 top: 40px;
 
-                input {
+                /* input {
                     font-size: 1rem;
                     text-align: center;
                     padding: 10px 5px;
-                }
+                } */
 
-                button {
+                /* button {
                     font-size: 0.9rem;
-                }
+                } */
             }
         }
 
@@ -2095,7 +2120,7 @@ export default {
                 }
 
                 .step-three {
-                    left: 8px;
+                    left: 80px;
                 }
 
             }
@@ -2103,15 +2128,32 @@ export default {
     }
 }
 
-@media only screen and (min-width: 300px) and (max-width: 700px) {
-
-
+@media only screen and (min-width: 300px) and (max-width: 900px) {
 
     .second-step {
 
+        .form-button {
+            top: 40px;
+
+            &.confirm {
+
+                input {
+                    font-size: 0.9rem;
+                    text-align: center;
+                    padding: 10px 5px;
+                    margin-left: 0;
+                    margin-top: 15px;
+                }
+            }
+
+            button {
+                font-size: 0.9rem;
+            }
+        }
+
         .inputs-top {
             select {
-                margin-top: 30px;
+                margin-top: 60px;
                 width: 220px;
                 margin-left: 0;
             }
@@ -2202,6 +2244,45 @@ export default {
 
 
 
+@media only screen and (min-width: 300px) and (max-width: 889px) {
+
+    .second-step {
+
+        .list-ul {
+            .list-order {
+
+                div {
+                    &:not(.minus-plus) {
+                        &:nth-child(2) {
+                            margin-top: 30px;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+}
+
+@media only screen and (min-width: 889px) and (max-width: 1300px) {
+
+    .second-step {
+
+        .list-ul {
+            .list-order {
+                .list-order-div {
+                    width: 80%;
+                    margin-right: 30px;
+                }
+            }
+        }
+    }
+
+}
+
+
+
 @media only screen and (min-width: 300px) and (max-width: 1300px) {
     .second-step {
         padding: 20px;
@@ -2214,14 +2295,14 @@ export default {
             .list-order {
                 justify-content: center;
 
-                div {
+                /* div {
                     &:not(.minus-plus) {
                         &:nth-child(2) {
                             margin-top: 30px;
                         }
                     }
 
-                }
+                } */
             }
         }
 
@@ -2243,14 +2324,14 @@ export default {
             justify-content: center;
             gap: 20px;
 
+            label {
+                margin: 0;
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
             span {
                 margin: 10px;
-
-                label {
-                    margin: 0;
-                    padding-left: 8px;
-                    padding-right: 8px;
-                }
             }
         }
 

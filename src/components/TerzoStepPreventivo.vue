@@ -379,7 +379,7 @@ export default {
         </ul>
 
         <!-- Messaggio -->
-        <ul>
+        <!--  <ul>
             <li v-for="mess in store.clients" :key="mess.id" class="summary">
                 <span v-if="mess.message">
                     Messaggio: {{ mess.message }}
@@ -389,7 +389,7 @@ export default {
                     Messaggio: Non hai scritto nessun messaggio
                 </span>
             </li>
-        </ul>
+        </ul> -->
 
         <!-- Bottone per proseguire con lo step successivo -->
         <div class="form-button">
