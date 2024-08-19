@@ -748,7 +748,12 @@ export default {
             }
 
         },
-
+        // Metodo per aumentare quantita' ordini
+        plus(order) {
+            if (order.quantity < 99) {
+                order.quantity++;
+            }
+        },
         // Metodo per diminuire quantita' ordini
         minus(order) {
 
@@ -1116,14 +1121,12 @@ export default {
 
                         <!-- Input Quantita' -->
                         <div class="quantity" title="Modifica la quantità">
-                            <div class="text">
+                            <label type="text" class="text">
                                 Quantità:
-                                <span class="number">
-                                    {{ order.quantity }}
-                                </span>
-                            </div>
+                                <input type="text" class="number" v-model="order.quantity" maxlength="2">
+                            </label>
                             <div class="minus-plus" v-if="showEditInputs === order.id">
-                                <a @click="order.quantity++">
+                                <a @click="plus(order)">
                                     <i class="fa-solid fa-angle-up"></i>
                                 </a>
                                 <a @click="minus(order)">
@@ -1457,7 +1460,10 @@ export default {
                     input {
                         border: 0;
                         height: 40px;
-                        line-height: 40px;
+
+                        &:not(.number) {
+                            line-height: 40px;
+                        }
                     }
 
                     select {
@@ -1487,7 +1493,14 @@ export default {
                     }
 
                     input {
-                        width: 80px;
+                        &:not(.number) {
+                            width: 80px;
+                        }
+
+                        &.number {
+                            width: 25px;
+                        }
+
                         outline: none;
                     }
 
@@ -1508,6 +1521,7 @@ export default {
                 }
 
                 .minus-plus {
+                    margin-left: 5px;
 
                     a {
                         display: block;
