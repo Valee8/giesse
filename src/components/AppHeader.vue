@@ -128,8 +128,9 @@ export default {
                         </div>
 
                         <!-- Inizio contenuto slider -->
-                        <div class="container-button" @mouseover="stopAutoplay" @mouseout="startAutoplay">
-                            <div class="slider-header">
+                        <div :class="'container-button ' + slider.order" @mouseover="stopAutoplay"
+                            @mouseout="startAutoplay">
+                            <div class=" slider-header">
                                 <!-- Testo -->
                                 <div class="name-zanz">
                                     {{ slider.nameZanz }}
@@ -240,6 +241,24 @@ header {
             height: 412px;
             padding-top: 60px;
 
+            .container-button {
+                &.first {
+                    max-width: 270px;
+                }
+
+                &.second {
+                    max-width: 320px;
+                }
+
+                &.third {
+                    max-width: 390px;
+                }
+
+                &.fourth {
+                    max-width: 345px;
+                }
+            }
+
             // Titolo
             .title {
                 height: 100%;
@@ -278,6 +297,16 @@ header {
     .list-rectangles {
         transform: scale(0.7);
         padding-top: 20px;
+    }
+
+    header {
+        .container {
+            .header-container {
+                .container-button {
+                    max-width: 100%;
+                }
+            }
+        }
     }
 }
 

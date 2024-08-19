@@ -481,7 +481,7 @@ export default {
 
                 label {
                     &:first-of-type {
-                        margin-right: 100px;
+                        margin-right: 80px;
 
                     }
                 }
@@ -710,13 +710,30 @@ export default {
 @media only screen and (min-width: 300px) and (max-width: 420px) {
 
     .info {
-
         /* padding-right: 10px;
-        padding-left: 10px;
- */
+        padding-left: 10px; */
+
         form {
 
             .left {
+
+                textarea {
+                    margin-left: 20px;
+                    margin-right: 20px;
+                    width: 87%;
+                }
+
+                .inputs-top {
+                    margin: 0 auto;
+                    width: 87%;
+
+                }
+
+                .inputs-bottom {
+                    margin: 0 auto;
+                    width: 87%;
+
+                }
 
                 .inputs-top,
                 .inputs-bottom {
@@ -732,15 +749,19 @@ export default {
             }
 
             .right {
-                padding-right: 10px;
-                padding-left: 10px;
+                /* padding-right: 10px;
+                padding-left: 10px; */
 
                 .text-title {
                     height: 120px;
                 }
 
+                p {
+                    width: 90%;
+                }
+
                 .file {
-                    width: 250px;
+                    width: 90%;
                     font-size: 0.7rem;
                 }
 
@@ -751,6 +772,7 @@ export default {
 
             .radios {
                 font-size: 0.8rem;
+                margin-left: 20px;
             }
 
             .messages {
