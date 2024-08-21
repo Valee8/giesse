@@ -60,10 +60,10 @@ export default {
             showAddedItemPopup: false,
 
             // Per mostrare il tipo di rete a seconda del modello selezionato tramite lo slider (alcune non hanno oscuranti e li nascondo showNet = false)
-            showNet: true,
+            //showNet: true,
 
             // Per mostrare il tipo di rete a seconda del modello selezionato quando sono nella modifica dei dati (alcune non hanno oscuranti e li nascondo showNetEditItem = false)
-            showNetEditItem: true,
+            //showNetEditItem: true,
 
             // fixRequiredProblem: Per risolvere il problema del messaggio predefinito del browser che mi chiede di selezionare un modello dallo slider (mi dice che il dato da inserire e' obbligatorio quando non dovrebbe)
             fixRequiredProblem: false,
@@ -106,6 +106,12 @@ export default {
                         "GIUSY (guida singola, con cuffie)",
                         "ELENA (guida singola, senza cuffie)",
                         "EDDI (guida singola, cassonetto da 40mm)"
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata",
+                        "Oscurante bianco",
+                        "Oscurante nero"
                     ]
                 },
                 {
@@ -118,6 +124,12 @@ export default {
                         "LAURA (con cuffie)",
                         "EVA (senza cuffie)",
                         "ASIA (cassonetto da 40mm)"
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata",
+                        "Oscurante bianco",
+                        "Oscurante nero"
                     ]
                 },
                 {
@@ -130,6 +142,12 @@ export default {
                         "KATIA D.G. (guida telescopica, con cuffie)",
                         "VERA (guida telescopica, senza cuffie)",
                         "SARA (guida singola, senza cuffie)"
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata",
+                        "Oscurante bianco",
+                        "Oscurante nero"
                     ]
                 },
                 {
@@ -141,6 +159,12 @@ export default {
                     models: [
                         "GIADA (con cuffie)",
                         "MERI (senza cuffie)"
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata",
+                        "Oscurante bianco",
+                        "Oscurante nero"
                     ]
                 },
                 {
@@ -153,6 +177,12 @@ export default {
                         "TIPO ALBA (con cuffie)",
                         "TIPO SONIA (senza cuffie)",
                         "TIPO GENNY (cassonetto da 40mm)"
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata",
+                        "Oscurante bianco",
+                        "Oscurante nero"
                     ]
                 },
                 {
@@ -165,6 +195,12 @@ export default {
                         "LARA (con cuffie)",
                         "VALERIA (senza cuffie)",
                         "DESI (cassonetto da 40mm)"
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata",
+                        "Oscurante bianco",
+                        "Oscurante nero"
                     ]
                 },
                 {
@@ -175,6 +211,10 @@ export default {
                     activeSelect: false,
                     models: [
                         "LUNA",
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata"
                     ]
                 },
                 {
@@ -185,6 +225,10 @@ export default {
                     activeSelect: false,
                     models: [
                         "ZELIG",
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata"
                     ]
                 },
                 {
@@ -195,6 +239,10 @@ export default {
                     activeSelect: false,
                     models: [
                         "JOLLY / LEVANTE",
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata"
                     ]
                 },
                 {
@@ -205,6 +253,10 @@ export default {
                     activeSelect: false,
                     models: [
                         "BORA",
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata"
                     ]
                 },
                 {
@@ -215,6 +267,10 @@ export default {
                     activeSelect: false,
                     models: [
                         "PLISSE' 22",
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata"
                     ]
                 },
                 {
@@ -225,6 +281,12 @@ export default {
                     activeSelect: false,
                     models: [
                         "ANTAREX",
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata",
+                        "Oscurante bianco",
+                        "Oscurante nero"
                     ]
                 },
                 {
@@ -235,6 +297,12 @@ export default {
                     activeSelect: false,
                     models: [
                         "SCORRI",
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata",
+                        "Oscurante bianco",
+                        "Oscurante nero"
                     ]
                 },
                 {
@@ -245,6 +313,12 @@ export default {
                     activeSelect: false,
                     models: [
                         "FISSA",
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata",
+                        "Oscurante bianco",
+                        "Oscurante nero"
                     ]
                 },
                 {
@@ -255,6 +329,12 @@ export default {
                     activeSelect: false,
                     models: [
                         "CASPER",
+                    ],
+                    nets: [
+                        "Rete normale",
+                        "Rete rigata",
+                        "Oscurante bianco",
+                        "Oscurante nero"
                     ]
                 }
             ],
@@ -383,7 +463,7 @@ export default {
             }
 
             // Se typology contiene uno di questi numeri
-            if (order.typology.includes(6) || order.typology.includes(7) || order.typology.includes(8) || order.typology.includes(9) || order.typology.includes(10)) {
+            /* if (order.typology.includes("inferiore da 3mm") || order.typology.includes("arrotondata") || order.typology.includes("Frizionata") || order.typology.includes("Antivento") || order.typology.includes("Plissettata")) {
                 // Per questi modelli gli oscuranti non sono disponibili, li nascondo assegnando false a showNetEditItem
                 this.showNetEditItem = false;
 
@@ -395,7 +475,7 @@ export default {
             // Altrimenti showNetEditItem a true
             else {
                 this.showNetEditItem = true;
-            }
+            } */
 
             // Se showEditInputs e' uguale all'id di order
             if (this.showEditInputs === order.id) {
@@ -455,8 +535,17 @@ export default {
                 }
             }
 
+            if (order.typology.includes("inferiore da 3mm") || order.typology.includes("arrotondata") || order.typology.includes("Frizionata") || order.typology.includes("Antivento") || order.typology.includes("Plissettata")) {
+
+                // Se la tipologia di rete attuale comprende Oscurante allora gli assegno il valore Rete normale per non dar possibilita' di creare ordini che non possono avere l'oscurante
+                if (order.net.includes("Oscurante")) {
+                    order.net = "Rete normale";
+                }
+            }
+
+
             // Se la tipologia include uno di questi numeri
-            if (typologyName.includes(6) || typologyName.includes(7) || typologyName.includes(8) || typologyName.includes(9) || typologyName.includes(10)) {
+            /* if (order.typology.includes("inferiore da 3mm") || order.typology.includes("arrotondata") || order.typology.includes("Frizionata") || order.typology.includes("Antivento") || order.typology.includes("Plissettata")) {
 
                 // Per questi modelli gli oscuranti non sono disponibili, li nascondo assegnando false a showNetEditItem
                 this.showNetEditItem = false;
@@ -469,13 +558,13 @@ export default {
             // Altrimenti assegno true a showNetEditItem
             else {
                 this.showNetEditItem = true;
-            }
+            } */
         },
         // Metodo per aggiungere una zanzariera
         async addZanz() {
 
             // Se i campi dei valori di newOrder non sono vuoti
-            if (this.newOrder.model_name !== "" && this.newOrder.width !== "" && this.newOrder.height !== "" && this.newOrder.quantity !== "" && this.newOrder.net !== "" && this.newOrder.color_name !== "") {
+            if (this.newOrder.model_name !== "" && this.newOrder.width !== "" && this.newOrder.height !== "" && this.newOrder.quantity !== "" && this.newOrder.net !== "" && this.newOrder.color_name !== "" && this.newOrder.quantity <= 99) {
 
                 // Risolvo problemi di required, il messaggio di avviso del browser mi appare ogni volta che cambio slide, con questo evito che accada
                 this.fixRequiredProblem = false;
@@ -737,7 +826,7 @@ export default {
             }
 
             // Se index e' uguale ad uno di questi numeri
-            if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10) {
+            /* if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10) {
 
                 // Per questi modelli gli oscuranti non sono disponibili e li nascondo
                 this.showNet = false;
@@ -745,7 +834,7 @@ export default {
             // Altrimenti quei modelli possono avere gli oscuranti e non li nascondo
             else {
                 this.showNet = true;
-            }
+            } */
 
         },
         // Metodo per aumentare quantita' ordini
@@ -790,7 +879,7 @@ export default {
             }
 
             // Se index e' uguale ad uno di questi numeri
-            if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10) {
+            /* if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10) {
 
                 // Per questi modelli gli oscuranti non sono disponibili e li nascondo
                 this.showNet = false;
@@ -798,7 +887,7 @@ export default {
             // Altrimenti quei modelli possono avere gli oscuranti e non li nascondo
             else {
                 this.showNet = true;
-            }
+            } */
         },
 
         // getColor mi permette di ottenere il nome e l'immagine del colore selezionati nello step 2
@@ -835,8 +924,11 @@ export default {
                 this.newOrder.width = this.newOrder.width.replace(/[a-zA-Z]/g, "");
                 this.newOrder.height = this.newOrder.height.replace(/[a-zA-Z]/g, "");
             }
-        }
+        },
+        filterQuantity(order) {
 
+            order.quantity = order.quantity.replace(/[a-zA-Z]/g, "");
+        }
     },
     mounted() {
         // Ottengo valore tipologia
@@ -943,16 +1035,16 @@ export default {
                     @input="filterSizes" :required="fixRequiredProblem" maxlength="6"
                     :disabled="showEditInputs !== null">
 
-                <input type="number" name="quantity" placeholder="Quantità *" min="1" v-model="newOrder.quantity"
-                    :required="fixRequiredProblem" :disabled="showEditInputs !== null">
+                <input type="number" name="quantity" placeholder="Quantità *" min="1" max="99"
+                    v-model="newOrder.quantity" :required="fixRequiredProblem" :disabled="showEditInputs !== null"
+                    ref="quantity">
             </label>
         </div>
 
         <!-- Input sotto - input radio scelta rete -->
         <div class="inputs-bottom">
-            <div v-for="(net, netIndex) in nets" :key="netIndex"
-                :class="{ 'visible': showNet || netIndex === 0 || netIndex === 1 }" class="netsClass">
-                <label>
+            <div v-for="(zanzNet, netIndex) in zanzs" :key="netIndex">
+                <label v-for="(net, index) in zanzNet.nets" :key="index" v-if="zanzNet.active">
                     {{ net }}
                     <input type="radio" name="net" :value="net" v-model="newOrder.net" :required="fixRequiredProblem"
                         :disabled="showEditInputs !== null">
@@ -1063,7 +1155,7 @@ export default {
                         <select name="model_name" v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex"
                             :class="{ 'select-none': !zanz.activeSelect }" class="select-model"
                             @change="showSelectModelText = false" v-model="order.model_name" title="Modifica il modello"
-                            required>
+                            required :disabled="store.activePopup">
                             <option :value="order.model_name" disabled hidden v-if="!showSelectModelText">
                                 {{ changeNameModel(order.model_name) }}
                             </option>
@@ -1076,14 +1168,13 @@ export default {
                         </select>
 
                         <!-- Select Rete -->
-                        <select name="net" class="select-net" v-model="order.net" title="Modifica il tipo di rete"
-                            required>
-                            <option :value="order.net" disabled hidden
-                                :class="{ 'visible': showNetEditItem || order.net.includes('Rete') }">
+                        <select v-for="(zanz, zanzIndex) in zanzs" :key="zanzIndex" name="net" class="select-net"
+                            :class="{ 'select-none': !zanz.activeSelect }" v-model="order.net"
+                            title="Modifica il tipo di rete" required>
+                            <option :value="order.net" disabled hidden>
                                 {{ order.net }}
                             </option>
-                            <option v-for="(net, netIndex) in nets" :key="netIndex"
-                                :class="{ 'visible': showNetEditItem || netIndex === 0 || netIndex === 1 }">
+                            <option v-for="(net, netIndex) in zanz.nets" :key="netIndex">
                                 {{ net }}
                             </option>
                         </select>
@@ -1123,7 +1214,8 @@ export default {
                         <div class="quantity" title="Modifica la quantità">
                             <label type="text" class="text">
                                 Quantità:
-                                <input type="text" class="number" v-model="order.quantity" maxlength="2">
+                                <input type="text" class="number" v-model="order.quantity" maxlength="2"
+                                    @input="filterQuantity(order)">
                             </label>
                             <div class="minus-plus" v-if="showEditInputs === order.id">
                                 <a @click="plus(order)">
@@ -1484,11 +1576,15 @@ export default {
                         &.select-net {
                             width: 205px;
 
-                            option {
+                            &.select-none {
+                                display: none;
+                            }
+
+                            /* option {
                                 &:not(.visible) {
                                     display: none;
                                 }
-                            }
+                            } */
                         }
                     }
 
@@ -1616,7 +1712,6 @@ export default {
 
         .disabled {
             cursor: not-allowed;
-            opacity: 0.6;
         }
 
         &.confirm {
@@ -1691,15 +1786,6 @@ export default {
     }
 
     .inputs-bottom {
-        .netsClass {
-            display: inline-block;
-        }
-
-        span {
-            &:not(.visible) {
-                display: none;
-            }
-        }
 
         label {
             background-color: #cccccc;
@@ -2007,7 +2093,7 @@ export default {
 @media only screen and (min-width: 300px) and (max-width: 580px) {
 
     .popup {
-        width: 90%;
+        width: 80%;
         height: 250px;
 
         h6 {
@@ -2333,10 +2419,12 @@ export default {
         }
 
         .inputs-bottom {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+            div {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
 
             label {
                 margin: 0;

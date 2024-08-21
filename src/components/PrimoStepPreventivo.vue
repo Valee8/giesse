@@ -306,6 +306,8 @@ Le email devono avere il formato corretto
     width: 100%;
     text-align: center;
     font-size: 0.8rem;
+    font-weight: bold;
+    padding-top: 30px;
 }
 
 
