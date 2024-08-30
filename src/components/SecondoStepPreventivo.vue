@@ -174,9 +174,13 @@ export default {
                     active: false,
                     activeSelect: false,
                     models: [
-                        "TIPO ALBA (con cuffie)",
-                        "TIPO SONIA (senza cuffie)",
-                        "TIPO GENNY (cassonetto da 40mm)"
+                        "LAT. TIPO ALBA (guida telescopica, con cuffie)",
+                        "LAT. TIPO SONIA (guida telescopica, senza cuffie)",
+                        "LAT. TIPO GENNY (guida telescopica, cassonetto da 40mm)",
+                        "LAT. TIPO GIUSY (guida singola, con cuffie)",
+                        "LAT. TIPO ELENA (guida singola, senza cuffie)",
+                        "LAT. TIPO EDDI (guida singola, cassonetto da 40mm)",
+
                     ],
                     nets: [
                         "Rete normale",
@@ -192,9 +196,9 @@ export default {
                     active: false,
                     activeSelect: false,
                     models: [
-                        "LARA (con cuffie)",
-                        "VALERIA (senza cuffie)",
-                        "DESI (cassonetto da 40mm)"
+                        "LARA (guida telescopica, con cuffie)",
+                        "VALERIA (guida telescopica, senza cuffie)",
+                        "DESI (guida telescopica, cassonetto da 40mm)"
                     ],
                     nets: [
                         "Rete normale",
@@ -238,7 +242,8 @@ export default {
                     active: false,
                     activeSelect: false,
                     models: [
-                        "JOLLY / LEVANTE",
+                        "JOLLY",
+                        "LEVANTE"
                     ],
                     nets: [
                         "Rete normale",
